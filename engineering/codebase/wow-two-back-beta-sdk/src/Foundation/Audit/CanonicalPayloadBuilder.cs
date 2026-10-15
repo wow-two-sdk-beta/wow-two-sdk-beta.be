@@ -45,9 +45,13 @@ public sealed class CanonicalPayloadBuilder : ICanonicalPayloadBuilder
     /// <inheritdoc />
     public ICanonicalPayloadBuilder Append(DateTimeOffset value)
     {
-        // Normalize to UTC ticks so the same instant hashes the same regardless of the stored offset.
+        // Normalize to UTC ticks so the same instant hashes the same regardless of the stored offset, then truncate
+        // to whole microseconds: PostgreSQL stores timestamps at microsecond precision, so a sub-microsecond tick
+        // would make a chain sealed in memory fail to verify after a database round trip.
+        var utcTicks = value.UtcDateTime.Ticks;
+        var microsecondTicks = utcTicks - (utcTicks % TimeSpan.TicksPerMicrosecond);
         Span<byte> scalar = stackalloc byte[sizeof(long)];
-        BinaryPrimitives.WriteInt64BigEndian(scalar, value.UtcDateTime.Ticks);
+        BinaryPrimitives.WriteInt64BigEndian(scalar, microsecondTicks);
         WriteField(FieldTag.Timestamp, scalar);
         return this;
     }

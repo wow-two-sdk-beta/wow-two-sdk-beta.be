@@ -16,7 +16,8 @@ public interface ICanonicalPayloadBuilder
     /// <param name="value">The long to encode.</param>
     ICanonicalPayloadBuilder Append(long value);
 
-    /// <summary>Appends a timestamp field, normalized to UTC and encoded as round-trip ticks so encoding is offset-stable.</summary>
+    /// <summary>Appends a timestamp field, normalized to UTC and truncated to whole microseconds so encoding is offset-stable and survives a microsecond-precision store.</summary>
+    /// <remarks>Sub-microsecond ticks are dropped before encoding, so a value read back from PostgreSQL (microsecond precision) hashes the same as the value sealed in memory; a value already at microsecond precision encodes its exact ticks.</remarks>
     /// <param name="value">The timestamp to encode.</param>
     ICanonicalPayloadBuilder Append(DateTimeOffset value);
 

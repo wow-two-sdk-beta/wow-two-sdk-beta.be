@@ -1,6 +1,6 @@
 # HashChain — standard
 
-*Last updated: 2026-09-15*
+*Last updated: 2026-10-15*
 
 > **Behavioral contract.** RFC 2119 (MUST / SHOULD / MAY). Changes only when the *contract* does, not when implementation moves.
 
@@ -13,6 +13,7 @@ Validate the consistency of an ordered set of supplied consumer records: each en
 - The encoder **MUST** be unambiguous: every appended field **MUST** carry a type tag and an explicit length, so no value can shift a field boundary or alias an adjacent field.
 - A `null` **MUST** be encoded distinctly from an empty string and from an empty byte array.
 - `DateTimeOffset` **MUST** be normalized to UTC before encoding, so the same instant hashes identically regardless of stored offset.
+- `DateTimeOffset` **MUST** be truncated to whole microseconds before encoding, so a chain verifies after a round trip through a microsecond-precision store (PostgreSQL); a value already at microsecond precision **MUST** encode its exact ticks.
 - The encoding of a given field tuple **MUST** be deterministic and stable across processes and runs.
 
 ## Sealing

@@ -54,7 +54,7 @@ if (!result.IsIntact)
     log.Warning("Chain broke at sequence {Seq}: {Reason}", result.BrokenSequence, result.Reason);
 ```
 
-The sealer always prepends `SchemeVersion + Sequence + PreviousHash` to the hashed payload, so a consumer **cannot** omit the chain fields and weaken tamper-evidence. A field-set change starts a new chain with a new `SchemeVersion`; retain the old canonicalizer for the prior chain. Each validator checks one chain from sequence 1 and an empty previous hash.
+The sealer always prepends `SchemeVersion + Sequence + PreviousHash` to the hashed payload, so a consumer **cannot** omit the chain fields and weaken tamper-evidence. A field-set change starts a new chain with a new `SchemeVersion`; retain the old canonicalizer for the prior chain. Each validator checks one chain from sequence 1 and an empty previous hash. A `DateTimeOffset` field hashes at whole-microsecond precision, so a chain sealed in memory still verifies after a PostgreSQL round trip.
 
 ## See also
 

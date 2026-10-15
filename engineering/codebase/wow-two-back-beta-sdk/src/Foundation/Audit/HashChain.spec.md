@@ -1,6 +1,6 @@
 # HashChain — spec
 
-*Last updated: 2026-09-15*
+*Last updated: 2026-10-15*
 
 > **Concrete API + usage.** Updated when public surface changes.
 
@@ -49,7 +49,7 @@ Fluent (each returns `ICanonicalPayloadBuilder`). Each writes `tag + length + by
 | `Append(string?)` | UTF-8, length-prefixed; `null` → null marker. |
 | `Append(int)` | 4-byte big-endian. |
 | `Append(long)` | 8-byte big-endian. |
-| `Append(DateTimeOffset)` | UTC ticks, 8-byte big-endian (offset-stable). |
+| `Append(DateTimeOffset)` | UTC ticks truncated to whole microseconds, 8-byte big-endian (offset-stable, survives a µs store). |
 | `Append(byte[]?)` | Raw bytes, length-prefixed; `null` → null marker. |
 | `Append(bool)` | Single `0x00` / `0x01` byte. |
 | `AppendNull()` | Explicit null marker (distinct from empty string / empty array). |
