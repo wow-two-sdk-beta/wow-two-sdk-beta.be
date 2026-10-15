@@ -43,7 +43,7 @@ internal sealed partial class GitHubClient(
         if (token is null)
             return FileCheck.Unauthorized;
 
-        var response = await SendAsync(HttpMethod.Get, $"repos/{repo}/contents/{path}", token, repo, ct);
+        var response = await SendAsync(HttpMethod.Get, $"repos/{repo}/contents/{EscapePath(path)}", token, repo, ct);
         if (response is null)
             return FileCheck.Failed;
 
@@ -128,7 +128,7 @@ internal sealed partial class GitHubClient(
             return BuildRunCheck.Unauthorized;
 
         var response = await SendAsync(
-            HttpMethod.Get, $"repos/{repo}/actions/workflows/{workflowFile}/runs?per_page=1", token, repo, ct);
+            HttpMethod.Get, $"repos/{repo}/actions/workflows/{Uri.EscapeDataString(workflowFile)}/runs?per_page=1", token, repo, ct);
         if (response is null)
             return BuildRunCheck.ProbeFailed;
 
@@ -234,6 +234,9 @@ internal sealed partial class GitHubClient(
 
         return new ReleaseInfo { Tag = release.TagName, PublishedAtUtc = release.PublishedAt };
     }
+
+    /// <summary>Escapes each segment of a repository path so a space, <c>#</c> or <c>?</c> stays part of the path while the <c>/</c> separators survive.</summary>
+    private static string EscapePath(string path) => string.Join('/', path.Split('/').Select(Uri.EscapeDataString));
 
     private T Unexpected<T>(string repo, HttpStatusCode status, T failed)
     {

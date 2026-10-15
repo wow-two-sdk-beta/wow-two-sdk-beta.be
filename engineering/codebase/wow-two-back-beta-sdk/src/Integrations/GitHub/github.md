@@ -37,6 +37,8 @@ public sealed class Probe(IGitHubClient gh)
 | `GetReleasesAsync(repo, limit, ct)` | `ReleaseList` | newest first; `limit` clamped 1–100 |
 | `GetLatestWorkflowRunAsync(repo, workflowFile, ct)` | `BuildRunCheck` | `workflowFile` e.g. `ci.yml`; `Succeeded` / `Failed` / `Running` / `None` / … |
 
+Each segment of a repository `path` and the `workflowFile` name is URL-escaped, so spaces, `#` and `?` stay part of the path.
+
 `401/403 → Unauthorized`, `404 → NotFound`/`Absent`/`None`, transport + unexpected status → `Failed`/`ProbeFailed` (logged, never thrown).
 
 ## See also
