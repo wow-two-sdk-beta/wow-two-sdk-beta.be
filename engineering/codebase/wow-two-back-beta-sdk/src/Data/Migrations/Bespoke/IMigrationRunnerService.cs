@@ -6,9 +6,15 @@ namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
 public interface IMigrationRunnerService
 {
     /// <summary>Applies all pending migrations under the advisory lock, returning the labels applied (empty when up to date).</summary>
+    /// <remarks>
+    ///   - by default consecutive transactional migrations commit as one batch, so a failure rolls back the whole batch
+    ///   - a <c>-- @no-transaction</c> script commits the batch before it and runs bare
+    ///   - <see cref="MigrationOptions.TransactionScope"/> selects per-migration transactions instead
+    /// </remarks>
     /// <param name="appliedBy">The host stamp recorded on each applied row, such as <c>startup</c>, <c>endpoint</c>, or <c>cli</c>.</param>
     /// <param name="ct">Token to cancel the operation.</param>
     /// <returns>The labels applied, or a <c>DataIntegrity</c> failure on drift or disallowed orphans, or a <c>Validation</c> failure on a malformed source.</returns>
+    /// <exception cref="System.Data.Common.DbException">A migration script failed; its batch is rolled back and the provider's exception is rethrown.</exception>
     Task<Result<IReadOnlyList<string>>> ApplyPendingAsync(string appliedBy, CancellationToken ct = default);
 
     /// <summary>Computes the current state: applied, pending, drifted, and orphaned migrations.</summary>

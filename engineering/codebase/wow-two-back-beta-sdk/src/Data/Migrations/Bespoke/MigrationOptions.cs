@@ -12,6 +12,10 @@ public sealed record MigrationOptions
     /// <summary>Gets or sets whether apply tolerates orphaned history (applied rows with no source migration).</summary>
     public bool AllowOrphanedHistory { get; set; }
 
+    /// <summary>Gets or sets how pending transactional migrations share transactions during apply.</summary>
+    /// <remarks>The default <see cref="MigrationTransactionScope.Batch"/> keeps a failed run from leaving part of a batch applied.</remarks>
+    public MigrationTransactionScope TransactionScope { get; set; } = MigrationTransactionScope.Batch;
+
     /// <summary>Gets or sets the database provider, which selects the SQL dialect.</summary>
     public DatabaseProvider Provider { get; set; } = DatabaseProvider.Postgres;
 

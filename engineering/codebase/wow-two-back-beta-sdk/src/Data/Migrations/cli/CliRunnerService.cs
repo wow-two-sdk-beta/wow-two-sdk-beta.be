@@ -2,6 +2,7 @@ using System.Data.Common;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
 using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
@@ -241,7 +242,8 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         return new ServiceCollection()
             .AddSingleton<DbDataSource>(dataSource)
             .AddDataSourceConnectionFactory()
-            .AddLogging()
+            // Engine errors (which migrations a failed batch rolled back) reach stderr; the verbs print the rest.
+            .AddLogging(logging => logging.AddProvider(new StandardErrorLoggerProvider(LogLevel.Error)))
             .AddDatabaseBespokeMigrations(ResolveSqlDir(sqlDir), options => options.AllowRollback = allowRollback)
             .BuildServiceProvider();
     }

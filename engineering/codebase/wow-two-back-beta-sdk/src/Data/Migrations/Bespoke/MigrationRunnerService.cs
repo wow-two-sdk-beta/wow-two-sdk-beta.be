@@ -28,6 +28,8 @@ public sealed partial class MigrationRunnerService(
 {
     /// <inheritdoc />
     /// <remarks>
+    ///   - <see cref="MigrationTransactionScope.Batch"/> commits consecutive transactional migrations together; a failure rolls back the batch
+    ///   - a no-transaction script commits the batch before it, runs bare, then a new batch starts
     ///   - a crash between a no-transaction script and its history row leaves it applied but unrecorded
     ///   - the next run re-executes that script, so its Apply SQL must be idempotent
     /// </remarks>
@@ -65,15 +67,28 @@ public sealed partial class MigrationRunnerService(
                 return Result<IReadOnlyList<string>>.Ok([]);
             }
 
-            var done = new List<string>();
-            foreach (var migration in pending)
+            var committed = new List<string>();
+            var inFlight = new List<MigrationDescriptor>();
+            foreach (var unit in SplitIntoUnits(pending))
             {
-                var elapsedMs = await ApplyOneAsync(conn, migration, appliedBy, ct);
-                done.Add(migration.Label);
-                LogApplied(migration.Label, elapsedMs);
+                inFlight.Clear();
+                try
+                {
+                    if (unit is [{ NoTransaction: true } bare])
+                        await ApplyBareAsync(conn, bare, appliedBy, inFlight, ct);
+                    else
+                        await ApplyTransactionalAsync(conn, unit, appliedBy, inFlight, ct);
+                }
+                catch (Exception failure)
+                {
+                    LogUnitFailure(failure, unit, inFlight, committed, pending);
+                    throw;
+                }
+
+                committed.AddRange(unit.Select(m => m.Label));
             }
 
-            return Result<IReadOnlyList<string>>.Ok(done);
+            return Result<IReadOnlyList<string>>.Ok(committed);
         }
         finally
         {
@@ -81,40 +96,138 @@ public sealed partial class MigrationRunnerService(
         }
     }
 
-    /// <summary>Applies one migration and records it, returning the elapsed milliseconds.</summary>
-    /// <param name="conn">The open connection holding the advisory lock.</param>
-    /// <param name="migration">The migration to apply.</param>
-    /// <param name="appliedBy">The host stamp recorded on the row.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    private async Task<long> ApplyOneAsync(DbConnection conn, MigrationDescriptor migration, string appliedBy, CancellationToken ct)
+    /// <summary>Splits pending migrations into commit units: transactional batches and single no-transaction scripts.</summary>
+    /// <param name="pending">The pending migrations, ordered by ordinal.</param>
+    /// <remarks>Under <see cref="MigrationTransactionScope.PerMigration"/> every transactional migration is its own unit.</remarks>
+    private List<IReadOnlyList<MigrationDescriptor>> SplitIntoUnits(IReadOnlyList<MigrationDescriptor> pending)
     {
-        var stopwatch = Stopwatch.StartNew();
-
-        // No-transaction migrations run bare (e.g. CREATE INDEX CONCURRENTLY), then record in a separate statement.
-        if (migration.NoTransaction)
+        var units = new List<IReadOnlyList<MigrationDescriptor>>();
+        var batch = new List<MigrationDescriptor>();
+        foreach (var migration in pending)
         {
-            // Execute each statement separately so concurrent-index recovery remains outside a transaction.
-            foreach (var statement in statementParser.Parse(migration.ApplySql))
-                await conn.ExecuteAsync(new CommandDefinition(statement, cancellationToken: ct));
-            stopwatch.Stop();
-            await history.RecordAsync(conn, null, BuildEntry(migration, appliedBy, stopwatch.ElapsedMilliseconds), ct);
-            return stopwatch.ElapsedMilliseconds;
+            if (migration.NoTransaction)
+            {
+                // A bare script cannot join a transaction, so it closes the batch before it.
+                if (batch.Count > 0)
+                    units.Add(batch);
+                batch = [];
+                units.Add([migration]);
+                continue;
+            }
+
+            batch.Add(migration);
+            if (options.TransactionScope == MigrationTransactionScope.PerMigration)
+            {
+                units.Add(batch);
+                batch = [];
+            }
         }
 
+        if (batch.Count > 0)
+            units.Add(batch);
+        return units;
+    }
+
+    /// <summary>Applies a unit of transactional migrations and their history rows in one transaction.</summary>
+    /// <param name="conn">The open connection holding the advisory lock.</param>
+    /// <param name="unit">The migrations committed together.</param>
+    /// <param name="appliedBy">The host stamp recorded on each row.</param>
+    /// <param name="inFlight">Receives each migration as it starts, so a failure can name what rolled back.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    private async Task ApplyTransactionalAsync(
+        DbConnection conn, IReadOnlyList<MigrationDescriptor> unit, string appliedBy, List<MigrationDescriptor> inFlight, CancellationToken ct)
+    {
+        var elapsed = new List<long>(unit.Count);
         await using var tx = await conn.BeginTransactionAsync(ct);
         try
         {
-            await conn.ExecuteAsync(new CommandDefinition(migration.ApplySql, transaction: tx, cancellationToken: ct));
-            stopwatch.Stop();
-            await history.RecordAsync(conn, tx, BuildEntry(migration, appliedBy, stopwatch.ElapsedMilliseconds), ct);
+            foreach (var migration in unit)
+            {
+                inFlight.Add(migration);
+                var stopwatch = Stopwatch.StartNew();
+                await conn.ExecuteAsync(new CommandDefinition(migration.ApplySql, transaction: tx, cancellationToken: ct));
+                stopwatch.Stop();
+                await history.RecordAsync(conn, tx, BuildEntry(migration, appliedBy, stopwatch.ElapsedMilliseconds), ct);
+                elapsed.Add(stopwatch.ElapsedMilliseconds);
+            }
+
             await tx.CommitAsync(ct);
-            return stopwatch.ElapsedMilliseconds;
         }
         catch
         {
-            await tx.RollbackAsync(ct);
+            await RollbackAsync(tx);
             throw;
         }
+
+        // Report each migration only after its batch commits.
+        for (var i = 0; i < unit.Count; i++)
+            LogApplied(unit[i].Label, elapsed[i]);
+    }
+
+    /// <summary>Applies one no-transaction migration statement by statement, then records it in a separate statement.</summary>
+    /// <param name="conn">The open connection holding the advisory lock.</param>
+    /// <param name="migration">The no-transaction migration, e.g. <c>CREATE INDEX CONCURRENTLY</c>.</param>
+    /// <param name="appliedBy">The host stamp recorded on the row.</param>
+    /// <param name="inFlight">Receives the migration as it starts, so a failure can name it.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    private async Task ApplyBareAsync(
+        DbConnection conn, MigrationDescriptor migration, string appliedBy, List<MigrationDescriptor> inFlight, CancellationToken ct)
+    {
+        inFlight.Add(migration);
+        var stopwatch = Stopwatch.StartNew();
+
+        // Execute each statement separately so concurrent-index recovery remains outside a transaction.
+        foreach (var statement in statementParser.Parse(migration.ApplySql))
+            await conn.ExecuteAsync(new CommandDefinition(statement, cancellationToken: ct));
+        stopwatch.Stop();
+        await history.RecordAsync(conn, null, BuildEntry(migration, appliedBy, stopwatch.ElapsedMilliseconds), ct);
+        LogApplied(migration.Label, stopwatch.ElapsedMilliseconds);
+    }
+
+    /// <summary>Rolls back a failed transaction without masking the failure that caused it.</summary>
+    /// <param name="tx">The transaction to roll back.</param>
+    private async Task RollbackAsync(DbTransaction tx)
+    {
+        try
+        {
+            await tx.RollbackAsync(CancellationToken.None);
+        }
+        catch (DbException rollbackFailure)
+        {
+            LogRollbackFailed(rollbackFailure);
+        }
+        catch (InvalidOperationException rollbackFailure)
+        {
+            LogRollbackFailed(rollbackFailure);
+        }
+    }
+
+    /// <summary>Logs which migrations a failed unit rolled back, which stay committed, and which never ran.</summary>
+    /// <param name="failure">The exception that stopped the unit.</param>
+    /// <param name="unit">The unit that failed.</param>
+    /// <param name="inFlight">The unit's migrations that started, the failing one last.</param>
+    /// <param name="committed">The labels committed earlier in this run.</param>
+    /// <param name="pending">Every pending migration of this run, ordered by ordinal.</param>
+    private void LogUnitFailure(
+        Exception failure, IReadOnlyList<MigrationDescriptor> unit, List<MigrationDescriptor> inFlight,
+        List<string> committed, List<MigrationDescriptor> pending)
+    {
+        var failed = inFlight.Count > 0 ? inFlight[^1] : unit[0];
+        var committedLabels = JoinOrNone(committed);
+        var notAttempted = JoinOrNone(pending.Where(m => m.Ordinal > failed.Ordinal).Select(m => m.Label));
+
+        if (failed.NoTransaction)
+            LogBareFailure(failure, failed.Label, committedLabels, notAttempted);
+        else
+            LogBatchRolledBack(failure, failed.Label, JoinOrNone(inFlight.Select(m => m.Label)), committedLabels, notAttempted);
+    }
+
+    /// <summary>Joins labels for a log line, or returns <c>none</c> when there are none.</summary>
+    /// <param name="labels">The labels to join.</param>
+    private static string JoinOrNone(IEnumerable<string> labels)
+    {
+        var joined = string.Join(", ", labels);
+        return joined.Length == 0 ? "none" : joined;
     }
 
     /// <inheritdoc />
@@ -381,4 +494,13 @@ public sealed partial class MigrationRunnerService(
 
     [LoggerMessage(EventId = 3004, Level = LogLevel.Warning, Message = "Applying over orphaned history (ordinals {Orphaned}) — running binary may be older than the database.")]
     private partial void LogOrphanedHistory(string orphaned);
+
+    [LoggerMessage(EventId = 3005, Level = LogLevel.Error, Message = "Migration {Failed} failed; rolled back {RolledBack}, so none of them is recorded. Committed earlier in this run: {Committed}. Not attempted: {NotAttempted}.")]
+    private partial void LogBatchRolledBack(Exception exception, string failed, string rolledBack, string committed, string notAttempted);
+
+    [LoggerMessage(EventId = 3006, Level = LogLevel.Error, Message = "No-transaction migration {Failed} failed outside a transaction; it is not recorded and may be partially applied. Committed earlier in this run: {Committed}. Not attempted: {NotAttempted}.")]
+    private partial void LogBareFailure(Exception exception, string failed, string committed, string notAttempted);
+
+    [LoggerMessage(EventId = 3007, Level = LogLevel.Error, Message = "Rolling back a failed migration transaction also failed; disposing the connection ends it.")]
+    private partial void LogRollbackFailed(Exception exception);
 }

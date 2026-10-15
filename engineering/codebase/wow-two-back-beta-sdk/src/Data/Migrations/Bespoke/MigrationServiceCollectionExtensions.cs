@@ -40,6 +40,7 @@ public static class MigrationServiceCollectionExtensions
             builder => builder
                 .Validate(options => !string.IsNullOrWhiteSpace(options.Version), "MigrationOptions.Version must not be empty.")
                 .Validate(options => Enum.IsDefined(options.Provider), "MigrationOptions.Provider must be a defined database provider.")
+                .Validate(options => Enum.IsDefined(options.TransactionScope), "MigrationOptions.TransactionScope must be a defined transaction scope.")
                 .Validate(options => !string.IsNullOrWhiteSpace(options.SchemaName), "MigrationOptions.SchemaName must not be empty.")
                 .Validate(options => !string.IsNullOrWhiteSpace(options.TableName), "MigrationOptions.TableName must not be empty."));
 

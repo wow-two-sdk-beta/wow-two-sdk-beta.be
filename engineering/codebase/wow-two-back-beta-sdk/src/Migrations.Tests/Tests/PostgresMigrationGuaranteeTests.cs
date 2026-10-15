@@ -86,30 +86,33 @@ public sealed class PostgresMigrationGuaranteeTests(MigratorPostgresFixture fixt
     }
 
     [Fact]
-    public async Task EnumLabel_ShouldCommitBeforeASeparateMigrationUsesIt()
+    public async Task EnumLabel_ShouldCommitBeforeALaterMigrationUsesIt_WhenTheAddRunsWithoutTransaction()
     {
         Workspace.Write("001-enum", """
             create type delivery_state AS enum ('queued');
             create table delivery_item(id integer primary key, state delivery_state not null);
             """, "drop table delivery_item; drop type delivery_state;");
-        Workspace.Write("002-label-and-use", """
-            alter type delivery_state add value 'waiting_for_review';
-            insert into delivery_item(id, state) values (1, 'waiting_for_review');
-            """, "-- PostgreSQL enum labels cannot be removed safely.");
-
-        await using var migrator = CreateMigrator();
-        await Assert.ThrowsAsync<PostgresException>(
-            () => migrator.Runner.ApplyPendingAsync("combined", CancellationToken.None));
-        (await migrator.ReadHistoryAsync()).Select(row => row.Ordinal).Should().Equal(1);
-
-        Workspace.OverwriteApply("002-label-and-use",
-            "alter type delivery_state add value 'waiting_for_review';");
+        Workspace.Write("002-label", "alter type delivery_state add value 'waiting_for_review';",
+            "-- PostgreSQL enum labels cannot be removed safely.");
         Workspace.Write("003-use-label",
             "insert into delivery_item(id, state) values (1, 'waiting_for_review');",
             "delete from delivery_item where id = 1;");
 
+        // A transactional add shares the batch with its use, so the label is not committed yet.
+        await using var migrator = CreateMigrator();
+        var unsafeUse = await Assert.ThrowsAsync<PostgresException>(
+            () => migrator.Runner.ApplyPendingAsync("combined", CancellationToken.None));
+        unsafeUse.SqlState.Should().Be("55P04"); // unsafe_new_enum_value_usage
+        (await migrator.ReadHistoryAsync()).Should().BeEmpty();
+
+        // A no-transaction add commits the batch before it and the label itself before the next batch.
+        Workspace.OverwriteApply("002-label", """
+            -- @no-transaction
+            alter type delivery_state add value if not exists 'waiting_for_review';
+            """);
+
         (await migrator.Runner.ApplyPendingAsync("split", CancellationToken.None))
-            .ValueOrThrow().Should().Equal("002-label-and-use", "003-use-label");
+            .ValueOrThrow().Should().Equal("001-enum", "002-label", "003-use-label");
 
         await using var connection = await migrator.OpenConnectionAsync();
         (await connection.ExecuteScalarAsync<string>(
