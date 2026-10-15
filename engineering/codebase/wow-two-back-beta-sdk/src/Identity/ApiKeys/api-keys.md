@@ -12,6 +12,7 @@ Extracted from TranscriptForge v0.7 (public API and MCP access).
 | `ApiKeySecretReader` | a Bearer token carrying the marker, else the key header; any other Bearer is left to other schemes |
 | `ApiKeyAuthenticationHandler` | scheme `ApiKey` — claims `api_key_id`, `Name` and one `scope` per granted scope; last use written once per `TouchInterval` |
 | `RequireApiKeyScope` / `HasApiKeyScope` | a policy that admits only keys granting a scope; the principal check for composed policies |
+| `RequireAllowlistedSessionOrApiKeyScope` | a policy that admits an allowlisted session or a key granting a scope; a key never rides the session branch |
 | `ApiKeyAccessGateMiddleware` | guarded / open / local-only paths; loopback passes without a key |
 
 ```csharp
@@ -36,6 +37,7 @@ return key.Secret;
 ```
 
 - A presented key is always checked; an unknown or revoked key is 401 even from this machine.
+- A shared endpoint for the operator and a program: `options.AddPolicy("catalog", p => p.RequireAllowlistedSessionOrApiKeyScope("catalog:read", CookieAuthenticationDefaults.AuthenticationScheme))`.
 - A key grants only the scopes its record lists (`ApiKeyRecord.Scopes`); scope a key per consumer, such as `catalog:read`.
 - A key calling a local-only path is 403; a remote caller without a key is 401 — both as ProblemDetails.
 - The default authentication scheme is left alone, so JWT bearer or cookies keep theirs beside it.

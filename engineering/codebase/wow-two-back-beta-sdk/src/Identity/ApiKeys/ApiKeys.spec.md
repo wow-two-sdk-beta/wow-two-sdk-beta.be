@@ -13,6 +13,10 @@
 - `HasApiKeyScope` reads only the identity the `ApiKey` scheme authenticated; a scope claim from any other scheme
   never counts, so a merged principal cannot borrow one.
 - `RequireApiKeyScope` authenticates its policy with the `ApiKey` scheme: no key is 401, a key without the scope 403.
+- `RequireAllowlistedSessionOrApiKeyScope(scope, sessionSchemes)` authenticates the session schemes and `ApiKey`, and
+  admits a key granting `scope` or a session identity the principal allowlist admits. The session branch skips every
+  `ApiKey` identity, so a key never passes on its name or through the open (empty) allowlist; the allowlist's own
+  empty-means-open rule is unchanged. Without `AddPrincipalAllowlist` the allowlist is open to sessions.
 - The gate guards `GuardedPaths` minus `OpenPaths`. With a key it authenticates the `ApiKey` scheme and sets
   `HttpContext.User`; without one it passes loopback callers (when `AllowLocalWithoutKey`) and callers another scheme
   already authenticated, and answers 401 otherwise.

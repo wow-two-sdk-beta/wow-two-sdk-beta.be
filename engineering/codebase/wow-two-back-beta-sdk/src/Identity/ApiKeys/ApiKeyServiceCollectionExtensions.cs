@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -38,6 +39,8 @@ public static class ApiKeyServiceCollectionExtensions
         services.TryAddSingleton(TimeProvider.System);
         services.TryAddSingleton<ApiKeySecretFactory>();
         services.TryAddSingleton<ApiKeySecretReader>();
+        // Inert until a policy carries its requirement (RequireAllowlistedSessionOrApiKeyScope).
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<IAuthorizationHandler, AllowlistedSessionOrApiKeyAuthorizationHandler>());
 
         services.AddAuthentication()
             .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(ApiKeyAuthenticationDefaults.Scheme, null);
