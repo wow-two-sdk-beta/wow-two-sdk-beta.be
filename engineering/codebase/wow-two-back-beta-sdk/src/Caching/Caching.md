@@ -8,7 +8,7 @@ Namespace root: `WoW.Two.Sdk.Backend.Beta.Caching`.
 
 | Folder | Surface | Role |
 |---|---|---|
-| `Core/` | `ICacheRepository`, `CacheEntryOptions`, `ICacheKeyBuilder` / `CacheKeyBuilder` | Provider-neutral facade + key convention |
+| `Core/` | `ICacheRepository`, `CacheEntryOptions`, `CacheResult`, `ICacheKeyBuilder` / `CacheKeyBuilder` | Provider-neutral facade + key convention |
 | `Hybrid/` | `AddHybridCaching(configure?)`, `HybridCacheRepository`, `HybridCacheConventionOptions` | HybridCache default (the `ICacheRepository` impl) |
 | `Redis/` | `AddRedisDistributedCache(connStr, instanceName?)` | Redis L2 backend (auto-used by HybridCache) |
 | `Memory/` | `AddInMemoryCaching()` | Plain `IMemoryCache` for trivial cases |
@@ -37,6 +37,14 @@ public sealed class Catalog(ICacheRepository cache, ICacheKeyBuilder keys)
 ## Notes
 
 - `GetOrCreateAsync` coalesces concurrent misses for the same key (stampede protection) — the factory runs once.
+- `GetOrCreateUnlessTransientAsync` lets the factory refuse caching: return `CacheResult.Keep(value)` to cache, or
+  `CacheResult.Transient(value)` to hand a fallback to every coalesced caller and retry on the next call. It is a default
+  interface method over `GetOrCreateAsync`, so it works on any `ICacheRepository` that never caches a throwing factory.
+
+```csharp
+var rates = await cache.GetOrCreateUnlessTransientAsync("fx:usd", async ct =>
+    await provider.TryGetRatesAsync(ct) is { } live ? CacheResult.Keep(live) : CacheResult.Transient(Rates.Stale));
+```
 - Tags enable group eviction (`RemoveByTagAsync`) across both tiers.
 - Register a Redis `IDistributedCache` (via `AddRedisDistributedCache`) and HybridCache uses it as L2 automatically — no other wiring.
 - Defaults: 5 min total / 1 min L1 / 1 MB max payload — tune via `AddHybridCaching(o => …)` or the host section

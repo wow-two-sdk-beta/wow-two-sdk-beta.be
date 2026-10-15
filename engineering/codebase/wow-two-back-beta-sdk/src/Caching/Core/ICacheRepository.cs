@@ -20,6 +20,45 @@ public interface ICacheRepository
     /// <returns>The cached or newly created value.</returns>
     ValueTask<T> GetOrCreateAsync<T>(string key, Func<CancellationToken, ValueTask<T>> factory, CacheEntryOptions? options = null, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Returns the cached value for <paramref name="key"/>, or invokes <paramref name="factory"/>; its value is cached
+    /// unless the factory marks it <see cref="CacheResult.Transient{T}"/>, in which case it is returned and the next call
+    /// runs the factory again.
+    /// </summary>
+    /// <remarks>
+    ///   - a transient value reaches every caller coalesced onto the same miss, and nothing is stored
+    ///   - built on <see cref="GetOrCreateAsync{T}"/>: a transient value travels as an exception the cache never stores,
+    ///     so any implementation that does not cache factory failures supports it unchanged
+    ///   - a separate name, not a <c>GetOrCreateAsync</c> overload, so a throwing lambda never binds ambiguously
+    /// </remarks>
+    /// <typeparam name="T">The cached value type.</typeparam>
+    /// <param name="key">The cache key.</param>
+    /// <param name="factory">Produces the value on a miss, with <see cref="CacheResult.Keep{T}"/> or <see cref="CacheResult.Transient{T}"/>.</param>
+    /// <param name="options">Per-entry expiration/tags; <see langword="null"/> uses defaults.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>The cached, newly created or transient value.</returns>
+    async ValueTask<T> GetOrCreateUnlessTransientAsync<T>(string key, Func<CancellationToken, ValueTask<CacheResult<T>>> factory, CacheEntryOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(factory);
+
+        try
+        {
+            return await GetOrCreateAsync<T>(
+                key,
+                async ct =>
+                {
+                    var result = await factory(ct).ConfigureAwait(false);
+                    return result.IsTransient ? throw new TransientCacheResultException(result.Value) : result.Value;
+                },
+                options,
+                cancellationToken).ConfigureAwait(false);
+        }
+        catch (TransientCacheResultException transient)
+        {
+            return (T)transient.Value!;
+        }
+    }
+
     /// <summary>Stores <paramref name="value"/> under <paramref name="key"/>, overwriting any existing entry.</summary>
     /// <typeparam name="T">The value type.</typeparam>
     /// <param name="key">The cache key.</param>
