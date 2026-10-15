@@ -17,13 +17,16 @@ Both default to a sensible baseline and expose a settable + fluent (`With…`) s
 
 ### `FakeGitHubClient`
 
-Defaults to the happy path: `Repo = Exists`, `File = Present`, no `Releases`, `WorkflowRun = None`.
+Defaults to the happy path: `Repo = Exists`, `File = Present`, no `Releases`, `WorkflowRun = None`, `Head` found at `DefaultCommitSha`, an empty tree.
 
 - `Repo` / `WithRepo(RepoCheck)` — canned `RepoExistsAsync` outcome.
 - `File` / `WithFile(FileCheck)` — canned `FileExistsAsync` outcome.
 - `Releases` / `WithReleases(params ReleaseInfo[])` — releases (newest first) driving both `GetLatestReleaseAsync` (head only) and `GetReleasesAsync` (paged by `limit`); forces `ReleaseOutcome = Found`.
 - `ReleaseOutcome` / `WithReleaseOutcome(ReleaseLookup)` — force `Unauthorized` / `Failed` / `None` on the release lookups.
 - `WorkflowRun` / `WithWorkflowRun(BuildRunCheck)` — canned `GetLatestWorkflowRunAsync` outcome.
+- `Head` / `WithHead(sha)` / `WithHeadOutcome(RepositoryLookup)` — canned `GetBranchHeadAsync` outcome.
+- `RepositoryFiles` / `WithRepositoryFile(path, bytes|text)` — files at every commit; `GetTreeAsync` lists them as blobs, `ReadFileAsync` returns them (`NotFound` when unlisted, `TooLarge` past `maxBytes`).
+- `TreeOutcome` / `WithTreeOutcome(RepositoryLookup)` — force a tree failure; `FileReadOutcome` / `WithFileReadOutcome(FileRead)` — force a read failure.
 
 ### `FakeContainerRegistryClient`
 

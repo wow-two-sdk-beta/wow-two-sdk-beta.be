@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
     <ProjectReference Include="../Testing/WoW.Two.Sdk.Backend.Beta.Testing.csproj" />
+    <ProjectReference Include="../Testing.Integrations/WoW.Two.Sdk.Backend.Beta.Testing.Integrations.csproj" />
   </ItemGroup>
 
 </Project>
