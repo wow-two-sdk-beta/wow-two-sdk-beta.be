@@ -17,6 +17,16 @@ public interface IMigrationRunnerService
     /// <exception cref="System.Data.Common.DbException">A migration script failed; its batch is rolled back and the provider's exception is rethrown.</exception>
     Task<Result<IReadOnlyList<string>>> ApplyPendingAsync(string appliedBy, CancellationToken ct = default);
 
+    /// <summary>Rehearses every pending transactional migration under the advisory lock inside one transaction, then always rolls it back.</summary>
+    /// <remarks>
+    ///   - the rehearsal takes the same DDL locks as a real apply until it rolls back, so run it as a pre-deploy step, not on a timer
+    ///   - <c>-- @no-transaction</c> scripts cannot run inside the transaction and are reported as not rehearsed
+    ///   - non-transactional effects, such as sequence advances, are not rolled back
+    /// </remarks>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The rehearsal report (a failed script is reported, not thrown), or the same drift, orphan, and malformed-source failures as apply.</returns>
+    Task<Result<MigrationDryRunReport>> DryRunPendingAsync(CancellationToken ct = default);
+
     /// <summary>Computes the current state: applied, pending, drifted, and orphaned migrations.</summary>
     /// <param name="ct">Token to cancel the operation.</param>
     Task<Result<MigrationStatus>> GetStatusAsync(CancellationToken ct = default);

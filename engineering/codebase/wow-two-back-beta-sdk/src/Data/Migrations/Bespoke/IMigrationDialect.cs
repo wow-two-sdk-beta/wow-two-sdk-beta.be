@@ -27,10 +27,11 @@ public interface IMigrationDialect
 
     /// <summary>Creates the migration-history table for the given schema and name if it does not exist.</summary>
     /// <param name="connection">The open connection to run the DDL on.</param>
+    /// <param name="transaction">The enclosing transaction, such as a dry run's, or null to run bare.</param>
     /// <param name="schemaName">The schema that owns the history table.</param>
     /// <param name="tableName">The history table name.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    Task EnsureHistoryTableAsync(DbConnection connection, string schemaName, string tableName, CancellationToken ct = default);
+    Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default);
 
     /// <summary>Returns the history-table reference, quoted and schema-qualified per the provider's identifier rules.</summary>
     /// <param name="schemaName">The schema that owns the history table; ignored by providers without schemas (e.g. SQLite).</param>

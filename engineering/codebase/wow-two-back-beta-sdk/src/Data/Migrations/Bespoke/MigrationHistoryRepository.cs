@@ -9,8 +9,8 @@ public sealed class MigrationHistoryRepository(IMigrationDialect dialect, Migrat
     private string QualifiedTable => dialect.QualifyHistoryTable(options.SchemaName, options.TableName);
 
     /// <inheritdoc />
-    public Task EnsureTableAsync(DbConnection connection, CancellationToken ct = default) =>
-        dialect.EnsureHistoryTableAsync(connection, options.SchemaName, options.TableName, ct);
+    public Task EnsureTableAsync(DbConnection connection, DbTransaction? transaction, CancellationToken ct = default) =>
+        dialect.EnsureHistoryTableAsync(connection, transaction, options.SchemaName, options.TableName, ct);
 
     /// <inheritdoc />
     public Task AcquireLockAsync(DbConnection connection, CancellationToken ct = default) =>
@@ -21,7 +21,7 @@ public sealed class MigrationHistoryRepository(IMigrationDialect dialect, Migrat
         dialect.ReleaseLockAsync(connection, options.AdvisoryLockId, ct);
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<MigrationHistoryEntry>> GetAppliedAsync(DbConnection connection, CancellationToken ct = default)
+    public async Task<IReadOnlyList<MigrationHistoryEntry>> GetAppliedAsync(DbConnection connection, DbTransaction? transaction, CancellationToken ct = default)
     {
         var sql = $"""
             SELECT ordinal,
@@ -34,7 +34,7 @@ public sealed class MigrationHistoryRepository(IMigrationDialect dialect, Migrat
             FROM {QualifiedTable}
             ORDER BY ordinal
             """;
-        var rows = await connection.QueryAsync<MigrationHistoryEntry>(new CommandDefinition(sql, cancellationToken: ct));
+        var rows = await connection.QueryAsync<MigrationHistoryEntry>(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
         return rows.ToList();
     }
 

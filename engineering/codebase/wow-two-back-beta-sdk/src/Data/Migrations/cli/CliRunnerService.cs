@@ -93,6 +93,48 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         return 0;
     }
 
+    /// <summary>Rehearses every pending migration inside one rolled-back transaction and prints the report.</summary>
+    /// <remarks>
+    ///   - exit 0 when every rehearsed migration succeeds, 1 on drift, orphans, or a malformed source, 2 when a migration fails
+    ///   - never creates the database: a missing database fails the connection with exit 2
+    /// </remarks>
+    /// <param name="connection">The resolved connection string.</param>
+    /// <param name="sqlDir">The resolved migrations directory.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    public async Task<int> DryRunAsync(string? connection, string? sqlDir, CancellationToken ct)
+    {
+        await using var provider = BuildProvider(connection, sqlDir);
+        var dryRunResult = await provider.GetRequiredService<IMigrationRunnerService>().DryRunPendingAsync(ct);
+        if (dryRunResult.IsFailure(out var dryRunError, out var report))
+        {
+            Console.Error.WriteLine($"✗ {dryRunError.Message}");
+            return 1;
+        }
+
+        if (report.WouldApply.Count == 0)
+        {
+            Console.WriteLine("✓ Up to date — nothing to rehearse.");
+            return 0;
+        }
+
+        Console.WriteLine($"Dry run ({report.WouldApply.Count} pending, rolled back):");
+        foreach (var label in report.WouldApply)
+            Console.WriteLine($"  {DescribeRehearsal(report, label)}");
+
+        if (report.Failure is { } failure)
+        {
+            if (failure.FollowsNotRehearsed)
+                Console.Error.WriteLine($"  Note: {failure.Migration} follows a no-transaction script the dry run skipped and may depend on it.");
+            Console.Error.WriteLine($"✗ Dry run failed at {failure.Migration}.");
+            return 2;
+        }
+
+        Console.WriteLine(report.NotRehearsed.Count == 0
+            ? $"✓ Dry run passed: {report.Succeeded.Count} rehearsed."
+            : $"✓ Dry run passed: {report.Succeeded.Count} rehearsed, {report.NotRehearsed.Count} not rehearsed (no-transaction).");
+        return 0;
+    }
+
     /// <summary>Rolls back the latest migration, or every migration above the given ordinal (dev only, target-guarded).</summary>
     /// <param name="connection">The resolved connection string.</param>
     /// <param name="sqlDir">The resolved migrations directory.</param>
@@ -272,6 +314,20 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
 
         Console.Error.WriteLine("✗ Aborted.");
         return false;
+    }
+
+    /// <summary>Describes one pending migration's rehearsal outcome as a status line.</summary>
+    /// <param name="report">The dry-run report.</param>
+    /// <param name="label">The migration label to describe.</param>
+    private static string DescribeRehearsal(MigrationDryRunReport report, string label)
+    {
+        if (report.Succeeded.Contains(label))
+            return $"✓ {label}";
+        if (report.NotRehearsed.Contains(label))
+            return $"~ {label}  (no-transaction: not rehearsed)";
+        if (report.Failure is { } failure && failure.Migration == label)
+            return $"✗ {label}  {failure.Error}";
+        return $"· {label}  (not reached)";
     }
 
     /// <summary>Computes the next ordinal — one past the highest <c>NNN-</c> prefix already on disk.</summary>

@@ -26,6 +26,9 @@ public sealed partial class MigrationRunnerService(
     ISqlStatementParser statementParser,
     TimeProvider clock) : IMigrationRunnerService
 {
+    /// <summary>The host stamp on the history rows a dry run inserts and rolls back.</summary>
+    private const string DryRunAppliedBy = "dry-run";
+
     /// <inheritdoc />
     /// <remarks>
     ///   - <see cref="MigrationTransactionScope.Batch"/> commits consecutive transactional migrations together; a failure rolls back the batch
@@ -46,8 +49,8 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            await history.EnsureTableAsync(conn, ct);
-            var applied = await history.GetAppliedAsync(conn, ct);
+            await history.EnsureTableAsync(conn, null, ct);
+            var applied = await history.GetAppliedAsync(conn, null, ct);
 
             if (VerifyNoDrift(migrations, applied) is { } drift)
             {
@@ -155,7 +158,7 @@ public sealed partial class MigrationRunnerService(
         }
         catch
         {
-            await RollbackAsync(tx);
+            await RollBackTransactionAsync(tx);
             throw;
         }
 
@@ -184,9 +187,9 @@ public sealed partial class MigrationRunnerService(
         LogApplied(migration.Label, stopwatch.ElapsedMilliseconds);
     }
 
-    /// <summary>Rolls back a failed transaction without masking the failure that caused it.</summary>
+    /// <summary>Rolls back a failed or rehearsal transaction without masking an earlier failure.</summary>
     /// <param name="tx">The transaction to roll back.</param>
-    private async Task RollbackAsync(DbTransaction tx)
+    private async Task RollBackTransactionAsync(DbTransaction tx)
     {
         try
         {
@@ -231,6 +234,104 @@ public sealed partial class MigrationRunnerService(
     }
 
     /// <inheritdoc />
+    /// <remarks>
+    ///   - the history-table create and read share the rehearsal transaction, so a fresh database stays untouched
+    ///   - the rehearsal stops at the first failure: the transaction is aborted from then on
+    /// </remarks>
+    public async Task<Result<MigrationDryRunReport>> DryRunPendingAsync(CancellationToken ct = default)
+    {
+        if (Scan().IsFailure(out var malformed, out var migrations))
+        {
+            return Result<MigrationDryRunReport>.Fail(malformed);
+        }
+
+        await using var conn = await connections.CreateOpenAsync(ct);
+
+        // The same advisory lock as apply, so a rehearsal never interleaves with a real run.
+        await history.AcquireLockAsync(conn, ct);
+        try
+        {
+            await using var tx = await conn.BeginTransactionAsync(ct);
+            try
+            {
+                return await RehearseAsync(conn, tx, migrations, ct);
+            }
+            finally
+            {
+                // Always roll back: a dry run never commits schema or history.
+                await RollBackTransactionAsync(tx);
+            }
+        }
+        finally
+        {
+            await history.ReleaseLockAsync(conn, ct);
+        }
+    }
+
+    /// <summary>Runs every pending transactional migration and its history row inside the rehearsal transaction.</summary>
+    /// <param name="conn">The open connection holding the advisory lock.</param>
+    /// <param name="tx">The rehearsal transaction, rolled back by the caller.</param>
+    /// <param name="migrations">The scanned source migrations.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    private async Task<Result<MigrationDryRunReport>> RehearseAsync(
+        DbConnection conn, DbTransaction tx, List<MigrationDescriptor> migrations, CancellationToken ct)
+    {
+        await history.EnsureTableAsync(conn, tx, ct);
+        var applied = await history.GetAppliedAsync(conn, tx, ct);
+
+        if (VerifyNoDrift(migrations, applied) is { } drift)
+        {
+            return Result<MigrationDryRunReport>.Fail(drift);
+        }
+
+        if (VerifyNoOrphans(migrations, applied) is { } orphans)
+        {
+            return Result<MigrationDryRunReport>.Fail(orphans);
+        }
+
+        var appliedOrdinals = applied.Select(a => a.Ordinal).ToHashSet();
+        var pending = migrations.Where(m => !appliedOrdinals.Contains(m.Ordinal)).ToList();
+        var notRehearsed = pending.Where(m => m.NoTransaction).Select(m => m.Label).ToList();
+        var succeeded = new List<string>();
+        MigrationDryRunFailure? failure = null;
+
+        foreach (var migration in pending.Where(m => !m.NoTransaction))
+        {
+            try
+            {
+                var stopwatch = Stopwatch.StartNew();
+                await conn.ExecuteAsync(new CommandDefinition(migration.ApplySql, transaction: tx, cancellationToken: ct));
+                stopwatch.Stop();
+                await history.RecordAsync(conn, tx, BuildEntry(migration, DryRunAppliedBy, stopwatch.ElapsedMilliseconds), ct);
+                succeeded.Add(migration.Label);
+            }
+            catch (DbException error)
+            {
+                failure = new MigrationDryRunFailure
+                {
+                    Migration = migration.Label,
+                    Error = error.Message,
+                    SqlState = error.SqlState,
+                    FollowsNotRehearsed = pending.Any(m => m.NoTransaction && m.Ordinal < migration.Ordinal),
+                };
+                LogDryRunFailed(failure.Migration, failure.Error, JoinOrNone(succeeded));
+                break;
+            }
+        }
+
+        if (failure is null)
+            LogDryRunPassed(succeeded.Count, pending.Count, JoinOrNone(notRehearsed));
+
+        return Result<MigrationDryRunReport>.Ok(new MigrationDryRunReport
+        {
+            WouldApply = pending.Select(m => m.Label).ToList(),
+            Succeeded = succeeded,
+            NotRehearsed = notRehearsed,
+            Failure = failure,
+        });
+    }
+
+    /// <inheritdoc />
     public async Task<Result<MigrationStatus>> GetStatusAsync(CancellationToken ct = default)
     {
         if (Scan().IsFailure(out var malformed, out var migrations))
@@ -241,8 +342,8 @@ public sealed partial class MigrationRunnerService(
         var byOrdinal = migrations.ToDictionary(m => m.Ordinal);
 
         await using var conn = await connections.CreateOpenAsync(ct);
-        await history.EnsureTableAsync(conn, ct);
-        var applied = await history.GetAppliedAsync(conn, ct);
+        await history.EnsureTableAsync(conn, null, ct);
+        var applied = await history.GetAppliedAsync(conn, null, ct);
         var appliedOrdinals = applied.Select(a => a.Ordinal).ToHashSet();
 
         // Diff source against applied to classify drift, orphans, and pending.
@@ -275,8 +376,8 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            await history.EnsureTableAsync(conn, ct);
-            var applied = (await history.GetAppliedAsync(conn, ct)).OrderByDescending(a => a.Ordinal).ToList();
+            await history.EnsureTableAsync(conn, null, ct);
+            var applied = (await history.GetAppliedAsync(conn, null, ct)).OrderByDescending(a => a.Ordinal).ToList();
 
             // Roll back everything strictly above the target, or just the single latest when no target is given.
             var toRollback = targetOrdinal is { } target
@@ -336,8 +437,8 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            await history.EnsureTableAsync(conn, ct);
-            var applied = await history.GetAppliedAsync(conn, ct);
+            await history.EnsureTableAsync(conn, null, ct);
+            var applied = await history.GetAppliedAsync(conn, null, ct);
 
             var repaired = new List<string>();
             foreach (var row in applied)
@@ -501,6 +602,12 @@ public sealed partial class MigrationRunnerService(
     [LoggerMessage(EventId = 3006, Level = LogLevel.Error, Message = "No-transaction migration {Failed} failed outside a transaction; it is not recorded and may be partially applied. Committed earlier in this run: {Committed}. Not attempted: {NotAttempted}.")]
     private partial void LogBareFailure(Exception exception, string failed, string committed, string notAttempted);
 
-    [LoggerMessage(EventId = 3007, Level = LogLevel.Error, Message = "Rolling back a failed migration transaction also failed; disposing the connection ends it.")]
+    [LoggerMessage(EventId = 3007, Level = LogLevel.Error, Message = "Rolling back a migration transaction failed; disposing the connection ends it.")]
     private partial void LogRollbackFailed(Exception exception);
+
+    [LoggerMessage(EventId = 3008, Level = LogLevel.Information, Message = "Dry run rehearsed {Rehearsed} of {Pending} pending migrations and rolled back. Not rehearsed (no-transaction): {NotRehearsed}.")]
+    private partial void LogDryRunPassed(int rehearsed, int pending, string notRehearsed);
+
+    [LoggerMessage(EventId = 3009, Level = LogLevel.Warning, Message = "Dry run failed at {Migration}: {Error}. Succeeded before it: {Succeeded}. The rehearsal was rolled back.")]
+    private partial void LogDryRunFailed(string migration, string error, string succeeded);
 }

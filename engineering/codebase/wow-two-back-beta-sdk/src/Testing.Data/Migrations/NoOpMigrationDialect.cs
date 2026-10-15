@@ -22,7 +22,7 @@ internal sealed class NoOpMigrationDialect : IMigrationDialect
     public Task ReleaseLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) => Task.CompletedTask;
 
     /// <inheritdoc />
-    public Task EnsureHistoryTableAsync(DbConnection connection, string schemaName, string tableName, CancellationToken ct = default) => Task.CompletedTask;
+    public Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default) => Task.CompletedTask;
 
     /// <inheritdoc />
     public string QualifyHistoryTable(string schemaName, string tableName) => $"\"{tableName}\"";

@@ -7,8 +7,9 @@ public interface IMigrationHistoryRepository
 {
     /// <summary>Creates the history table if missing — safe to call on every startup.</summary>
     /// <param name="connection">The open connection to run the DDL on.</param>
+    /// <param name="transaction">The enclosing transaction, such as a dry run's, or null to run bare.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    Task EnsureTableAsync(DbConnection connection, CancellationToken ct = default);
+    Task EnsureTableAsync(DbConnection connection, DbTransaction? transaction, CancellationToken ct = default);
 
     /// <summary>Acquires the apply-loop advisory lock, blocking until it is granted.</summary>
     /// <param name="connection">The open connection that holds the lock for its session.</param>
@@ -22,8 +23,9 @@ public interface IMigrationHistoryRepository
 
     /// <summary>Reads all applied migrations, ordered by ordinal.</summary>
     /// <param name="connection">The open connection to query.</param>
+    /// <param name="transaction">The enclosing transaction, such as a dry run's, or null to read bare.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    Task<IReadOnlyList<MigrationHistoryEntry>> GetAppliedAsync(DbConnection connection, CancellationToken ct = default);
+    Task<IReadOnlyList<MigrationHistoryEntry>> GetAppliedAsync(DbConnection connection, DbTransaction? transaction, CancellationToken ct = default);
 
     /// <summary>Inserts an applied-migration row.</summary>
     /// <param name="connection">The open connection to write to.</param>

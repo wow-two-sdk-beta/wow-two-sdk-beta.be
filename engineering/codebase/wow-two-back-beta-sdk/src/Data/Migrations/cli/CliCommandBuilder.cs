@@ -5,6 +5,7 @@ namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli;
 /// <summary>Builds the <c>wow-migrate</c> command tree — the global options and the status, apply, rollback, verify, new, and promote verbs.</summary>
 /// <remarks>
 ///   - <c>--connection</c> and <c>--sql-dir</c> are recursive — every verb accepts them
+///   - <c>apply --dry-run</c> rehearses and rolls back, for a deploy runner to gate a release
 ///   - <c>rollback</c> and <c>verify --repair</c> demand <c>--i-understand-this-is &lt;db&gt;</c>
 /// </remarks>
 internal sealed class CliCommandBuilder
@@ -53,15 +54,24 @@ internal sealed class CliCommandBuilder
         return command;
     }
 
-    /// <summary>Builds the <c>apply</c> verb — ensure the database exists, then apply pending migrations.</summary>
+    /// <summary>Builds the <c>apply</c> verb — ensure the database exists, then apply pending migrations, or rehearse them with <c>--dry-run</c>.</summary>
     /// <param name="runner">The runner carrying every command body.</param>
     /// <param name="connection">The global connection option to read in the action.</param>
     /// <param name="sqlDir">The global sql-dir option to read in the action.</param>
     private static Command BuildApply(CliRunnerService runner, Option<string?> connection, Option<string?> sqlDir)
     {
-        var command = new Command("apply", "Ensure the DB exists, then apply pending migrations.");
-        command.SetAction((parseResult, ct) =>
-            runner.ApplyAsync(parseResult.GetValue(connection), parseResult.GetValue(sqlDir), ct));
+        var dryRunOption = new Option<bool>("--dry-run")
+        {
+            Description = "Rehearse pending migrations in one transaction and roll back; exit 2 when one fails. Never creates the DB.",
+        };
+
+        var command = new Command("apply", "Ensure the DB exists, then apply pending migrations (or rehearse them with --dry-run).")
+        {
+            dryRunOption,
+        };
+        command.SetAction((parseResult, ct) => parseResult.GetValue(dryRunOption)
+            ? runner.DryRunAsync(parseResult.GetValue(connection), parseResult.GetValue(sqlDir), ct)
+            : runner.ApplyAsync(parseResult.GetValue(connection), parseResult.GetValue(sqlDir), ct));
         return command;
     }
 

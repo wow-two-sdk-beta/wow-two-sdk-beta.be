@@ -15,6 +15,11 @@ internal sealed class NoOpMigrationRunnerService : IMigrationRunnerService
         Task.FromResult(Result<IReadOnlyList<string>>.Ok([]));
 
     /// <inheritdoc />
+    public Task<Result<MigrationDryRunReport>> DryRunPendingAsync(CancellationToken ct = default) =>
+        Task.FromResult(Result<MigrationDryRunReport>.Ok(
+            new MigrationDryRunReport { WouldApply = [], Succeeded = [], NotRehearsed = [] }));
+
+    /// <inheritdoc />
     public Task<Result<MigrationStatus>> GetStatusAsync(CancellationToken ct = default) =>
         Task.FromResult(Result<MigrationStatus>.Ok(
             new MigrationStatus { Applied = [], Pending = [], Drifted = [], Orphaned = [] }));

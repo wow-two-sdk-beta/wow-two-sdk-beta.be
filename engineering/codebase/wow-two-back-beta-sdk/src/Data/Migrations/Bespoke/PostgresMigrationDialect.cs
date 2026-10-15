@@ -48,7 +48,7 @@ public sealed class PostgresMigrationDialect : IMigrationDialect
             "SELECT pg_advisory_unlock(@id)", new { id = lockId }, cancellationToken: ct));
 
     /// <inheritdoc />
-    public Task EnsureHistoryTableAsync(DbConnection connection, string schemaName, string tableName, CancellationToken ct = default)
+    public Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
     {
         var sql = $"""
             CREATE TABLE IF NOT EXISTS {QualifyHistoryTable(schemaName, tableName)} (
@@ -62,7 +62,7 @@ public sealed class PostgresMigrationDialect : IMigrationDialect
                 CONSTRAINT pk_{tableName} PRIMARY KEY (ordinal)
             );
             """;
-        return connection.ExecuteAsync(new CommandDefinition(sql, cancellationToken: ct));
+        return connection.ExecuteAsync(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
     }
 
     /// <inheritdoc />

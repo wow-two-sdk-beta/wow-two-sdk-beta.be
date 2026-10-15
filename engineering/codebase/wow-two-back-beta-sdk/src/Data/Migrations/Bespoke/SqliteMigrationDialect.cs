@@ -46,7 +46,7 @@ public sealed class SqliteMigrationDialect : IMigrationDialect
     public Task ReleaseLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) => Task.CompletedTask;
 
     /// <inheritdoc />
-    public Task EnsureHistoryTableAsync(DbConnection connection, string schemaName, string tableName, CancellationToken ct = default)
+    public Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
     {
         var sql = $"""
             CREATE TABLE IF NOT EXISTS {QualifyHistoryTable(schemaName, tableName)} (
@@ -60,7 +60,7 @@ public sealed class SqliteMigrationDialect : IMigrationDialect
                 CONSTRAINT pk_{tableName} PRIMARY KEY (ordinal)
             );
             """;
-        return connection.ExecuteAsync(new CommandDefinition(sql, cancellationToken: ct));
+        return connection.ExecuteAsync(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
     }
 
     /// <inheritdoc />
