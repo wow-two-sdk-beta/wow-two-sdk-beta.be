@@ -5,7 +5,7 @@
 ## Register
 
 ```csharp
-builder.Services.AddHttpContextAccessTokenProvider();   // or your own IAccessTokenProvider
+builder.Services.AddHttpContextAccessTokenProvider();   // or your own IAccessTokenService
 builder.Services.AddGhcrIntegration();                  // UA wow-two-sdk
 ```
 
@@ -26,7 +26,7 @@ public sealed class Probe(IContainerRegistryClient registry)
 Each `ImageExistsAsync` probe:
 
 1. Fetch an **anonymous** GHCR pull token and `HEAD` the manifest — covers public images, no token needed.
-2. On `401/403`, mint a pull token authenticated with the `IAccessTokenProvider` token (needs `read:packages`) via GHCR's `Basic` realm, then re-`HEAD` — covers private images.
+2. On `401/403`, mint a pull token authenticated with the `IAccessTokenService` token (needs `read:packages`) via GHCR's `Basic` realm, then re-`HEAD` — covers private images.
 3. Still refused → `ImageCheck.Unauthorized` (no provider token → returns early).
 
 Image paths are lowercased (`repo.ToLowerInvariant()`) — GHCR is case-insensitive regardless of GitHub repo casing.
@@ -41,5 +41,5 @@ Image paths are lowercased (`repo.ToLowerInvariant()`) — GHCR is case-insensit
 ## See also
 
 - `IContainerRegistryClient.cs` — interface + `ImageCheck`.
-- `../integrations.md` — `IAccessTokenProvider` token source.
+- `../integrations.md` — `IAccessTokenService` token source.
 - [Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).

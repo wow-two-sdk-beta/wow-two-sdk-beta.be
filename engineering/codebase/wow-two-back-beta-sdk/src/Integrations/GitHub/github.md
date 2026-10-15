@@ -1,11 +1,11 @@
 # WoW.Two.Sdk.Backend.Beta.Integrations.GitHub
 
-> Typed `HttpClient` over the GitHub REST API. Each call carries a `Bearer` token from `IAccessTokenProvider`, so repo visibility (public + private) matches that token.
+> Typed `HttpClient` over the GitHub REST API. Each call carries a `Bearer` token from `IAccessTokenService`, so repo visibility (public + private) matches that token.
 
 ## Register
 
 ```csharp
-builder.Services.AddHttpContextAccessTokenProvider();   // or your own IAccessTokenProvider
+builder.Services.AddHttpContextAccessTokenProvider();   // or your own IAccessTokenService
 builder.Services.AddGitHubIntegration();                // base https://api.github.com/, UA wow-two-sdk
 ```
 
@@ -44,5 +44,5 @@ Each segment of a repository `path` and the `workflowFile` name is URL-escaped, 
 ## See also
 
 - `IGitHubClient.cs` — interface + outcome types (`RepoCheck`, `FileCheck`, `ReleaseLookup`, `ReleaseInfo`, `ReleaseList`, `BuildRunCheck`).
-- `../integrations.md` — `IAccessTokenProvider` token source.
+- `../integrations.md` — `IAccessTokenService` token source.
 - [GitHub REST API](https://docs.github.com/en/rest).

@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Backend.Beta.Integrations
 
-> Typed HTTP clients for third-party services (GitHub REST, GHCR). Each authorizes its calls with a pluggable `IAccessTokenProvider` — the token source is yours to choose.
+> Typed HTTP clients for third-party services (GitHub REST, GHCR). Each authorizes its calls with a pluggable `IAccessTokenService` — the token source is yours to choose.
 
 ## Install
 
@@ -16,19 +16,19 @@ builder.Services.AddGitHubIntegration();                // IGitHubClient
 builder.Services.AddGhcrIntegration();                  // IContainerRegistryClient
 ```
 
-## `IAccessTokenProvider` — the parameterized token source
+## `IAccessTokenService` — the parameterized token source
 
 Both clients resolve their per-call Bearer/Basic token from this one contract:
 
 ```csharp
-public interface IAccessTokenProvider
+public interface IAccessTokenService
 {
     Task<string?> GetAccessTokenAsync(CancellationToken ct = default);   // null → unauthorized
 }
 ```
 
-- **Default:** `HttpContextAccessTokenProvider` reads the `access_token` saved on the current request's auth ticket (`SaveTokens = true`); `null` when there's no context or token. Register via `AddHttpContextAccessTokenProvider()` (adds `IHttpContextAccessor`).
-- **Custom:** register your own `IAccessTokenProvider` (a PAT from config, a service token, a machine identity) before the integration calls. Off-request callers (background jobs) need a non-HttpContext provider.
+- **Default:** `HttpContextAccessTokenService` reads the `access_token` saved on the current request's auth ticket (`SaveTokens = true`); `null` when there's no context or token. Register via `AddHttpContextAccessTokenProvider()` (adds `IHttpContextAccessor`).
+- **Custom:** register your own `IAccessTokenService` (a PAT from config, a service token, a machine identity) before the integration calls. Off-request callers (background jobs) need a non-HttpContext provider.
 
 ## Clients
 
