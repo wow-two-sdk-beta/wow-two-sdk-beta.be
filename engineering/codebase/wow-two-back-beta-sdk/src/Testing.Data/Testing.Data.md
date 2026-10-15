@@ -7,6 +7,7 @@ Holds the helpers that need the core mono-lib (migrator engine, connection facto
 ## Layout
 
 - `Migrations/` — `MigratorHarness` (the DI-graph-under-test + history/table/index assertions, Postgres + SQLite, filesystem + embedded sources), `MigratorPostgresFixture` (drop-schema reset for migrator suites — the opposite of base `PostgresFixture`'s Respawn reset), `MigratorTestBase` (drop-per-test filesystem convenience), `MigrationsWorkspace`, `MigrationHistoryRow`, and `DisableBespokeMigrator()` (no-op migrator for non-Docker tiers).
+- `Repositories/` — `InMemoryRepository<TEntity, TId>`: the `IRepository` contract over a `Rows` list, matched by id, for unit tiers with no database.
 - `EntityFrameworkCore/` — `RemoveAllForDbContext<T>` + `RepointDbContext<T>` to swap an app's EF provider onto a test provider.
 
 ## Which Postgres fixture

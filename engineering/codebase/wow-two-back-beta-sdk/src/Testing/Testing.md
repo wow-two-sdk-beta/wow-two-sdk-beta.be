@@ -62,6 +62,27 @@ public class PaymentTests : WebApiTestBase<Program>
 }
 ```
 
+### Scripted outbound HTTP (`Http/`)
+
+```csharp
+var github = new ScriptedHttpMessageHandler();
+github.Json["repos/o/r/commits/main"] = "...";                       // path + query, no leading slash
+github.Raw["repos/o/r/contents/icon.svg?ref=abc"] = svgBytes;
+github.Failures["repos/o/r/git/trees/abc?recursive=1"] = HttpStatusCode.Forbidden;
+
+services.AddGitHubIntegration().ConfigurePrimaryHttpMessageHandler(() => github);   // typed client
+var factory = new SingleClientHttpClientFactory(github, new Uri("https://api.github.com/")); // IHttpClientFactory callers
+
+github.Requests.Should().ContainSingle(r => r.Authorization == "Bearer token");
+```
+
+- unscripted paths answer `404`; `Requests` records method, path, headers, `Authorization` and body.
+- `SingleClientHttpClientFactory` hands every name a client over the one handler and never disposes it.
+
+### Problem responses (`Web/HttpExtensions`)
+
+- `response.ReadProblemAsync()` parses an RFC 7807 body (SDK `code` / `errors` land in `Extensions`); it throws with the raw body when the response is not a problem.
+
 ## Spec
 
 - [Standard](Testing.standard.md)

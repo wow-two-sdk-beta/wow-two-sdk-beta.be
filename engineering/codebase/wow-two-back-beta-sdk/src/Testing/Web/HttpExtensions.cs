@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
 
@@ -84,6 +85,33 @@ public static class HttpExtensions
             ? data
             : throw new InvalidOperationException(
                 $"Response {(int)response.StatusCode} {response.StatusCode} had no `data` payload of type {typeof(T).Name}.");
+    }
+
+    /// <summary>
+    /// Reads an RFC 7807 problem body off an error response, using <see cref="TestJsonConstants.Options"/>. SDK fields such as
+    /// <c>code</c> and <c>errors</c> land in <see cref="ProblemDetails.Extensions"/> as <see cref="JsonElement"/> values.
+    /// </summary>
+    /// <param name="response">The error response to read.</param>
+    /// <returns>The parsed problem, never <see langword="null"/>.</returns>
+    /// <exception cref="InvalidOperationException">The body is empty or is not a problem document.</exception>
+    public static async Task<ProblemDetails> ReadProblemAsync(this HttpResponseMessage response)
+    {
+        ArgumentNullException.ThrowIfNull(response);
+
+        var raw = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        ProblemDetails? problem;
+        try
+        {
+            problem = string.IsNullOrWhiteSpace(raw) ? null : JsonSerializer.Deserialize<ProblemDetails>(raw, TestJsonConstants.Options);
+        }
+        catch (JsonException ex)
+        {
+            throw new InvalidOperationException(
+                $"Expected a ProblemDetails body for {(int)response.StatusCode} {response.StatusCode}, but it did not deserialize. Body: {Truncate(raw)}", ex);
+        }
+
+        return problem ?? throw new InvalidOperationException(
+            $"Expected a ProblemDetails body for {(int)response.StatusCode} {response.StatusCode}, but it was empty.");
     }
 
     private static string Truncate(string value, int max = 2000)

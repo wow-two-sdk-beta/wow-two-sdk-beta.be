@@ -12,8 +12,9 @@ Swap a fake in for the real client and every GitHub / GHCR probe is short-circui
 |---|---|---|
 | `FakeGitHubClient` | `IGitHubClient` | the real GitHub REST client (and its per-request OAuth token) |
 | `FakeContainerRegistryClient` | `IContainerRegistryClient` | the real GHCR manifest probe |
+| `FixedAccessTokenService` | `IAccessTokenService` | the signed-in user's OAuth token; `null` drives the no-token branch, `Calls` counts reads |
 
-Both default to a sensible baseline and expose a settable + fluent (`With…`) surface for canned responses.
+Pair `FixedAccessTokenService` with the base package's `ScriptedHttpMessageHandler` to drive a real integration client over scripted GitHub answers. The fakes default to a sensible baseline and expose a settable + fluent (`With…`) surface for canned responses.
 
 ### `FakeGitHubClient`
 
