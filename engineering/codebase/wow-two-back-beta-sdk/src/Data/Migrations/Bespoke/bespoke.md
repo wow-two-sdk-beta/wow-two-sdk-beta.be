@@ -2,18 +2,75 @@
 
 > Bespoke, host-agnostic SQL migrator — raw `.sql` pairs, normalized-checksum tracking, PostgreSQL and SQLite dialects. Roll-forward in prod, rollback in dev/test only.
 
-*Last updated: 2026-09-16*
+*Last updated: 2026-10-15*
 
 ## Current guarantees
 
 - `PostgresMigrationDialect` holds `pg_advisory_lock` across history verification, every pending migration and history recording. Two competing runners serialize and both succeed; one applies each ordinal.
 - `SqliteMigrationDialect` reports `SingleApplicantRequired`. `PRAGMA busy_timeout` waits for transient write contention; it does not make the history table a mutex.
-- Transactional files execute and record in one transaction. `-- @no-transaction` files execute parsed statements sequentially outside a transaction, then record separately.
+- Consecutive transactional files and their history rows execute in **one transaction** (`MigrationTransactionScope.Batch`, the default). A failure rolls back the whole batch, so a failed run leaves no part of it applied or recorded. `TransactionScope = PerMigration` restores one transaction per file.
+- A `-- @no-transaction` file splits the run: the batch before it commits, its parsed statements execute sequentially outside a transaction and record separately, then a new batch starts.
+- A failed run logs the failed file, the files it rolled back, the files committed earlier in the run and the files not attempted (event `3005`; `3006` for a no-transaction file). The provider's exception is rethrown unchanged.
+- `DryRunPendingAsync` / `wow-migrate apply --dry-run` rehearse every pending transactional file under the same lock in one transaction that always rolls back. See [Batch atomicity and dry run](#batch-atomicity-and-dry-run).
 - Interrupted concurrent-index migrations recover when their SQL is idempotent, for example `DROP INDEX CONCURRENTLY IF EXISTS` followed by `CREATE INDEX CONCURRENTLY`.
-- PostgreSQL enum values must be added in one migration and used in a later migration, after the add commits. Rollback may remove the history row but cannot remove an enum label safely.
+- PostgreSQL enum values must commit before a later migration uses them. Under batch scope, mark the add `-- @no-transaction` with `ADD VALUE IF NOT EXISTS`; a transactional add and its use in the same batch fail with `55P04`. Rollback may remove the history row but cannot remove an enum label safely.
 - SQLite constraint changes use table rebuilds that recreate indexes, triggers and foreign keys explicitly.
 - Native PostgreSQL enums require matching driver registration on `NpgsqlDataSourceBuilder` and EF registration on `NpgsqlDbContextOptionsBuilder`; the shared case translator keeps multi-word labels aligned.
-- `wow-migrate` exits `0` on success, `1` on input/domain failure and `2` on execution or destructive-target guard failure.
+- `wow-migrate` exits `0` on success, `1` on input/domain failure and `2` on execution or destructive-target guard failure. `apply --dry-run` exits `2` when a rehearsed file fails.
+
+## Batch atomicity and dry run
+
+*Added 2026-10-15.* A failed migration must not change data integrity, and code must not ship when its migrations fail.
+
+### Apply
+
+| Pending run | Commit units under `Batch` (default) |
+|---|---|
+| `001` `002` `003` | one transaction: `001`–`003` + their history rows |
+| `001` `002` `003*` `004` `005` (`*` = `-- @no-transaction`) | `[001 002]` commit → `003` bare → `[004 005]` commit |
+
+- A failure inside a unit rolls the unit back; earlier units stay committed. A failed `003` in the first row leaves nothing applied, so the old image still runs against the schema it knows.
+- `MigrationOptions.TransactionScope = MigrationTransactionScope.PerMigration` keeps one transaction per file, for consumers whose migrations rely on intermediate commits. Products set it through `ConfigureMigrations`.
+- `ApplyPendingAsync` still throws the provider's exception (`PostgresException`, `SqliteException`). The runner logs the outcome first; the CLI prints that log line to stderr:
+
+```text
+✗ Migration 002-broken failed; rolled back 001-items, 002-broken, so none of them is recorded. Committed earlier in this run: none. Not attempted: 003-tags.
+✗ 42P01: relation "missing" does not exist
+```
+
+### Dry run
+
+`IMigrationRunnerService.DryRunPendingAsync` takes the advisory lock, creates and reads the history table **inside** one transaction, runs every pending transactional file and its history row, then always rolls back. It returns `MigrationDryRunReport`:
+
+| Member | Meaning |
+|---|---|
+| `WouldApply` | every pending file, in order |
+| `Succeeded` | transactional files that ran without error |
+| `NotRehearsed` | pending `-- @no-transaction` files — they cannot run inside the transaction |
+| `Failure` | first failed file: `Migration`, `Error`, `SqlState`, `FollowsNotRehearsed`; null when it passed |
+| `Passed` | `Failure is null` |
+
+Drift, disallowed orphans and a malformed source return the same `Result` failures as apply. The rehearsal stops at the first failure.
+
+Deploy gate — run the new image's migrations against the live database before swapping containers:
+
+```bash
+wow-migrate apply --dry-run --connection "$DB" --sql-dir ./Migrations   # 0 pass · 1 drift/orphan/input · 2 a file failed
+```
+
+- **Run it as a pre-deploy step, not on a timer.** The rehearsal takes the same DDL locks as a real apply (`ACCESS EXCLUSIVE` for `ALTER TABLE` on PostgreSQL, the database write lock on SQLite) and holds them until it rolls back, so app traffic on those tables waits briefly.
+- Non-transactional effects survive the rollback: sequence advances, and anything a script sends outside the database.
+- A file that depends on a skipped `-- @no-transaction` file (for example, it uses an enum label that file adds) fails the rehearsal although the real apply would pass. `FollowsNotRehearsed` flags it and the CLI prints a note; the exit code stays `2`.
+- Under `PerMigration` scope the rehearsal still uses one transaction, so files that rely on an earlier file's commit fail the rehearsal.
+- The dry run never creates the database; against a missing database it exits `2`.
+- The rehearsal sees the data present when it runs. Writes between the dry run and the deploy can still fail the real apply; batch atomicity covers that case.
+
+### Dialect limits
+
+| Dialect | Transactional DDL | Limits under batch scope |
+|---|---|---|
+| PostgreSQL | yes | `CREATE INDEX CONCURRENTLY`, `VACUUM`, `CREATE DATABASE` need `-- @no-transaction`. A new enum label is unusable until it commits (`55P04`). Locks taken early in the batch are held until it commits, so a long data file extends every earlier lock. A file that writes rows under deferred constraints, followed by `ALTER TABLE` on that table in the same batch, fails with `55006`. `SET LOCAL` lasts until the batch ends. |
+| SQLite | yes | The batch runs inside `BEGIN IMMEDIATE` and holds the write lock until it commits. `VACUUM` and `PRAGMA journal_mode` changes need `-- @no-transaction`. `PRAGMA foreign_keys` is a no-op inside any transaction; table rebuilds use `PRAGMA defer_foreign_keys = ON`, which resets at commit. One applicant per deployment remains required. |
 
 > **Living design doc.** Status lifecycle: **DESIGN → PROVEN (smart-qr) → SHIPPING → STABLE**. Current: **STABLE** (2026-06-18) — adopted + verified green by all three apps (smart-qr · secrets-vault · wheelhouse) on Postgres. The engine **lives in this folder** (`src/Data/Migrations/Bespoke/`, 22 `.cs` files), extracted from `smart-qr` on 2026-06-13 and building green in the mono-lib. It was first **PROVEN (smart-qr · 2026-06-11)** — built greenfield + verified end-to-end against real Postgres in the `smart-qr` product (see §0.0). `smart-qr` stays untouched and becomes a consumer of this package post-publish.
 > The engine was **built greenfield in `smart-qr`** and proven against the real product (see §0.0), then **extracted here** (see §6 — a *build-then-extract*, not a file move). The one real code change at extraction was the connection seam (below). This doc is **updated each iteration** as the engine, CLI, and conventions firm up.
@@ -65,7 +122,7 @@ First iteration shipped in `smart-qr-poc` — engine in `SmartQr.Common.Persiste
 | Sources | `IMigrationSource`: `FileSystemSource` (dev), `EmbeddedResourceSource` (prod), `CompositeSource`. |
 | Tracking | `migration_history` — `ordinal INT` PK + UNIQUE, `checksum CHAR(64)` (normalized SHA-256), `applied_by` ∈ {startup, endpoint, cli}. |
 | Concurrency | `pg_advisory_lock` serializes the apply loop (primary); `ordinal UNIQUE` is defense-in-depth. **One canonical lock id, shared by all hosts.** |
-| Tx model | Per-file transaction (Postgres transactional DDL) + `-- @no-transaction` escape hatch (weaker idempotency — see §2.5). |
+| Tx model | One transaction per batch of consecutive transactional files (default; `PerMigration` opt-out) + `-- @no-transaction` escape hatch that splits the batch (weaker idempotency — see §2.5). |
 | Checksum | SHA-256 over **normalized** `Apply.sql` (LF-only, trimmed) → no false drift. Rollback + directives **excluded** (documented blind spot, §2.6). |
 | Rollback | **Dev/test only.** Engine **hard-enforces** via `options.AllowRollback` (not host memory). Prod = roll forward. |
 | Squash | `rebaseline` = `pg_dump --schema-only` → `001-baseline/Apply.sql` + mark-as-applied (record checksum, don't run) for live DBs. `pg_dump` is an **external runtime dep**; `information_schema` fallback is first-class (§4.1). |
@@ -97,7 +154,7 @@ This folder already ships DbUp and EF runners. The bespoke engine exists because
 | Schema owned by **raw SQL**, EF a pure mapper | ✗ (C# owns schema) | ✓ | ✓ | ✓ |
 | **Host-agnostic** core reusable by CLI + HTTP + hosted-service | ✗ (DbContext-coupled) | partial (hosted-service shaped) | ✗ (CLI-shaped) | ✓ |
 | **Normalized** checksum (no CRLF/whitespace false drift) | n/a | hash on raw bytes | hash on raw bytes | ✓ |
-| Per-file **transactional DDL** + per-file `@no-transaction` opt-out | coarse | limited | limited | ✓ |
+| **Batch-atomic transactional DDL** + per-file `@no-transaction` split | coarse | limited | limited | ✓ |
 | **Advisory-lock** multi-instance apply | ✗ | ✗ | partial | ✓ |
 | **Rebaseline/squash** via `pg_dump` + mark-as-applied | ✗ | ✗ | ✗ | ✓ |
 | `Dev/` flat-file promotion to dodge ordinal branch-collision | ✗ | ✗ | ✗ | ✓ |
@@ -250,18 +307,19 @@ try:
             if options.FailOnChecksumDrift: throw MigrationDriftException(driftedOrdinals)
             else: log.Warn(...)                            -- never re-runs an applied file
 
-    -- (2) APPLY pending:
+    -- (2) APPLY pending, unit by unit (2026-10-15: batch scope is the default):
     pending = source.Scan() where d.Ordinal not in applied.ordinals
-    foreach d in pending (ascending ordinal):
-        sw = Stopwatch.start
-        if d.NoTransaction:
-            await Execute(conn, null, d.ApplySql)          -- e.g. CREATE INDEX CONCURRENTLY
+    units = split pending at every NoTransaction file  -- [tx batch] [bare] [tx batch] …; PerMigration: one file per unit
+    foreach unit in units:
+        if unit is one NoTransaction file d:
+            foreach stmt in parse(d.ApplySql): await Execute(conn, null, stmt)   -- e.g. CREATE INDEX CONCURRENTLY
             await tracker.RecordAsync(conn, null, row(d))  -- standalone stmt, no surrounding tx
         else:
             tx = await conn.BeginTransactionAsync()
-            await Execute(conn, tx, d.ApplySql)
-            await tracker.RecordAsync(conn, tx, row(d))    -- insert; PK protects vs lock bypass
-            await tx.CommitAsync()
+            foreach d in unit:
+                await Execute(conn, tx, d.ApplySql)
+                await tracker.RecordAsync(conn, tx, row(d))    -- insert; PK protects vs lock bypass
+            await tx.CommitAsync()                          -- on failure: rollback the unit, log, rethrow
 finally:
     await SELECT pg_advisory_unlock(:CanonicalAdvisoryLockId)
     await conn.DisposeAsync()
@@ -269,11 +327,11 @@ finally:
 
 | Rule | Detail |
 |---|---|
-| **Advisory lock (primary)** | `pg_advisory_lock(CanonicalAdvisoryLockId)` around the **whole** loop → all hosts of one DB serialize. **Session-scoped:** released in `finally` AND auto-released by Postgres if the connection/process dies (the backend's session ends), so a killed process does **not** leak the lock — the OS-level TCP close ends the session. (`pg_advisory_xact_lock` was considered; it auto-releases at tx end, but the loop spans multiple per-file txs, so a session lock is the right scope.) |
+| **Advisory lock (primary)** | `pg_advisory_lock(CanonicalAdvisoryLockId)` around the **whole** loop → all hosts of one DB serialize. **Session-scoped:** released in `finally` AND auto-released by Postgres if the connection/process dies (the backend's session ends), so a killed process does **not** leak the lock — the OS-level TCP close ends the session. (`pg_advisory_xact_lock` was considered; it auto-releases at tx end, but the loop spans several batch and bare-file units, so a session lock is the right scope.) |
 | **Ordinal PK (secondary)** | Only reachable if the lock is bypassed/misconfigured; the duplicate insert fails, the file's tx rolls back, state is re-read. Not the primary mechanism. |
-| **Transactional DDL** | Postgres wraps DDL in the per-file tx; a failed file leaves zero partial schema. |
+| **Transactional DDL** | The batch transaction wraps every transactional file's DDL and history row; a failed file leaves zero partial schema from its batch (`PerMigration` scope narrows this to the file). |
 | **`-- @no-transaction`** | Leading-header directive in `Apply.sql`. Runner parses and executes each statement sequentially outside a transaction, then records in a standalone statement. For `CREATE INDEX CONCURRENTLY`, `VACUUM`, etc. that forbid a transaction block. |
-| **Crash — transactional file** | Before commit → not recorded → retried next run (idempotent, clean). After commit → recorded → skipped. |
+| **Crash — transactional file** | Before its batch commits → nothing in the batch is recorded → the batch is retried next run. After commit → recorded → skipped. |
 | **Crash — `@no-transaction` file** | **Weaker guarantee.** A crash between DDL and the standalone `RecordAsync` leaves the schema partially applied **and unrecorded**, so the next run **re-executes** it. Authors of `@no-transaction` files **MUST write idempotent DDL** — `CREATE INDEX CONCURRENTLY IF NOT EXISTS`, guarded `DO $$ … $$` blocks — because crash recovery may re-run an unrecorded, partially-applied file. The `new --no-transaction` template embeds this reminder. |
 | **Drift on already-applied** | Checked in step (1) of the loop (not just by `status`). disk checksum ≠ recorded → `FailOnChecksumDrift ? throw MigrationDriftException : warn`. Never silently re-runs. Remediation: `repair` (§4.4). |
 
@@ -483,7 +541,7 @@ Highest precedence wins. Fail fast with the full searched-list on miss. **The re
 |---|---|---|---|---|
 | `init` | `--sql-dir`, `--connection` | scaffolded tree + `migrations.json` template + next-steps | no | — (filesystem scaffold) |
 | `new <name>` | `--description`, `--no-transaction` | created **flat** `Dev/<utc-ts>_<name>.sql` (branch-safe; see §4.6) | no | — (writes dev template) |
-| `apply` | `--dry-run`, `--up-to <NNN>` | per-file `[✓ applied / ⊘ skipped / ⚠ drift / ✗ failed] NNN-name (ms)` + summary | no | `ApplyPendingAsync` |
+| `apply` | `--dry-run` (shipped 2026-10-15), `--up-to <NNN>` (not built) | applied labels; with `--dry-run`, per-file `✓ succeeded / ~ not rehearsed / ✗ failed / · not reached` | no | `ApplyPendingAsync` · `DryRunPendingAsync` |
 | `status` | — | table: ordinal · name · applied/pending/drift/**orphaned** · checksum · applied_at · applied_by + `Dev/` in-flight list | no | `GetStatusAsync` |
 | `rollback` | `--count <N>`, `--force` | per-file rolled-back rows; **target-gated** (§ guard) | **yes** | `RollbackAsync(count)` |
 | `rebaseline` | `--backup-file`, `--output-sql`, `--force` | dumped `001-baseline/Apply.sql` path + history marks | **yes** | `BaselineAsync` |
@@ -499,7 +557,7 @@ Highest precedence wins. Fail fast with the full searched-list on miss. **The re
 |---|---|---|
 | `0` | success | normal apply / status |
 | `1` | **validation error** | bad config, missing file, **checksum drift with fail-on** (`MigrationDriftException`) |
-| `2` | **execution error** | DB error, destructive-op guard tripped, verify failure |
+| `2` | **execution error** | DB error, destructive-op guard tripped, verify failure, a file failed under `apply --dry-run` |
 
 The §3.2 CLI `apply` adapter maps `MigrationDriftException` → exit **1** (not blanket 2 via `AnyFailed`), matching this legend.
 

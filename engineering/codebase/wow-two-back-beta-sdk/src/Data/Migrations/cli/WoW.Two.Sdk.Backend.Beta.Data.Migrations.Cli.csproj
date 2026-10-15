@@ -27,7 +27,7 @@
     <ToolCommandName>wow-migrate</ToolCommandName>
     <PackageId>WoW2.Sdk.Backend.Beta.Data.Migrations.Cli</PackageId>
     <CreateRidSpecificToolPackages>false</CreateRidSpecificToolPackages>
-    <Description>Web-free SQL migrator CLI (`wow-migrate`) over the WoW Two backend SDK bespoke migrator — status, apply, new, promote, rollback, verify (+--repair) against a Postgres database.</Description>
+    <Description>Web-free SQL migrator CLI (`wow-migrate`) over the WoW Two backend SDK bespoke migrator — status, apply (+--dry-run), new, promote, rollback, verify (+--repair) against a Postgres database.</Description>
     <PackageTags>wow-two; backend; beta; sdk; data; migrations; cli; dotnet-tool; postgres</PackageTags>
     <!-- README packaging from Directory.Build.props is conditional on a sibling README; none here, so disable the pack hint. -->
     <PackageReadmeFile></PackageReadmeFile>

@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Backend.Beta.Data.Migrations
 
-*Last updated: 2026-09-16*
+*Last updated: 2026-10-15*
 
 > Strategy index for the three database-migration runners shipped side-by-side in this package — `Ef/`, `DbUp/`, `Bespoke/`. This doc **routes**; engine internals live in each sub-folder's own lead doc. `Bespoke/` is the intended default for wow-two products.
 
@@ -28,7 +28,7 @@ All three register a startup runner via a descriptive `Add*` extension (no `WowT
 | **Multi-provider** | Any EF provider (PG/SQL Server/SQLite/…) | PG · SQL Server · MySQL via `DbUpProviderFactory` (SQLite needs custom factory) | Postgres + SQLite; Postgres owns a whole-loop advisory lock, SQLite requires one deployment applicant |
 | **Drift / checksum** | EF model-snapshot diff | Script journal (raw-byte hash) | Normalized SHA-256 over `Apply.sql` — no CRLF/whitespace false drift |
 | **Concurrency (multi-instance)** | EF internal | None | Postgres: `pg_advisory_lock`; SQLite: deployment-owned single applicant (`busy_timeout` is not a mutex) |
-| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`rollback`/`new`/`promote`/`verify --repair`) |
+| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`rollback`/`new`/`promote`/`verify --repair`) |
 | **When to pick** | Code-first shop already invested in EF migrations | Existing DbUp script library being carried forward | **Default for new wow-two products** — SQL-owned schema, host-agnostic, rebaseline/squash |
 
 ---
@@ -53,6 +53,8 @@ Carrying a legacy embedded-.sql DbUp script library forward?
 ### Provider note
 
 `Bespoke/` exposes its coordination boundary through `MigrationCoordinationMode`. PostgreSQL serializes the complete migration loop in the database. SQLite supplies transient write waiting only, so the deployment must run one migration applicant.
+
+`Bespoke/` applies consecutive transactional files in one transaction by default, so a failed run leaves none of that batch applied; `wow-migrate apply --dry-run` rehearses pending files and rolls back, as a pre-deploy gate. Details: `Bespoke/bespoke.md` § *Batch atomicity and dry run*.
 
 ---
 
