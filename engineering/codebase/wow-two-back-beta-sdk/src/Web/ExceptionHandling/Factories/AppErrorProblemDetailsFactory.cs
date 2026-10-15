@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
 using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
 using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
@@ -19,6 +20,18 @@ public sealed class AppErrorProblemDetailsFactory(
 
     private const string RetryAfterMetadataKey = "retryAfter";
     private const string WwwAuthenticateMetadataKey = "wwwAuthenticate";
+
+    /// <summary>Returns the request's registered factory, or one over the registered (else default) mappers when none is registered.</summary>
+    /// <param name="httpContext">The current request whose services are consulted.</param>
+    internal static IAppErrorProblemDetailsFactory Resolve(HttpContext httpContext)
+    {
+        var services = httpContext.RequestServices;
+        return services?.GetService<IAppErrorProblemDetailsFactory>()
+            ?? new AppErrorProblemDetailsFactory(
+                services?.GetService<IErrorHttpStatusCodeMapper>() ?? new ErrorHttpStatusCodeMapper(),
+                services?.GetService<IErrorMessageMapper>() ?? new ErrorMessageMapper(),
+                services?.GetService<IFieldErrorMessageMapper>() ?? new FieldErrorMessageMapper());
+    }
 
     /// <inheritdoc />
     public Microsoft.AspNetCore.Mvc.ProblemDetails Create(AppError error, HttpContext httpContext)
