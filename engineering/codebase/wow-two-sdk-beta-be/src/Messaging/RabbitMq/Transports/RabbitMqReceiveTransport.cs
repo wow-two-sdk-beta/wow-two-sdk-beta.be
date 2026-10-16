@@ -8,13 +8,13 @@ using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.RabbitMq.Transports;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.RabbitMq.Transports;
 
 /// <summary>
 /// Transports envelopes from RabbitMQ by declaring the topology <see cref="ITopologyService"/> describes (exchange

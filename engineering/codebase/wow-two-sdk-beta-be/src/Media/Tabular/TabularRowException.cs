@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Tabular;
+namespace WoW.Two.Sdk.Beta.Be.Media.Tabular;
 
 /// <summary>Represents a document row whose cell does not convert to its property, with the row and column to fix.</summary>
 public sealed class TabularRowException : Exception

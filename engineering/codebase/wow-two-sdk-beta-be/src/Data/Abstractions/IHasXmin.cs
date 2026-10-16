@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines an entity with Postgres <c>xmin</c> optimistic-concurrency tracking.</summary>
 /// <remarks>For SqlServer, prefer <see cref="IRowVersioned"/> instead.</remarks>

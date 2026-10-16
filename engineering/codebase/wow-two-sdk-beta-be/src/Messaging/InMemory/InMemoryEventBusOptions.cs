@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>Holds options for the in-memory event bus (the zero-broker default transport).</summary>
 public sealed record InMemoryEventBusOptions

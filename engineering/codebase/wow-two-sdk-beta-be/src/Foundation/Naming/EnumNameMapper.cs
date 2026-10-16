@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
 /// <summary>Maps enum values to and from case-styled string labels.</summary>
 /// <typeparam name="TEnum">The enum type.</typeparam>

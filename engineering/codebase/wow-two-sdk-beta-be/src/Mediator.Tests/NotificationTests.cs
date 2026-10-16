@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests;
 
 /// <summary>
 /// <see cref="IPublisher.PublishAsync{T}"/> fan-out semantics: 0 / 1 / N handlers, sequential execution in

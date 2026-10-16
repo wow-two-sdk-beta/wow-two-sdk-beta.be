@@ -2,11 +2,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Services;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests;
 
 public sealed class GuestCapabilityTests
 {

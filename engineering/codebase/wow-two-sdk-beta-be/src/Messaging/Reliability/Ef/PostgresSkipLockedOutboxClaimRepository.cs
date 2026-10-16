@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>
 /// Accesses pending outbox rows through PostgreSQL's multi-instance claim strategy. Claims the oldest pending rows with

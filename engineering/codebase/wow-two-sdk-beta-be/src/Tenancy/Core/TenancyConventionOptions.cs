@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>
 /// Holds request tenant-resolution configuration. Providers are tried in the order

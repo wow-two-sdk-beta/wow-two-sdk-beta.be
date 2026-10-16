@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>
 /// Provides redelivery of a recorded webhook with its stored body and original delivery id, so a receiver that already

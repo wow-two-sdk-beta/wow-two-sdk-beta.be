@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Twilio;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Twilio;
 
 /// <summary>Holds Twilio credentials and the sender.</summary>
 public sealed record TwilioSmsOptions

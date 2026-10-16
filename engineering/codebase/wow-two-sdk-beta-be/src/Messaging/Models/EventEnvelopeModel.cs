@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
 /// <summary>Represents an event body with its delivery metadata, correlation and reliability hints.</summary>
 public sealed record EventEnvelopeModel

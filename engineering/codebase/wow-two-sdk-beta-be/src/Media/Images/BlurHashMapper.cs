@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps RGB pixels to a BlurHash string (the Wolt algorithm) that clients decode into a blurred placeholder.</summary>
 internal static class BlurHashMapper

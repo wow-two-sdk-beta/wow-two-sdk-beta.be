@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Idempotency;
 
 /// <summary>HTTP <c>Idempotency-Key</c> handling through an <c>AddApiDefaults</c> host, switched on by configuration.</summary>
 public sealed class HttpIdempotencyTests

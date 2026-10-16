@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models;
 
 /// <summary>Refers to concrete symbology the engine renders. QR is the default; the rest cover the "all code types" surface.</summary>
 /// <remarks>

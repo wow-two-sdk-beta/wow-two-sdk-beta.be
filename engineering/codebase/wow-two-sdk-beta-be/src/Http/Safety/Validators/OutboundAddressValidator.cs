@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Safety.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Http.Safety.Validators;
 
 /// <summary>Validates outbound IP addresses against local, reserved and transition ranges.</summary>
 public sealed class OutboundAddressValidator

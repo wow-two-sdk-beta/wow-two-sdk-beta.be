@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Defines the product's repository of API keys, which the scheme reads by hash — secrets are never stored.</summary>
 /// <remarks>Register it scoped, beside <c>AddApiKeyAuthentication</c>; the scheme resolves it per request.</remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Defines behavior that computes the delay before the next retry attempt, or <c>null</c> when attempts are exhausted.</summary>
 public interface IRetryPolicy

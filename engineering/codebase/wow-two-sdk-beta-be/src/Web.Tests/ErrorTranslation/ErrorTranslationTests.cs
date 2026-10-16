@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ErrorTranslation;
 
 /// <summary>Error translation is switched purely by configuration and renders through the default mappers.</summary>
 public sealed class ErrorTranslationTests

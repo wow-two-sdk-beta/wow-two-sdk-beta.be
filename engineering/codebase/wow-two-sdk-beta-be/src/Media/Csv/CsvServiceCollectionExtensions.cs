@@ -1,12 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Csv.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Media.Csv.Parsers;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Csv.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Csv.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Csv;
+namespace WoW.Two.Sdk.Beta.Be.Media.Csv;
 
 /// <summary>Registration helpers for CSV read/write.</summary>
 public static class CsvServiceCollectionExtensions

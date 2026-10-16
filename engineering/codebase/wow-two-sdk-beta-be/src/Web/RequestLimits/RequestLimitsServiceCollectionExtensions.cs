@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestLimits;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestLimits;
 
 /// <summary>Server request-limit defaults that bound body size, header size, request-line size, and header-arrival time.</summary>
 public static class RequestLimitsServiceCollectionExtensions

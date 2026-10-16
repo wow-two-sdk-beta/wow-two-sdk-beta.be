@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Repositories;
 
 /// <summary>Accesses entities through EF Core with eager writes and filtered reads.</summary>
 /// <remarks>The constructor takes the base <see cref="DbContext"/> so the type stays arity-2 and registers as an open generic; in multi-context apps, subclass per context (or register the target context as <see cref="DbContext"/>) — see <c>AddEfRepositories</c>.</remarks>

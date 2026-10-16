@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
 /// <summary>Registers a <see cref="RelationalTestDb{TContext}"/>-backed context through the SDK's own DI registration, so a test exercises the registration pipeline instead of bypassing it.</summary>
 /// <remarks><see cref="RelationalTestDb{TContext}.NewContext"/> builds <see cref="DbContextOptions"/> directly — it never runs the interceptor auto-wire loop nor the pooling branch inside <c>AddEntityFrameworkCore</c>, so defects living there are invisible to it. Anything asserting <em>which interceptors are on the resolved options</em>, or pooled-context behaviour, must resolve the context from DI via this seam.</remarks>

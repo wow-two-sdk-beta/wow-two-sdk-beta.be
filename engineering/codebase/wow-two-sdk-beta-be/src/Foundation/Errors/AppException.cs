@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Represents the thrown form of an <see cref="AppError"/> — the single exception the global handler maps; subclass only to carry members a catch site reads.</summary>
 public class AppException : Exception

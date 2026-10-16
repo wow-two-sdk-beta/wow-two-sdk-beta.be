@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Cqrs;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.Cqrs;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests;
 
 /// <summary>
 /// <c>AddMediator</c> registration contract — assembly scan picks up request / notification / CQRS handlers,

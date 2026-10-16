@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Maps provider claims to the SDK's canonical claims.</summary>
 public sealed class ClaimMapper : IClaimsTransformation

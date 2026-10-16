@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using AwesomeAssertions;
 using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// Verifies <see cref="PostgresSkipLockedOutboxClaimRepository"/> is multi-instance-safe: two dispatcher/claim loops draining

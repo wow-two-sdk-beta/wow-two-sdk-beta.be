@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
 /// <summary>Registration helpers for EF Core DbContexts using the SDK conventions.</summary>
 public static class EntityFrameworkCoreServiceCollectionExtensions

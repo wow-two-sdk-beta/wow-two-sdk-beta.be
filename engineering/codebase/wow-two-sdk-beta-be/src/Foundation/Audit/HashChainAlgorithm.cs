@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Refers to the cryptographic hash function used to seal and validate a chain.</summary>
 /// <remarks>SHA-256 is the default and matches the vault's chain semantics. The value is part of the on-disk proof's interpretation — changing it for an existing chain invalidates every prior hash, so pick once per chain.</remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Geo.IpLocation;
 
 /// <summary>Builds GeoIP2-shaped records, as DB-IP Lite and GeoLite2 store them.</summary>
 internal static class IpLocationTestData

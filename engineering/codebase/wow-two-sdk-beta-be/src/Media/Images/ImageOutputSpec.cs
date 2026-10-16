@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents how the result is encoded.</summary>
 public sealed record ImageOutputSpec

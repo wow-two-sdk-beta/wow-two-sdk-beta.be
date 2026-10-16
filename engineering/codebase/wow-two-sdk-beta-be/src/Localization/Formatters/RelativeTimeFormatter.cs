@@ -1,7 +1,7 @@
 using System.Globalization;
 using Humanizer;
 
-namespace WoW.Two.Sdk.Backend.Beta.Localization.Formatters;
+namespace WoW.Two.Sdk.Beta.Be.Localization.Formatters;
 
 /// <summary>
 /// Formats an instant as localized relative-time display text via Humanizer,

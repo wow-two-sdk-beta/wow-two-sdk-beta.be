@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>Refers to the kind of identity a <see cref="TestCurrentUser"/> represents.</summary>
 public enum TestUserKind

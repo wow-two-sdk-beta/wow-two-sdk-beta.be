@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Emails;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Emails;
 
 /// <summary>
 /// Provides the email slice: confirmation of the current address and a token-verified move to a new one. Confirmation

@@ -2,11 +2,11 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>DI registration for message topology — endpoint naming, the consumed-type set, and the topology provider.</summary>
 public static class MessageTopologyServiceCollectionExtensions

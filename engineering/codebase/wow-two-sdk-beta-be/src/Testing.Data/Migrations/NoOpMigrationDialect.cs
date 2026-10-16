@@ -1,10 +1,10 @@
 using System.Data.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>No-op <see cref="IMigrationDialect"/> keeping a startup migrate hook off the real database.</summary>
 internal sealed class NoOpMigrationDialect : IMigrationDialect

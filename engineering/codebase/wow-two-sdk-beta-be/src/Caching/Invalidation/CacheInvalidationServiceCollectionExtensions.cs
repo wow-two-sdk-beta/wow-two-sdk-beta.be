@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Caching.Invalidation.BackgroundServices;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Caching.Invalidation.BackgroundServices;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Provides registration for cross-host cache invalidation over PostgreSQL notifications.</summary>
 public static class CacheInvalidationServiceCollectionExtensions

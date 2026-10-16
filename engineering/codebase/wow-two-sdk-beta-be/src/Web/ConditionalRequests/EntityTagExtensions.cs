@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
+namespace WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
 
 /// <summary>Entity tags from row versions: tag a response and check <c>If-Match</c> before a write.</summary>
 public static class EntityTagExtensions

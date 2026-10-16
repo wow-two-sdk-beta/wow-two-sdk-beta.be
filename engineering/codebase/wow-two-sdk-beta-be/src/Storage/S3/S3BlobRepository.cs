@@ -2,9 +2,9 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using Amazon.S3;
 using Amazon.S3.Model;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.S3;
+namespace WoW.Two.Sdk.Beta.Be.Storage.S3;
 
 /// <summary>
 /// Accesses blobs in one S3-compatible bucket. Paths map to object keys under the optional key prefix; a

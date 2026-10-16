@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps a 9×8 grayscale thumbnail to a 64-bit difference hash: bit set where a pixel is brighter than its right neighbour.</summary>
 internal static class PerceptualHashMapper

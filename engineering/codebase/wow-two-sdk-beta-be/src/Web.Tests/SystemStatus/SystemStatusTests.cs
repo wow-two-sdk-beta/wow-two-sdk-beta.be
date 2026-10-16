@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Web.SystemStatus;
+using WoW.Two.Sdk.Beta.Be.Web.SystemStatus;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.SystemStatus;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.SystemStatus;
 
 /// <summary>The status endpoint reports the build from assembly metadata, overridable by configuration.</summary>
 public sealed class SystemStatusTests

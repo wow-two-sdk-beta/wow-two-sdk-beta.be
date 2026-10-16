@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>
 /// EF-backed <see cref="IInboxProcessor"/> — runs the handler in the same transaction as the <c>inbox_messages</c>

@@ -1,12 +1,12 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Identity;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
 /// <summary>
 /// Provides sign-in orchestration: lockout → password → preconditions → second factor → principal. The result carries a

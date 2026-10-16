@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Configuration;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 
 /// <summary>Maps a configuration section and environment overrides to a typed value.</summary>
 /// <remarks>Section name defaults to the type name; env overlay wins over appsettings; an empty env var is treated as null and does not override.</remarks>

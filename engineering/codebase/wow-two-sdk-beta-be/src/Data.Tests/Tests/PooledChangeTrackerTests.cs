@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>
 /// Arch-doc probe PR2, promoted — does a <c>ChangeTracker.Tracked</c> subscription survive a <c>DbContextPool</c>

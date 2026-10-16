@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Guest.Services;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Guest.Services;
 
 /// <summary>Defines creation, reuse and clearing of the guest-id cookie within a request.</summary>
 public interface IGuestSessionService

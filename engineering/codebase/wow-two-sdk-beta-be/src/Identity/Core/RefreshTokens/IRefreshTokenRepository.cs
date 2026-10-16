@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>Defines refresh-token persistence with atomic consumption and family revocation.</summary>
 /// <typeparam name="TKey">User key type.</typeparam>

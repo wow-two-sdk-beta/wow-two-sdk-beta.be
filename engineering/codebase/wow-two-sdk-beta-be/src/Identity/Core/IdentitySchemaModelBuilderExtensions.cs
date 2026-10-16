@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Maps the identity entities into an EF Core model — keys, unique lookup indexes, and lengths.</summary>
 public static class IdentitySchemaModelBuilderExtensions

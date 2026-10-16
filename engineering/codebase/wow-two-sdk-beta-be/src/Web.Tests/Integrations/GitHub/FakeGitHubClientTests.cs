@@ -1,10 +1,10 @@
 using System.Text;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
-using WoW.Two.Sdk.Backend.Beta.Testing.Integrations;
+using WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
+using WoW.Two.Sdk.Beta.Be.Testing.Integrations;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Integrations.GitHub;
 
 /// <summary>Verifies the GitHub fake's repository reads: head, tree from the listed files, and bounded file reads.</summary>
 public sealed class FakeGitHubClientTests

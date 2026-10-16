@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// The saga harness itself: two of <see cref="SagaStateMachineTests"/>'s cases ported onto it, plus the paths that were

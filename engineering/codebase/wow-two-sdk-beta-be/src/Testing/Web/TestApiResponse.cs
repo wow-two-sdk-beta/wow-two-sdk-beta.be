@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Web;
 
 /// <summary>
 /// Represents the test-side mirror of the SDK success envelope (<c>ApiResponse&lt;T&gt;.Success</c>) carrying the payload under <c>data</c>.

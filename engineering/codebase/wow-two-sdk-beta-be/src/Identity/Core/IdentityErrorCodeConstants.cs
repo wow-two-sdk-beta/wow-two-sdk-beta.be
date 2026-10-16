@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Holds the stable <see cref="IdentityError.Code"/> values the identity slices return.</summary>
 public static class IdentityErrorCodeConstants

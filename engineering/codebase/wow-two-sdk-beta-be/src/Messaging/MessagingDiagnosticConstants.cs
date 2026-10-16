@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Messaging;
 
 /// <summary>Diagnostics for the messaging layer — the OpenTelemetry <see cref="ActivitySource"/> and W3C trace-context header keys.</summary>
 internal static class MessagingDiagnosticConstants

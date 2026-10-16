@@ -1,8 +1,8 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+using WoW.Two.Sdk.Beta.Be.Media.YouTube;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media.YouTube;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media.YouTube;
 
 /// <summary>Pasted text yields its unique video and playlist links in order, and the pieces that named none.</summary>
 public sealed class YouTubeLinkExtractorTests

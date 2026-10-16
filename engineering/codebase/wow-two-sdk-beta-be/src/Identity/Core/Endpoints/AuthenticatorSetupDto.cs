@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>A new authenticator key to show as text or a QR code; it takes effect once a code verifies it.</summary>
 public sealed record AuthenticatorSetupDto

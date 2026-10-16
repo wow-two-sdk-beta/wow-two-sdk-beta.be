@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Dapper;
 using Microsoft.Data.Sqlite;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Verifies SQLite constraint evolution through an explicit table rebuild.</summary>
 public sealed class SqliteConstraintEvolutionTests : SqliteMigratorTestBase

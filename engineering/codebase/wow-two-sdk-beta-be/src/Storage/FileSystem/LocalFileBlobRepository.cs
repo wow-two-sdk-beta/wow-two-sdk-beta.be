@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.FileSystem;
+namespace WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
 
 /// <summary>
 /// Accesses blobs on the local filesystem under a configured root. Logical blob

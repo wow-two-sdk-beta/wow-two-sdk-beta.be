@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Holds one commit callback and its optional deduplication key.</summary>
 internal sealed record DataSessionHook

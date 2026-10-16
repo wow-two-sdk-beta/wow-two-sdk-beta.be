@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.DbUp;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp;
 
 /// <summary>Registration helpers for the DbUp runner.</summary>
 public static class DbUpServiceCollectionExtensions

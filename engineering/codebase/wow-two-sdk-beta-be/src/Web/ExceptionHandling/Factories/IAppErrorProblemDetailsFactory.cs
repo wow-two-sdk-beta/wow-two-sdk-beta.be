@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
 /// <summary>Defines ProblemDetails creation from application errors.</summary>
 public interface IAppErrorProblemDetailsFactory

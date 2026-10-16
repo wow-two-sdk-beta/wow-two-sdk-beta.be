@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Core;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Core;
 
 /// <summary>Represents a signed URL a client uses directly: the method, the headers it must send, and the expiry.</summary>
 public sealed record BlobUrlResult

@@ -3,10 +3,10 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.S3;
+namespace WoW.Two.Sdk.Beta.Be.Storage.S3;
 
 /// <summary>S3-compatible blob storage registration.</summary>
 public static class S3BlobStorageServiceCollectionExtensions

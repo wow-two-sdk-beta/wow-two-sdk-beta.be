@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Defines behavior that creates the WhatsApp broker registered under a name.</summary>
 public interface IWhatsAppBrokerFactory

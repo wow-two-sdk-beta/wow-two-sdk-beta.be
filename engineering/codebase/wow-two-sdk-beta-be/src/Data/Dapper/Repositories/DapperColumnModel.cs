@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
 
 /// <summary>Represents one property's column and whether the store writes it.</summary>
 internal sealed class DapperColumnModel

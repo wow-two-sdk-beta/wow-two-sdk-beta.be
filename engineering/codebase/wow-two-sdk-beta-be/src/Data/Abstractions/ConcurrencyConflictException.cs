@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>
 /// Represents a write whose concurrency token no longer matches the stored row — another writer changed or removed it

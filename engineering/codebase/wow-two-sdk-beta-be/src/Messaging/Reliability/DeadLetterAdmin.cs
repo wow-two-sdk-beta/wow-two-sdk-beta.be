@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Default <see cref="IDeadLetterAdmin"/> — uses an <see cref="IDeadLetterQueryRepository"/> where the registered store is one, and degrades to <see cref="IDeadLetterRepository"/> where it is not.</summary>
 internal sealed partial class DeadLetterAdmin : IDeadLetterAdmin

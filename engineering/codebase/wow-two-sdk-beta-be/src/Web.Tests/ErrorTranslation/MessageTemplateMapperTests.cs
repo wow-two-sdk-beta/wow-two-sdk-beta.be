@@ -1,9 +1,9 @@
 using System.Globalization;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Localization;
+using WoW.Two.Sdk.Beta.Be.Localization;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ErrorTranslation;
 
 /// <summary>Template filling: placeholders, formats, CLDR plurals with exact matches, nesting and pseudo-localization.</summary>
 public sealed class MessageTemplateMapperTests

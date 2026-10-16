@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>
 /// Pins EF's automatic per-<c>SaveChanges</c> savepoint events on Npgsql and the synthetic-frame fallback's depth tags.

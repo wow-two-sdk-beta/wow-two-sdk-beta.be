@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents what an image looks like in summary: a placeholder, its colors and a fingerprint.</summary>
 public sealed record ImageAnalysisResult

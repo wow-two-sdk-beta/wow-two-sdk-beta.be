@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
 /// <summary>Records the DbContext types the SDK registered, so their interceptor wiring can be verified at boot.</summary>
 internal sealed class EfContextWiringRegistry

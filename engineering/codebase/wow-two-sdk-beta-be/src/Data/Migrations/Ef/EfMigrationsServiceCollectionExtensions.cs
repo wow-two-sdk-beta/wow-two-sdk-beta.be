@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef;
 
 /// <summary>Registration helpers for the EF Migrations runner.</summary>
 public static class EfMigrationsServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.RateLimit;
+namespace WoW.Two.Sdk.Beta.Be.Web.RateLimit;
 
 /// <summary>
 /// Holds the <c>RateLimits</c> configuration section: named policies endpoints opt into with

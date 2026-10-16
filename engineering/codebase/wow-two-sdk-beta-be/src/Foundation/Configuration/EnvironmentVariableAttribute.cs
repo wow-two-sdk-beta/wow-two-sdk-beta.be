@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Configuration;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 
 /// <summary>Marks a settings property to be overlaid from an environment variable by <see cref="ConfigurationMapper"/>.</summary>
 [AttributeUsage(AttributeTargets.Property)]

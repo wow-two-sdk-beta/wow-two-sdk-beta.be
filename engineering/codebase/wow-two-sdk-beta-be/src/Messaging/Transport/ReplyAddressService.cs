@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// Provides the reply address from explicit configuration, this process's consume endpoint, or a fallback. Uses

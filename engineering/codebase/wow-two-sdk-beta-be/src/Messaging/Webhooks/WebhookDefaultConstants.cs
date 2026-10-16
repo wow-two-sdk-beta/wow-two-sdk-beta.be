@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Holds well-known defaults for webhook delivery.</summary>
 public static class WebhookDefaultConstants

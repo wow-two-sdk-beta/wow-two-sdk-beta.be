@@ -1,11 +1,11 @@
 using System.Globalization;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Comms;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Comms;
 
 /// <summary>Markdown email templates: branded HTML with inlined styles, text twins, culture fallback, escaping and refusals.</summary>
 public sealed class EmailTemplateTests

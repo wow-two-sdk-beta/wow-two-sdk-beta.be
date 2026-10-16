@@ -8,12 +8,12 @@ using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.RabbitMq;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.RabbitMq;
 
 /// <summary>RabbitMQ <see cref="ReceiveContext"/> — acknowledge / dead-letter via the delivering channel (nack→DLX).</summary>
 internal sealed class RabbitMqReceiveContext(EventEnvelopeModel envelope, IChannel channel, ulong deliveryTag) : ReceiveContext

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Vonage;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Vonage;
 
 /// <summary>Holds Vonage SMS API credentials.</summary>
 public sealed record VonageSmsOptions

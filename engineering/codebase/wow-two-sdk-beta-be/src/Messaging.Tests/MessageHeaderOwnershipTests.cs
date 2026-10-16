@@ -2,13 +2,13 @@ using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Testcontainers.RabbitMq;
-using WoW.Two.Sdk.Backend.Beta.Messaging.RabbitMq;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.RabbitMq;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// The ownership predicate the fix turns on, asserted directly — no broker, so it runs in microseconds and names the

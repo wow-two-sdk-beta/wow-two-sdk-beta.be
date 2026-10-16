@@ -1,6 +1,6 @@
 using System.Collections.Frozen;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
 /// <summary>Holds the SDK's built-in top-level message per <c>AppErrorType</c>, by neutral culture; host catalogs override them.</summary>
 internal static class ErrorTypeMessageConstants

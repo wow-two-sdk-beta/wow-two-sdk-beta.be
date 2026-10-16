@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness.Trackers;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness.Trackers;
 
 /// <summary>Tracks interceptor invocations in order for test assertions.</summary>
 public sealed class InterceptorInvocationTracker

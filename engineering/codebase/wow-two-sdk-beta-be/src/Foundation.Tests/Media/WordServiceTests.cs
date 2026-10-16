@@ -5,10 +5,10 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Validation;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Media.Word;
+using WoW.Two.Sdk.Beta.Be.Media.Word;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>Word documents: template filling across split runs, row repeats, Markdown in and out, and refusals.</summary>
 public sealed class WordServiceTests

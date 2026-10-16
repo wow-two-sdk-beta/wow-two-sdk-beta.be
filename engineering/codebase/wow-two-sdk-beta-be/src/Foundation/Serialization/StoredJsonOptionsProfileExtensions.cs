@@ -3,7 +3,7 @@ using System.Text.Json.Serialization.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
 /// <summary>Provides keyed registration and resolution for pinned stored-JSON options profiles.</summary>
 public static class StoredJsonOptionsProfileExtensions

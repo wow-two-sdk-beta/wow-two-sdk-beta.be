@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+using WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Admits an API key that grants the requirement's scope, or a session identity the principal allowlist admits.</summary>
 /// <remarks>

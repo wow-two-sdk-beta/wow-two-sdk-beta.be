@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Globalization;
 using Dapper;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke.Parsers;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Provides the migration apply, status, rollback, and repair operations behind every host.</summary>
 /// <remarks>

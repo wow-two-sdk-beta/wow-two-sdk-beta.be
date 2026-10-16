@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 /// <summary>
 /// Chains results without unwrapping them: <c>Bind</c> continues with another result-returning step, <c>Tap</c> runs a

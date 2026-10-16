@@ -1,10 +1,10 @@
 using System.Data.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations.Services;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations.Services;
 
 /// <summary>Provides no-op migrations for tests whose schema is created outside the bespoke migrator.</summary>
 /// <remarks>Replace with the real <see cref="IMigrationRunnerService"/> when the test exercises migrations.</remarks>

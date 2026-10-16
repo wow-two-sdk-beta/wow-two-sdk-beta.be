@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Defines evicting this host's cached entries when another host commits a change.</summary>
 public interface ICacheInvalidationHandler

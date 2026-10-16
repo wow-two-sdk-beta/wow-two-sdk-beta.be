@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>Holds how webhook subscriptions and deliveries are stored.</summary>
 /// <remarks>Set in code with <c>AddWebhookEntityFrameworkStores&lt;TContext&gt;(o => …)</c> or in the host section <c>Webhooks:Persistence</c>, applied last.</remarks>

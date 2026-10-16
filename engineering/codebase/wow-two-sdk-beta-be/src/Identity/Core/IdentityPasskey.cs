@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>
 /// One WebAuthn credential (passkey) a user registered: its id, public key and signature counter. Consumed by the

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents what the camera recorded: when, with what, how and where; each field is null when absent.</summary>
 public sealed record ImageMetadataResult

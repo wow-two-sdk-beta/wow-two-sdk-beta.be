@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NodaTime;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Time;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Time;
 
 internal static class ServiceCollectionTryAddExtensions
 {

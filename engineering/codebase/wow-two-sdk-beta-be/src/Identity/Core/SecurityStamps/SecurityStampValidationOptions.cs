@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SecurityStamps;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SecurityStamps;
 
 /// <summary>Holds how often a principal's security stamp is compared with the stored one.</summary>
 public sealed record SecurityStampValidationOptions

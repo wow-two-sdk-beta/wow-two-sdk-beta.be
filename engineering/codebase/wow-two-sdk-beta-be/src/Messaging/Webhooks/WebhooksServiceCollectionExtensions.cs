@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+using WoW.Two.Sdk.Beta.Be.Http.Safety;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>DI registration for outbound webhook delivery.</summary>
 public static class WebhooksServiceCollectionExtensions

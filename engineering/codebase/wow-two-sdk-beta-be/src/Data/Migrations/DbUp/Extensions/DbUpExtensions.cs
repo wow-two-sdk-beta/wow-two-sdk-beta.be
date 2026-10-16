@@ -1,7 +1,7 @@
 using DbUp;
 using DbUp.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.DbUp.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp.Extensions;
 
 /// <summary>Selects the DbUp engine a host runs its migrations through.</summary>
 /// <remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.Ghcr;
 
 /// <summary>Defines behavior that reads image metadata from a container registry to confirm a published, deployable image exists.</summary>
 public interface IContainerRegistryClient

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Defines behavior that encrypts and decrypts arbitrary values under a caller-supplied data-encryption key (DEK) — the data-plane half of envelope encryption.</summary>
 /// <remarks>The key is passed in per call rather than held: this type never sees the master key and stays oblivious to where the DEK came from, so the same instance serves every owner and tenant. Pair with an <see cref="ISealService"/>, which wraps and unwraps the DEK under a master key.</remarks>

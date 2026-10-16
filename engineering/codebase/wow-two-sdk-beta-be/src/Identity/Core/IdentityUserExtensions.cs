@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Applies the stamp and lockout column rules shared by the identity slices.</summary>
 internal static class IdentityUserExtensions

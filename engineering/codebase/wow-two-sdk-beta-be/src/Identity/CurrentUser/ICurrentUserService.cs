@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+namespace WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 /// <summary>Defines read-only view of the current request's principal; never writes a cookie, and <see cref="Id"/> is <c>null</c> when anonymous.</summary>
 public interface ICurrentUserService

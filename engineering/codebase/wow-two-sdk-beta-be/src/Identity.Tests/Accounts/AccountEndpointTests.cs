@@ -12,27 +12,27 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Emails;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
-using WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Email;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Emails;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
+using WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Email;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
+using WoW.Two.Sdk.Beta.Be.Meta;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>The account HTTP API end to end: registration, email confirmation, bearer sessions, refresh and password reset.</summary>
 public sealed partial class AccountEndpointTests

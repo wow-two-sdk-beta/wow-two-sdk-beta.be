@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Verifies migration sources return actionable errors for incomplete migration pairs.</summary>
 public sealed class MigrationBrokerTests

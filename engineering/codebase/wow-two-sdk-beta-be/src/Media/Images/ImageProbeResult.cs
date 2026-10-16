@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents what an image is, read from its header without decoding the pixels.</summary>
 public sealed record ImageProbeResult

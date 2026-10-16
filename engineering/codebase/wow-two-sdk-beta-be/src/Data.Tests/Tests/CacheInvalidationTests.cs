@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
-using WoW.Two.Sdk.Backend.Beta.Caching.Invalidation.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
+using WoW.Two.Sdk.Beta.Be.Caching.Invalidation.Extensions;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>Committed invalidations reach every listening host; rollbacks never do; a lost listener resubscribes.</summary>
 [Collection(DataTestCollection.Name)]

@@ -2,9 +2,9 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>Refers to how consumed message types are mapped onto broker endpoints (queues).</summary>
 public enum TopologyStyle

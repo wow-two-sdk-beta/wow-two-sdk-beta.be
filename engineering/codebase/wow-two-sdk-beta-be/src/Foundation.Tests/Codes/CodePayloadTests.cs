@@ -1,13 +1,13 @@
 using System.Globalization;
 using System.Text;
 using NodaTime;
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Serializers;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Exporters;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Serializers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 public sealed class CodePayloadTests
 {

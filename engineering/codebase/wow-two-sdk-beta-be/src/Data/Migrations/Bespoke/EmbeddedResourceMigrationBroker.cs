@@ -1,8 +1,8 @@
 using System.Reflection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Integrates migration scripts stored as assembly resources.</summary>
 /// <remarks>Use at runtime so the schema ships inside the binary — no filesystem dependency at deploy.</remarks>

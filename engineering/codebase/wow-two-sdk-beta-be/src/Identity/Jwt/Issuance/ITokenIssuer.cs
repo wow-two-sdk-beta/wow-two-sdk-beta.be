@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 
 /// <summary>Defines behavior that issues signed tokens from caller-supplied claims; the SDK never constructs claims.</summary>
 public interface ITokenIssuer

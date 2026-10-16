@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>Accesses refresh tokens through the context hosting the identity schema; consumption is one conditional update.</summary>
 /// <typeparam name="TKey">User key type.</typeparam>

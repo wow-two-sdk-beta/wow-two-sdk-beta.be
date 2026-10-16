@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors.Mappers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors.Mappers;
 
 /// <summary>Maps an AppErrorType to its descriptive ErrorNature; apps override through DI.</summary>
 public sealed class ErrorNatureMapper : IErrorNatureMapper

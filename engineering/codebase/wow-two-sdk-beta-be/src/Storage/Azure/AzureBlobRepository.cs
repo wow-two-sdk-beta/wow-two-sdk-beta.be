@@ -2,10 +2,10 @@ using System.Runtime.CompilerServices;
 using global::Azure;
 using global::Azure.Storage.Blobs;
 using global::Azure.Storage.Blobs.Models;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
-using BlobInfo = WoW.Two.Sdk.Backend.Beta.Storage.Core.BlobInfo;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
+using BlobInfo = WoW.Two.Sdk.Beta.Be.Storage.Core.BlobInfo;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Azure;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Azure;
 
 /// <summary>Accesses blobs in one Azure Blob Storage container; paths map to blob names under the optional key prefix.</summary>
 public sealed class AzureBlobRepository : IBlobRepository, IDisposable

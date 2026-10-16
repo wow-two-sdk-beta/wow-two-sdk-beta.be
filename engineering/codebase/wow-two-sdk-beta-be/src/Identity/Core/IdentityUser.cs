@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>
 /// A user account with ASP.NET-Identity-shaped columns, persisted through the Data layer (audit stamps auto-applied).

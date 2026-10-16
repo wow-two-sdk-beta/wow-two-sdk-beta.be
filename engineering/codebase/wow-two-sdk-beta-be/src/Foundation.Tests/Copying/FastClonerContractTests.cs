@@ -2,7 +2,7 @@ using AwesomeAssertions;
 using CloneApi = FastCloner.FastCloner;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Copying;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Copying;
 
 public sealed class FastClonerContractTests
 {

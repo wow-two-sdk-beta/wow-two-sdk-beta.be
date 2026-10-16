@@ -1,7 +1,7 @@
 using System.Data;
 using Dapper;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper;
 
 /// <summary>Handles <see cref="List{T}"/> columns returned as arrays.</summary>
 public sealed class ListTypeHandler<T> : SqlMapper.TypeHandler<List<T>>

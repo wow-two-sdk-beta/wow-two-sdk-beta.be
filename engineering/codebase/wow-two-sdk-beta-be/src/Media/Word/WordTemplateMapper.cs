@@ -5,7 +5,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>
 /// Maps a template to a filled document: repeats table rows per collection item, then replaces placeholders run by run

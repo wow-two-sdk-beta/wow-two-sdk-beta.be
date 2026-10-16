@@ -2,10 +2,10 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// Defines behavior that declares what a process consumes and how an outgoing message is addressed. This is what replaces a catch-all

@@ -1,7 +1,7 @@
 using Xunit;
 using QRCoder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 /// <summary>Renders live-computed QRCoder <c>SvgQRCode</c> output as a parity reference.</summary>
 internal sealed class QrCodeReferenceRenderer

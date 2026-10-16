@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Creates built-in <see cref="ClaimProviderSpec"/> values keyed by authentication scheme.</summary>
 /// <remarks><see cref="ClaimTypes.Name"/> is a handle for GitHub/GitLab/Twitch/Discord/Twitter/Reddit/Yandex but a display name for Google/Microsoft/Facebook/Spotify/LinkedIn/Amazon, so it feeds a different canonical field per provider.</remarks>

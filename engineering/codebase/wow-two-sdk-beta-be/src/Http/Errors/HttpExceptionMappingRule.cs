@@ -1,10 +1,10 @@
 using System.Net;
 using Polly.CircuitBreaker;
 using Polly.Timeout;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Http.Safety;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Http.Errors;
 
 /// <summary>
 /// Maps outbound HTTP failures to <see cref="AppError"/>: an unreachable, failing, throttling or credential-rejecting

@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.GitHub;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitHub;
 
 /// <summary>GitHub OAuth provider.</summary>
 public static class GitHubOAuthServiceCollectionExtensions

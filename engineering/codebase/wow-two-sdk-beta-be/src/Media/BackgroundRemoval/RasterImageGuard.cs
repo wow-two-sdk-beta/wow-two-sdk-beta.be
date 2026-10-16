@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.BackgroundRemoval;
+namespace WoW.Two.Sdk.Beta.Be.Media.BackgroundRemoval;
 
 /// <summary>Validated single-raster shape in upright EXIF coordinates.</summary>
 public sealed record RasterImageInfo(int Width, int Height, string ContentType);

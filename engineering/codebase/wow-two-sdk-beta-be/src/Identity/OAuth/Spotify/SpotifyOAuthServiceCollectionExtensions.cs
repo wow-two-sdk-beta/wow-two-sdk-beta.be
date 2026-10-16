@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.Spotify;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Spotify;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Spotify;
 
 /// <summary>Spotify OAuth provider.</summary>
 public static class SpotifyOAuthServiceCollectionExtensions

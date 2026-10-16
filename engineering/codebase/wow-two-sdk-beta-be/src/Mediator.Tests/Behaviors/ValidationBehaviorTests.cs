@@ -1,11 +1,11 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.Validation;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests.Behaviors;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests.Behaviors;
 
 /// <summary>
 /// <see cref="ValidatingInterceptor{TRequest,TResponse}"/> — runs every registered <see cref="IValidator{T}"/>;

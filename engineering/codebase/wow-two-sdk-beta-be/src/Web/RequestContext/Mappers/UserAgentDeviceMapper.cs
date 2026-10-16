@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Mappers;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestContext.Mappers;
 
 /// <summary>Maps a supplied User-Agent string to a heuristic device family.</summary>
 public static class UserAgentDeviceMapper

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push;
 
 /// <summary>Represents the outcome of a push attempt.</summary>
 public sealed record PushSendResult

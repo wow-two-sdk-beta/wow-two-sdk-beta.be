@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents a PDF produced by an operation.</summary>
 public sealed record PdfResult

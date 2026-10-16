@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Repositories;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Repositories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data;
+namespace WoW.Two.Sdk.Beta.Be.Data;
 
 /// <summary>
 /// Registers the CQRS repository split — reads via Dapper (<see cref="IReadRepository{TEntity, TId}"/>),

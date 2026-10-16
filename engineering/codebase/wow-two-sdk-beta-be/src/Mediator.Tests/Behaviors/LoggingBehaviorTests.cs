@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Logging;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.Logging;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests.Behaviors;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests.Behaviors;
 
 /// <summary>
 /// <see cref="LoggingInterceptor{TRequest,TResponse}"/> — opens a module span and logs start + completion on success;

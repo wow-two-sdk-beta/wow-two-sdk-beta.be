@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Telegram;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Telegram;
 
 /// <summary>Holds message shaping for Telegram OTP delivery.</summary>
 public sealed record TelegramOtpOptions

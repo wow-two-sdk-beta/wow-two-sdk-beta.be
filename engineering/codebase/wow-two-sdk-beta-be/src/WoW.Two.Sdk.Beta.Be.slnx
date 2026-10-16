@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Libraries/">
+    <Project Path="WoW.Two.Sdk.Beta.Be.csproj" />
+    <Project Path="Data/Abstractions/WoW.Two.Sdk.Beta.Be.Data.Abstractions.csproj" />
+    <Project Path="Data/Migrations/cli/WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli.csproj" />
+    <Project Path="Testing/WoW.Two.Sdk.Beta.Be.Testing.csproj" />
+    <Project Path="Testing.Data/WoW.Two.Sdk.Beta.Be.Testing.Data.csproj" />
+    <Project Path="Testing.Integrations/WoW.Two.Sdk.Beta.Be.Testing.Integrations.csproj" />
+    <Project Path="Testing.Messaging/WoW.Two.Sdk.Beta.Be.Testing.Messaging.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Data.Tests/WoW.Two.Sdk.Beta.Be.Data.Tests.csproj" />
+    <Project Path="Foundation.Tests/WoW.Two.Sdk.Beta.Be.Foundation.Tests.csproj" />
+    <Project Path="Identity.Tests/WoW.Two.Sdk.Beta.Be.Identity.Tests.csproj" />
+    <Project Path="Mediator.Tests/WoW.Two.Sdk.Beta.Be.Mediator.Tests.csproj" />
+    <Project Path="Messaging.Tests/WoW.Two.Sdk.Beta.Be.Messaging.Tests.csproj" />
+    <Project Path="Migrations.Tests/WoW.Two.Sdk.Beta.Be.Migrations.Tests.csproj" />
+    <Project Path="Web.Tests/WoW.Two.Sdk.Beta.Be.Web.Tests.csproj" />
+  </Folder>
+</Solution>

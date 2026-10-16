@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Validates a candidate password against the configured <see cref="PasswordOptions"/>.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

@@ -2,11 +2,11 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>DI registration for the EF-backed transactional outbox.</summary>
 public static class EfOutboxServiceCollectionExtensions

@@ -1,8 +1,8 @@
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Auth.OAuth2ClientCredentials;
+namespace WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials;
 
 /// <summary>Delegating handler attaching a cached client-credentials bearer token to outgoing requests lacking an <c>Authorization</c> header.</summary>
 internal sealed class OAuth2ClientCredentialsHandler : DelegatingHandler

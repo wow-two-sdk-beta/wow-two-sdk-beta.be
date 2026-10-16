@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Web.Idempotency;
 
 /// <summary>A response stored under an idempotency key, with the fingerprint of the request that produced it.</summary>
 public sealed record IdempotentHttpResponseModel

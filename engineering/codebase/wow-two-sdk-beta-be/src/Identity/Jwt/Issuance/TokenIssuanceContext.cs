@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 /// <summary>Per-call overrides for one issued token; unset members fall back to <see cref="JwtTokenIssuerOptions"/>.</summary>
 public sealed record TokenIssuanceContext
 {

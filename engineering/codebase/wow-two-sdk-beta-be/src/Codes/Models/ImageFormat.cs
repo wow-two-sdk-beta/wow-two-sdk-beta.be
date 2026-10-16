@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models;
 
 /// <summary>Refers to output raster/vector format for a rendered code.</summary>
 /// <remarks>Vector-first: SVG is the working/design format (infinite scale, live re-style); PNG is the raster export.</remarks>

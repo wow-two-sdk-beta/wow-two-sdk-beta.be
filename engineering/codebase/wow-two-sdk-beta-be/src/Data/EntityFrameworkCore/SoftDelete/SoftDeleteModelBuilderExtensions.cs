@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete;
 
 /// <summary>Model-builder extensions that install a global query filter on every <see cref="ISoftDeletable"/> entity type, excluding rows where <see cref="ISoftDeletable.IsDeleted"/> is <c>true</c>.</summary>
 public static class SoftDeleteModelBuilderExtensions

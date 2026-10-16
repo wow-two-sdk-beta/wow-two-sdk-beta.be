@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga.Services;
 
 /// <summary>Defines execution of an <see cref="EventSagaDefinition"/>, compensating completed steps in reverse on failure.</summary>
 public interface IEventSagaService

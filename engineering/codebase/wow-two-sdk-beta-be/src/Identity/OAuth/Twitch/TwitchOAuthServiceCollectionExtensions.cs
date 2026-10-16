@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.Twitch;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Twitch;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitch;
 
 /// <summary>Twitch OAuth provider.</summary>
 public static class TwitchOAuthServiceCollectionExtensions

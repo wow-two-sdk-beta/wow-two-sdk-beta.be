@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Refers to the descriptive nature of a failure — consumers derive retry, fallback, and log decisions from it.</summary>
 public enum ErrorNature

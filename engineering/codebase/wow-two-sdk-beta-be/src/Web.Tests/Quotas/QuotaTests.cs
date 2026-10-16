@@ -11,11 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Time.Testing;
 using Testcontainers.Redis;
-using WoW.Two.Sdk.Backend.Beta.Meta;
-using WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+using WoW.Two.Sdk.Beta.Be.Meta;
+using WoW.Two.Sdk.Beta.Be.Web.Quotas;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Quotas;
 
 /// <summary>Usage quotas through an <c>AddApiDefaults</c> host: per-plan limits, windows, refunds and the usage read-out.</summary>
 public sealed class QuotaTests

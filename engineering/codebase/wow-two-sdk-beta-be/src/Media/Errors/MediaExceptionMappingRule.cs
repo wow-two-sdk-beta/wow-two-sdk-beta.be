@@ -1,10 +1,10 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Images;
-using WoW.Two.Sdk.Backend.Beta.Media.Pdf;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Word;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Images;
+using WoW.Two.Sdk.Beta.Be.Media.Pdf;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Word;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Media.Errors;
 
 /// <summary>Maps media refusals — an unreadable or oversized image, PDF or Word file, a bad import row — to validation errors.</summary>
 public sealed class MediaExceptionMappingRule : IExceptionMappingRule

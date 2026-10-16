@@ -1,10 +1,10 @@
 using System.Runtime.CompilerServices;
 using VerifyTests;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Verify;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Verify;
 
 /// <summary>
-/// Holds conventional Verify defaults applied for the Wow Two backend SDK:
+/// Holds conventional Verify defaults applied for the Wow Two be sdk:
 /// - Sub-folder per test class (`UseDirectory("Snapshots")`).
 /// - Counter-name suffix for stable ordering.
 /// - Pre-registered scrubbers for <c>traceId</c>, <c>spanId</c>, <c>requestId</c>, ULID/GUID values, RFC-3339 timestamps.

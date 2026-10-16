@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Cors;
+namespace WoW.Two.Sdk.Beta.Be.Web.Cors;
 
 /// <summary>Provides CORS policy presets.</summary>
 public static class CorsServiceCollectionExtensions

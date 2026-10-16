@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Holds canonical <c>wt:*</c> claim types every downstream consumer reads regardless of provider; stamped by <see cref="ClaimMapper"/>.</summary>
 public static class NormalizedClaimTypeConstants

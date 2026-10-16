@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>
 /// Calls the Pwned Passwords k-anonymity range API: sends the first five hex characters of the password's SHA-1 and

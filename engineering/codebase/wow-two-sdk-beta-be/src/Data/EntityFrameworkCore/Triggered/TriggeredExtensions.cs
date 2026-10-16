@@ -3,7 +3,7 @@ using EntityFrameworkCore.Triggered;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Triggered;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Triggered;
 
 /// <summary>Convenience extensions over <c>EntityFrameworkCore.Triggered</c> — assembly-scan registration plus a <see cref="DbContextOptionsBuilder"/> pass-through.</summary>
 public static class TriggeredExtensions

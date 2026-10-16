@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Json;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Json;
 
 /// <summary>Helpers for mapping a CLR property to a JSON column with the SDK's converter + comparer.</summary>
 public static class JsonPropertyBuilderExtensions

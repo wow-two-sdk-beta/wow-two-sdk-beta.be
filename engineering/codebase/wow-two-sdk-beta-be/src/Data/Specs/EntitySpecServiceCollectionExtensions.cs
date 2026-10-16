@@ -1,8 +1,8 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Entity spec registration.</summary>
 public static class EntitySpecServiceCollectionExtensions

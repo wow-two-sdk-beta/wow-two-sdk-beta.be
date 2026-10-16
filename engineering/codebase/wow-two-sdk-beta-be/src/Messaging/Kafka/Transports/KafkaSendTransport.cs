@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Kafka.Transports;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Kafka.Transports;
 
 /// <summary>
 /// Transports JSON-serialized events through a Kafka topic. The topic comes from

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Csv.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Csv.Parsers;
 
 /// <summary>Defines CSV stream parsing into strongly typed, header-mapped records.</summary>
 public interface ICsvParser

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Http;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Http;
 
 /// <summary>One request a <see cref="ScriptedHttpMessageHandler"/> received.</summary>
 public sealed record ScriptedHttpRequest

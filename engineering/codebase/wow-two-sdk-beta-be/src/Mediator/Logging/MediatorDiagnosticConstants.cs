@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Logging;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Logging;
 
 /// <summary>Holds the mediator module's OpenTelemetry activity source.</summary>
 internal static class MediatorDiagnosticConstants

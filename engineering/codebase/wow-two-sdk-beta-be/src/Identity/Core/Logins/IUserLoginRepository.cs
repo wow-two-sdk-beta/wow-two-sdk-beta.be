@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
 
 /// <summary>Defines external-login persistence: which provider account belongs to which user.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

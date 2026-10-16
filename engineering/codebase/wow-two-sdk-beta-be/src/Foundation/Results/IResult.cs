@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 /// <summary>Defines the success discriminant shared by SDK result carriers.</summary>
 public interface IResult

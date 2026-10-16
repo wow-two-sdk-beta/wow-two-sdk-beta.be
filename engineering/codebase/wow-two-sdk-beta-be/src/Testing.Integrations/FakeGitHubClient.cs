@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+using WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Integrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Integrations;
 
 /// <summary>
 /// Connects tests to configurable GitHub outcomes without a remote probe, so a test never

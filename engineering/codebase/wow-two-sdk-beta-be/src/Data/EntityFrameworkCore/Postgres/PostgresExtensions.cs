@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
 
 /// <summary>SDK-conventional Npgsql provider helpers — retry-on-failure + migrations-assembly defaults.</summary>
 public static class PostgresExtensions

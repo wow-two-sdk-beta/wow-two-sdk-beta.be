@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Defines behavior that words a one-time code for a purpose and channel in the recipient's culture.</summary>
 public interface IOtpMessageFormatter

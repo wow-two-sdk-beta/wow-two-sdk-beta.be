@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Core;
+namespace WoW.Two.Sdk.Beta.Be.Http.Core;
 
 /// <summary>Provides registration for plain <see cref="HttpClient"/> typed clients (no Refit) with the SDK resilience pipeline.</summary>
 public static class TypedClientServiceCollectionExtensions

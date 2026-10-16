@@ -1,8 +1,8 @@
 using AwesomeAssertions;
 using NetArchTest.Rules;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Architecture;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Architecture;
 
 /// <summary>
 /// Web-freedom guard: the bespoke migrator engine must stay runnable from any host (web startup, the web-free
@@ -15,7 +15,7 @@ public sealed class EngineWebFreedomTests
     public void BespokeEngine_ShouldNotDependOnWebHostOrCliFramework()
     {
         var result = Types.InAssembly(typeof(MigrationRunnerService).Assembly)
-            .That().ResideInNamespace("WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke")
+            .That().ResideInNamespace("WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke")
             .ShouldNot().HaveDependencyOnAny(
                 "Microsoft.AspNetCore",
                 "MediatR",

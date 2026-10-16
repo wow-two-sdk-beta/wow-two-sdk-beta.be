@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Represents how one property maps to a column, independent of the data-access library.</summary>
 public sealed record PropertySpec

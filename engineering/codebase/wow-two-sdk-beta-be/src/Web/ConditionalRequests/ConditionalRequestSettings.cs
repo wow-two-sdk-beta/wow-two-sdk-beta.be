@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
+namespace WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
 
 /// <summary>
 /// Holds the <c>ConditionalRequests</c> configuration section: whether successful GET responses get an entity tag and

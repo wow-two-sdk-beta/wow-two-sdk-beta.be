@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Specs;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
 /// <summary>Base <see cref="DbContext"/> for consumer contexts — applies entity-type configurations, registered entity specs and SDK conventions; increments <see cref="IVersioned"/> counters and replaces spec stamps on save.</summary>
 /// <remarks>Override <see cref="OnModelCreating"/> in derived classes and call <c>base.OnModelCreating(modelBuilder)</c> first.</remarks>

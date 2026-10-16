@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Distance;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Distance;
 
 /// <summary>
 /// Default <see cref="IGeoDistanceCalculator"/> using the haversine formula on a spherical Earth (IUGG

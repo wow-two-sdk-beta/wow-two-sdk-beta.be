@@ -7,12 +7,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.RedisStreams;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.RedisStreams;
 
 /// <summary>Well-known stream-entry field names carrying SDK envelope metadata. A stream entry is a flat field/value map, so each header is its own field alongside the body.</summary>
 /// <remarks>

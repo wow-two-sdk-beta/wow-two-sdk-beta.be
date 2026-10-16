@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google.Authenticators;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google.Authenticators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google;
 
 /// <summary>Google ID-token authenticator registration (the SPA sign-in flow, distinct from the redirect <c>AddGoogleAuthentication</c>).</summary>
 public static class GoogleIdTokenAuthenticatorServiceCollectionExtensions

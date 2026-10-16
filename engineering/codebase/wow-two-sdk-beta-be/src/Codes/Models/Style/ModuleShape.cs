@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Refers to the geometry of each data module — the code body, excluding the three finder eyes — where <see cref="Square"/> is the byte-parity default and every other value floors ECC to <see cref="EccLevel.Q"/>.</summary>
 public enum ModuleShape

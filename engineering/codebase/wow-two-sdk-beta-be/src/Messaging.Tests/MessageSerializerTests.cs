@@ -4,12 +4,12 @@ using AwesomeAssertions;
 using MessagePack;
 using MessagePack.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// The three shipped <see cref="IMessageSerializer"/> implementations: round trip, the exact content type each stamps,

@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga;
 
 /// <summary>Convenience base for an <see cref="IEventSagaStep"/> — names itself after its type and compensates as a no-op.</summary>
 public abstract class EventSagaStep : IEventSagaStep

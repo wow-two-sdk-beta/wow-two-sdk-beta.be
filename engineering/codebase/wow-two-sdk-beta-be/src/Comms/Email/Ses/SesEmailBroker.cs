@@ -1,8 +1,8 @@
 using Amazon.SimpleEmailV2;
 using Amazon.SimpleEmailV2.Model;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Ses;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Ses;
 
 /// <summary>Integrates Amazon SES v2 as the email provider.</summary>
 public sealed class SesEmailBroker : IEmailBroker

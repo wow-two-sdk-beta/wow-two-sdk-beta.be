@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Refers to the shape extracted text takes.</summary>
 public enum WordTextFormat

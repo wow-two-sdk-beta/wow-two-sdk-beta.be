@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email;
 
 /// <summary>Holds cross-provider email defaults.</summary>
 public sealed record EmailOptions

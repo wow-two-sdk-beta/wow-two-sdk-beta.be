@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>
 /// Handles test authentication as the fixed identity in <see cref="TestAuthOptions"/> —

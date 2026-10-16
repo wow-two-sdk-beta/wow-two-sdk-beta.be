@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>The outcomes of a refresh-token redemption.</summary>
 public enum RefreshTokenStatus

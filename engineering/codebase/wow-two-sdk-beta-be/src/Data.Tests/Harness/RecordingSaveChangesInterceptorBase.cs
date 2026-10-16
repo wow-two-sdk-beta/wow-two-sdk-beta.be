@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness.Trackers;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness.Trackers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
 
 /// <summary>Base for the suite's save-recording interceptors — appends <see cref="Tag"/> to the shared log on every save.</summary>
 /// <param name="log">The shared invocation log.</param>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>Holds how one receiver validates its sender: the signature scheme, the secrets and the replay guards.</summary>
 public sealed record WebhookReceiverOptions

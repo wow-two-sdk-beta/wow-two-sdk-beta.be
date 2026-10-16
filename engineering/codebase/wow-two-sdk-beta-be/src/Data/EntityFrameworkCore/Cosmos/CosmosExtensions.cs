@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Cosmos;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Cosmos;
 
 /// <summary>SDK-conventional Cosmos DB provider helpers.</summary>
 public static class CosmosExtensions

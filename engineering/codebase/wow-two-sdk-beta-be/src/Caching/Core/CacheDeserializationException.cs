@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Represents a cached entry that no longer deserializes into the type a read asked for.</summary>
 public sealed class CacheDeserializationException : Exception

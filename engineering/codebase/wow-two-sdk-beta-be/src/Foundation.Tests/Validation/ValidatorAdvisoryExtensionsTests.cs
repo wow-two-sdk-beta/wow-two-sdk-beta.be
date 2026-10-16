@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using FluentValidation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers.Extensions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers.Extensions;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Validation;
 
 /// <summary>Handler-side validation blocks on errors and tracks the advisories of a passing instance.</summary>
 public sealed class ValidatorAdvisoryExtensionsTests

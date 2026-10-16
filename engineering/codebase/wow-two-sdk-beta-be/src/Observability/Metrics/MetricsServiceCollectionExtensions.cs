@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Metrics;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Metrics;
 
 /// <summary>Provides OpenTelemetry meter registration with conventional auto-instrumentation.</summary>
 public static class MetricsServiceCollectionExtensions

@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
 /// <summary>Defines application-event publishing to subscribers and sending to a named destination through a transport.</summary>
 /// <remarks>Completion reflects the underlying send transport operation; it does not by itself establish durability or completed handler execution.</remarks>

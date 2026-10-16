@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.WebPush;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.WebPush;
 
 /// <summary>Holds the VAPID identity the application server signs push requests with.</summary>
 public sealed record WebPushOptions

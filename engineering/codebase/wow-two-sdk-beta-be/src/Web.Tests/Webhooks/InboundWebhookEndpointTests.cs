@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Webhooks;
 
 /// <summary>Webhook endpoints gated by <c>RequireWebhookSignature</c> through an <c>AddApiDefaults</c> host configured by the host.</summary>
 public sealed class InboundWebhookEndpointTests

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
 /// <summary>Maps an identifier to its constituent words independently of input casing.</summary>
 public static class WordMapper

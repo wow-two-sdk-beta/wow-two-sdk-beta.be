@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>Opts the passkey slice into an identity registration.</summary>
 public static class PasskeyIdentityBuilderExtensions

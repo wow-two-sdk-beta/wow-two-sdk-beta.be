@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>Holds the page sizes a list read falls back to and is capped at.</summary>
 public static class PagingConstants

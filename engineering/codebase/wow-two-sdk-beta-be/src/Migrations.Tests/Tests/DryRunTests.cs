@@ -1,12 +1,12 @@
 using AwesomeAssertions;
 using Dapper;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Verifies on PostgreSQL that a dry run rehearses pending migrations, reports the outcome, and never commits.</summary>
 [Collection(PostgresMigrationCollection.Name)]

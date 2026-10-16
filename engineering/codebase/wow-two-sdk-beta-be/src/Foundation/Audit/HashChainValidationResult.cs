@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Represents the outcome of validating the consistency of a supplied hash chain.</summary>
 public sealed record HashChainValidationResult

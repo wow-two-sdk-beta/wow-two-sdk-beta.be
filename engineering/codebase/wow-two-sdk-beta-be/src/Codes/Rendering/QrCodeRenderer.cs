@@ -1,10 +1,10 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Validators;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Svg;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Validators;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Svg;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering;
 
 /// <summary>Renders QR images through the server-authoritative path — a matrix source produces the grid, <see cref="SvgRenderer"/> styles it to SVG, and <see cref="ISvgRasterizer"/> rasterizes that SVG to PNG.</summary>
 public sealed class QrCodeRenderer(

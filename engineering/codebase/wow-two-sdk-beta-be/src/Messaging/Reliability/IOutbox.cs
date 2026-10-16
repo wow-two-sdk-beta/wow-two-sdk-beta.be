@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Defines transactional outbox port — enrolls an outgoing message in the ambient DB transaction (EF / CAP adapters implement this).</summary>
 public interface IOutbox

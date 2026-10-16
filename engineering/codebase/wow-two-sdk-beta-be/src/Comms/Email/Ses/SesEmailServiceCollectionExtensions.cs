@@ -2,9 +2,9 @@ using Amazon;
 using Amazon.SimpleEmailV2;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Ses;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Ses;
 
 /// <summary>Amazon SES sender registration.</summary>
 public static class SesEmailServiceCollectionExtensions

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>Defines mapping the current request's validation advisories to their display messages.</summary>
 public interface IValidationAdvisoryMapper

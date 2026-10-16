@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Provides registration helpers for the <see cref="IDbConnectionFactory"/> connection seam.</summary>
 public static class ConnectionFactoryServiceCollectionExtensions

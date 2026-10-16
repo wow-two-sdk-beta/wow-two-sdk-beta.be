@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
 
 /// <summary>Defines rasterizing the code engine's bounded SVG subset to PNG bytes.</summary>
 public interface ISvgRasterizer

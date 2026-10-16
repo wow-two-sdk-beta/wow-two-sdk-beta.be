@@ -4,11 +4,11 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Testcontainers.PostgreSql;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
 /// <summary>An EF test database using one fixture-owned provider: Postgres with Respawn or in-memory SQLite.</summary>
 /// <remarks>Subclass per app to supply the model conventions via <see cref="CreateContext"/>; expose the subclass as an xUnit <c>ICollectionFixture</c> and reset per test with <see cref="ResetAsync"/>. Override <see cref="Provider"/> to pin one suite to a specific provider.</remarks>

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// Refers to runtime state of the consume side of the bus — what <see cref="IBusControl.State"/> reports to an ops endpoint or a

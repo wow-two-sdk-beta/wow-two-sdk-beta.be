@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>
 /// Parses WebVTT caption text into plain-text segments, stripping inline tags and decoding HTML entities.

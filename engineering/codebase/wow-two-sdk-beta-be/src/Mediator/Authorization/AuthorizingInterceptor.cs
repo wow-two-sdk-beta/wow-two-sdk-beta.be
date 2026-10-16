@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Authorization;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Authorization;
 
 /// <summary>Runs ASP.NET Core authorization on requests implementing <see cref="IRequireAuthorization"/>.</summary>
 /// <remarks>Throws an <see cref="AppException"/> — <c>Unauthorized</c> (401) if not authenticated, <c>Forbidden</c> (403) if not authorized.</remarks>

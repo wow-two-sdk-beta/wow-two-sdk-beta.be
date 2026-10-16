@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email;
 
 /// <summary>Represents outcome of a send attempt.</summary>
 public sealed record EmailSendResult

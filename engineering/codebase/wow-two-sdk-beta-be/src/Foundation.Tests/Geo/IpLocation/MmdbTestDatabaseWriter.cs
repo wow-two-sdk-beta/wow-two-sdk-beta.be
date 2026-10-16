@@ -3,7 +3,7 @@ using System.Collections;
 using System.Net;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Geo.IpLocation;
 
 /// <summary>Writes a minimal IPv4 MaxMind DB file so broker tests run without downloaded data.</summary>
 /// <remarks>Implements the MMDB 2.0 layout: a 24-bit search tree, a 16-byte separator, the data section and metadata.</remarks>

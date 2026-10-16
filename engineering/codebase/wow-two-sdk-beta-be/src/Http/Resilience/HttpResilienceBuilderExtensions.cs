@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience.Extensions;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Resilience;
+namespace WoW.Two.Sdk.Beta.Be.Http.Resilience;
 
 /// <summary>Applies the SDK's standard resilience pipeline to an outbound <see cref="IHttpClientBuilder"/>.</summary>
 public static class HttpResilienceBuilderExtensions

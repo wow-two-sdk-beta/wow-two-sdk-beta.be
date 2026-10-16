@@ -3,10 +3,10 @@ using AwesomeAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Web.Json;
+using WoW.Two.Sdk.Beta.Be.Web.Json;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Json;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Json;
 
 public sealed class JsonControllerBuilderExtensionsTests
 {

@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using WoW.Two.Sdk.Backend.Beta.Messaging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+using WoW.Two.Sdk.Beta.Be.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
 /// <summary>Refers to how one saga instance's reaction to one message ended.</summary>
 public enum SagaTransitionOutcome

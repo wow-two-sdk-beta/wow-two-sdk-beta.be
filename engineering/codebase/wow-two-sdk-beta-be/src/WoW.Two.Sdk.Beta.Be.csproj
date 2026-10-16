@@ -6,7 +6,7 @@
     One class library compiling every shipping concern under src/ (foundation, observability,
     web, mediator, identity, data, …) — divided by FOLDERS, not projects. The folder tree is
     unchanged; only the per-concern .csproj boundaries were removed. Namespaces match their folder
-    path 1:1, including nested provider leaves (e.g. WoW.Two.Sdk.Backend.Beta.Comms.Email.MailKit
+    path 1:1, including nested provider leaves (e.g. WoW.Two.Sdk.Beta.Be.Comms.Email.MailKit
     lives in src/Comms/Email/MailKit/, …Jobs.Hangfire.Postgres in src/Jobs/Hangfire/Postgres/).
 
     Why: kill the create-csproj / wire-ProjectReference / build-graph / version-per-package cycle.
@@ -20,8 +20,8 @@
 
   <PropertyGroup>
     <!-- Published ID uses the OWNED WoW2.* reserved prefix. Assembly + namespaces remain WoW.Two.* (full rename later). -->
-    <PackageId>WoW2.Sdk.Backend.Beta</PackageId>
-    <Description>WoW Two backend SDK (beta-forever mono-lib) — foundation, observability, web, mediator, identity, and data concerns in one package, divided by folders.</Description>
+    <PackageId>WoW2.Sdk.Beta.Be</PackageId>
+    <Description>WoW Two be sdk (beta-forever mono-lib) — foundation, observability, web, mediator, identity, and data concerns in one package, divided by folders.</Description>
     <PackageTags>wow-two; backend; beta; sdk; aspnet; mono</PackageTags>
 
     <!-- Exclude the testing mono-lib tree, the web-free Data/Abstractions project tree, the web-free
@@ -42,7 +42,7 @@
   <!-- The web-free data-contracts seam (IDbConnectionFactory, entity/repository interfaces). Referencing it
        (not globbing it) keeps a single type identity so every consumer of IDbConnectionFactory still resolves. -->
   <ItemGroup>
-    <ProjectReference Include="Data/Abstractions/WoW.Two.Sdk.Backend.Beta.Data.Abstractions.csproj" />
+    <ProjectReference Include="Data/Abstractions/WoW.Two.Sdk.Beta.Be.Data.Abstractions.csproj" />
   </ItemGroup>
 
   <!--

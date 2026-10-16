@@ -1,6 +1,6 @@
 using Microsoft.Extensions.AI;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Core;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Core;
 
 /// <summary>
 /// Applies the SDK's conventional <c>IChatClient</c> pipeline — function/tool invocation and OpenTelemetry

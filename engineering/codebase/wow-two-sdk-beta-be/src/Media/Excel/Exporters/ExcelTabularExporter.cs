@@ -1,8 +1,8 @@
 using ClosedXML.Excel;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Excel.Exporters;
+namespace WoW.Two.Sdk.Beta.Be.Media.Excel.Exporters;
 
 /// <summary>Exports supplied rows as an XLSX document with one worksheet and a header-based table.</summary>
 /// <remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Buffering;
+namespace WoW.Two.Sdk.Beta.Be.Web.Buffering;
 
 /// <summary>
 /// Buffers a response body up to a limit so a middleware can inspect it (hash, store) before sending; on overflow or a

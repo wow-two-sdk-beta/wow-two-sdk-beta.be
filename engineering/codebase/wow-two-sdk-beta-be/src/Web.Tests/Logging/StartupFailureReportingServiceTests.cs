@@ -7,10 +7,10 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-using WoW.Two.Sdk.Backend.Beta.Observability.Logging;
-using WoW.Two.Sdk.Backend.Beta.Observability.Logging.Services;
+using WoW.Two.Sdk.Beta.Be.Observability.Logging;
+using WoW.Two.Sdk.Beta.Be.Observability.Logging.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Logging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Logging;
 
 /// <summary>Verifies durable pre-host failure capture, exception preservation and final-logger handoff.</summary>
 [Collection(StartupFailureReporterCollection.Name)]
@@ -74,7 +74,7 @@ public sealed class StartupFailureReportingServiceTests
     {
         var output = new DirectoryInfo(AppContext.BaseDirectory);
         var project = Path.Combine(output.Parent!.Parent!.Parent!.FullName,
-            "WoW.Two.Sdk.Backend.Beta.Web.Tests.csproj");
+            "WoW.Two.Sdk.Beta.Be.Web.Tests.csproj");
         var startInfo = new ProcessStartInfo(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet")
         {
             RedirectStandardError = true,

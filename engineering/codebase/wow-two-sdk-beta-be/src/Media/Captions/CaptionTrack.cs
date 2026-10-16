@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Represents a caption track for a single language — an ordered set of timed segments.</summary>
 public sealed record CaptionTrack

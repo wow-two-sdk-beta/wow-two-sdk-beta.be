@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
 /// <summary>The outcomes of a sign-in attempt.</summary>
 public enum SignInStatus

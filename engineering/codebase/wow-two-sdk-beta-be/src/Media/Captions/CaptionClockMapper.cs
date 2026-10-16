@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Maps media offsets to the clock people read beside a line of text.</summary>
 public static class CaptionClockMapper

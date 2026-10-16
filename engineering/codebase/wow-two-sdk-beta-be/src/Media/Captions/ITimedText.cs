@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Defines a span of media text with its offsets — a caption cue, a speech segment, a transcript line.</summary>
 /// <remarks>Slicing and text rendering work over any span, so a product's own segment type joins by implementing it.</remarks>

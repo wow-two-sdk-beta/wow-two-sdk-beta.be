@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Caching.Memory;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests.Behaviors;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests.Behaviors;
 
 /// <summary>
 /// <see cref="DeduplicatingInterceptor{TRequest,TResponse}"/> — requests marked <see cref="IIdempotent"/> execute once

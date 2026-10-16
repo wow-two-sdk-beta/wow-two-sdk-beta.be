@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.MultiHost;
+namespace WoW.Two.Sdk.Beta.Be.Testing.MultiHost;
 
 /// <summary>
 /// Base for an integration-test fixture that boots several in-process web hosts over one set of

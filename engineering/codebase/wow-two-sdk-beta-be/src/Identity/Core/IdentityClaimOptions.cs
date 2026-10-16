@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Holds the claim types the principal factory writes and the security-stamp check reads.</summary>
 public sealed record IdentityClaimOptions

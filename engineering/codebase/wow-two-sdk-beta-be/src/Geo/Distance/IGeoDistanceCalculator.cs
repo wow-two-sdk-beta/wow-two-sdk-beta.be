@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Distance;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Distance;
 
 /// <summary>Defines behavior that computes great-circle distances, bearings, and destination points on the Earth's surface.</summary>
 public interface IGeoDistanceCalculator

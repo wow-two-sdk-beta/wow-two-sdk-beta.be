@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga;
 
 /// <summary>The result of running a single saga step.</summary>
 public sealed record EventSagaStepOutcome

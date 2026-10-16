@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Naming;
 
 /// <summary>Helpers for mapping enum properties to case-styled string columns.</summary>
 public static class EnumPropertyBuilderExtensions

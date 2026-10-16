@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering;
 
 /// <summary>Defines rendering QR codes from a <see cref="StyleSpec"/> to SVG and PNG.</summary>
 public interface IQrCodeRenderer

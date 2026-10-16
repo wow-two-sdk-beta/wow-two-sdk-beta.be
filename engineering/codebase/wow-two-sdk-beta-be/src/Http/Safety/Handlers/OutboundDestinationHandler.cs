@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Safety.Handlers;
+namespace WoW.Two.Sdk.Beta.Be.Http.Safety.Handlers;
 
 /// <summary>Intercepts outbound requests to enforce scheme, host and transport restrictions.</summary>
 internal sealed class OutboundDestinationHandler(OutboundHttpOptions options) : DelegatingHandler

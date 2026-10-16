@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Creates WhatsApp brokers keyed by name; no name takes <see cref="WhatsAppOptions.DefaultBroker"/>, then the first registered.</summary>
 /// <param name="services">The root provider; brokers are keyed singletons.</param>

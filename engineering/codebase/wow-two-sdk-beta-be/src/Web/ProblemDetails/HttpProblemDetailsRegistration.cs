@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+namespace WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 
 internal sealed class HttpProblemDetailsRegistration : IPostConfigureOptions<ProblemDetailsOptions>
 {

@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.Ghcr;
 
 /// <summary>Wraps the GitHub Container Registry (GHCR) v2 API to confirm a published image tag exists.</summary>
 /// <remarks>

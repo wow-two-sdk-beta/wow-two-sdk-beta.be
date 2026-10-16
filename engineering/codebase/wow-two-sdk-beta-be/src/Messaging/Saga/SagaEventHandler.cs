@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>
 /// Adapts one observed event type onto the saga — an ordinary <see cref="IEventHandler{TEvent}"/>, so a saga consumes

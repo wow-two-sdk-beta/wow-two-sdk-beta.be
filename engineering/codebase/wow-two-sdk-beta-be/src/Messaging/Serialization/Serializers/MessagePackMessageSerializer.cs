@@ -1,9 +1,9 @@
 using MessagePack;
 using MessagePack.Resolvers;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
 /// <summary>Serializes event bodies as MessagePack binary data and decodes them into the requested type.</summary>
 /// <remarks>

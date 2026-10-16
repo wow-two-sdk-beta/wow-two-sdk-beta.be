@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Http.Resilience.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Http.Resilience.Extensions;
 
 /// <summary>Extends HTTP timeout configuration with shared argument checks.</summary>
 internal static class HttpTimeoutValidationExtensions

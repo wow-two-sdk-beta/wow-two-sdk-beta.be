@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 
 /// <summary>Holds options for antiforgery protection of a single-page app that authenticates with cookies.</summary>
 public sealed record SpaAntiforgeryOptions

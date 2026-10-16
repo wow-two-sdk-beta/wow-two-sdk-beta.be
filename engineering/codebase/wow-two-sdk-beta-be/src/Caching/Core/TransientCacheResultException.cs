@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Carries a transient factory value past the cache, which never stores a factory that throws.</summary>
 /// <remarks>Internal control flow for <see cref="ICacheRepository.GetOrCreateUnlessTransientAsync{T}"/>; never escapes it.</remarks>

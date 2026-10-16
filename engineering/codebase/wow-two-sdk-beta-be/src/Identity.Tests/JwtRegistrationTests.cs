@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests;
 
 /// <summary>Verifies JWT trust-source, metadata, algorithm and key-length enforcement.</summary>
 public sealed class JwtRegistrationTests

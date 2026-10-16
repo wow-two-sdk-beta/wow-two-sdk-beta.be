@@ -3,12 +3,12 @@ using System.Text;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Outbound signature schemes: the Standard Webhooks example, a round trip into the inbound validator, and unknown schemes.</summary>
 public sealed class WebhookSignatureIssuerTests

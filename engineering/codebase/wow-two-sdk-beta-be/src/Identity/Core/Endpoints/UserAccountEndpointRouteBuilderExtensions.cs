@@ -7,20 +7,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Emails;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Emails;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Maps the account HTTP API over the registered identity slices.</summary>
 public static class UserAccountEndpointRouteBuilderExtensions

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Holds the HMAC, constant-time comparison and header helpers the built-in validators share.</summary>
 internal static class WebhookSignatureExtensions

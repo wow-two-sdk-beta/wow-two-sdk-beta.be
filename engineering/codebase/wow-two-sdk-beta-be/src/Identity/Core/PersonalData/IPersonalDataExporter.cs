@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>
 /// Defines one section of a user's personal-data export, such as the product's orders or uploads. Register each with

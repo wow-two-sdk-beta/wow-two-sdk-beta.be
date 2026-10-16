@@ -1,6 +1,6 @@
 using OtpNet;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
 
 /// <summary>Provides issuance and verification of time-based one-time codes.</summary>
 public sealed class TotpService : ITotpService

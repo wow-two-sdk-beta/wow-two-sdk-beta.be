@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Media.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Media.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Word processing registration.</summary>
 public static class WordServiceCollectionExtensions

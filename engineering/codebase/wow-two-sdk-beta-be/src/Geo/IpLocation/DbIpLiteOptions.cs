@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
 
 /// <summary>Holds options for downloading the free DB-IP Lite database.</summary>
 /// <remarks>DB-IP Lite is licensed CC BY 4.0: the product must show "IP Geolocation by DB-IP" linking to https://db-ip.com.</remarks>

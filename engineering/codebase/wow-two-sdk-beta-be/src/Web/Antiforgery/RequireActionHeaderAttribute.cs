@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 
 /// <summary>Refuses a request whose action header does not name <paramref name="action"/>, before the body binds.</summary>
 /// <remarks>

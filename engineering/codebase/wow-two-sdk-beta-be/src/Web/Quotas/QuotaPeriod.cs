@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Refers to the calendar window a quota counts in, in UTC.</summary>
 public enum QuotaPeriod

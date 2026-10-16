@@ -1,10 +1,10 @@
 using System.Collections.Concurrent;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>The consume-filter pipeline: registered filters wrap the dispatch core, ordered by registration.</summary>
 public sealed class ConsumeFilterTests

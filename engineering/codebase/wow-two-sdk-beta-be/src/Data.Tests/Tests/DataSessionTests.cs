@@ -3,13 +3,13 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 [Collection(DataTestCollection.Name)]
 public sealed class DataSessionTests(DataTestDb testDb)

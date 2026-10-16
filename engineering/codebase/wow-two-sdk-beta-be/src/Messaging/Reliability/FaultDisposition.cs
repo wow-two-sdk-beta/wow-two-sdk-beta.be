@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Refers to what an <see cref="IEventResiliencePipeline"/> does with an exception thrown by a consume attempt.</summary>
 public enum FaultDisposition

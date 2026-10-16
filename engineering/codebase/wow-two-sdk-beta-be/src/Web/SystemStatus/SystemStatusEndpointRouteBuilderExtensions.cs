@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.SystemStatus;
+namespace WoW.Two.Sdk.Beta.Be.Web.SystemStatus;
 
 /// <summary>Maps the anonymous system status endpoint that reports liveness and the running build.</summary>
 public static class SystemStatusEndpointRouteBuilderExtensions

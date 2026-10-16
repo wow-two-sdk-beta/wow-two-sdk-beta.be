@@ -1,14 +1,14 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors.Mappers;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.ExceptionHandling;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
-using WoW.Two.Sdk.Backend.Beta.Observability.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors.Mappers;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Observability.Errors;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests.Behaviors;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests.Behaviors;
 
 /// <summary>
 /// <see cref="ExceptionMappingInterceptor{TRequest,TResponse}"/> — converts handler throws into an

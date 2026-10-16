@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Resets a forgotten password with the emailed token.</summary>
 public sealed record ResetPasswordApiRequest

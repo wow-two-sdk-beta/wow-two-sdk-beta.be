@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Captcha;
 
 /// <summary>Defines the captcha check of a request: find the token, ask the provider, apply the site's rules.</summary>
 public interface ICaptchaValidator

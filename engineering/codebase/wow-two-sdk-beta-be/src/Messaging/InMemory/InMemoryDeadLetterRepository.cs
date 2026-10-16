@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>In-memory dead-letter store with replay back onto the channel.</summary>
 internal sealed partial class InMemoryDeadLetterRepository(InMemoryEventChannel channel, ILogger<InMemoryDeadLetterRepository> logger) : IDeadLetterRepository

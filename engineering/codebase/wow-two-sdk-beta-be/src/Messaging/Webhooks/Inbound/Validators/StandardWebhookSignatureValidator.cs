@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates the Standard Webhooks signature, which Svix-powered senders also use under <c>svix-*</c> headers.</summary>
 /// <remarks>

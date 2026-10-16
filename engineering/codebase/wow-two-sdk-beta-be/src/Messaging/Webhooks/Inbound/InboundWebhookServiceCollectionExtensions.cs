@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>Registers inbound webhook reception and gates endpoints on it.</summary>
 public static class InboundWebhookServiceCollectionExtensions

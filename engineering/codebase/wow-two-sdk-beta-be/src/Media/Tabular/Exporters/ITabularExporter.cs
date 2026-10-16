@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
+namespace WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
 
 /// <summary>
 /// Defines export of supplied rows to a format-specific tabular document.

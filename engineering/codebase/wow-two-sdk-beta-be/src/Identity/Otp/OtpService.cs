@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Provides one-time-code creation and verification.</summary>
 public sealed class OtpService : IOtpService

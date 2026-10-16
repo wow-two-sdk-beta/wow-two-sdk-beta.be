@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Time.Testing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 internal static class ServiceCollectionInternalExtensions
 {

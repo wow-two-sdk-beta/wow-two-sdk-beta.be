@@ -4,9 +4,9 @@ using Polly;
 using Polly.CircuitBreaker;
 using Polly.Retry;
 
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Polly;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Polly;
 
 /// <summary>
 /// Polly-backed <see cref="IEventResiliencePipeline"/> — exponential-with-jitter retry, optional circuit breaker +

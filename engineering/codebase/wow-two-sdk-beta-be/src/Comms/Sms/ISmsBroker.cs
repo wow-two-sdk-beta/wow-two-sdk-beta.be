@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms;
 
 /// <summary>
 /// Defines behavior that integrates the SMS provider; one implementation per provider, failures returned via

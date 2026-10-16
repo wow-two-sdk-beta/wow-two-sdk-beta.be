@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Identifiers.Generators;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Identifiers.Generators;
 
 /// <summary>Generates random identifiers using unbiased cryptographic character selection.</summary>
 public sealed class CryptographicIdGenerator : IIdGenerator

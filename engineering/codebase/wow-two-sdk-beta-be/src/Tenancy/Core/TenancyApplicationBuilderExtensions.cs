@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>Application-pipeline helpers for tenant resolution.</summary>
 public static class TenancyApplicationBuilderExtensions

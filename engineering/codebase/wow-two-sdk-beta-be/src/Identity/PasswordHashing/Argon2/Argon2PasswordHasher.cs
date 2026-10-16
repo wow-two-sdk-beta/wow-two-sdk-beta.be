@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2;
+namespace WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2;
 
 /// <summary>Argon2id password hasher (OWASP-recommended); implements <see cref="IPasswordHasher{TUser}"/> so it slots into ASP.NET Core Identity.</summary>
 /// <typeparam name="TUser">User type (any class).</typeparam>

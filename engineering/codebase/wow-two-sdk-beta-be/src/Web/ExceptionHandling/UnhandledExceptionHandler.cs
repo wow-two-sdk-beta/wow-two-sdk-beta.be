@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Observability.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Observability.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 
 /// <summary>Handles otherwise-unhandled exceptions as safe ProblemDetails responses.</summary>
 public sealed class UnhandledExceptionHandler(

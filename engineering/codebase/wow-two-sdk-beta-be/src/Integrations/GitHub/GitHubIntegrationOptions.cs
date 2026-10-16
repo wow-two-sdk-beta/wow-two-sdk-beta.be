@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Holds the GitHub REST client's request headers, timeout and anonymous-call policy.</summary>
 public sealed record GitHubIntegrationOptions

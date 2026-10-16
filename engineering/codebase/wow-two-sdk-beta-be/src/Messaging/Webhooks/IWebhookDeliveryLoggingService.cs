@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Defines behavior that provides the terminal-outcome seam of a webhook delivery — a product records or meters each delivered or dropped delivery; the default does nothing.</summary>
 public interface IWebhookDeliveryLoggingService

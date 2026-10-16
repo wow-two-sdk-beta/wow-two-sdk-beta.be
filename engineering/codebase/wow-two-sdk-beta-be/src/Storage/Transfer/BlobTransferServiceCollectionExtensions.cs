@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Transfer;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Transfer;
 
 /// <summary>Registers HMAC-signed transfer URLs and maps the routes that serve them.</summary>
 public static class BlobTransferServiceCollectionExtensions

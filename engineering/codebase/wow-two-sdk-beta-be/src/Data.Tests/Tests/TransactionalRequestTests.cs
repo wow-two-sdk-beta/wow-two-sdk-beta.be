@@ -2,16 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Data.Common;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator;
-using WoW.Two.Sdk.Backend.Beta.Mediator.DataUnits;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator.DataUnits;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 [Collection(DataTestCollection.Name)]
 public sealed class TransactionalRequestTests(DataTestDb testDb)

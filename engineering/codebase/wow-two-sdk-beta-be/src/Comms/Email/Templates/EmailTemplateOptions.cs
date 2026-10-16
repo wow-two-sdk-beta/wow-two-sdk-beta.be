@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Holds the email templates by name and culture, and the brand they wear.</summary>
 /// <remarks>Set in code with <c>AddEmailTemplates(o => …)</c> or in the host section <c>Comms:Email:Templates</c>, which is applied last.</remarks>

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Authenticates a request by the API key it presents — a marked Bearer token or the key header.</summary>
 /// <remarks>

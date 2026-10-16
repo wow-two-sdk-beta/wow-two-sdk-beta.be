@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>
 /// Holds per-entry cache tunables for <see cref="ICacheRepository"/> — total (distributed L2) expiration, a shorter

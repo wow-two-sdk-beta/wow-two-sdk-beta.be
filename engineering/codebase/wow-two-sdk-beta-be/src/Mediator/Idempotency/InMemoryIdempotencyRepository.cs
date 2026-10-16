@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Caching.Memory;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Accesses process-local idempotency ownership and expiring response records.</summary>
 /// <remarks>Concurrent owners receive a conflict. Ownership lasts until store or release; this is not a distributed lock.</remarks>

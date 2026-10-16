@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Sockets;
 using MaxMind.Db;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Models;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety.Validators;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Models;
+using WoW.Two.Sdk.Beta.Be.Http.Safety.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Brokers;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Brokers;
 
 /// <summary>Integrates MaxMind DB files — free DB-IP Lite or GeoLite2, or paid GeoIP2 — for IP location.</summary>
 /// <remarks>

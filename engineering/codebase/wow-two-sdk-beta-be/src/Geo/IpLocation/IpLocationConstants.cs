@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
 
 /// <summary>Holds the fixed names the IP location registrations share.</summary>
 public static class IpLocationConstants

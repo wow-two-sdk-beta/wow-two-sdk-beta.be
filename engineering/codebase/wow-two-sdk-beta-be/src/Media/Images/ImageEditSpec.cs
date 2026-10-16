@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>
 /// Represents one edit applied in a single pass, in this order: orient, crop, rotate and flip, resize, watermark,

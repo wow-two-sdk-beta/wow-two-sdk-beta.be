@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>Maps the request's tracked validation advisories through the field message seam.</summary>
 /// <param name="tracker">The request-scoped advisory tracker.</param>

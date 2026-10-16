@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Models;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Payloads.Models;
 
 /// <summary>Represents supplied data for MailPayload encoding.</summary>
 public sealed record MailPayloadModel

@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Renders <see cref="TextOverlaySpec"/>s onto a canvas: wrapped, anchored, boxed, shadowed, rotated or tiled.</summary>
 /// <param name="fonts">Finds the typeface each text needs.</param>

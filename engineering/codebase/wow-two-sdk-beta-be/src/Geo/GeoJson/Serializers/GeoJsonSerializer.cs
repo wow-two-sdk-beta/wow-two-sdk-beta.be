@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson.Serializers;
 
 /// <summary>Serializes supported geometries, features and feature collections as GeoJSON and decodes those shapes.</summary>
 public sealed class GeoJsonSerializer : IGeoJsonSerializer

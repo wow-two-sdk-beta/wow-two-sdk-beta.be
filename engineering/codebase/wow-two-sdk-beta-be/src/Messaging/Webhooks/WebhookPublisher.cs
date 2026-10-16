@@ -3,9 +3,9 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Default <see cref="IWebhookPublisher"/> — resolves matching subscriptions and fans a signed delivery out to each.</summary>
 internal sealed class WebhookPublisher(IWebhookSubscriptionRepository store, HttpWebhookDispatcher dispatcher) : IWebhookPublisher

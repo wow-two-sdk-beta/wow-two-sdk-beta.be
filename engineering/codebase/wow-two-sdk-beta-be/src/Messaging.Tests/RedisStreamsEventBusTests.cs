@@ -3,13 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using Testcontainers.Redis;
-using WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
-using WoW.Two.Sdk.Backend.Beta.Messaging.RedisStreams;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
+using WoW.Two.Sdk.Beta.Be.Messaging.RedisStreams;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// The Redis Streams adapter against a real Redis: the round trip, competing consumers in one group, the pending-entries

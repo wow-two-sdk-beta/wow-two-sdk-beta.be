@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>A GeoJSON <c>FeatureCollection</c> — an ordered set of features.</summary>
 public sealed record GeoJsonFeatureCollection

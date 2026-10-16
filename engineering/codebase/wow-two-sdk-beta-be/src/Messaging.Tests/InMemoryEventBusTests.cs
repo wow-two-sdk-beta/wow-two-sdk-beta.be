@@ -2,11 +2,11 @@ using AwesomeAssertions;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>The in-memory bus end to end: round-trip, dedupe, dead-letter — driven through the shipped harness.</summary>
 public sealed class InMemoryEventBusTests

@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>Holds one delivered two-factor method: the channel, the broker behind it, the address and the code shape.</summary>
 /// <remarks>Configured under <c>Identity:TwoFactor:Methods:{name}</c>; the name is what a user picks, such as <c>sms</c>.</remarks>

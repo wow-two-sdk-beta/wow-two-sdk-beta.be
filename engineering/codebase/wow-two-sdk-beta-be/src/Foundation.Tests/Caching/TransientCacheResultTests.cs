@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
-using WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Caching;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Caching;
 
 /// <summary>A factory can hand back a value without caching it; kept values and the plain overload cache as before.</summary>
 public sealed class TransientCacheResultTests

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
 /// <summary>Accesses stored user tokens through the context hosting the identity schema.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

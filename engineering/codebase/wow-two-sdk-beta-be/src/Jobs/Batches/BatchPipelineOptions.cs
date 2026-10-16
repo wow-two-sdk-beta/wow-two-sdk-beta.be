@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 
 /// <summary>Holds options for one batch pipeline.</summary>
 public sealed record BatchPipelineOptions

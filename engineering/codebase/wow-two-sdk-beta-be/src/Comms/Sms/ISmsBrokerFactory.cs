@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms;
 
 /// <summary>Defines behavior that creates the SMS broker registered under a name.</summary>
 public interface ISmsBrokerFactory

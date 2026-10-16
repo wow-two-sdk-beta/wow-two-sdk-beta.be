@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Integrations;
+namespace WoW.Two.Sdk.Beta.Be.Integrations;
 
 /// <summary>Access-token-provider registration helpers.</summary>
 public static class AccessTokenProviderServiceCollectionExtensions

@@ -1,6 +1,6 @@
 using System.CommandLine;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
 /// <summary>Builds the <c>wow-migrate</c> command tree — the global options and the status, apply, rollback, verify, new, and promote verbs.</summary>
 /// <remarks>

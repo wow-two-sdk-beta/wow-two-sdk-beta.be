@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Testcontainers.Kafka;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Kafka;
-using WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Kafka;
+using WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>
 /// <see cref="AdapterOwnedHeaderContract"/> over Kafka — see that type for the bug this covers.

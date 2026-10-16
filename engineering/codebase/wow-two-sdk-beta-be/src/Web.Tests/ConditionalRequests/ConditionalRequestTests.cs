@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Meta;
-using WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
+using WoW.Two.Sdk.Beta.Be.Meta;
+using WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ConditionalRequests;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ConditionalRequests;
 
 /// <summary>Conditional GETs through an <c>AddApiDefaults</c> host: off by default, tags and 304s once configured.</summary>
 public sealed class ConditionalRequestTests

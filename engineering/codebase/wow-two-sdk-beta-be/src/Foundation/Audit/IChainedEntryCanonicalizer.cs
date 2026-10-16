@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Defines the consumer-supplied projection of an entry's domain fields onto the canonical payload that gets hashed.</summary>
 /// <remarks>The SDK names no domain field. The consumer decides exactly which fields are part of the tamper-evident proof — and in which order — by appending them to the builder. The chain fields (<see cref="IHashChainedEntry.Sequence"/> and <see cref="IHashChainedEntry.PreviousHash"/>) are prepended by the sealer, never by this method, so a consumer cannot accidentally omit them.</remarks>

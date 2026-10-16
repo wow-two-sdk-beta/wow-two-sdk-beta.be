@@ -2,11 +2,11 @@ using System.Net;
 using System.Text;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Integrations;
-using WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+using WoW.Two.Sdk.Beta.Be.Integrations;
+using WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Integrations.GitHub;
 
 /// <summary>Drives the GitHub client against a recording handler: request paths, headers and status mapping.</summary>
 public sealed class GitHubClientTests

@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>Convenience base for Postgres migrator tests — resets the shared fixture's schema per test and owns a fresh filesystem <see cref="MigrationsWorkspace"/>.</summary>
 /// <param name="fixture">The shared drop-schema Postgres fixture supplied by the test collection.</param>

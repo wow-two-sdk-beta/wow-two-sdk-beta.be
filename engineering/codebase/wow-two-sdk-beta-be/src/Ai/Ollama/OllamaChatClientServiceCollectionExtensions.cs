@@ -1,9 +1,9 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using OllamaSharp;
-using WoW.Two.Sdk.Backend.Beta.Ai.Core;
+using WoW.Two.Sdk.Beta.Be.Ai.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Ollama;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Ollama;
 
 /// <summary>Registers an Ollama-backed <c>IChatClient</c>/<c>IEmbeddingGenerator</c> — local models via the Ollama server.</summary>
 public static class OllamaChatClientServiceCollectionExtensions

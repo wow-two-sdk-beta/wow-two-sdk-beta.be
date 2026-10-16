@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Http.Safety;
+namespace WoW.Two.Sdk.Beta.Be.Http.Safety;
 
 /// <summary>Represents rejection of an outbound destination by the configured network policy.</summary>
 public sealed class OutboundAddressBlockedException : HttpRequestException

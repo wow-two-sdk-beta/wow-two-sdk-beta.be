@@ -1,8 +1,8 @@
 using System.Globalization;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Localization;
+using WoW.Two.Sdk.Beta.Be.Localization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>
 /// Formats one-time codes into message text and a subject line from <see cref="OtpMessageOptions"/> templates, falling

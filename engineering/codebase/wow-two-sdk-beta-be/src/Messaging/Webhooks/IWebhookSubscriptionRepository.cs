@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Defines behavior that stores webhook subscriptions and resolves which ones match a given event type.</summary>
 public interface IWebhookSubscriptionRepository

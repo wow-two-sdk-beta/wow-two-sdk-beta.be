@@ -1,8 +1,8 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Media.Captions;
+using WoW.Two.Sdk.Beta.Be.Media.Captions;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media.Captions;
 
 /// <summary>Timed text slices to the part a reader asks for and renders as timestamped lines or paragraphs.</summary>
 public sealed class TimedTextTests

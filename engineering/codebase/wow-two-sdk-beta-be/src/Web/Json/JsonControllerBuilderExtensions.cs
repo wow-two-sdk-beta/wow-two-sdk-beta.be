@@ -1,9 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Json;
+namespace WoW.Two.Sdk.Beta.Be.Web.Json;
 
 /// <summary>Provides controller JSON presets from the SDK <see cref="JsonOptionsConstants.Default"/> wire options; <c>AddApiDefaults</c> registers no controllers, so a controller host opts in.</summary>
 public static class JsonControllerBuilderExtensions

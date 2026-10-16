@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google.Authenticators;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google.Authenticators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google;
 
 /// <summary>The verified claims from a Google ID token — the trusted output of <see cref="IGoogleIdTokenAuthenticator"/>.</summary>
 public sealed record GoogleVerifiedIdentity

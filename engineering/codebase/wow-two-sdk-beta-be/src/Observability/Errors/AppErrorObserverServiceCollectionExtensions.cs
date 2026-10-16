@@ -3,10 +3,10 @@ using System.Diagnostics.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors.Mappers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors.Mappers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Errors;
 
 /// <summary>Provides registration for the error-observability seam.</summary>
 public static class AppErrorObserverServiceCollectionExtensions

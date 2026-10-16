@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Logging;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Logging;
 
 /// <summary>Provides conventional Serilog wiring behind the <c>ILogger&lt;T&gt;</c> seam.</summary>
 public static class LoggingHostExtensions

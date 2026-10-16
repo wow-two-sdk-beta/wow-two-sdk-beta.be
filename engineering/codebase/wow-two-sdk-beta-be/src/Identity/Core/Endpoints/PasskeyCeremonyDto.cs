@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>A started passkey ceremony: the WebAuthn options and the state to send back with the credential.</summary>
 public sealed record PasskeyCeremonyDto

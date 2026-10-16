@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Dapper;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>
 /// P0-10 — the Dapper conventions are process-global and latched once, so they are asserted rather than assumed.

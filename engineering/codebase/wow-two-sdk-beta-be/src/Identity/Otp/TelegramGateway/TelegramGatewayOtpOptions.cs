@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.TelegramGateway;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.TelegramGateway;
 
 /// <summary>Holds the Telegram Gateway API token and sender for phone-number code delivery.</summary>
 /// <remarks>The Gateway delivers only numeric codes of 4–8 digits and keeps them valid for 30–3600 seconds.</remarks>

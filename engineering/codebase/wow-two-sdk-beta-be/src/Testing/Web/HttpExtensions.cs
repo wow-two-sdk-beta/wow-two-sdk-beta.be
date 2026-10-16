@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Web;
 
 /// <summary>
 /// Compact JSON request/response helpers for E2E HTTP tests. All serialization uses <see cref="TestJsonConstants.Options"/>

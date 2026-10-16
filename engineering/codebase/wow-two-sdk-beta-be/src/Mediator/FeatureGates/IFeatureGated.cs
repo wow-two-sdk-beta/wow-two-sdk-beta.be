@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.FeatureGates;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.FeatureGates;
 
 /// <summary>Defines a request that runs only while every named feature flag is enabled.</summary>
 public interface IFeatureGated

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
 /// <summary>Service-collection helpers repointing a host's <see cref="DbContext"/> off its production provider onto a test provider.</summary>
 public static class DbContextProviderSwapExtensions

@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>
 /// Provides the personal-data rights of an account: export everything the SDK and the product hold for the user, and

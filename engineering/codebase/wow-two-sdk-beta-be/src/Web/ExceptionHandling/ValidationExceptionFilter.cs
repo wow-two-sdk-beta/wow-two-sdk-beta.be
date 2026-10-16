@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 
 /// <summary>Renders a thrown <see cref="ValidationException"/> as a 400 ProblemDetails carrying <c>code</c> and <c>errors[]</c> from inside the MVC action invoker.</summary>
 public sealed class ValidationExceptionFilter(

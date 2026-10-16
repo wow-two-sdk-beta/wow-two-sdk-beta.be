@@ -2,7 +2,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>
 /// Parses blank-line-separated SubRip cue text into caption segments, stripping inline tags and decoding HTML entities.

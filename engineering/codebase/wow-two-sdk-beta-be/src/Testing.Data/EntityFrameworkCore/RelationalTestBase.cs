@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
 /// <summary>Convenience base for EF tests sharing one <see cref="RelationalTestDb{TContext}"/> across a collection — resets the database before each test.</summary>
 /// <remarks>The counterpart to <c>MigratorTestBase</c> for the EF tier. The house pattern of one container per test class costs a container per class; a collection fixture plus this per-test reset costs one container per suite.</remarks>

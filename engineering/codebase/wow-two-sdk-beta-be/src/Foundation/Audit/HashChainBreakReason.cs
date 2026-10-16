@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Refers to why a hash-chain validation failed.</summary>
 public enum HashChainBreakReason

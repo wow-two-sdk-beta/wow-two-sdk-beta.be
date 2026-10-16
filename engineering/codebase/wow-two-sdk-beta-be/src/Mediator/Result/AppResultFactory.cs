@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Result;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Result;
 
 /// <summary>Creates <see cref="AppResult{TSuccess}"/> failures for an arbitrary response type via cached reflection.</summary>
 public static class AppResultFactory

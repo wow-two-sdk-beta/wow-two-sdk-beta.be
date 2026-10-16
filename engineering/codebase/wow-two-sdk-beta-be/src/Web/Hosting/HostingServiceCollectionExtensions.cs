@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HostFiltering;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestLimits;
+using WoW.Two.Sdk.Beta.Be.Web.RequestLimits;
 using IPNetwork = System.Net.IPNetwork;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Hosting;
+namespace WoW.Two.Sdk.Beta.Be.Web.Hosting;
 
 /// <summary>Provides proxy-aware hosting defaults: forwarded headers, host filtering, bounded request limits, and request decompression.</summary>
 public static class HostingServiceCollectionExtensions

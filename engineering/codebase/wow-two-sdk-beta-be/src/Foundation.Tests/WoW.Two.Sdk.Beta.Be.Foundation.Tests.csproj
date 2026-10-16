@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <!--
-    MEDIATOR UNIT TESTS (beta-forever exception).
+    FOUNDATION UNIT TESTS (beta-forever exception).
 
-    The SDK is beta-forever with "no required tests", but the CQRS + AppResult absorption ships a
-    public contract (the discriminated union + .Match collapse + CQRS markers) worth a guard. This is
-    the SDK's first unit-test project — xUnit + AwesomeAssertions, referencing the core mono-lib.
+    Guards the redesigned errors / results / validation layer (AppError, AppErrors catalog,
+    ExceptionChain, ErrorNature, Result/Result<T>, Attempt, validation reshape). Mirrors the
+    Mediator.Tests project — xUnit + AwesomeAssertions, referencing the core mono-lib.
 
-    Non-packable, no XML-doc gate. Relaxes a few analyzer-as-error rules that are noise in test code
-    (underscore test names, ConfigureAwait, null-arg guards on test helpers).
+    Non-packable, no XML-doc gate. Relaxes a few analyzer-as-error rules that are noise in test code.
   -->
 
   <PropertyGroup>
@@ -22,8 +21,7 @@
   </PropertyGroup>
 
   <!-- The core mono-lib carries FrameworkReference Microsoft.AspNetCore.App; match it so
-       Microsoft.Extensions.* (DI, etc.) resolve from the shared framework instead of as CPM-pinned
-       packages — otherwise the lib's transitive HeaderPropagation 10.0.9 downgrade-conflicts the 10.0.3 pin. -->
+       Microsoft.Extensions.* (DI, etc.) resolve from the shared framework instead of as CPM-pinned packages. -->
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
@@ -33,11 +31,10 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="AwesomeAssertions" />
-    <PackageReference Include="Testcontainers.Redis" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
   </ItemGroup>
 
 </Project>

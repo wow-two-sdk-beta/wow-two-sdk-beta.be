@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Meta;
 
 /// <summary>An <c>AddApiDefaults</c> host translates thrown errors after nothing but a configuration change.</summary>
 public sealed class ApiDefaultsErrorTranslationTests

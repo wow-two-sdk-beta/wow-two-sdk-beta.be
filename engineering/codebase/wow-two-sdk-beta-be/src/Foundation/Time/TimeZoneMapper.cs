@@ -1,6 +1,6 @@
 using TimeZoneConverter;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Time;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Time;
 
 /// <summary>Maps Windows and IANA time-zone identifiers to cross-platform zones.</summary>
 public static class TimeZoneMapper

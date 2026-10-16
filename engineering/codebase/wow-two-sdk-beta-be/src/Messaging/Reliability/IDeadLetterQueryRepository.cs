@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>
 /// Defines a dead-letter store that can also be searched, corrected and emptied — everything an operator console needs beyond

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Defines the lookup of a signature validator by scheme name.</summary>
 public interface IWebhookSignatureValidatorFactory

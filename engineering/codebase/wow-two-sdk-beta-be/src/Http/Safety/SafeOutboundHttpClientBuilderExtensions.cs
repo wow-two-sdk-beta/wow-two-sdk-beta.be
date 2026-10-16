@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety.Handlers;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety.Validators;
+using WoW.Two.Sdk.Beta.Be.Http.Safety.Handlers;
+using WoW.Two.Sdk.Beta.Be.Http.Safety.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Safety;
+namespace WoW.Two.Sdk.Beta.Be.Http.Safety;
 
 /// <summary>Provides factory-managed HTTP clients with explicit destination protection.</summary>
 public static class SafeOutboundHttpClientBuilderExtensions

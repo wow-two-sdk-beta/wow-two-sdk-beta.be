@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Serializers;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Guest;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Guest;
 
 internal static class GuestRequestExtensions
 {

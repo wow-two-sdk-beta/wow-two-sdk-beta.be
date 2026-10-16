@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Localization;
+namespace WoW.Two.Sdk.Beta.Be.Localization;
 
 /// <summary>Applies the request-localization middleware configured by <see cref="LocalizationServiceCollectionExtensions.AddRequestLocalizationConventions"/>.</summary>
 public static class RequestLocalizationBuilderExtensions

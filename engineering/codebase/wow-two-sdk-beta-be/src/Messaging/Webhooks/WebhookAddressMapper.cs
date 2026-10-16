@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>
 /// Pre-flight scheme and host-allowlist policy for outbound webhook delivery. Connect-time address blocking — private,

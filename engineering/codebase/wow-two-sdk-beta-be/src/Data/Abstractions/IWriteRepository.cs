@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines write-only data access for an aggregate, keyed by <typeparamref name="TId"/> (<c>Create</c>/<c>Update</c>/<c>Delete</c>). The read half is <see cref="IReadRepository{TEntity, TId}"/>; in a CQRS split writes bind to EF Core and reads to Dapper.</summary>
 /// <remarks>Implementations persist immediately (call SaveChanges).</remarks>

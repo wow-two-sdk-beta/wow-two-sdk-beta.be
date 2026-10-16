@@ -1,6 +1,6 @@
 using MailKit.Security;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.MailKit;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.MailKit;
 
 /// <summary>Holds sMTP connection settings for the MailKit sender.</summary>
 public sealed record MailKitEmailOptions

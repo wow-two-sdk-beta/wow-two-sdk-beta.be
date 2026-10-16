@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.FeatureManagement;
 
-namespace WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
+namespace WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
 
 /// <summary>Registers Microsoft.FeatureManagement plus the vendor-neutral <see cref="IFeatureFlags"/> facade.</summary>
 public static class FeatureManagementServiceCollectionExtensions

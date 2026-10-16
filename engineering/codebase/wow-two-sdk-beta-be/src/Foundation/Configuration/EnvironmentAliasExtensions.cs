@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Configuration;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 
 /// <summary>
 /// Extends a configuration manager with an explicit environment contract: only listed variables reach configuration,

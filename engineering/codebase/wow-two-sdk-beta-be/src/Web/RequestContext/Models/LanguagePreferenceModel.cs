@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
 
 /// <summary>Represents a basic language range and its HTTP preference weight.</summary>
 public sealed record LanguagePreferenceModel

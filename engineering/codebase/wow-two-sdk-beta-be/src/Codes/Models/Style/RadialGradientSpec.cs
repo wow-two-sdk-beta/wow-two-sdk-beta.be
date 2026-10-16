@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents a radial foreground gradient whose color stops spread from the symbol center outward to <see cref="Radius"/>.</summary>
 public sealed record RadialGradientSpec : GradientSpec

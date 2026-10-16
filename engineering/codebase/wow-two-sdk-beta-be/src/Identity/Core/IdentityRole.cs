@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>A role, with ASP.NET-Identity-shaped columns. Consumed by the roles slice; the core schema maps it so later slices need no migration.</summary>
 /// <typeparam name="TKey">Primary-key type (default <see cref="Guid"/>).</typeparam>

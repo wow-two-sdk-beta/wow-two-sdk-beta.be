@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps an EXIF orientation, a rotation or a flip to a new upright bitmap; the source is disposed when replaced.</summary>
 internal static class ImageOrientationMapper

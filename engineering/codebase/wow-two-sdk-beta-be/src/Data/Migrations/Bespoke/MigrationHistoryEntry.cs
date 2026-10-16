@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Represents one applied migration recorded in the history table, mapped by Dapper (snake_case).</summary>
 public sealed class MigrationHistoryEntry

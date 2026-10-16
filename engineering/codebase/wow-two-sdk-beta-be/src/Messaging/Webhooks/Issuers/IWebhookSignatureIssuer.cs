@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
 /// <summary>
 /// Defines one signature scheme's headers for an outbound delivery. Registered as an enumerable service; a subscription

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Sqlite;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite;
 
 /// <summary>Sqlite-only model conventions that keep a Sqlite-backed model behaviourally aligned with Postgres.</summary>
 public static class SqliteModelBuilderExtensions

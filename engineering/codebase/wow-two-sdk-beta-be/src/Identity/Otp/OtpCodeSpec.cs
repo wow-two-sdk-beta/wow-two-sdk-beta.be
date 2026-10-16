@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Represents the shape of one kind of code: its characters, length and lifetime.</summary>
 /// <remarks>Binds from configuration, so a host sets it per purpose, such as <c>Identity:TwoFactor:Methods:email:Code</c>.</remarks>

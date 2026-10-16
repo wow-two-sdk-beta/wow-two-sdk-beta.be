@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Claim-normalization registration.</summary>
 public static class ClaimNormalizationServiceCollectionExtensions

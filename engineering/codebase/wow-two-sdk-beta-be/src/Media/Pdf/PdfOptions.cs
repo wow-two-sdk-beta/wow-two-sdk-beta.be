@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Holds the limits and fonts that steer PDF processing.</summary>
 /// <remarks>Set in code with <c>AddPdfProcessing(o => …)</c> or in the host section <c>Media:Pdf</c>, which is applied last.</remarks>

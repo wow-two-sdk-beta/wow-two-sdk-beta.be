@@ -4,11 +4,11 @@ using System.Text;
 using AwesomeAssertions;
 using Konscious.Security.Cryptography;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Password slice: rules, breach check, set/change/check, stamp rotation, rehash upgrade and token reset.</summary>
 public sealed class PasswordSliceTests

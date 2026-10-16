@@ -3,12 +3,12 @@ using Hangfire;
 using Hangfire.InMemory;
 using Hangfire.PostgreSql;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire;
-using WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire.Postgres;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Jobs.Hangfire;
+using WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.Postgres;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Jobs.Hangfire;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Jobs.Hangfire;
 
 /// <summary>
 /// Hangfire storage wires from the built provider, so settings and connections registered later reach it. Hangfire keeps

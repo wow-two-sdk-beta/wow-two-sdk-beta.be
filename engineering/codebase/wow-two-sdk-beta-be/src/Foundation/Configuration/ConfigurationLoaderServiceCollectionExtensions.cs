@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Configuration;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 
 /// <summary>Registration helpers that bind settings via <see cref="ConfigurationMapper"/> (appsettings section and environment-variable overlay).</summary>
 public static class ConfigurationLoaderServiceCollectionExtensions

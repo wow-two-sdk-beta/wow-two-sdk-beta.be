@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Completes a passkey registration with the credential the browser created.</summary>
 public sealed record PasskeyRegistrationApiRequest

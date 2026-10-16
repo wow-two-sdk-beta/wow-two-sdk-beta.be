@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Repositories;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Repositories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 public sealed class EfRepositoryTrackedWriteTests
 {

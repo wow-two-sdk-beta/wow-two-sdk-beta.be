@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.MailKit;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.MailKit;
 
 /// <summary>MailKit SMTP sender registration.</summary>
 public static class MailKitEmailServiceCollectionExtensions

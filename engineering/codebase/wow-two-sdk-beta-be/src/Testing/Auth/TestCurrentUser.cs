@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>
 /// Deterministic current-user stub for handler-level unit tests — resolves to a fixed user id with no HTTP /

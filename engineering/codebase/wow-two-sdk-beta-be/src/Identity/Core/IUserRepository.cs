@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>
 /// Defines the mandatory core store slice: user persistence + lookup by id / normalized name / normalized email. Optional

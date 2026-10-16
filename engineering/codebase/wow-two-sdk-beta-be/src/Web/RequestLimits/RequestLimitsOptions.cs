@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestLimits;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestLimits;
 
 /// <summary>
 /// Holds server request-size and header-timing limits. Bounds otherwise-unbounded request input — including the compressed

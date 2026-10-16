@@ -1,7 +1,7 @@
 using EntityFrameworkCore.Projectables.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Projectables;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Projectables;
 
 /// <summary>Convenience extensions for <c>EFCore.Projectables</c>.</summary>
 public static class ProjectablesExtensions

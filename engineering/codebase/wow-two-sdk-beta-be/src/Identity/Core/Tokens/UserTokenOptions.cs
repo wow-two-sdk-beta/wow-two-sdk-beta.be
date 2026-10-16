@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
 /// <summary>Holds the purpose-token key and lifetimes.</summary>
 public sealed record UserTokenOptions

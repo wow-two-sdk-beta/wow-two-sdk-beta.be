@@ -11,13 +11,13 @@ import unittest
 SCRIPT = Path(__file__).with_name("verify-published-packages.sh")
 VERSION = "10.0.56-beta"
 IDS = [
-    "wow2.sdk.backend.beta",
-    "wow2.sdk.backend.beta.data.abstractions",
-    "wow2.sdk.backend.beta.data.migrations.cli",
-    "wow2.sdk.backend.beta.testing",
-    "wow2.sdk.backend.beta.testing.data",
-    "wow2.sdk.backend.beta.testing.integrations",
-    "wow2.sdk.backend.beta.testing.messaging",
+    "wow2.sdk.beta.be",
+    "wow2.sdk.beta.be.data.abstractions",
+    "wow2.sdk.beta.be.data.migrations.cli",
+    "wow2.sdk.beta.be.testing",
+    "wow2.sdk.beta.be.testing.data",
+    "wow2.sdk.beta.be.testing.integrations",
+    "wow2.sdk.beta.be.testing.messaging",
 ]
 
 

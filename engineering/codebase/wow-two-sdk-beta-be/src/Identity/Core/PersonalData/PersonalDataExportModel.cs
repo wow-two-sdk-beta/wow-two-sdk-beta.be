@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>Represents a user's personal-data export: when it was made and one entry per section.</summary>
 public sealed record PersonalDataExportModel

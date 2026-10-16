@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Twilio;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Twilio;
 
 /// <summary>Integrates Twilio's WhatsApp sender as the WhatsApp provider; a template is a content SID with numbered variables.</summary>
 /// <param name="httpClientFactory">Creates the named client registered by <c>AddTwilioWhatsAppBroker</c>.</param>

@@ -1,7 +1,7 @@
 using System.Globalization;
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps <c>#RRGGBB[AA]</c> strings to Skia colors and back.</summary>
 internal static class ImageColorMapper

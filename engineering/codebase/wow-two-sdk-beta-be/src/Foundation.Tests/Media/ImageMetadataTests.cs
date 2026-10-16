@@ -3,10 +3,10 @@ using System.Text;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SkiaSharp;
-using WoW.Two.Sdk.Backend.Beta.Media.Images;
+using WoW.Two.Sdk.Beta.Be.Media.Images;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>EXIF reading from JPEG and PNG, in both byte orders: when, with what, how and where a photo was taken.</summary>
 public sealed class ImageMetadataTests

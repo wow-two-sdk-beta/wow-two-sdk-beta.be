@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
 /// <summary>
 /// Base class for untyped SignalR hubs adding small conveniences over <see cref="Hub"/>:

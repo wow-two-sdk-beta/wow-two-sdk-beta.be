@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>
 /// Registers the <see cref="EntitySpec"/> of each entity at composition, keyed by entity type; mappers read it to build

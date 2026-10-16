@@ -1,11 +1,11 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
 /// <summary>
 /// Defines serialization and decoding of an event body under a wire-format contract. Pluggable — the default is System.Text.Json (through the SDK's

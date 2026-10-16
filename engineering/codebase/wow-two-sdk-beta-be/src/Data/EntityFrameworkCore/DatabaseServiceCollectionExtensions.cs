@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
 /// <summary>Registration helpers for <see cref="DatabaseSettings"/>.</summary>
 public static class DatabaseServiceCollectionExtensions

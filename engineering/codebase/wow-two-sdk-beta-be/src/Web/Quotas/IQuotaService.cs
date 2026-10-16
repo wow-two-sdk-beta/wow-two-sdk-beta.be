@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Defines quota counting for a subject — a user, an API key, an address — under its plan.</summary>
 public interface IQuotaService

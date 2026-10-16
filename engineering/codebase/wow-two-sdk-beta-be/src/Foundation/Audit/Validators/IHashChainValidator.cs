@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 
 /// <summary>Defines validation of the consistency of a supplied hash chain.</summary>
 /// <remarks>An intact result does not prove completeness or authenticity: no trusted external checkpoint is checked, so tail truncation or a consistently rewritten chain can pass.</remarks>

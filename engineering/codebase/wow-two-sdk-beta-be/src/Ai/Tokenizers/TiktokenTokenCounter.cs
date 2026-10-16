@@ -1,6 +1,6 @@
 using Microsoft.ML.Tokenizers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Tokenizers;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Tokenizers;
 
 /// <summary>Default <see cref="ITokenCounter"/> over a <see cref="Tokenizer"/> (e.g. tiktoken for OpenAI models). Thread-safe.</summary>
 public sealed class TiktokenTokenCounter : ITokenCounter

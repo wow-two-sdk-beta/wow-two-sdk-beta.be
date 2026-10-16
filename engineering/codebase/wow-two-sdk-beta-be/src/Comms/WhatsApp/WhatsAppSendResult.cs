@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Represents the outcome of a WhatsApp send attempt.</summary>
 public sealed record WhatsAppSendResult

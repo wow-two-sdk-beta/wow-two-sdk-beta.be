@@ -2,7 +2,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Defines marker — request opts in to idempotency dedup.</summary>
 public interface IIdempotent

@@ -1,6 +1,6 @@
 using Microsoft.FeatureManagement;
 
-namespace WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
+namespace WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
 
 /// <summary>Default <see cref="IFeatureFlags"/> — delegates to <c>Microsoft.FeatureManagement</c>'s <see cref="IFeatureManager"/>.</summary>
 public sealed class FeatureManagerAdapter : IFeatureFlags

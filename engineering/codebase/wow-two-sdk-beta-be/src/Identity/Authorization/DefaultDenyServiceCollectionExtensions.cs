@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
 /// <summary>Default-deny authorization registration.</summary>
 public static class DefaultDenyServiceCollectionExtensions

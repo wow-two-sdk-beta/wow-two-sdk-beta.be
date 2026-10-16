@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
 
 /// <summary>Defines the advisory validation findings raised while one operation runs.</summary>
 /// <remarks>Advisories are warnings and suggestions: they travel with a successful result and never block it.</remarks>

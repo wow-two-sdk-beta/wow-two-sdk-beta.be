@@ -1,11 +1,11 @@
 using System.Collections.Concurrent;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga.Services;
 
 /// <summary>
 /// Provides guarded publishing of step-emitted events through the registered <see cref="IEventBus"/>.

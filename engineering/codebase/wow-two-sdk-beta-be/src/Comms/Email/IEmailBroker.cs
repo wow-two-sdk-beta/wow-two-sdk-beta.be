@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email;
 
 /// <summary>Defines behavior that integrates the transactional email provider; one implementation per provider, failures returned via <see cref="EmailSendResult.FailureReason"/> rather than thrown (cancellation excepted).</summary>
 public interface IEmailBroker

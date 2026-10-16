@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Hashes a migration body with SHA-256 over its normalized text — CR/CRLF collapsed to LF, trailing whitespace trimmed — rendered as lowercase hex.</summary>
 public sealed class MigrationChecksumHasher : IMigrationChecksumHasher

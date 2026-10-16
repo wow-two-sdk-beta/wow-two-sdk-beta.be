@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>
 /// A GeoJSON position — longitude, latitude, and optional altitude, in that order (RFC 7946 uses

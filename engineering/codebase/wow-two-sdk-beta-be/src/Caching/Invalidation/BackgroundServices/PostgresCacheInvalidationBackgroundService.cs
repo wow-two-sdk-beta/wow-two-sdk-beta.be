@@ -2,7 +2,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation.BackgroundServices;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation.BackgroundServices;
 
 /// <summary>Runs a PostgreSQL LISTEN loop and evicts the local entries each committed notification names.</summary>
 /// <remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Defines the counters quotas keep; every change is atomic across callers sharing the store.</summary>
 public interface IQuotaRepository

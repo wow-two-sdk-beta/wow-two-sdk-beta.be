@@ -1,7 +1,7 @@
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.AzureMonitor;
+namespace WoW.Two.Sdk.Beta.Be.Observability.AzureMonitor;
 
 /// <summary>Provides Azure Monitor OpenTelemetry distro registration.</summary>
 public static class AzureMonitorServiceCollectionExtensions

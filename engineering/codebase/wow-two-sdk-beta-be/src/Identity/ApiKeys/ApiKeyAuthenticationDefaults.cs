@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Holds the names the API key scheme reads and writes.</summary>
 public static class ApiKeyAuthenticationDefaults

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Holds the built-in one-time-code wording for <c>en</c>, <c>ru</c> and <c>uz</c>; configured templates override it.</summary>
 internal static class OtpMessageTemplateConstants

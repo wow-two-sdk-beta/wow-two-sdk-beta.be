@@ -13,13 +13,13 @@ if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-beta$ ]] ||
 fi
 
 PENDING=(
-  wow2.sdk.backend.beta
-  wow2.sdk.backend.beta.data.abstractions
-  wow2.sdk.backend.beta.data.migrations.cli
-  wow2.sdk.backend.beta.testing
-  wow2.sdk.backend.beta.testing.data
-  wow2.sdk.backend.beta.testing.integrations
-  wow2.sdk.backend.beta.testing.messaging
+  wow2.sdk.beta.be
+  wow2.sdk.beta.be.data.abstractions
+  wow2.sdk.beta.be.data.migrations.cli
+  wow2.sdk.beta.be.testing
+  wow2.sdk.beta.be.testing.data
+  wow2.sdk.beta.be.testing.integrations
+  wow2.sdk.beta.be.testing.messaging
 )
 DEADLINE=$((SECONDS + TIMEOUT_SECONDS))
 

@@ -1,5 +1,5 @@
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Maps an exception to an <see cref="AppError"/> through registered rules and the default fallback.</summary>
 public sealed class ExceptionMapper : IExceptionMapper

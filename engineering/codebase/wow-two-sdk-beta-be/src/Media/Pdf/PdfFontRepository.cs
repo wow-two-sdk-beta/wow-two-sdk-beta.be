@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using PdfSharp.Fonts;
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>
 /// Reads font files for PDFsharp: configured files by family first, then the platform's families through Skia's font

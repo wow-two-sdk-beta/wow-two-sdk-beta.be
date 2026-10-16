@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
+namespace WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
 
 /// <summary>Registers config-activated conditional GET handling.</summary>
 public static class ConditionalRequestServiceCollectionExtensions

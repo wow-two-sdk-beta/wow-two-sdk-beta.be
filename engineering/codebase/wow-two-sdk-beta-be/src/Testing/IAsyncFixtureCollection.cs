@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Defines behavior that aggregates multiple <see cref="IAsyncTestFixture"/>s and orchestrates start/stop/reset across them.

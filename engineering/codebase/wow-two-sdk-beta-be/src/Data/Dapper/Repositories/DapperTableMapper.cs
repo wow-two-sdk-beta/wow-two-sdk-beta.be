@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
 
 /// <summary>
 /// Maps an <see cref="EntitySpec"/> (registered, or read from the marker interfaces) and a naming convention to the SQL

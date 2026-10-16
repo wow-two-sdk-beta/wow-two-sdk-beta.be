@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Refers to how a concurrency token changes on every write.</summary>
 public enum ConcurrencyTokenKind

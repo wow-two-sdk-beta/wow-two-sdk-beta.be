@@ -15,8 +15,8 @@
 
   <PropertyGroup>
     <!-- Published ID uses the OWNED WoW2.* reserved prefix. Assembly + namespaces remain WoW.Two.*. -->
-    <PackageId>WoW2.Sdk.Backend.Beta.Testing.Messaging</PackageId>
-    <Description>WoW Two backend SDK messaging test harness (beta-forever) — MessagingTestHarness with published / consumed / faulted / dead-lettered assertions over the observer seam, plus an idle-wait primitive that replaces polling sleeps; and SagaTestHarness with state, transition, timeout and optimistic-concurrency assertions over a state-machine saga. References core; reference from test projects only.</Description>
+    <PackageId>WoW2.Sdk.Beta.Be.Testing.Messaging</PackageId>
+    <Description>WoW Two be sdk messaging test harness (beta-forever) — MessagingTestHarness with published / consumed / faulted / dead-lettered assertions over the observer seam, plus an idle-wait primitive that replaces polling sleeps; and SagaTestHarness with state, transition, timeout and optimistic-concurrency assertions over a state-machine saga. References core; reference from test projects only.</Description>
     <PackageTags>wow-two; backend; beta; sdk; testing; messaging; events; saga; harness; xunit</PackageTags>
 
     <!-- Test-HELPER library (not a test SUITE): ships no runner. Tell `dotnet test` to skip it. -->
@@ -41,7 +41,7 @@
 
   <ItemGroup>
     <!-- Core: the observer seam, the envelope, IEventBus, IBusControl and the in-memory transport registration. -->
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
   </ItemGroup>
 
 </Project>

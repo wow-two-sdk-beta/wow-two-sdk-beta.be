@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>Holds the two-factor settings: authenticator label, recovery codes and the delivered-code methods.</summary>
 /// <remarks>Set in code with <c>.AddTwoFactor(o => …)</c> or in the host section <c>Identity:TwoFactor</c>, which is applied last.</remarks>

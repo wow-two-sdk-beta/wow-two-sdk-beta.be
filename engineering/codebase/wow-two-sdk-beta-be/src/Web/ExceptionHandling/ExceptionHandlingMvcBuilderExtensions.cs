@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 
 /// <summary>Provides registration for MVC exception filters that map thrown exceptions to ProblemDetails responses.</summary>
 public static class ExceptionHandlingMvcBuilderExtensions

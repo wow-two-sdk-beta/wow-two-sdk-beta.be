@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Uniqueness.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Uniqueness.Extensions;
 
 /// <summary>Extends EF Core saves with unique-constraint conflicts reported as results inside a transaction.</summary>
 public static class UniqueSaveExtensions

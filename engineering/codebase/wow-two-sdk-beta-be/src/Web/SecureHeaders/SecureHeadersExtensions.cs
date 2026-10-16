@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders;
+namespace WoW.Two.Sdk.Beta.Be.Web.SecureHeaders;
 
 /// <summary>Provides OWASP secure-headers middleware presets.</summary>
 public static class SecureHeadersExtensions

@@ -1,10 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
 using OtpNet;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>
 /// Provides the two-factor slice: an authenticator (TOTP) key per user, enable/disable with a verified code, and

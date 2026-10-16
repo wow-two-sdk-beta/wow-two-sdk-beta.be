@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
 /// <summary>
 /// Defines behavior that tracks which SignalR connection ids belong to which authenticated user, so an application can answer

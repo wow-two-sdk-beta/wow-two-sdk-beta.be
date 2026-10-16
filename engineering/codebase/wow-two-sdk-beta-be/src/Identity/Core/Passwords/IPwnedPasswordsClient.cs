@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Defines the Pwned Passwords range query: how often a password appears in known breaches.</summary>
 public interface IPwnedPasswordsClient

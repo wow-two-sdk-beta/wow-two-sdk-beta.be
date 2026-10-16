@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
 /// <summary>Opts sign-in orchestration into an identity registration.</summary>
 public static class SignInIdentityBuilderExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Localization.Formatters;
+namespace WoW.Two.Sdk.Beta.Be.Localization.Formatters;
 
 /// <summary>
 /// Defines formatting of values as human-friendly text — ordinals, counted quantities, and English inflection — for

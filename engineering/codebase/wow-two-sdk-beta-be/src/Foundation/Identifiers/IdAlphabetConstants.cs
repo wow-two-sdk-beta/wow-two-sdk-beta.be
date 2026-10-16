@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Identifiers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Identifiers;
 
 /// <summary>Holds URL-safe identifier alphabets.</summary>
 public static class IdAlphabetConstants

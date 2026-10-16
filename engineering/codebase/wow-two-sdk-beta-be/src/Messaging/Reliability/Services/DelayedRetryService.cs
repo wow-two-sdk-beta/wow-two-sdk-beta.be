@@ -2,12 +2,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Services;
 
 /// <summary>
 /// Provides delayed redelivery by deciding whether a failed delivery can be retried and scheduling its next attempt. The

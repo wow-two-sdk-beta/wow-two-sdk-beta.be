@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches.BackgroundServices;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches.BackgroundServices;
 
 /// <summary>Runs a batch handler as pipeline items arrive, and drains accepted items during graceful shutdown.</summary>
 /// <typeparam name="TItem">The work item type.</typeparam>

@@ -2,12 +2,12 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Time.Testing;
-using WoW.Two.Sdk.Backend.Beta.Messaging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+using WoW.Two.Sdk.Beta.Be.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
 /// <summary>Holds timing and clock defaults for a <see cref="SagaTestHarness{TState}"/>.</summary>
 public sealed record SagaHarnessOptions

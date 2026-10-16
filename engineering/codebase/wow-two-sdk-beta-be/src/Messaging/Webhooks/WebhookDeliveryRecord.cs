@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>A completed (delivered or dropped) webhook delivery, handed to <see cref="IWebhookDeliveryLoggingService"/>.</summary>
 public sealed record WebhookDeliveryRecord

@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.Apns;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.Apns;
 
 /// <summary>
 /// Integrates Apple Push Notification service over HTTP/2 with token-based authentication: an ES256 provider token

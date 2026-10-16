@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google.Authenticators;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google.Authenticators;
 
 /// <summary>Defines authentication from a Google ID token (the SPA/client-side sign-in flow) and returns its trusted identity, or <c>null</c> when the token is invalid; the seam that keeps sign-in testable without calling Google.</summary>
 public interface IGoogleIdTokenAuthenticator

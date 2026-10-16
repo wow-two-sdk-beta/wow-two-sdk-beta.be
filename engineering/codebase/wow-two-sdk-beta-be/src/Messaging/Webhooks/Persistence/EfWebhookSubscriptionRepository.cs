@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>
 /// Accesses webhook subscriptions in <c>webhook_subscriptions</c> of <typeparamref name="TContext"/>, beside the ones

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Owns one session boundary and its deferred callbacks.</summary>
 internal sealed class DataUnit(

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents one page's size and rotation.</summary>
 public sealed record PdfPageInfo

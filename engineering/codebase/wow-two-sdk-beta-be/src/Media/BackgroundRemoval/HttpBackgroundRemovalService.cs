@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.BackgroundRemoval;
+namespace WoW.Two.Sdk.Beta.Be.Media.BackgroundRemoval;
 
 /// <summary>Bounded client for an explicitly configured private segmentation worker.</summary>
 public sealed class HttpBackgroundRemovalService(HttpClient client, IOptions<BackgroundRemovalOptions> options) : IBackgroundRemovalService

@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.Sse;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.Sse;
 
 /// <summary>
 /// Holds tunables for streaming an <see cref="IAsyncEnumerable{T}"/> as Server-Sent Events via

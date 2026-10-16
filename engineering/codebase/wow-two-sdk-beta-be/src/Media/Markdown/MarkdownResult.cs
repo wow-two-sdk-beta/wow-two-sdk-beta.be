@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+namespace WoW.Two.Sdk.Beta.Be.Media.Markdown;
 
 /// <summary>Represents rendered Markdown: its HTML, plain text, headings, front matter and length.</summary>
 public sealed record MarkdownResult

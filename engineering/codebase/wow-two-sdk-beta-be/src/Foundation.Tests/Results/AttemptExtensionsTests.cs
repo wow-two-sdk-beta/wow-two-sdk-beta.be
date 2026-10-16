@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Results;
 
 public sealed class AttemptExtensionsTests
 {

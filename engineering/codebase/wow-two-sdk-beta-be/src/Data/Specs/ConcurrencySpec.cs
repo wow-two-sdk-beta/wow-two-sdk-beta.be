@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Represents the property that guards an entity against lost updates, and how it changes.</summary>
 public sealed record ConcurrencySpec

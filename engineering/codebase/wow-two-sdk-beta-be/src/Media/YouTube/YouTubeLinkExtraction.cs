@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+namespace WoW.Two.Sdk.Beta.Be.Media.YouTube;
 
 /// <summary>Represents the YouTube links found in pasted text, and the pieces that named none.</summary>
 public sealed record YouTubeLinkExtraction

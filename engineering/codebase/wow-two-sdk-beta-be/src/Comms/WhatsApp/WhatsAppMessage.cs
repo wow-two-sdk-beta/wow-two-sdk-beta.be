@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Represents one outgoing WhatsApp message; set <see cref="Template"/> or <see cref="Text"/>.</summary>
 /// <remarks>WhatsApp accepts free text only within 24 hours of the recipient's last message; codes use an approved template.</remarks>

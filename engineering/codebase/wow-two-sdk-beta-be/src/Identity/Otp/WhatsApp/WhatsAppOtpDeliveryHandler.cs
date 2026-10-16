@@ -1,8 +1,8 @@
 using System.Globalization;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp;
 
 /// <summary>
 /// Handles <see cref="OtpDeliveryEnvelopeModel"/> deliveries as WhatsApp messages through the broker the envelope or

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization.Converters;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization.Converters;
 
 /// <summary>Converts <see cref="TimeSpan"/> values to and from ISO 8601 duration strings.</summary>
 public sealed class IsoDurationJsonConverter : JsonConverter<TimeSpan>

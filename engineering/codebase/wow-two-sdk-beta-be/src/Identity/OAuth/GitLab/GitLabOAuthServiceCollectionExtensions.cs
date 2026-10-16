@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.GitLab;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitLab;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitLab;
 
 /// <summary>GitLab OAuth provider.</summary>
 public static class GitLabOAuthServiceCollectionExtensions

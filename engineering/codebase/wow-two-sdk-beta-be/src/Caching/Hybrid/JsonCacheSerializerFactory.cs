@@ -2,9 +2,9 @@ using System.Buffers;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Hybrid;
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 
 /// <summary>
 /// Creates System.Text.Json cache serializers whose read failures surface as <see cref="CacheDeserializationException"/>,

@@ -8,12 +8,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>Publishes a runtime-typed event to the <see cref="IEventBus"/> via a cached compiled delegate (bridges the generic <c>PublishAsync&lt;TEvent&gt;</c>).</summary>
 internal sealed class OutboxEventPublisher(IEventBus bus)

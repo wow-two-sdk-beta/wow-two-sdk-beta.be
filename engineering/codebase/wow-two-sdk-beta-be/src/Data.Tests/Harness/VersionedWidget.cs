@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
 
 /// <summary>A widget guarded by the portable <see cref="IVersioned"/> counter.</summary>
 public sealed class VersionedWidget : IKeyedEntity<Guid>, IHasTableName, IVersioned

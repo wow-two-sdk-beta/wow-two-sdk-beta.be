@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn;
 
 /// <summary>Holds how passwordless email sign-in behaves: link and code lifetimes, and email confirmation on use.</summary>
 /// <remarks>Set in code with <c>.AddEmailSignIn(o => …)</c> or in the host section <c>Identity:EmailSignIn</c>, which is applied last.</remarks>

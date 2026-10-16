@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
 /// <summary>Extends the subtype registries with their System.Text.Json binding.</summary>
 public static class SubtypeRegistryExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>Defines behavior that declares which of a validator's members must publish no rule operands in <see cref="FieldError.Params"/>.</summary>
 /// <remarks>

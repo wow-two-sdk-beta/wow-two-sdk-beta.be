@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Naming;
 
 /// <summary>Maps an enum to and from a case-styled string.</summary>
 /// <typeparam name="TEnum">The enum type stored as text.</typeparam>

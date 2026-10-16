@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Provides registration for the exception-to-<see cref="AppError"/> mapping seam.</summary>
 public static class ExceptionMappingServiceCollectionExtensions

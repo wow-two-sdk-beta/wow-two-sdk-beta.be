@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Validators;
 
 /// <summary>Validates the bounded SVG subset emitted by the code engine.</summary>
 internal sealed class CodeSvgValidator

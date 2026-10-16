@@ -3,9 +3,9 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using StackExchange.Redis;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Registration helper.</summary>
 public static partial class IdempotencyBehaviorServiceCollectionExtensions

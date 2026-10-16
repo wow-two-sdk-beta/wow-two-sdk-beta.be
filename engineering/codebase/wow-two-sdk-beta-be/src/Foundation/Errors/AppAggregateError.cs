@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Represents a failure aggregating several underlying <see cref="AppError"/> instances.</summary>
 public sealed record AppAggregateError : AppError

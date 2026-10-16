@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks;
+namespace WoW.Two.Sdk.Beta.Be.Observability.HealthChecks;
 
 /// <summary>Reports whether the database behind <typeparamref name="TContext"/> accepts connections.</summary>
 /// <typeparam name="TContext">The relational context the host serves requests with.</typeparam>

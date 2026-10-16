@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
 
 /// <summary>Represents a square grid of code modules — <c>true</c> is dark, <c>false</c> is light — with no quiet zone, the framework-agnostic bit grid the emitter consumes independent of the matrix source.</summary>
 /// <remarks>The quiet zone is not part of the matrix; the emitter adds it from the <c>StyleSpec</c>.</remarks>

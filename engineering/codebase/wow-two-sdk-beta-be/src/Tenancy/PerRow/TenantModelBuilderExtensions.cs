@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.PerRow;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.PerRow;
 
 /// <summary>Model-builder extensions installing a per-row tenant isolation query filter.</summary>
 public static class TenantModelBuilderExtensions

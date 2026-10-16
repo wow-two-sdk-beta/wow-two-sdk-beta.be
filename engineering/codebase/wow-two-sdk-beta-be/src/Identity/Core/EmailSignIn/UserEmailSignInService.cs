@@ -1,8 +1,8 @@
 using System.Globalization;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn;
 
 /// <summary>
 /// Provides passwordless sign-in by email over <see cref="IOtpService"/>: a single-use link token (12 characters, long

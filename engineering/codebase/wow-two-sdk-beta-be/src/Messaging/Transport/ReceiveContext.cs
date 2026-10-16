@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// A received message and its settlement handle. The processing pipeline runs dedupe → resilience → dispatch, then

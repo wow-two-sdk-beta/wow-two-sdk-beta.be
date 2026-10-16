@@ -4,7 +4,7 @@ using Polly;
 using Polly.CircuitBreaker;
 using Polly.Retry;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Polly;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Polly;
 
 /// <summary>Holds options for the Polly-backed event resilience pipeline.</summary>
 public sealed record PollyEventResilienceOptions

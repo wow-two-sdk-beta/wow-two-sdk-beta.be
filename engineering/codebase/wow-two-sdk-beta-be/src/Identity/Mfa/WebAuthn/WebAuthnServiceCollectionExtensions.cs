@@ -1,7 +1,7 @@
 using Fido2NetLib;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Mfa.WebAuthn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn;
 
 /// <summary>WebAuthn / FIDO2 registration helpers.</summary>
 public static class WebAuthnServiceCollectionExtensions

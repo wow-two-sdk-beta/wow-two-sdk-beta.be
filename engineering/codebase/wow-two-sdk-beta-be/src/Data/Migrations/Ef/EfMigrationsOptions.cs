@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef;
 
 /// <summary>Holds options for the EF Migrations startup runner.</summary>
 public sealed record EfMigrationsOptions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Refers to what a mapper does with a spec feature its backend cannot express.</summary>
 public enum UnsupportedSpecMode

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Accesses user entities through the application's EF Core context.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

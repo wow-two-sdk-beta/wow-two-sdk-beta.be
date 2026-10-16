@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>Defines write side of <see cref="ITenantContext"/> — set by the resolution middleware (or tests).</summary>
 public interface ISettableTenantContext : ITenantContext

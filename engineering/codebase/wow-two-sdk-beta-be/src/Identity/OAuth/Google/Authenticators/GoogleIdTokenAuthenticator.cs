@@ -1,7 +1,7 @@
 using Google.Apis.Auth;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google.Authenticators;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google.Authenticators;
 
 /// <summary>Authenticates a Google identity from an ID token using Google's published keys and the configured OAuth client audiences.</summary>
 /// <remarks>

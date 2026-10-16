@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Reads the canonical <c>wt:*</c> claims stamped by <see cref="ClaimMapper"/>; each accessor returns <c>null</c> when the claim is absent.</summary>
 public static class ClaimsPrincipalExtensions

@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit;
 
 /// <summary>Stamps creation and modification audit fields on entities implementing the audit interfaces.</summary>
 public sealed class AuditInterceptor : SaveChangesInterceptor

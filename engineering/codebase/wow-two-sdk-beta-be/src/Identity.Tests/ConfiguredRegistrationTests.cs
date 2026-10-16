@@ -2,13 +2,13 @@ using System.Security.Claims;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Services;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Services;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests;
 
 /// <summary>Covers the configured path of each options-taking registration — the bare record resolves whether or not a caller supplied a delegate.</summary>
 public sealed class ConfiguredRegistrationTests

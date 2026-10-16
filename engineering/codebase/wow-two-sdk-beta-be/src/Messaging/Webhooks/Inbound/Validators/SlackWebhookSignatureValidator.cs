@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates Slack's request signature: <c>X-Slack-Signature: v0=&lt;hex&gt;</c> over <c>v0:{timestamp}:{body}</c>.</summary>
 /// <remarks>The signing secret keys the HMAC; Events API deliveries carry <c>event_id</c>, used to drop Slack's retries.</remarks>

@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Registers Markdown email templates.</summary>
 public static class EmailTemplateServiceCollectionExtensions

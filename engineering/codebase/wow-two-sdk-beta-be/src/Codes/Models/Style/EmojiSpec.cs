@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents a center emoji overlaid on the rendered code as SVG text over a knockout halo — a brand mark with no file upload.</summary>
 public sealed record EmojiSpec

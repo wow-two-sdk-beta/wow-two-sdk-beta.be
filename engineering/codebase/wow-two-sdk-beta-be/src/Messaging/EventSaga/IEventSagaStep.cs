@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga;
 
 /// <summary>
 /// Defines one step in a declarative event saga (routing slip). Steps run in order; each may write its result into the

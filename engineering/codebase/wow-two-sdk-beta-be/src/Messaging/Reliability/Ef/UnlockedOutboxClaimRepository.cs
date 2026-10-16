@@ -8,11 +8,11 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>Default claim strategy — polls oldest-first without locking. Single-instance safe; for scale-out, register a <c>FOR UPDATE SKIP LOCKED</c> strategy (Postgres, raw SQL) via <c>Replace</c>.</summary>
 internal sealed class UnlockedOutboxClaimRepository : IOutboxClaimRepository

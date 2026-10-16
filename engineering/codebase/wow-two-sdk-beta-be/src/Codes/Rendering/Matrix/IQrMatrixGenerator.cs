@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
 
 /// <summary>Defines producing the bare QR module matrix (no quiet zone) for a payload at a given ECC level.</summary>
 public interface IQrMatrixGenerator

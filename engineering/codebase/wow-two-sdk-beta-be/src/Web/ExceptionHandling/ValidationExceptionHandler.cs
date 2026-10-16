@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 
 /// <summary>Handles a <see cref="ValidationException"/> as validation ProblemDetails.</summary>
 public sealed class ValidationExceptionHandler(

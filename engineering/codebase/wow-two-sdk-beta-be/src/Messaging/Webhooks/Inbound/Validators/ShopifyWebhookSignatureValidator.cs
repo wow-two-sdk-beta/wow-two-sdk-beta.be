@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates Shopify's signature: <c>X-Shopify-Hmac-Sha256</c>, base64 HMAC over the body.</summary>
 /// <remarks>

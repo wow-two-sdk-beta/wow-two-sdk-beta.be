@@ -1,9 +1,9 @@
 using System.Text.Json;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Geo.GeoJson.Serializers;
+using WoW.Two.Sdk.Beta.Be.Geo.GeoJson.Serializers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.GeoJson;
 
 /// <summary>Covers the supported GeoJSON subset and the boundaries that prevent silent shape loss.</summary>
 public sealed class GeoJsonSerializerTests

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol.AspNetCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Mcp;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Mcp;
 
 /// <summary>Registers stateless MCP hosting with per-operation authorization.</summary>
 public static class McpServiceCollectionExtensions

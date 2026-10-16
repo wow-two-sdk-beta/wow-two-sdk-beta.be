@@ -2,9 +2,9 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>One broker endpoint: the queue to declare and consume, its dead-letter queue, the routing keys bound to it, and the message types it carries.</summary>
 public sealed record EndpointTopology

@@ -3,11 +3,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WoW.Two.Sdk.Backend.Beta.Messaging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Messaging;
 
 /// <summary>Holds timing defaults for a <see cref="MessagingTestHarness"/>.</summary>
 public sealed record MessagingHarnessOptions

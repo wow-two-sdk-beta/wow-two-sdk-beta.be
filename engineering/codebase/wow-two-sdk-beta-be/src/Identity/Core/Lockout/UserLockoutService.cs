@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
 
 /// <summary>
 /// Provides the lockout slice: count failed attempts, lock for <see cref="LockoutOptions.DefaultLockout"/> once

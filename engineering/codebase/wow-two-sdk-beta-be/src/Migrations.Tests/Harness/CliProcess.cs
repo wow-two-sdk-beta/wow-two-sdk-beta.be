@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using AwesomeAssertions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
 /// <summary>Runs the built <c>wow-migrate</c> CLI as a separate process, the way a deploy runner calls it.</summary>
 public static class CliProcess

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Captcha;
 
 /// <summary>Refers to why a captcha check failed.</summary>
 public enum CaptchaFailure

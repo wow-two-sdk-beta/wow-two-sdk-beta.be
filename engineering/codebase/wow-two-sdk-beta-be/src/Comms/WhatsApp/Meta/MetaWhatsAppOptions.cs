@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta;
 
 /// <summary>Holds the WhatsApp Cloud API credentials and sender.</summary>
 public sealed record MetaWhatsAppOptions

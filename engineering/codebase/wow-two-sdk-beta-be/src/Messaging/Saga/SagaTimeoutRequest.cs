@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>A timeout a transition asked for, held until the instance's new state is safely written.</summary>
 internal sealed class SagaTimeoutRequest

@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
-using WoW.Two.Sdk.Backend.Beta.Ai.Mcp;
-using WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+using WoW.Two.Sdk.Beta.Be.Ai.Mcp;
+using WoW.Two.Sdk.Beta.Be.Testing.Auth;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Mcp;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Mcp;
 
 /// <summary>Verifies real MCP discovery, invocation and authorization over the HTTP transport.</summary>
 public sealed class McpHostTests

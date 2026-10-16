@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Defines an entry that participates in a tamper-evident SHA-256 hash chain.</summary>
 /// <remarks>The only shape the SDK locks. A consumer supplies its own domain fields and tells the SDK which of them to hash via an <see cref="IChainedEntryCanonicalizer{TEntry}"/>; these three fields carry the chain itself and are stamped by the <see cref="IHashChainSealer{TEntry}"/>.</remarks>

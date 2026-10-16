@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Versioning;
+namespace WoW.Two.Sdk.Beta.Be.Web.Versioning;
 
 /// <summary>Provides API versioning that accepts the version via URL segment, header, or query.</summary>
 public static class VersioningServiceCollectionExtensions

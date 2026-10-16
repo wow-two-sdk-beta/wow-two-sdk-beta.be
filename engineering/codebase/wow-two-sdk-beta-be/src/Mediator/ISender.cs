@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Defines sender — fire a request and await its response.</summary>
 public interface ISender

@@ -1,10 +1,10 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts;
 
 /// <summary>Builds the failure envelope of any response model from an <see cref="AppError"/>.</summary>
 public static class ApiResponseErrorExtensions

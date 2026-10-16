@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Holds the quotas and how a request's subject and plan are found.</summary>
 /// <remarks>

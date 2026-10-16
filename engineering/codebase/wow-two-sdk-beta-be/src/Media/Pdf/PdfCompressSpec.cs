@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents how hard a PDF is compressed: embedded JPEG photos are shrunk and re-encoded, streams deflated.</summary>
 public sealed record PdfCompressSpec

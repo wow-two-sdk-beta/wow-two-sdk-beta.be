@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Computes the webhook signature: <c>sha256=&lt;hex&gt;</c> over <c>timestamp + "." + body</c>, keyed by the subscription secret (built-in <see cref="HMACSHA256"/>).</summary>
 /// <remarks>The scheme is chosen at registration, so a second one ships beside this rather than replacing it.</remarks>

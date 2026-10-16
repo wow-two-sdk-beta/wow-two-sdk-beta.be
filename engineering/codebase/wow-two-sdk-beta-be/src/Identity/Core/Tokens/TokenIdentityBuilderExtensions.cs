@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
 /// <summary>Opts stateless purpose tokens into an identity registration.</summary>
 public static class TokenIdentityBuilderExtensions

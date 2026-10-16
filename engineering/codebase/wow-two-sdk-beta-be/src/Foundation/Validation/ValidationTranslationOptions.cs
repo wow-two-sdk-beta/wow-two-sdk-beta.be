@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>
 /// Holds how validation and error messages are translated into the request's culture. Off by default: every message

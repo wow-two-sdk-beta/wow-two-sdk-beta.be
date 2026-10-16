@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
 /// <summary>
 /// A <see cref="SdkHub"/> that automatically registers and unregisters the connection with an

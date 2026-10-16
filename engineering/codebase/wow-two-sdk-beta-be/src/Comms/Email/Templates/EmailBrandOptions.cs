@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Holds the brand every templated email wears: name or logo, accent color and footer.</summary>
 public sealed record EmailBrandOptions

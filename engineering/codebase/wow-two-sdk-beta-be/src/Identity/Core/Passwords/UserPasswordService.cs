@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>
 /// Provides the password slice: validate, set, change, remove and check a user's password, plus token-based reset when

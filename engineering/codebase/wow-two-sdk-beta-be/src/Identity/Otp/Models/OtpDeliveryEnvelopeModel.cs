@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
 /// <summary>Represents the code, recipient and context for an OTP delivery.</summary>
 public sealed record OtpDeliveryEnvelopeModel

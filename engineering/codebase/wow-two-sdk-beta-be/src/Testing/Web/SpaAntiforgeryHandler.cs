@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Web;
 
 /// <summary>Echoes a single-page app's antiforgery token on unsafe requests that carry cookies, as the browser client does.</summary>
 /// <remarks>

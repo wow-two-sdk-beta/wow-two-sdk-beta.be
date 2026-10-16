@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>
 /// Maps an <see cref="AppError"/> to its <see cref="AppError.Message"/>, translated into the request's culture when the

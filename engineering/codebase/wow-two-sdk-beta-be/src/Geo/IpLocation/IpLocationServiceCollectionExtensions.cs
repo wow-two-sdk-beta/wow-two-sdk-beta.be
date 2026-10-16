@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.BackgroundServices;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Brokers;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Services;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.BackgroundServices;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Brokers;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
 
 /// <summary>Provides registration for IP location over MaxMind DB files.</summary>
 public static class IpLocationServiceCollectionExtensions

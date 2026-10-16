@@ -1,9 +1,9 @@
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// Sits between an <see cref="IReceiveTransport"/> and the <see cref="EventProcessingPipeline"/>, turning a sequential

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
 
 /// <summary>The suite's shared Postgres test database — one container for the whole collection, truncated per test.</summary>
 /// <remarks>SQLite has no <c>xmin</c>, no <c>FOR UPDATE</c> and different savepoint semantics, and its <c>DataSource=:memory:</c> connection string makes a second connection open a different, empty database — a green SQLite run here would assert on nothing.</remarks>

@@ -2,7 +2,7 @@ using System.Buffers.Binary;
 using System.Globalization;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>
 /// Maps the EXIF block of a JPEG (APP1), PNG (<c>eXIf</c>) or WebP (<c>EXIF</c>) file to <see cref="ImageMetadataResult"/>.

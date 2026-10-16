@@ -1,8 +1,8 @@
 using System.Text;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.Sse;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.Sse;
 
 /// <summary>
 /// Encodes <see cref="SseEvent"/> frames onto a stream in the <c>text/event-stream</c> wire format and

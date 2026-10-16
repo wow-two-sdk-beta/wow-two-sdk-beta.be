@@ -1,7 +1,7 @@
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models;
 
 /// <summary>Represents the output of a render — raw bytes plus the content type to serve them with.</summary>
 public sealed record RenderedCode

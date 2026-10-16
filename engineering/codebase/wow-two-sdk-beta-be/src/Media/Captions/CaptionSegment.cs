@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Represents a single timed line of caption text within a <see cref="CaptionTrack"/>.</summary>
 public sealed record CaptionSegment : ITimedText

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>
 /// Defines the SDK cache facade — a small, provider-neutral surface over a two-tier (L1 in-process + L2 distributed)

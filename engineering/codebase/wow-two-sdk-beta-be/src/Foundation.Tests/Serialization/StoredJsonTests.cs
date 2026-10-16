@@ -2,10 +2,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Serialization;
 
 /// <summary>Covers the stored preset and the two ways a union reaches it — attributes on the base, or a registry declared outside it.</summary>
 public sealed class StoredJsonTests

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Web.Idempotency;
 
 /// <summary>
 /// Holds the <c>HttpIdempotency</c> configuration section: whether unsafe requests carrying an <c>Idempotency-Key</c>

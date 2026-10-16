@@ -2,11 +2,11 @@ using System.Buffers.Binary;
 using System.Security.Cryptography;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Audit;
 
 /// <summary>Verifies that timestamp fields hash at microsecond precision, so a chain survives a PostgreSQL round trip.</summary>
 public sealed class CanonicalPayloadBuilderTimestampTests

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>
 /// Defines the idempotency seam for at-least-once delivery. Dedupes successful effects by message id and, for durable implementations, runs the

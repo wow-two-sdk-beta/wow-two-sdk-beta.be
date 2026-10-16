@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
+namespace WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
 
 /// <summary>Gates minimal-API endpoints on feature flags.</summary>
 public static class FeatureGateEndpointConventionBuilderExtensions

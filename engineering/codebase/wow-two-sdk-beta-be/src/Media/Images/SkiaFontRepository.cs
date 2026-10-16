@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>
 /// Reads typefaces: configured font files first, then the platform's families through Skia's font manager, then a

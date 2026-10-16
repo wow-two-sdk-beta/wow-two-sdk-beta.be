@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Extensions;
 
 /// <summary>Extends controllers with one rendering of an <see cref="AppResult{TSuccess}"/>: the success envelope or SDK problem details.</summary>
 public static class ControllerResultExtensions

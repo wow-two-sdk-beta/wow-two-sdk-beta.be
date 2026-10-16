@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms;
 
 /// <summary>Holds the cross-provider SMS defaults: the sender and the broker a caller gets when it names none.</summary>
 /// <remarks>Set in code with <c>AddSmsDefaults(o => …)</c> or in the host section <c>Comms:Sms</c>, which is applied last.</remarks>

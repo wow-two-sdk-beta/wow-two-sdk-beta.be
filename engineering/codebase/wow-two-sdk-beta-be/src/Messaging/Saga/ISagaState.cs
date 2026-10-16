@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>
 /// Defines the persisted state of one saga instance. Implement it on a POCO (or derive from <see cref="SagaState"/>, which

@@ -4,10 +4,10 @@ using Amazon.S3;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
-using WoW.Two.Sdk.Backend.Beta.Storage.S3;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.S3;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>The S3 blob repository against Adobe S3Mock (MinIO no longer ships public images): save, read, info, list, delete, key prefix.</summary>
 [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Teardown runs in IAsyncLifetime.DisposeAsync, which xUnit invokes.")]

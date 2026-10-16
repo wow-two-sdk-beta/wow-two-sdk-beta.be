@@ -2,10 +2,10 @@ using System.Security.Claims;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
-using WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+using WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
+using WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.ApiKeys;
 
 /// <summary>An allowlisted session or a key granting the scope passes; a key never rides the session branch.</summary>
 public sealed class AllowlistedSessionOrApiKeyAuthorizationTests

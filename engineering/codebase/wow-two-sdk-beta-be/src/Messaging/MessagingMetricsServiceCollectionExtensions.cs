@@ -2,9 +2,9 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Messaging;
 
 /// <summary>Provides registration for the messaging metrics seam.</summary>
 public static class MessagingMetricsServiceCollectionExtensions

@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Locks.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Locks.Extensions;
 
 /// <summary>Extends EF Core transactions with exclusive per-key locks held until the transaction ends.</summary>
 public static class TransactionLockExtensions

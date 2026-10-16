@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.Fcm;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.Fcm;
 
 /// <summary>
 /// Integrates Firebase Cloud Messaging HTTP v1. Exchanges an RS256 service-account assertion for an OAuth access token,

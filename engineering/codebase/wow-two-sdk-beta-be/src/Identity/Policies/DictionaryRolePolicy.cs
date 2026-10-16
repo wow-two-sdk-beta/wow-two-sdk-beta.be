@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Policies;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Policies;
 
 /// <summary>Default <see cref="IRolePolicy"/> backed by the <see cref="RolePolicyOptions.Map"/> dictionary; unknown scopes deny everyone.</summary>
 public sealed class DictionaryRolePolicy : IRolePolicy

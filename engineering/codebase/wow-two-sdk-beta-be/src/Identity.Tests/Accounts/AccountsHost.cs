@@ -2,11 +2,11 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Time.Testing;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Sqlite;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>An identity registration over in-memory SQLite with a controllable clock.</summary>
 internal sealed class AccountsHost : IAsyncDisposable

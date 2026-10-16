@@ -12,7 +12,7 @@ using WordTable = DocumentFormat.OpenXml.Wordprocessing.Table;
 using WordTableCell = DocumentFormat.OpenXml.Wordprocessing.TableCell;
 using WordTableRow = DocumentFormat.OpenXml.Wordprocessing.TableRow;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Renders a Markdown document into a Word body with real styles, numbering and hyperlinks.</summary>
 /// <param name="main">The document part being built; its styles and numbering parts exist.</param>

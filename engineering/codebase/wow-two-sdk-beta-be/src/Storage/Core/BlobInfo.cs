@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Core;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Core;
 
 /// <summary>Metadata about a stored blob — its logical path, size, last-modified time, and (when known) content type.</summary>
 public sealed record BlobInfo

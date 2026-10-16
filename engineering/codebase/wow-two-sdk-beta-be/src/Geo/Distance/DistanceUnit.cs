@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Distance;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Distance;
 
 /// <summary>Refers to units of length for expressing geographic distances.</summary>
 public enum DistanceUnit

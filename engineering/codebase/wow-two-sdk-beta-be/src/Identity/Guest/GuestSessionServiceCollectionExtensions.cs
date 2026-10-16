@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Services;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Guest;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Guest;
 
 /// <summary>Guest-session registration.</summary>
 public static class GuestSessionServiceCollectionExtensions

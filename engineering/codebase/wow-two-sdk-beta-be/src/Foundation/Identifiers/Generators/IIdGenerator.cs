@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Identifiers.Generators;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Identifiers.Generators;
 
 /// <summary>Defines generation of random identifiers from a caller-selected length and alphabet.</summary>
 public interface IIdGenerator

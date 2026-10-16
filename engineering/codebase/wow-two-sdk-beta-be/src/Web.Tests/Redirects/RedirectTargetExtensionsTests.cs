@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using FluentValidation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.Redirects.Extensions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.Redirects.Extensions;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Redirects;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Redirects;
 
 /// <summary>Redirect target checks advise with stable codes and severities, and never block a value.</summary>
 public sealed class RedirectTargetExtensionsTests

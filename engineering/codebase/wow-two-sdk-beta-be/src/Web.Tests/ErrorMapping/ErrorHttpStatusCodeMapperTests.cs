@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ErrorMapping;
 
 public sealed class ErrorHttpStatusCodeMapperTests
 {

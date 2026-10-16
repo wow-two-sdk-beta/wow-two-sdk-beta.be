@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Refers to an image file format; JPEG, PNG and WebP can be written, the rest only read.</summary>
 public enum ImageFormat

@@ -3,15 +3,15 @@ using System.Diagnostics.Metrics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Coordinates explicit EF transactions, raw SQL leases and completion callbacks.</summary>
 /// <typeparam name="TContext">The primary relational context.</typeparam>
 internal sealed class EfDataSession<TContext> : IDataSession where TContext : DbContext
 {
-    private static readonly Meter Meter = new("WoW.Two.Sdk.Backend.Beta.Data.Sessions");
+    private static readonly Meter Meter = new("WoW.Two.Sdk.Beta.Be.Data.Sessions");
     private static readonly Counter<long> FailedHooks = Meter.CreateCounter<long>("data.session.hook.failures");
     private readonly TContext _context;
     private readonly DataSessionOptions _options;

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
 /// <summary>Writes engine log messages at or above a minimum level to stderr as one <c>✗</c> line each, without stack traces.</summary>
 /// <param name="minimumLevel">The lowest level written.</param>

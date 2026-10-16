@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>A single published GitHub release.</summary>
 public sealed record ReleaseInfo

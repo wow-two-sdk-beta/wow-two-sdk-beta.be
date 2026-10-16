@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data;
+namespace WoW.Two.Sdk.Beta.Be.Data;
 
 /// <summary>Holds options for the one-call Postgres persistence bundle — controls where the connection string is resolved from.</summary>
 public sealed record PostgresPersistenceOptions

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>
 /// Parses TTML/DFXP XML into caption segments from paragraphs in any namespace.

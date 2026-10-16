@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>The outcome of a releases lookup — the categorized result plus any resolved releases.</summary>
 public sealed record ReleaseList

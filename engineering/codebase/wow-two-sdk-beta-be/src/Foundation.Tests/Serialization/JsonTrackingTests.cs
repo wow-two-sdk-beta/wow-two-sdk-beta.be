@@ -1,9 +1,9 @@
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Json;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Serialization;
 
 public sealed class JsonTrackingTests
 {

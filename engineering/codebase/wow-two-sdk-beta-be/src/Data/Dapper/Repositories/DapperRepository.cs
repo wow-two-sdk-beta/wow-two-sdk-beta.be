@@ -2,12 +2,12 @@ using System.Data;
 using System.Globalization;
 using Dapper;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
 
 /// <summary>Accesses straightforward entity tables through Dapper-generated CRUD SQL.</summary>
 /// <remarks>

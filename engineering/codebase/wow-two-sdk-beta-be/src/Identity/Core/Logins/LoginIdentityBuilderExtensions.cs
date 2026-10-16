@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
 
 /// <summary>Opts external logins into an identity registration.</summary>
 public static class LoginIdentityBuilderExtensions

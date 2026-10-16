@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Accesses quota counters in process memory — one host only; use <see cref="RedisQuotaRepository"/> across hosts.</summary>
 /// <param name="time">The clock expiry is measured against.</param>

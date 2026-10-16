@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Holds the templates <see cref="OtpMessageFormatter"/> words delivered codes with.</summary>
 /// <remarks>

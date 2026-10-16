@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms;
 
 /// <summary>Holds the names SMS brokers register under, and the host configuration sections they read.</summary>
 public static class SmsBrokerNameConstants

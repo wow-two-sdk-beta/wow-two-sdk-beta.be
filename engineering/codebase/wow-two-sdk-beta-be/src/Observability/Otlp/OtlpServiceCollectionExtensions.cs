@@ -3,7 +3,7 @@ using OpenTelemetry.Exporter;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Otlp;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Otlp;
 
 /// <summary>Provides OTLP exporter registration. Pair with <c>AddOpenTelemetryTracing</c> and <c>AddOpenTelemetryMetrics</c>.</summary>
 public static class OtlpServiceCollectionExtensions

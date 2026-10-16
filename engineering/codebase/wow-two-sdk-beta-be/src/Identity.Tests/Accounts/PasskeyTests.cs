@@ -2,12 +2,12 @@ using AwesomeAssertions;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Passkeys: registration, usernameless sign-in, single-use ceremonies and forged or foreign assertions.</summary>
 public sealed class PasskeyTests

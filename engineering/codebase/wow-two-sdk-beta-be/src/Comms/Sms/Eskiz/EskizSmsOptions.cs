@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Eskiz;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Eskiz;
 
 /// <summary>Holds Eskiz (Uzbekistan) account credentials and the sender nickname.</summary>
 public sealed record EskizSmsOptions

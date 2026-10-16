@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>Opts personal-data export and account deletion into an identity registration.</summary>
 public static class PersonalDataIdentityBuilderExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Holds the names delivery handlers register under; a method or caller names one to pick its channel.</summary>
 public static class OtpChannelNameConstants

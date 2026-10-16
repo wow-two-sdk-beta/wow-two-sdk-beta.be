@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Holds well-known saga state names. Every other state is an application-defined string.</summary>
 /// <remarks>

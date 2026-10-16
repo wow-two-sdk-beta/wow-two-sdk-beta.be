@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
 /// <summary>
 /// Thread-safe, in-process <see cref="IUserConnectionTracker"/> backed by a concurrent map of

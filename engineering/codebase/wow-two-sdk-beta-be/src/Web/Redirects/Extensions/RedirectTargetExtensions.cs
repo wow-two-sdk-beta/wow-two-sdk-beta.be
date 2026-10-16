@@ -1,8 +1,8 @@
 using System.Net;
 using FluentValidation;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety.Validators;
+using WoW.Two.Sdk.Beta.Be.Http.Safety.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Redirects.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Web.Redirects.Extensions;
 
 /// <summary>Extends FluentValidation rules with advisory checks on where a redirect target leads.</summary>
 public static class RedirectTargetExtensions

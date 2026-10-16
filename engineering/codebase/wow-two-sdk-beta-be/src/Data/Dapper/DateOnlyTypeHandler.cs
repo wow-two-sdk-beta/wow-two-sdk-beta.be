@@ -1,7 +1,7 @@
 using System.Data;
 using Dapper;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper;
 
 /// <summary>Handles <see cref="DateOnly"/> columns returned as <see cref="DateTime"/> values.</summary>
 public sealed class DateOnlyTypeHandler : SqlMapper.TypeHandler<DateOnly>

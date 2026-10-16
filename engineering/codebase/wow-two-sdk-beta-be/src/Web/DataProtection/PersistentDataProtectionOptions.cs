@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.DataProtection;
+namespace WoW.Two.Sdk.Beta.Be.Web.DataProtection;
 
 /// <summary>Holds options for a Data Protection key ring that survives restarts and container replacement.</summary>
 public sealed record PersistentDataProtectionOptions

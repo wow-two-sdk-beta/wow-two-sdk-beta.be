@@ -3,15 +3,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Errors;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Errors;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data;
+namespace WoW.Two.Sdk.Beta.Be.Data;
 
 /// <summary>One-call Postgres persistence registration composing the SDK's data-source, connection-factory, audit-interceptor, EF Core, and bespoke-migrator seams.</summary>
 public static class PostgresPersistenceServiceCollectionExtensions

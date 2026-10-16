@@ -2,14 +2,14 @@ using AwesomeAssertions;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>States used to verify native PostgreSQL enum registration.</summary>
 public enum MigrationDeliveryState

@@ -1,9 +1,9 @@
 using global::Azure.Storage.Blobs;
 using global::Azure.Storage.Blobs.Specialized;
 using global::Azure.Storage.Sas;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Azure;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Azure;
 
 /// <summary>
 /// Issues Azure blob SAS URLs: signed with the account key of a connection string, or with a user delegation key when

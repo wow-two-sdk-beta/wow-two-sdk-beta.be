@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>Defines YouTube <c>json3</c> parsing into ordered <see cref="CaptionSegment"/> values.</summary>
 public interface IJson3CaptionParser

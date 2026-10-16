@@ -4,10 +4,10 @@ using System.Net;
 using System.Text;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Http.Hedging;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience;
+using WoW.Two.Sdk.Beta.Be.Http.Hedging;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Http;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
 
 /// <summary>Verifies outbound replay safety, budgets, cancellation and owned-response disposal.</summary>
 public sealed class HttpReplaySafetyTests

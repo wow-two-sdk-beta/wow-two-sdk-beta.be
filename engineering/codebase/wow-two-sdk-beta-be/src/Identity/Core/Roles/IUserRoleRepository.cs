@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
 /// <summary>Defines role membership persistence, keyed by user and role ids.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

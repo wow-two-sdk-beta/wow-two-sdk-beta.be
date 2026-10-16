@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Represents an approved WhatsApp template and the values it is sent with.</summary>
 public sealed record WhatsAppTemplate

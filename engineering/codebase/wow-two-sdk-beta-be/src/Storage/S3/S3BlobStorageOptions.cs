@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.S3;
+namespace WoW.Two.Sdk.Beta.Be.Storage.S3;
 
 /// <summary>Holds the bucket, endpoint and credentials of an S3-compatible blob store (AWS S3, MinIO, Cloudflare R2, …).</summary>
 public sealed record S3BlobStorageOptions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+namespace WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 /// <summary>Refers to how <see cref="ICurrentUserService"/> identifies the calling principal.</summary>
 public enum UserKind

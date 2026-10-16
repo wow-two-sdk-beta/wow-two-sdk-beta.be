@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Compression;
+namespace WoW.Two.Sdk.Beta.Be.Web.Compression;
 
 /// <summary>Provides Brotli and Gzip response compression at <c>Fastest</c> level.</summary>
 public static class CompressionServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Completes a sign-in whose first factor answered with a two-factor ticket, such as an emailed link.</summary>
 public sealed record TwoFactorLoginApiRequest

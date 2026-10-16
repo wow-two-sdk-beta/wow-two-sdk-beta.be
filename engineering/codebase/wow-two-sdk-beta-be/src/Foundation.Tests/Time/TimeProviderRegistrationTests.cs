@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NodaTime;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Time;
+using WoW.Two.Sdk.Beta.Be.Foundation.Time;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Time;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Time;
 
 /// <summary>Verifies that both supported clock abstractions observe one registered source.</summary>
 public sealed class TimeProviderRegistrationTests

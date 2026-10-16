@@ -1,5 +1,5 @@
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Defines a single exception-translation rule — recognizes a family of exceptions and maps them to an <see cref="AppError"/>, returning <see langword="null"/> to defer to the next rule.</summary>
 public interface IExceptionMappingRule

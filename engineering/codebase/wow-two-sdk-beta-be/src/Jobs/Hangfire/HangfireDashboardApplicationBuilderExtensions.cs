@@ -2,7 +2,7 @@ using Hangfire;
 using Hangfire.Dashboard;
 using Microsoft.AspNetCore.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Hangfire;
 
 /// <summary>Hangfire dashboard wiring.</summary>
 public static class HangfireDashboardApplicationBuilderExtensions

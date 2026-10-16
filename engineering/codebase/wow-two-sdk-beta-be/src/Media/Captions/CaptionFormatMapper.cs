@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Maps a caption document's leading content to its <see cref="CaptionFormat"/>.</summary>
 public static partial class CaptionFormatMapper

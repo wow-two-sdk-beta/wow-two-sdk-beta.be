@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Hosting;
+namespace WoW.Two.Sdk.Beta.Be.Web.Hosting;
 
 /// <summary>Holds options for proxy-aware hosting.</summary>
 public sealed record ProxyAwareHostingOptions

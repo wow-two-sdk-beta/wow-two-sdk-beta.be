@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents how images become PDF pages: one image per page, upright, centered inside the margins.</summary>
 public sealed record PdfImagesSpec

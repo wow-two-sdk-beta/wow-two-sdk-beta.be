@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Handles invalidations by evicting from the SDK cache facade.</summary>
 /// <param name="cache">The HybridCache-backed cache repository.</param>

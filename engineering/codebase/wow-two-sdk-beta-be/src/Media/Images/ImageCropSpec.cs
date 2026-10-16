@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents a crop rectangle in pixels of the upright image; parts outside the image are clipped.</summary>
 public sealed record ImageCropSpec

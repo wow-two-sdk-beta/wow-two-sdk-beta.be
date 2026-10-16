@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Oidc;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Oidc;
 
 /// <summary>OIDC registration helpers.</summary>
 public static class OidcServiceCollectionExtensions

@@ -1,12 +1,12 @@
 using System.Text;
 using QRCoder.Exceptions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
-using WoW.Two.Sdk.Backend.Beta.Codes.Validators;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
+using WoW.Two.Sdk.Beta.Be.Codes.Validators;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering;
 
 /// <summary>Renders code images by dispatching a render request to the QR or barcode renderer based on symbology and format.</summary>
 public sealed class CodeRenderer(IQrCodeRenderer qr, IBarcodeRenderer barcode, ISvgRasterizer rasterizer) : ICodeRenderer

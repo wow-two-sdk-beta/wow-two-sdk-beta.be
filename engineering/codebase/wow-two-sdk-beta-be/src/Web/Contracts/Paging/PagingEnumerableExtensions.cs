@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>Pages lists already in memory, such as a cached catalog, in the same shape database reads use.</summary>
 public static class PagingEnumerableExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Refers to the abstract kind of an <see cref="AppError"/> — the classifier mapped to a transport status at the edge.</summary>
 public enum AppErrorType

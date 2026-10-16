@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
 /// <summary>
 /// Issues stateless purpose tokens (email confirmation, password reset, email change) and verifies them. A purpose may be

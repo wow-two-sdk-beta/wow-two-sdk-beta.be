@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Captcha;
 
 /// <summary>Represents what the provider said about a token.</summary>
 public sealed record CaptchaVerifyResult

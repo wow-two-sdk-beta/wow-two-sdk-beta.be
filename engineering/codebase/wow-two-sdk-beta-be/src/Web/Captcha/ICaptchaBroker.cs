@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Captcha;
 
 /// <summary>Defines the call that asks the captcha provider about a token; failures come back as results, not exceptions.</summary>
 public interface ICaptchaBroker

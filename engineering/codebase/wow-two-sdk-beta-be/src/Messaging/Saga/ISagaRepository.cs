@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>
 /// Defines behavior that stores saga instances by correlation id. The default is in-memory; a durable implementation (EF, Mongo, Redis) maps

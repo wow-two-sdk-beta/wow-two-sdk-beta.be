@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
 /// <summary>Principal-allowlist registration.</summary>
 public static class PrincipalAllowlistServiceCollectionExtensions

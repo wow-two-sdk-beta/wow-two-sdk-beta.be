@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
 /// <summary>Locates the migrations directory by walking up from the cwd and the binary directory.</summary>
 internal sealed class MigrationsPathBroker : IMigrationsPathBroker

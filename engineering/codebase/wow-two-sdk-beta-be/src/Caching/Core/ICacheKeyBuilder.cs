@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Defines behavior that builds consistent, collision-resistant cache keys from ordered parts using a single convention.</summary>
 public interface ICacheKeyBuilder

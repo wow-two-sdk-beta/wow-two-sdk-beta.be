@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Creates OTP delivery handlers keyed by channel name, as each <c>Add…OtpDelivery</c> registered them.</summary>
 /// <param name="services">The scope's provider; handlers are keyed services.</param>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Retry-with-timeout helpers for asserting on eventually-consistent state — e.g. an async write

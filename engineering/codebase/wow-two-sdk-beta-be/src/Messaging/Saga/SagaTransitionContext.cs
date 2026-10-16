@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Everything one transition can see and do: the instance, the message, the scope, and the outgoing edges.</summary>
 /// <typeparam name="TState">The saga state type.</typeparam>

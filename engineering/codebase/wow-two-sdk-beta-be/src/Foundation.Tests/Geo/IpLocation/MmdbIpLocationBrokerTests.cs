@@ -1,11 +1,11 @@
 using System.Net;
 using AwesomeAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Brokers;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Brokers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Geo.IpLocation;
 
 /// <summary>The MMDB broker resolves public addresses, ignores private ones and hot-reloads a replaced file.</summary>
 public sealed class MmdbIpLocationBrokerTests : IDisposable

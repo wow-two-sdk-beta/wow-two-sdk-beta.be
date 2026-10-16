@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>Defines the store of finished webhook deliveries.</summary>
 public interface IWebhookDeliveryRepository

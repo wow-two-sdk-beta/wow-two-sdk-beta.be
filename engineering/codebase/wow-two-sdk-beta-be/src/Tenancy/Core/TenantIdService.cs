@@ -1,7 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>
 /// Provides tenant-id resolution through the providers enabled in

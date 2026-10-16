@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SqlServer;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SqlServer;
 
 /// <summary>Model conventions for SqlServer-specific entity contracts.</summary>
 public static class SqlServerModelBuilderExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>Base type for the supported GeoJSON geometry objects (RFC 7946): Point, LineString, Polygon.</summary>
 public abstract record GeoJsonGeometry

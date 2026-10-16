@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering;
 
 /// <summary>Defines rendering 1D/2D barcodes to SVG.</summary>
 public interface IBarcodeRenderer

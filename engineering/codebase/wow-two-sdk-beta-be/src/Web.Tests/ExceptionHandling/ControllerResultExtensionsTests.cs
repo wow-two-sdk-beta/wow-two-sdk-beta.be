@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Extensions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Extensions;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ExceptionHandling;
 
 /// <summary>An application result renders as the success envelope or as SDK problem details.</summary>
 public sealed class ControllerResultExtensionsTests

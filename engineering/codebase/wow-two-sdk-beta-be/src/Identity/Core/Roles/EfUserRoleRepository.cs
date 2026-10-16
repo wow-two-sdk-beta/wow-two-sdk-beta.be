@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
 /// <summary>Accesses role memberships through the context hosting the identity schema.</summary>
 /// <typeparam name="TRole">The role entity joined for names and claims.</typeparam>

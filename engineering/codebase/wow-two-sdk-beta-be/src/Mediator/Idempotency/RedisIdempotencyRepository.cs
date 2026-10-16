@@ -2,9 +2,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using StackExchange.Redis;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>
 /// Accesses idempotency records in Redis: one hash per key digest, written by Lua scripts so acquisition, storage and

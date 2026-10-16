@@ -1,7 +1,7 @@
 using WireMock.Server;
 using WireMock.Settings;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.WireMock;
+namespace WoW.Two.Sdk.Beta.Be.Testing.WireMock;
 
 /// <summary>
 /// Async fixture starting an in-process <see cref="WireMockServer"/> on a random port.

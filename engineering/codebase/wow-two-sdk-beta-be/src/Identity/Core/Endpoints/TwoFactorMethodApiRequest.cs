@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Chooses the two-factor method a sign-in asks for first.</summary>
 public sealed record TwoFactorMethodApiRequest

@@ -1,6 +1,6 @@
 using System.Data.Common;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Defines provider-specific migration SQL: database creation, locking, and history DDL.</summary>
 public interface IMigrationDialect

@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+using WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime;
+namespace WoW.Two.Sdk.Beta.Be.Realtime;
 
 /// <summary>Registration helpers shared across the Realtime vector (SignalR presence, SSE, WebSockets).</summary>
 public static class RealtimeServiceCollectionExtensions

@@ -7,7 +7,7 @@ using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>
 /// Provides the passkey slice over Fido2: register a WebAuthn credential for a user, sign in with one — usernameless, as

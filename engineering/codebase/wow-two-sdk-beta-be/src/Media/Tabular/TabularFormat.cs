@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Tabular;
+namespace WoW.Two.Sdk.Beta.Be.Media.Tabular;
 
 /// <summary>Refers to the tabular document formats the SDK can export a row collection to.</summary>
 public enum TabularFormat

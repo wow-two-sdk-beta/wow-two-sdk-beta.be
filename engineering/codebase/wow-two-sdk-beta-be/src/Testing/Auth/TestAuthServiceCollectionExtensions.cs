@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>
 /// Opt-in registration for <see cref="TestAuthHandler"/> — wires a deterministic test identity into a

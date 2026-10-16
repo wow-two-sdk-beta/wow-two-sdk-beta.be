@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>The outcome of reading a branch's newest commit — the categorized result plus the commit SHA when found.</summary>
 public sealed record BranchHead

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>
 /// Default <see cref="ISettableTenantContext"/> — holds the current tenant in an

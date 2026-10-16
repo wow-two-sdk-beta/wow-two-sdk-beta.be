@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
 
 /// <summary>Model conventions for Postgres-specific entity contracts.</summary>
 public static class PostgresModelBuilderExtensions

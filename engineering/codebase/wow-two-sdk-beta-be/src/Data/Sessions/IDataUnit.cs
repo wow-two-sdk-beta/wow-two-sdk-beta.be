@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Defines one explicit transaction or savepoint lifetime.</summary>
 public interface IDataUnit : IAsyncDisposable

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.Parsers;
 
 /// <summary>Parses a SQL script into sequential statement texts while preserving quoted and commented semicolons.</summary>
 public sealed class SqlStatementParser : ISqlStatementParser

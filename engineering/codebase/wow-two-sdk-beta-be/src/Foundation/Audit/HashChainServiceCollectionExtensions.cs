@@ -1,8 +1,8 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Provides registration extensions for the tamper-evident hash-chain audit primitives.</summary>
 public static class HashChainServiceCollectionExtensions

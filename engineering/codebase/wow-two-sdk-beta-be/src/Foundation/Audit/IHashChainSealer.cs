@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Defines stamping an entry's chain fields so it links to the one before it.</summary>
 /// <typeparam name="TEntry">The consumer's entry type, which must expose the chain fields.</typeparam>

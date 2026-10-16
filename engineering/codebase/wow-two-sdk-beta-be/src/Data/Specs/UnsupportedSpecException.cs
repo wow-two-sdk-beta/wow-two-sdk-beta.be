@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Represents spec features a mapper's backend cannot express, under <see cref="UnsupportedSpecMode.Throw"/>.</summary>
 public sealed class UnsupportedSpecException : Exception

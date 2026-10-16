@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Extends ordered timed text with the part a reader asks for and the paragraphs it reads as.</summary>
 public static class TimedTextExtensions

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
 /// <summary>
 /// Provides per-user claims: read, add, remove and replace. Removing or replacing a claim rotates the security stamp, so

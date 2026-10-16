@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>A GeoJSON <c>LineString</c> — an ordered list of two or more positions.</summary>
 public sealed record GeoJsonLineString : GeoJsonGeometry

@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.Twitter;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Twitter;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitter;
 
 /// <summary>X (Twitter) OAuth 2.0 provider (PKCE) via <c>AspNet.Security.OAuth.Twitter</c>.</summary>
 public static class TwitterOAuthServiceCollectionExtensions

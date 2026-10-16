@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>Represents a single field-level validation failure.</summary>
 public sealed record FieldError

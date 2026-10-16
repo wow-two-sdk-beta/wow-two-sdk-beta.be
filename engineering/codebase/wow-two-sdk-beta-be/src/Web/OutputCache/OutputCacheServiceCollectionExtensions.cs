@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.OutputCache;
+namespace WoW.Two.Sdk.Beta.Be.Web.OutputCache;
 
 /// <summary>Provides <c>Microsoft.AspNetCore.OutputCaching</c> registration with conventional policies.</summary>
 public static class OutputCacheServiceCollectionExtensions

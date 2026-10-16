@@ -1,7 +1,7 @@
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Geohash;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Geohash;
 
 /// <summary>
 /// Maps coordinates, geohashes and neighbouring cells through the public-domain base-32 geohash scheme that maps a

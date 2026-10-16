@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Validates that a candidate password is absent from the known breach corpus.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

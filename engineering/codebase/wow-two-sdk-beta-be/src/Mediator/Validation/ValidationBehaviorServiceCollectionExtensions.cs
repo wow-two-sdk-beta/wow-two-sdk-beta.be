@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Validation;
 
 /// <summary>Provides registration for the validation pipeline behavior.</summary>
 public static class ValidationBehaviorServiceCollectionExtensions

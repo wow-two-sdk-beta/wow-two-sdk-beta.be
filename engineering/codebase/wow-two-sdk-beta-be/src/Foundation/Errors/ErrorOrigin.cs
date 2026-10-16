@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Represents the source location where an <see cref="AppError"/> was created — diagnostics only, never serialized to a client.</summary>
 public sealed record ErrorOrigin

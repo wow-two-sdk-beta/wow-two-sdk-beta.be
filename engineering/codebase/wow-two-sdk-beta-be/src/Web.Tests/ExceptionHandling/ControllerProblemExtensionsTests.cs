@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Extensions;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ExceptionHandling;
 
 public sealed class ControllerProblemExtensionsTests
 {

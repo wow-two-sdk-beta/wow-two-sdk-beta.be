@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents a PDF refused: unreadable, locked, over a configured limit, or asked for pages it lacks.</summary>
 public sealed class PdfRejectedException : Exception

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Extends the data-session domain with its log messages — static because the session is generic and the logging source generator emits into the declaring type.</summary>
 internal static partial class DataSessionLogExtensions

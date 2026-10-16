@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
 /// <summary>Defines per-user claim persistence.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

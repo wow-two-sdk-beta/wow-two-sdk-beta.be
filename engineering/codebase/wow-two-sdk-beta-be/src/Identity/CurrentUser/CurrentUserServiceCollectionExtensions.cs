@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+namespace WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 /// <summary>Current-user resolver registration.</summary>
 public static class CurrentUserServiceCollectionExtensions

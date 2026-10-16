@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Represents the outcome of rehearsing every pending migration inside one transaction that is always rolled back.</summary>
 public sealed record MigrationDryRunReport

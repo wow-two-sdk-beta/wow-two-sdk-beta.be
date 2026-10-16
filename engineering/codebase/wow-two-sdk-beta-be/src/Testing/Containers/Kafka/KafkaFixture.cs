@@ -1,7 +1,7 @@
 using Testcontainers.Kafka;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers.Kafka;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka;
 
 /// <summary>Async fixture spinning up a Kafka container.</summary>
 public sealed class KafkaFixture : ContainerFixtureBase<KafkaContainer>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Key-size constants shared across the envelope-cryptography module.</summary>
 internal static class KeySizeConstants

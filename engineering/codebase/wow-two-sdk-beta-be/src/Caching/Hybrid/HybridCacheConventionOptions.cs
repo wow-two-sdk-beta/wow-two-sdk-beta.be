@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 
 /// <summary>Holds the defaults that steer the HybridCache registered by <see cref="HybridCachingServiceCollectionExtensions"/>.</summary>
 /// <remarks>Set in code with <c>AddHybridCaching(o => …)</c> or in the host section <c>Caching:Hybrid</c>, which is applied last.</remarks>

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.WebSockets;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.WebSockets;
 
 /// <summary>
 /// <see cref="HttpContext"/> and <see cref="WebSocket"/> helpers for raw-WebSocket endpoints — the

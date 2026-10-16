@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper;
 
 /// <summary>Holds the casing a caller wants applied to generated SQL identifiers.</summary>
 /// <remarks>

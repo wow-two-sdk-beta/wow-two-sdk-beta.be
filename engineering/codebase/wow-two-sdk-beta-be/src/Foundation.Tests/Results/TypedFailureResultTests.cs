@@ -1,10 +1,10 @@
 using System.Globalization;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Results;
 
 /// <summary>Covers <see cref="Result{TSuccess,TFailure}"/> — the carrier whose failure arm a caller switches on.</summary>
 public sealed class TypedFailureResultTests

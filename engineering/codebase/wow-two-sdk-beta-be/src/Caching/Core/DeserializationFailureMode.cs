@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Refers to what a cache read does with an entry it can no longer deserialize, such as one written before a shape change.</summary>
 public enum DeserializationFailureMode

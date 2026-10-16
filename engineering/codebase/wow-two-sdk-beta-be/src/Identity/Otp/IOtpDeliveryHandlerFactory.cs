@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Defines behavior that creates the delivery handler registered for a channel name.</summary>
 public interface IOtpDeliveryHandlerFactory

@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>Opts rotating refresh tokens into an identity registration.</summary>
 public static class RefreshTokenIdentityBuilderExtensions

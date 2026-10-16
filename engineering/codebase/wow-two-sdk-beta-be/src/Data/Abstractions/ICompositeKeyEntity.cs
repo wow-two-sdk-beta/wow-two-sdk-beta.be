@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines an entity keyed on two or more columns, with no single <c>Id</c>.</summary>
 /// <remarks>

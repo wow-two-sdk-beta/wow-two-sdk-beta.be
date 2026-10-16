@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Defines a scoped transaction shared by EF writes and leased raw SQL connections.</summary>
 public interface IDataSession : IAsyncDisposable

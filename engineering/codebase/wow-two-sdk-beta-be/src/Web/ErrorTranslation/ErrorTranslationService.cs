@@ -6,11 +6,11 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Localization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Localization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
 /// <summary>
 /// Provides error-message translation per <see cref="ValidationOptions.Translation"/>, re-read on every call so a

@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience.Extensions;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Hedging;
+namespace WoW.Two.Sdk.Beta.Be.Http.Hedging;
 
 /// <summary>Applies the SDK's standard hedging pipeline to an outbound <see cref="IHttpClientBuilder"/>.</summary>
 public static class HttpHedgingBuilderExtensions

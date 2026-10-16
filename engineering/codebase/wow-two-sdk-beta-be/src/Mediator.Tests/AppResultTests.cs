@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests;
 
 public sealed class AppResultTests
 {

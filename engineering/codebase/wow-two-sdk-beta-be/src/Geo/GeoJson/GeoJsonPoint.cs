@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>A GeoJSON <c>Point</c> — a single position.</summary>
 public sealed record GeoJsonPoint : GeoJsonGeometry

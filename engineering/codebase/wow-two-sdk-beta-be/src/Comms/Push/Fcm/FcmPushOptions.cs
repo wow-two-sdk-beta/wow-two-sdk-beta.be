@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.Fcm;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.Fcm;
 
 /// <summary>Holds the Firebase service account the HTTP v1 API authenticates with.</summary>
 public sealed record FcmPushOptions

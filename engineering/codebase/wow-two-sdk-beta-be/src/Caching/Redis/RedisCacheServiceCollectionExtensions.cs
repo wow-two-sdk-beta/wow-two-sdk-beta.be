@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Redis;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Redis;
 
 /// <summary>Registers a Redis distributed cache to serve as HybridCache's L2 (shared) tier.</summary>
 public static class RedisCacheServiceCollectionExtensions

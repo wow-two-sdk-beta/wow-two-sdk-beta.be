@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.Apns;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.Apns;
 
 /// <summary>Holds the APNs token-based (<c>.p8</c>) credentials and the app topic.</summary>
 public sealed record ApnsPushOptions

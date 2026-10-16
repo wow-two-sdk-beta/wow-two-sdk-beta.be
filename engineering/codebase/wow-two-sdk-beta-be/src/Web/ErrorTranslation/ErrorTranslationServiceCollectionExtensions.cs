@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
 /// <summary>Registers error translation over the validation module's options.</summary>
 public static class ErrorTranslationServiceCollectionExtensions

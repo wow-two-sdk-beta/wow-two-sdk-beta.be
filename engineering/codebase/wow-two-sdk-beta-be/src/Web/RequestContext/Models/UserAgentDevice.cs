@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
 
 /// <summary>Identifies a heuristic device family from a User-Agent string.</summary>
 public enum UserAgentDevice

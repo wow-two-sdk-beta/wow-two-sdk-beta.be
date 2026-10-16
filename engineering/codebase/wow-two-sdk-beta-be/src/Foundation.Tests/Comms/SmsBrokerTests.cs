@@ -3,16 +3,16 @@ using System.Text;
 using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Comms.Sms;
-using WoW.Two.Sdk.Backend.Beta.Comms.Sms.Eskiz;
-using WoW.Two.Sdk.Backend.Beta.Comms.Sms.Twilio;
-using WoW.Two.Sdk.Backend.Beta.Comms.Sms.Vonage;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Sms;
+using WoW.Two.Sdk.Beta.Be.Comms.Sms;
+using WoW.Two.Sdk.Beta.Be.Comms.Sms.Eskiz;
+using WoW.Two.Sdk.Beta.Be.Comms.Sms.Twilio;
+using WoW.Two.Sdk.Beta.Be.Comms.Sms.Vonage;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Sms;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Comms;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Comms;
 
 /// <summary>SMS brokers against scripted provider responses: request shape, success mapping, failures and Eskiz re-sign-in.</summary>
 public sealed class SmsBrokerTests

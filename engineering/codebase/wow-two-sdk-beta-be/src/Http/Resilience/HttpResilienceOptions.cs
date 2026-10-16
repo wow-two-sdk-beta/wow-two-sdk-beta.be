@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience.Extensions;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Resilience;
+namespace WoW.Two.Sdk.Beta.Be.Http.Resilience;
 
 /// <summary>Holds configuration for the SDK's standard outbound-HTTP resilience pipeline (retry, circuit breaker, attempt timeout, and total-request timeout) on Polly v8 via <c>Microsoft.Extensions.Http.Resilience</c>.</summary>
 public sealed record HttpResilienceOptions

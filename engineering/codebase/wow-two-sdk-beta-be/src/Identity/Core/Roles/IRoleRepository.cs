@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
 /// <summary>Defines role persistence: the role rows and the claims attached to each role.</summary>
 /// <typeparam name="TRole">The role entity.</typeparam>

@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Phones;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Phones;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Phone slice: confirmation by code, sign-in by code, and silence for unknown numbers.</summary>
 public sealed class PhoneSliceTests

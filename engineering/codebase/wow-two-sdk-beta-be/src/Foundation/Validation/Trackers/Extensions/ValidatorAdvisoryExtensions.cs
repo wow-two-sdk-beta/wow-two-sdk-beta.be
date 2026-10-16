@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers.Extensions;
 
 /// <summary>Extends validators that run inside a handler with advisory tracking.</summary>
 public static class ValidatorAdvisoryExtensions

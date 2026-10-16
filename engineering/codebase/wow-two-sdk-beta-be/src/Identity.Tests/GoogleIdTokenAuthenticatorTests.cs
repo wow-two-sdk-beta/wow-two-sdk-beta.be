@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google.Authenticators;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google.Authenticators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests;
 
 /// <summary>Covers caller cancellation at the Google ID-token authentication boundary.</summary>
 public sealed class GoogleIdTokenAuthenticatorTests

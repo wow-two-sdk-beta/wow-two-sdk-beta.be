@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>Holds the refresh-token lifetime.</summary>
 public sealed record RefreshTokenOptions

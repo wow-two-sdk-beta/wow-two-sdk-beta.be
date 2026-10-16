@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Holds the file names, directives and folder-name pattern the migrator depends on.</summary>
 public static partial class MigrationConstants

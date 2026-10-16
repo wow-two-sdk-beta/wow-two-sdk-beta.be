@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Compares perceptual hashes from <see cref="ImageAnalysisResult.PerceptualHash"/>.</summary>
 public static class PerceptualHashExtensions

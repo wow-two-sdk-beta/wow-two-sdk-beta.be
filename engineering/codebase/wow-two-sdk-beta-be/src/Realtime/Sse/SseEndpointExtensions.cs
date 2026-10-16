@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.Sse;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.Sse;
 
 /// <summary>
 /// <see cref="HttpContext"/> helpers for Server-Sent Events endpoints — the low-ceremony path for

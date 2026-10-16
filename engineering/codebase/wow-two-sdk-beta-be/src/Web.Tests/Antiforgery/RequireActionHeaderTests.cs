@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Antiforgery;
 
 /// <summary>A write must name its action in the configured header; otherwise it gets an SDK validation problem.</summary>
 public sealed class RequireActionHeaderTests

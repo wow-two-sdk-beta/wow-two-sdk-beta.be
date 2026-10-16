@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Refers to what to do with an event whose saga instance does not exist and which no <c>Initially</c> clause would create.</summary>
 public enum SagaMissingInstance

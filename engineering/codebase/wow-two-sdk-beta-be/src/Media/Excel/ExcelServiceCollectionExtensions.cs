@@ -1,14 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel.Parsers;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Excel.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Excel.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Excel;
+namespace WoW.Two.Sdk.Beta.Be.Media.Excel;
 
 /// <summary>Registration helpers for Excel export.</summary>
 public static class ExcelServiceCollectionExtensions

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Http;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Http;
 
 /// <summary>Answers outbound HTTP calls from a script and records every request, so a test can tell what was asked and how often.</summary>
 /// <remarks>

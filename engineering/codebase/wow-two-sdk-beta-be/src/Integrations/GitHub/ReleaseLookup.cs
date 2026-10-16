@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to outcome of a releases lookup — separates a repo with no releases from one the token can't see or a transport failure.</summary>
 public enum ReleaseLookup

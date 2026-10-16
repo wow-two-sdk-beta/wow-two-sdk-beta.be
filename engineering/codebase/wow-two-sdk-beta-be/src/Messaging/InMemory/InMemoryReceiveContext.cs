@@ -1,8 +1,8 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>In-memory <see cref="ReceiveContext"/> — acknowledge is a no-op (the channel read already removed it); dead-letter writes to the <see cref="IDeadLetterRepository"/>.</summary>
 internal sealed class InMemoryReceiveContext(EventEnvelopeModel envelope, IDeadLetterRepository deadLetters, TimeProvider timeProvider) : ReceiveContext

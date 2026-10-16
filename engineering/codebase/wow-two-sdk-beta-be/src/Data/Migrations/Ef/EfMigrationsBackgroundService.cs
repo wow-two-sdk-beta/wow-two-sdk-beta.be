@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef;
 
 /// <summary>Runs pending EF Core migrations during host startup.</summary>
 /// <param name="services">The root provider used to create a scope for the context.</param>

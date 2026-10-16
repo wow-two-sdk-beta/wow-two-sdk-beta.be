@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>In-memory scheduler — delays via the time provider then enqueues onto the channel.</summary>
 internal sealed partial class InMemoryDelayedDeliveryService(InMemoryEventChannel channel, TimeProvider timeProvider, ILogger<InMemoryDelayedDeliveryService> logger) : IDelayedDeliveryService

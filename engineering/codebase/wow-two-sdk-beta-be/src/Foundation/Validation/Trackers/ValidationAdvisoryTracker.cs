@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
 
 /// <summary>Tracks the advisory validation findings raised within one dependency-injection scope.</summary>
 /// <remarks>Register scoped: one HTTP request or one background unit owns one tracker.</remarks>

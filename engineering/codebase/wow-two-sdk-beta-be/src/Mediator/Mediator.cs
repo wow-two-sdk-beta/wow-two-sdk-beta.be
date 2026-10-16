@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Provides the default <see cref="IMediator"/> — resolves handlers and pipeline behaviors via DI, caching the dispatcher delegate per request type.</summary>
 /// <param name="serviceProvider">The provider that resolves handlers and pipeline behaviors.</param>

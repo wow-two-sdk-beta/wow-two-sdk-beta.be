@@ -3,7 +3,7 @@ using System.Diagnostics.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Messaging;
 
 /// <summary>Refers to how a received message left the consume pipeline — the <c>messaging.consume.outcome</c> tag on the consumed counter.</summary>
 public enum ConsumeOutcome

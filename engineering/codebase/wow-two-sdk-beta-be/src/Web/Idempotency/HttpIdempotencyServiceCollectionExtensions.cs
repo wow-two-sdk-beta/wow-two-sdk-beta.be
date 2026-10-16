@@ -3,9 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Web.Idempotency;
 
 /// <summary>Registers config-activated HTTP idempotency.</summary>
 public static class HttpIdempotencyServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Holds options for listening to cache invalidations over PostgreSQL notifications.</summary>
 public sealed record PostgresCacheInvalidationOptions

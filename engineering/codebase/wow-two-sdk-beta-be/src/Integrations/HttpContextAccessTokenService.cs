@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Integrations;
+namespace WoW.Two.Sdk.Beta.Be.Integrations;
 
 /// <summary>Provides the access token by lifting the <c>access_token</c> saved on the current request's auth ticket (<c>SaveTokens = true</c>); yields <c>null</c> with no active context or saved token.</summary>
 public sealed class HttpContextAccessTokenService(IHttpContextAccessor httpContextAccessor) : IAccessTokenService

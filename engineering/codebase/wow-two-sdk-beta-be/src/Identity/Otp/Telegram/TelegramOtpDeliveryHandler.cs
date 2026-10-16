@@ -2,9 +2,9 @@ using System.Globalization;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Telegram;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Telegram;
 
 /// <summary>Handles <see cref="OtpDeliveryEnvelopeModel"/> deliveries as Telegram bot messages; the delivery address is the chat id.</summary>
 public sealed class TelegramOtpDeliveryHandler : IOtpDeliveryHandler

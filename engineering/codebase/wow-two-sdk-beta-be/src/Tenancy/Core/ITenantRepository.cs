@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>Defines behavior that resolves <see cref="TenantInfo"/> for a tenant id — the registry of known tenants.</summary>
 public interface ITenantRepository

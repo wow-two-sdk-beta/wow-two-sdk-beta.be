@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Refers to where a dead-lettered message sits in the administration lifecycle.</summary>
 public enum DeadLetterState

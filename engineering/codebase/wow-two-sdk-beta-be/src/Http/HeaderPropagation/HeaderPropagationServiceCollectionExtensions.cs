@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.HeaderPropagation;
+namespace WoW.Two.Sdk.Beta.Be.Http.HeaderPropagation;
 
 /// <summary>Provides forwarding of inbound headers (correlation/request IDs) onto outbound <see cref="HttpClient"/> calls over <c>Microsoft.AspNetCore.HeaderPropagation</c>.</summary>
 /// <remarks>Wire up three sides: register here, attach per client via <see cref="AddPropagatedHeaders"/>, and add capture middleware with <c>app.UseHeaderPropagation()</c>.</remarks>

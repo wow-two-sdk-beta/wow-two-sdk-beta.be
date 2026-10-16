@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Thrown when a configured master key is present but malformed — invalid base64 or the wrong decoded length.</summary>
 /// <remarks>Deliberately carries no key material in its message, so it is safe to log. A <em>missing</em> key is not an error (the seal keeper stays sealed); only a <em>broken</em> one raises this.</remarks>

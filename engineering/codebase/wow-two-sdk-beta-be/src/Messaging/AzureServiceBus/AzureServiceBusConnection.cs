@@ -8,11 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.AzureServiceBus;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.AzureServiceBus;
 
 /// <summary>Lazily-opened shared <see cref="ServiceBusClient"/> (singleton) — the send and receive halves share one AMQP connection, as the client is designed for.</summary>
 internal sealed class AzureServiceBusConnection(AzureServiceBusOptions options) : IAsyncDisposable

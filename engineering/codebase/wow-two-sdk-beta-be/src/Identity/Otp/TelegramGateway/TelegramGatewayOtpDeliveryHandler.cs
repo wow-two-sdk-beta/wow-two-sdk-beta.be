@@ -2,9 +2,9 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.TelegramGateway;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.TelegramGateway;
 
 /// <summary>
 /// Handles <see cref="OtpDeliveryEnvelopeModel"/> deliveries through the Telegram Gateway API, which sends the code to

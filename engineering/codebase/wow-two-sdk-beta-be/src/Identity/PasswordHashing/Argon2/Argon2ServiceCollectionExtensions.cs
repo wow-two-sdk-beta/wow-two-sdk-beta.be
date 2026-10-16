@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2;
+namespace WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2;
 
 /// <summary>Registration helpers.</summary>
 public static class Argon2ServiceCollectionExtensions

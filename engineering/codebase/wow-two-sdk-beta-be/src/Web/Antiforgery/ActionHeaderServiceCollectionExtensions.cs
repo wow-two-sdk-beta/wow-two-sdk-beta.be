@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 
 /// <summary>Provides registration for the action-header write guard.</summary>
 public static class ActionHeaderServiceCollectionExtensions

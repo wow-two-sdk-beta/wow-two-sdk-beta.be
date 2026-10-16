@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
 
 /// <summary>
 /// Defines deciding a thrown exception's <see cref="FaultDisposition"/> so the resilience pipeline can skip the retry budget

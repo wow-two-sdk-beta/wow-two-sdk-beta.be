@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+namespace WoW.Two.Sdk.Beta.Be.Media.Markdown;
 
 /// <summary>Defines behavior that renders Markdown safely for display and summarizes it.</summary>
 public interface IMarkdownService

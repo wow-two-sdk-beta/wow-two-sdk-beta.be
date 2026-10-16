@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Geo.Distance;
+using WoW.Two.Sdk.Beta.Be.Geo.Distance;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo;
+namespace WoW.Two.Sdk.Beta.Be.Geo;
 
 /// <summary>Registration helpers for the Geo vector.</summary>
 public static class GeoServiceCollectionExtensions

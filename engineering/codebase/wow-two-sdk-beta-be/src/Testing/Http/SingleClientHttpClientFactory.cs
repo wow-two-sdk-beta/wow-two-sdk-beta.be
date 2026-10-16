@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Http;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Http;
 
 /// <summary>Hands every client name a new <see cref="HttpClient"/> over one shared <see cref="HttpMessageHandler"/>, for code under test that takes an <see cref="IHttpClientFactory"/>.</summary>
 /// <remarks>The handler is never disposed with a client, so one scripted handler serves every call of a test.</remarks>

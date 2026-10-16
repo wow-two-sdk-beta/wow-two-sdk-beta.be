@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>Represents the outcome of validating an inbound webhook, with what the sender stated about the delivery.</summary>
 public sealed record WebhookSignatureResult

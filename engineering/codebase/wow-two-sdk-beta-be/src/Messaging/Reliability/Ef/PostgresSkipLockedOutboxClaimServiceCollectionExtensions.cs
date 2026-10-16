@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
 /// <summary>DI registration for the PostgreSQL <c>FOR UPDATE SKIP LOCKED</c> outbox claim strategy.</summary>
 public static class PostgresSkipLockedOutboxClaimServiceCollectionExtensions

@@ -5,11 +5,11 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using UglyToad.PdfPig.Exceptions;
-using WoW.Two.Sdk.Backend.Beta.Media.Images;
+using WoW.Two.Sdk.Beta.Be.Media.Images;
 using PigDocument = UglyToad.PdfPig.PdfDocument;
 using PigParsingOptions = UglyToad.PdfPig.ParsingOptions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>
 /// Provides <see cref="IPdfService"/> over PDFsharp (edit, write, protect, stamp) and PdfPig (information, text);

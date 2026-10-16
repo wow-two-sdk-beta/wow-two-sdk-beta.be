@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Defines behavior that publishes an application event to matching outbound webhook subscriptions, each delivery HMAC-signed.</summary>
 public interface IWebhookPublisher

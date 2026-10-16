@@ -36,8 +36,8 @@
     <Authors>WoW Two</Authors>
     <Company>WoW Two</Company>
     <Copyright>Copyright © WoW Two</Copyright>
-    <PackageProjectUrl>https://github.com/wow-two-sdk-beta/wow-two-sdk.backend.beta</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/wow-two-sdk-beta/wow-two-sdk.backend.beta.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.be</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.be.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

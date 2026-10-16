@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory.Transports;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory.Transports;
 
 /// <summary>Transports envelopes from the in-memory channel into the pipeline until the host stops.</summary>
 internal sealed class InMemoryReceiveTransport(InMemoryEventChannel channel, IDeadLetterRepository deadLetters, TimeProvider timeProvider) : IReceiveTransport

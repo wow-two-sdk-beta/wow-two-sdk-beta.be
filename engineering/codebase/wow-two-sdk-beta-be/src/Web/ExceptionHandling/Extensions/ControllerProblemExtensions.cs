@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Extensions;
 
 /// <summary>Extends controllers with the registered application-error response policy.</summary>
 public static class ControllerProblemExtensions

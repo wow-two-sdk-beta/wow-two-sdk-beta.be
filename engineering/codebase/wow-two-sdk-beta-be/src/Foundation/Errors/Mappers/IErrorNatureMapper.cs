@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors.Mappers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors.Mappers;
 
 /// <summary>Defines mapping an <see cref="AppErrorType"/> into its <see cref="ErrorNature"/>.</summary>
 public interface IErrorNatureMapper

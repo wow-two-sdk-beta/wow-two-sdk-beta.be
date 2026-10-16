@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Meta;
 
 /// <summary>Covers binding proxy trust onto <see cref="ApiDefaultsOptions"/> from a configuration section.</summary>
 public sealed class ApiDefaultsOptionsExtensionsTests

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Defines the marker for fixtures with async lifecycle.

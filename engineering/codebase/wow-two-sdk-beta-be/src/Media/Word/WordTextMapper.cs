@@ -4,7 +4,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Maps a Word body to plain text or Markdown in reading order; tracked deletions and field codes stay out.</summary>
 internal static partial class WordTextMapper

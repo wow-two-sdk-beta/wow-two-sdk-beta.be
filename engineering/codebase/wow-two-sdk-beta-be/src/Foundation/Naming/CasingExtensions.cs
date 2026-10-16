@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
 /// <summary>Extends casing with the shorthands a caller reaches for on a string.</summary>
 public static class CasingExtensions

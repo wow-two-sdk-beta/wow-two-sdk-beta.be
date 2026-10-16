@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.DataUnits;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.DataUnits;
 
 /// <summary>Completes marked requests atomically, abandoning exceptions and failed result carriers.</summary>
 /// <typeparam name="TRequest">The request contract.</typeparam>

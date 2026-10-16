@@ -1,8 +1,8 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Covers concurrent inbox retries, deduplication and independent message progress.</summary>
 public sealed class InMemoryInboxConcurrencyTests

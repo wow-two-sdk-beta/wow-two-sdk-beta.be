@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Paging;
 
 /// <summary>
 /// Pages EF queries into the SDK's wire shapes: offset pages with a total, and keyset pages that continue from an

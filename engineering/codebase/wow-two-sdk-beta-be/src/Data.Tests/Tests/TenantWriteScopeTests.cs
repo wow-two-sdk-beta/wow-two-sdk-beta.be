@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.PerRow;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Tenancy.PerRow;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>Verifies server-owned tenant stamping and stored-row write isolation.</summary>
 public sealed class TenantWriteScopeTests

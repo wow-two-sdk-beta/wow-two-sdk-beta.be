@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp;
 
 /// <summary>Holds the broker choice and the authentication template WhatsApp OTP delivery sends.</summary>
 /// <remarks>

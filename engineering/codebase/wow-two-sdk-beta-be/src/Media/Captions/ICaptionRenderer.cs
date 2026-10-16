@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>
 /// Defines behavior that serializes caption segments back into a text format. Pairing a parser with a writer of a different

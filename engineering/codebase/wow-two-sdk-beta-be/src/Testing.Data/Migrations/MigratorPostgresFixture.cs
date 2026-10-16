@@ -1,9 +1,9 @@
 using Npgsql;
 using Testcontainers.PostgreSql;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>Owns one Postgres container for a migrator suite; <see cref="ResetAsync"/> drops and recreates the <c>public</c> schema so each test applies from scratch.</summary>
 /// <remarks>The deliberate opposite of the base <c>PostgresFixture</c>, whose Respawn reset preserves <c>migration_history</c>; migrator tests need the full drop for apply-from-scratch, drift, and rollback. Implements xUnit <see cref="IAsyncLifetime"/> so it serves directly as an <c>ICollectionFixture</c>.</remarks>

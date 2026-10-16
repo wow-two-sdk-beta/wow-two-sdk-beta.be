@@ -1,7 +1,7 @@
 using Testcontainers.Redis;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers.Redis;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers.Redis;
 
 /// <summary>Async fixture spinning up a Redis container.</summary>
 public sealed class RedisFixture : ContainerFixtureBase<RedisContainer>

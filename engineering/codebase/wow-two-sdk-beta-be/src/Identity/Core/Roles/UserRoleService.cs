@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
 /// <summary>
 /// Provides role membership: add, remove and query a user's roles by name. Removal rotates the security stamp, so

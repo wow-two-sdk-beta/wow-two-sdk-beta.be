@@ -5,15 +5,15 @@ using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Time.Testing;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Email;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.TelegramGateway;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.WhatsApp;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Email;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.TelegramGateway;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Otp;
 
 /// <summary>Code specs, per-culture wording and the email, WhatsApp and Telegram Gateway channels.</summary>
 public sealed class OtpCodeAndMessageTests

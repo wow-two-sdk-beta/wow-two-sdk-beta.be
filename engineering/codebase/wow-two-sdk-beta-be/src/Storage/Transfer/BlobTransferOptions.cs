@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Transfer;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Transfer;
 
 /// <summary>Holds where the SDK's transfer routes are reachable and the key that signs their URLs.</summary>
 /// <remarks>Set in code with <c>AddBlobTransferUrls(o => …)</c> or in the host section <c>Storage:Transfer</c>, which is applied last.</remarks>

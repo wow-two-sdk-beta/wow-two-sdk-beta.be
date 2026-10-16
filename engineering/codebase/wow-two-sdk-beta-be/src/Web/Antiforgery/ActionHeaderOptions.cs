@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 
 /// <summary>Holds the request header <see cref="RequireActionHeaderAttribute"/> reads the named action from.</summary>
 public sealed record ActionHeaderOptions

@@ -4,11 +4,11 @@ using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>One configured bespoke migrator over a real database — the DI graph the engine runs inside, plus direct-SQL assertion helpers, across Postgres and SQLite.</summary>
 public sealed class MigratorHarness : IAsyncDisposable

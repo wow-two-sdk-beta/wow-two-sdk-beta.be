@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Writes caption segments as a WebVTT (<c>.vtt</c>) document. Stateless and thread-safe.</summary>
 public sealed class VttCaptionRenderer : ICaptionRenderer

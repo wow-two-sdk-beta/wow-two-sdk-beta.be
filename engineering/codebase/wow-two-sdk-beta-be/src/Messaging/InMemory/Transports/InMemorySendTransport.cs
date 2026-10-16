@@ -1,8 +1,8 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory.Transports;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory.Transports;
 
 /// <summary>Transports envelopes through the in-memory channel, deferring to the scheduler when an envelope carries a future delivery time.</summary>
 /// <remarks>

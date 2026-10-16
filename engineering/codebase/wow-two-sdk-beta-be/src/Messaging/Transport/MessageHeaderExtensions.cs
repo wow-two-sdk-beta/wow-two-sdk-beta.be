@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>Applies an <see cref="IMessageHeaderPropagationPolicy"/> to build the header set of an outgoing message.</summary>
 public static class MessageHeaderExtensions

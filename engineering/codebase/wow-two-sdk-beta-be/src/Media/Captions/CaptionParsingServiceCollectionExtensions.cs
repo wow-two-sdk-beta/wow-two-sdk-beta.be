@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Registration helpers for the Media.Captions package.</summary>
 public static class CaptionParsingServiceCollectionExtensions

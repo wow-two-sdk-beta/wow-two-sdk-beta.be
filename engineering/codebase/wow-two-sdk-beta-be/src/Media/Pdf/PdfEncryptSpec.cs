@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents AES-256 protection: an open password, an owner password and what readers may do.</summary>
 public sealed record PdfEncryptSpec

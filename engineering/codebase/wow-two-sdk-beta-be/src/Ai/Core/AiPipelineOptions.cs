@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Core;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Core;
 
 /// <summary>
 /// Holds conventional middleware toggles applied by the SDK around every provider's <c>IChatClient</c>

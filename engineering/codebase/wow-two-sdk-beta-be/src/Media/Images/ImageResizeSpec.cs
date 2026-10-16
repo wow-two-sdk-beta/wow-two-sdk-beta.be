@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents a target size and how the image meets it; one side alone keeps the aspect ratio.</summary>
 public sealed record ImageResizeSpec

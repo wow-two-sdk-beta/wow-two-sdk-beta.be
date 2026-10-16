@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Holds options for <see cref="ClaimMapper"/>: avatar-synthesis toggle plus per-provider specs, seeded from <see cref="ClaimProviderSpecFactory.CreateDefault"/>.</summary>
 public sealed record ClaimNormalizationOptions

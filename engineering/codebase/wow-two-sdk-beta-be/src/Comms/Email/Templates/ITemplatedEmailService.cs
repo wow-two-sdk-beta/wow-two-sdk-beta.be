@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Defines sending a rendered template through the registered <see cref="IEmailBroker"/>.</summary>
 public interface ITemplatedEmailService

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
 
 /// <summary>
 /// Provides external logins: link a provider account (Google, Microsoft, Telegram, …) to a user, find the user behind

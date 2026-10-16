@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Messaging;
 
 /// <summary>The per-event context handed to a handler — the event, its envelope, and correlation-aware helpers.</summary>
 /// <typeparam name="TEvent">Event contract type.</typeparam>

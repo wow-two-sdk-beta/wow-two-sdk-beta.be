@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors.Mappers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors.Mappers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Errors;
 
 public sealed class ErrorNatureTests
 {

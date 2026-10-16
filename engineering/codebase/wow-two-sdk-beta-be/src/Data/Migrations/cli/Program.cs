@@ -1,6 +1,6 @@
 using System.CommandLine;
 using Dapper;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
 // Run the web-free migration CLI assembled by CliCommands and CliRunner.
 

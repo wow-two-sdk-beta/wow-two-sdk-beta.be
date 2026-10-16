@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness.Trackers;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness.Trackers;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>
 /// P0-01 / P0-02 / P0-03 — what actually ends up on the resolved <see cref="DbContextOptions"/> of the flagship

@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging;
+namespace WoW.Two.Sdk.Beta.Be.Messaging;
 
 /// <summary>Defines behavior that handles an event of type <typeparamref name="TEvent"/>. Many handlers may handle the same event (fan-out).</summary>
 /// <typeparam name="TEvent">Event contract type.</typeparam>

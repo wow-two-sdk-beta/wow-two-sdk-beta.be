@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>
 /// Handles the gate of a webhook endpoint: an unverified delivery answers <c>401</c> (<c>413</c> when too large) before

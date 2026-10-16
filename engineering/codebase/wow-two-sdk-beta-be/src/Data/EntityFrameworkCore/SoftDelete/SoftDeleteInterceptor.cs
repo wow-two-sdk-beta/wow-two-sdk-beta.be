@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete;
 
 /// <summary>Rewrites a delete into a soft-delete for <see cref="ISoftDeletable"/> entities — sets <c>IsDeleted</c>, <c>DeletedAt</c>, and (when a user is resolved) <c>DeletedBy</c>.</summary>
 public sealed class SoftDeleteInterceptor : SaveChangesInterceptor

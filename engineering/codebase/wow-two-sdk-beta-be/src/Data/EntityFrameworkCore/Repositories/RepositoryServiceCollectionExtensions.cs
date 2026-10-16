@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Repositories;
 
 /// <summary>Registration helpers for the EF Core thin repository.</summary>
 public static class RepositoryServiceCollectionExtensions

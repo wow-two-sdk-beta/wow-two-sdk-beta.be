@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Terminal moves — finalizing an instance from a clause, or from inside an activity.</summary>
 public static class SagaFinalizationExtensions

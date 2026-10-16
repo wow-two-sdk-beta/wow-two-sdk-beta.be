@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.FeatureGates;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.FeatureGates;
 
 /// <summary>Registers the mediator feature gate.</summary>
 public static class FeatureGatingServiceCollectionExtensions

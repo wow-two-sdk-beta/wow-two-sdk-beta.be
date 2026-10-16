@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Integrations;
-using WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
-using WoW.Two.Sdk.Backend.Beta.Testing.Http;
-using WoW.Two.Sdk.Backend.Beta.Testing.Integrations;
-using WoW.Two.Sdk.Backend.Beta.Testing.Web;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Integrations;
+using WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
+using WoW.Two.Sdk.Beta.Be.Testing.Http;
+using WoW.Two.Sdk.Beta.Be.Testing.Integrations;
+using WoW.Two.Sdk.Beta.Be.Testing.Web;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Testing;
 
 /// <summary>The scripted HTTP fakes drive a real outbound client; the problem reader parses an SDK problem.</summary>
 public sealed class ScriptedHttpTests

@@ -3,10 +3,10 @@ using AwesomeAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Meta;
 
 /// <summary>An app bundle served through the API defaults carries the secure headers and the response encoding.</summary>
 public sealed class ApiDefaultsSpaHostingTests : IAsyncLifetime

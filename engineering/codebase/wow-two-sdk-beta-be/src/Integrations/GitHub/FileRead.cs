@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to outcome of reading one file at one commit — separates a missing file from an oversized one, one the token can't see, or a transport failure.</summary>
 public enum FileRead

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
 /// <summary>
 /// An axis-aligned latitude/longitude rectangle (a GeoJSON-style bbox). Does not span the antimeridian —

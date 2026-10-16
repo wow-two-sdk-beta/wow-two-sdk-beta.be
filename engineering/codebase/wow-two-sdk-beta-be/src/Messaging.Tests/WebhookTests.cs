@@ -1,9 +1,9 @@
 using System.Net;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Outbound webhook delivery: HMAC signature + headers on a matching subscription, and no delivery on a non-match.</summary>
 public sealed class WebhookTests

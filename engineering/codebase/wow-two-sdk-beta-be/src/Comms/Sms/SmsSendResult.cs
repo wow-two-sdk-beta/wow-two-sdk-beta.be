@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms;
 
 /// <summary>Represents the outcome of a send attempt.</summary>
 public sealed record SmsSendResult

@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Meta;
 
 /// <summary>Exercises the complete API-default middleware order over an in-memory host.</summary>
 public sealed class ApiDefaultsPipelineTests

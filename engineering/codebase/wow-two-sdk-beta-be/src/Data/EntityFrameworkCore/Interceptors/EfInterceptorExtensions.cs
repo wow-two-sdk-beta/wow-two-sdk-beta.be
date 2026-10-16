@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
 /// <summary>
 /// The single place a DI-registered EF Core interceptor is attached to a <see cref="DbContext"/>.

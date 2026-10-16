@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates this SDK's outbound signature, so one product can receive another's webhooks.</summary>
 /// <remarks><c>X-Webhook-Signature: sha256=&lt;hex&gt;</c> over <c>{X-Webhook-Timestamp}.{body}</c>; the id and event travel in their own headers.</remarks>

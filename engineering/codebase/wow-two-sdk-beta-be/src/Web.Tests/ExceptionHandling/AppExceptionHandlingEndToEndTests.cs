@@ -9,14 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
-using WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+using WoW.Two.Sdk.Beta.Be.Data.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ExceptionHandling;
 
 /// <summary>
 /// End-to-end coverage of the SDK exception pipeline: a throw inside an endpoint flows through

@@ -1,15 +1,15 @@
 using Xunit;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Svg;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Svg;
 // Render tests target the SDK engine's symbology enum (not the persisted domain one).
-using BarcodeFormat = WoW.Two.Sdk.Backend.Beta.Codes.Models.BarcodeFormat;
+using BarcodeFormat = WoW.Two.Sdk.Beta.Be.Codes.Models.BarcodeFormat;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 /// <summary>Proves the generation library produces valid SVG and PNG for QR and barcodes.</summary>
 public class CodeRenderingTests

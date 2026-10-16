@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Repositories;
 
 /// <summary>Keeps entities in a list behind the SDK repository contract, for tests that need no database.</summary>
 /// <remarks>

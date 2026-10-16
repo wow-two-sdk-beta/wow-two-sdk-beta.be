@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Core;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Core;
 
 /// <summary>
 /// Defines signed URLs for one blob, so browsers and apps upload and download directly instead of through the API.

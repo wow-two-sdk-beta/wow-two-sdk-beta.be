@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.Parsers;
 
 /// <summary>Defines parsing a migration SQL script into sequential statement texts.</summary>
 public interface ISqlStatementParser

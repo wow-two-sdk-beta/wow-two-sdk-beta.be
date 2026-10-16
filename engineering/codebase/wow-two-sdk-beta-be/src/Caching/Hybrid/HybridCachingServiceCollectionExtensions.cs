@@ -2,10 +2,10 @@ using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 
 /// <summary>Registers HybridCache with conventional defaults and the <see cref="ICacheRepository"/> facade.</summary>
 public static class HybridCachingServiceCollectionExtensions

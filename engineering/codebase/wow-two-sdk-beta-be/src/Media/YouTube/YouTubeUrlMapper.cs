@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+namespace WoW.Two.Sdk.Beta.Be.Media.YouTube;
 
 /// <summary>Maps YouTube URLs in any published form to video and playlist identifiers, and identifiers back to canonical URLs.</summary>
 public static class YouTubeUrlMapper

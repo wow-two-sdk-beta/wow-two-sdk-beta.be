@@ -1,7 +1,7 @@
 using System.Net;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Models;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Brokers;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Brokers;
 
 /// <summary>Defines resolving where an IP address is registered.</summary>
 /// <remarks>Lookups are in-memory and synchronous, so a request path never waits on a remote geolocation call.</remarks>

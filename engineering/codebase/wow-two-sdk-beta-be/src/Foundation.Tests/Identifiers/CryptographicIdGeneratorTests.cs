@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Identifiers.Generators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Identifiers.Generators;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Identifiers;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Identifiers;
 
 public sealed class CryptographicIdGeneratorTests
 {

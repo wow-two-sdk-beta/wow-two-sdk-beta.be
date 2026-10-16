@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>Holds the inbound webhook receivers, keyed by the name endpoints require.</summary>
 /// <remarks>Set in code with <c>AddInboundWebhooks(o => …)</c> or in the host section <c>Webhooks:Inbound</c>, which is applied last.</remarks>

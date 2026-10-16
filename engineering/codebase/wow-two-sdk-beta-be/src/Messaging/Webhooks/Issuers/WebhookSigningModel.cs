@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
 /// <summary>Represents what one delivery attempt signs.</summary>
 public sealed record WebhookSigningModel

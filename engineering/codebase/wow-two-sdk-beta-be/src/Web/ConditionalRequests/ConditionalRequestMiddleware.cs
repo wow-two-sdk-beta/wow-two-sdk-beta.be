@@ -2,9 +2,9 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using WoW.Two.Sdk.Backend.Beta.Web.Buffering;
+using WoW.Two.Sdk.Beta.Be.Web.Buffering;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
+namespace WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
 
 /// <summary>
 /// Tags successful GET responses with a weak entity tag (a hash of the body, unless the endpoint set its own tag) and

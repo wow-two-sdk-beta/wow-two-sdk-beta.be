@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>
 /// Defines behavior that reads, rearranges, protects, stamps and builds PDFs. Inputs over the configured limits, locked

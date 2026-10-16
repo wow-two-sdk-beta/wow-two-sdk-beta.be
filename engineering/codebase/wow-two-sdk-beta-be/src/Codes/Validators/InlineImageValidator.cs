@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Validators;
 
 /// <summary>Validates inline raster image data used by code logos.</summary>
 internal sealed class InlineImageValidator

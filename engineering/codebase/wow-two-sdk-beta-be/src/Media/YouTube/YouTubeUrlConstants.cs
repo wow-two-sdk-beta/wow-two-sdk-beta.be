@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+namespace WoW.Two.Sdk.Beta.Be.Media.YouTube;
 
 /// <summary>Holds the URL shapes YouTube serves videos and playlists under.</summary>
 public static class YouTubeUrlConstants

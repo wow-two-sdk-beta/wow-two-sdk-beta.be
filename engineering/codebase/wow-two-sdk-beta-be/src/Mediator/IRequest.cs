@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Defines the marker for a request that produces a response of type <typeparamref name="TResponse"/>.</summary>
 /// <typeparam name="TResponse">Response type.</typeparam>

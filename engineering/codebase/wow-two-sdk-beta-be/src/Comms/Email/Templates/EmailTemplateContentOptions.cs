@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Holds one template in one culture: a subject line and a Markdown body, both with <c>{placeholders}</c>.</summary>
 public sealed record EmailTemplateContentOptions

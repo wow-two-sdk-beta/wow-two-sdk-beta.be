@@ -5,7 +5,7 @@ using System.Text.Json.Serialization.Metadata;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
 /// <summary>Creates a pinned stored-JSON options instance — the shared preset plus the given type-info modifiers, one instance per document root a product declares its unions for outside the types.</summary>
 /// <remarks>

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates Stripe's signature: <c>Stripe-Signature: t=…,v1=…</c>, hex HMAC over <c>{t}.{body}</c>.</summary>
 /// <remarks>The endpoint secret (<c>whsec_…</c>) keys the HMAC as written. The event id and type come from the payload.</remarks>

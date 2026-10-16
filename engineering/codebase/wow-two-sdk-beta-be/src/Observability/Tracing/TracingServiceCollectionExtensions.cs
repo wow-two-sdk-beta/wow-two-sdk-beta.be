@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Tracing;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Tracing;
 
 /// <summary>Provides OpenTelemetry tracer registration with conventional auto-instrumentation.</summary>
 public static class TracingServiceCollectionExtensions

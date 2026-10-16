@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Transfer;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Transfer;
 
 /// <summary>Maps a transfer request — method, path, expiry and its one extra (file name or media type) — to its HMAC-SHA256 signature.</summary>
 internal static class BlobTransferSignatureMapper

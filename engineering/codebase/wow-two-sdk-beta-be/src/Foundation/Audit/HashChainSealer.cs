@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Provides hash-chain sealing — stamps each entry's sequence, previous-hash link, and hash before it is persisted.</summary>
 /// <remarks>The hashed payload is the SDK chain fields (scheme version, sequence, previous hash) followed by the consumer canonicalizer's fields, so tamper-evidence holds no matter which domain fields the consumer chooses.</remarks>

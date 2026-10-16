@@ -1,8 +1,8 @@
 using System.Buffers;
 using FluentValidation;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Validators;
 
 /// <summary>Validates the style of a rendered code.</summary>
 public sealed class StyleSpecValidator : AbstractValidator<StyleSpec>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Holds the quiet-zone constants — the blank margin a scanner needs to lock onto the symbol.</summary>
 public static class QuietZoneConstants

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.DataUnits;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.DataUnits;
 
 /// <summary>Registers optional transactional request execution.</summary>
 public static class DataUnitServiceCollectionExtensions

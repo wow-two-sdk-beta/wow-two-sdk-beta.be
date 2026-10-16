@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents an image (a logo) drawn on top of another, placed once or tiled.</summary>
 public sealed record ImageWatermarkSpec

@@ -1,9 +1,9 @@
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using EmailAddress = WoW.Two.Sdk.Backend.Beta.Comms.Email.EmailAddress;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using EmailAddress = WoW.Two.Sdk.Beta.Be.Comms.Email.EmailAddress;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.SendGrid;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.SendGrid;
 
 /// <summary>Integrates the SendGrid v3 API as the email provider.</summary>
 public sealed class SendGridEmailBroker : IEmailBroker

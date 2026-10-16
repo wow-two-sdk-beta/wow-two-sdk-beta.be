@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Defines behavior that holds the master key (KEK) in memory and wraps/unwraps data keys (DEKs) — the key-management half of envelope encryption.</summary>
 /// <remarks>

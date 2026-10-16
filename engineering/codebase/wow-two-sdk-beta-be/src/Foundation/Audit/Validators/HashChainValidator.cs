@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 
 /// <summary>Validates the consistency of a supplied hash chain.</summary>
 /// <remarks>Walks the entries once in order — for each it checks the sequence is gap-free, the previous-hash matches the prior entry's hash, and the stored hash equals the hash recomputed from the same SDK-plus-consumer payload the sealer used. Stops and reports the first break. An intact result establishes consistency of the supplied entries only; no trusted checkpoint is checked, so tail truncation or a consistently rewritten chain can pass.</remarks>

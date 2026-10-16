@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Sqlite;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Durable webhooks: protected secrets, enable and remove, one delivery id across retries, redelivery and purge.</summary>
 public sealed class WebhookPersistenceTests : IAsyncLifetime, IDisposable

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.Ghcr;
 
 /// <summary>Refers to outcome of probing whether an image tag exists in the registry — separates a missing image from one the caller isn't authorized to see.</summary>
 public enum ImageCheck

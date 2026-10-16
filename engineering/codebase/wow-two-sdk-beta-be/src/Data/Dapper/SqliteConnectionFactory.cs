@@ -1,8 +1,8 @@
 using System.Data.Common;
 using Microsoft.Data.Sqlite;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper;
 
 /// <summary>Creates SQLite connections from a fixed connection string — the connection seam for SQLite hosts, which ship no <see cref="DbDataSource"/>.</summary>
 /// <remarks>SQLite has no ADO.NET <see cref="DbDataSource"/>, so <c>AddDataSourceConnectionFactory</c> does not apply; register this via <c>AddSqliteConnectionFactory</c> instead.</remarks>

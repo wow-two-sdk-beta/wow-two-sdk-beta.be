@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.RefreshTokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.RefreshTokens;
 
 /// <summary>Carries a redemption's status, and on success the user and the replacement token.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

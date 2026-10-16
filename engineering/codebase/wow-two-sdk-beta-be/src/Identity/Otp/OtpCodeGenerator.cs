@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Generates cryptographically random codes of every <see cref="OtpCodeKind"/>; numeric codes keep leading zeros.</summary>
 public sealed class OtpCodeGenerator : IOtpCodeGenerator

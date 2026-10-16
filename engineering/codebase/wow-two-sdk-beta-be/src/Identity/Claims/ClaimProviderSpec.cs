@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Declares how one provider's raw claims map onto the canonical <c>wt:*</c> set; each field lists source claim types in priority order (first match wins).</summary>
 public sealed record ClaimProviderSpec

@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts;
 
 /// <summary>Represents the base API response envelope — shared constants only.</summary>
 public record ApiResponse

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>Binds <c>?pageNumber=&amp;pageSize=</c> for an offset list read; take it with <c>[AsParameters]</c>.</summary>
 public sealed record PageApiRequest

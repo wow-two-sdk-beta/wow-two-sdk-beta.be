@@ -1,8 +1,8 @@
 using System.Data;
 using Dapper;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper;
 
 /// <summary>Handles reversible enum mapping to case-styled string columns.</summary>
 /// <remarks>Register per enum: <c>SqlMapper.AddTypeHandler(new EnumTypeHandler&lt;OrderStatus&gt;());</c>.</remarks>

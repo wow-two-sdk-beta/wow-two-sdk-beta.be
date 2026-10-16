@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.DataProtection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Serializers;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Guest.Services;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Guest.Services;
 
 /// <summary>Provides creation, reuse and clearing of the guest-id cookie within a request.</summary>
 /// <remarks>Provisions at most once per request; the cookie is HttpOnly, Secure, and essential (an ownership capability, exempt from consent gating — not tracking).</remarks>

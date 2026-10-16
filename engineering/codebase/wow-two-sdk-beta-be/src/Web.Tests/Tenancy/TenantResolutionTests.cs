@@ -1,9 +1,9 @@
 using System.Security.Claims;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Tenancy;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Tenancy;
 
 /// <summary>Verifies authoritative resolution precedence and ambient lifetime.</summary>
 public sealed class TenantResolutionTests

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines read-only data access for an aggregate, keyed by <typeparamref name="TId"/> (<c>Get</c> reads).</summary>
 /// <typeparam name="TEntity">The entity type.</typeparam>

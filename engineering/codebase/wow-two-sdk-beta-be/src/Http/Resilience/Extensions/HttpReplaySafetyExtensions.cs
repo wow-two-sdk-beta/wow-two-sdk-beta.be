@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Resilience.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Http.Resilience.Extensions;
 
 /// <summary>Extends HTTP replay safety with request eligibility checks for retry and hedging.</summary>
 public static class HttpReplaySafetyExtensions

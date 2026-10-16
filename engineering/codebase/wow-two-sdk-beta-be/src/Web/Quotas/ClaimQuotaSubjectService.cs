@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Provides the default subject: the signed-in user by claim with the plan claim, else the client address.</summary>
 /// <param name="options">Claim types and the default plan; <c>Quotas</c> reloads live.</param>

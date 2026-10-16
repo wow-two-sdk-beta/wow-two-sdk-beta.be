@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>Holds the validation module's options, set with <c>ConfigureValidation(o => …)</c> or the host section <c>Validation</c>.</summary>
 public sealed record ValidationOptions

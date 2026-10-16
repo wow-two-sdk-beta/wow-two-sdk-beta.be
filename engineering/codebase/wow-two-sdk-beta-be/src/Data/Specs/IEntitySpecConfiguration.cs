@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Defines behavior that configures the storage spec of <typeparamref name="TEntity"/>; one class per entity, like <c>IEntityTypeConfiguration&lt;T&gt;</c>.</summary>
 /// <typeparam name="TEntity">The entity type.</typeparam>

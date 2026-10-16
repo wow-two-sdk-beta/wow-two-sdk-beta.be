@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson.Serializers;
 
 /// <summary>
 /// Defines serialization and decoding of supported GeoJSON objects (RFC 7946) — Point / LineString / Polygon geometries,

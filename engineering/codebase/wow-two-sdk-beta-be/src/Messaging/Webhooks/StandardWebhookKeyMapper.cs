@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Maps a Standard Webhooks secret to its HMAC key: the base64 after <c>whsec_</c>, else the secret's UTF-8 bytes.</summary>
 internal static class StandardWebhookKeyMapper

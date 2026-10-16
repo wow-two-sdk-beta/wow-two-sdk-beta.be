@@ -2,10 +2,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Dapper;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>
 /// Accesses idempotency records in a SQL table (PostgreSQL or SQLite) through the autonomous

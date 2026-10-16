@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.Sse;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.Sse;
 
 /// <summary>
 /// A single Server-Sent Events frame as defined by the WHATWG EventSource specification: an optional

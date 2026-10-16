@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
 /// <summary>
 /// Maps registered event types to stable wire tokens and resolves registered tokens and aliases.

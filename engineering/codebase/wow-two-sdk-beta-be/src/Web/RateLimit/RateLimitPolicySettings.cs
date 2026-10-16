@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.RateLimit;
+namespace WoW.Two.Sdk.Beta.Be.Web.RateLimit;
 
 /// <summary>One named rate-limit policy as configuration declares it.</summary>
 public sealed record RateLimitPolicySettings

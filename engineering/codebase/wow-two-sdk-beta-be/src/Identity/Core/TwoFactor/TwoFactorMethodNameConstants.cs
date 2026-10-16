@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>Holds the reserved two-factor method names; configured methods take any other name.</summary>
 public static class TwoFactorMethodNameConstants

@@ -2,11 +2,11 @@ using System.Buffers;
 using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
 /// <summary>Serializes event bodies as CloudEvents 1.0 JSON documents and decodes their data payloads.</summary>
 /// <remarks>

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.IdentityApi;
+namespace WoW.Two.Sdk.Beta.Be.Identity.IdentityApi;
 
 /// <summary>Provides ASP.NET Core Identity registration with bearer-token API endpoints.</summary>
 public static class IdentityApiServiceCollectionExtensions

@@ -1,8 +1,8 @@
 using System.Globalization;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Email;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Email;
 
 /// <summary>Handles <see cref="OtpDeliveryEnvelopeModel"/> deliveries as plain-text email through the registered <see cref="IEmailBroker"/>.</summary>
 /// <param name="email">The email provider.</param>

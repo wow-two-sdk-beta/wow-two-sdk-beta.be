@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
 
 /// <summary>Opts the lockout slice into an identity registration.</summary>
 public static class LockoutIdentityBuilderExtensions

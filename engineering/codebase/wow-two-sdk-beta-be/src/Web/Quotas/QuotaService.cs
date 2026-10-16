@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Provides quota counting over <see cref="IQuotaRepository"/>, one counter per quota, window and subject.</summary>
 /// <param name="repository">The counters.</param>

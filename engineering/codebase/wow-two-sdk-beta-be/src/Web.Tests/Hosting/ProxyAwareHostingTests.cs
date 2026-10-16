@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Web.Hosting;
+using WoW.Two.Sdk.Beta.Be.Web.Hosting;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Hosting;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Hosting;
 
 /// <summary>Forwarded headers apply only from trusted proxies; probe hosts pass a restricted host allowlist.</summary>
 public sealed class ProxyAwareHostingTests

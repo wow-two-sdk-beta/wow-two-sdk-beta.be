@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Provides templated sending: render, then hand the HTML and text bodies to the broker.</summary>
 /// <param name="renderer">Renders the template.</param>

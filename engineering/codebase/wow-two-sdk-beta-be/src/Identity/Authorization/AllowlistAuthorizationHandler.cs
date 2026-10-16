@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
 /// <summary>Handles <see cref="AllowlistRequirement"/> authorization for a principal.</summary>
 public sealed class AllowlistAuthorizationHandler : AuthorizationHandler<AllowlistRequirement>

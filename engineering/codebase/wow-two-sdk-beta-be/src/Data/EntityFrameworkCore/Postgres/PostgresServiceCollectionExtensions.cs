@@ -1,9 +1,9 @@
 using System.Data.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
 
 /// <summary>Registration helpers for a shared Npgsql data source.</summary>
 public static class PostgresServiceCollectionExtensions

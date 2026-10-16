@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete;
 
 /// <summary>Registration helpers for the soft-delete interceptor.</summary>
 public static class SoftDeleteServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Exchanges a refresh token for a new access token and refresh token.</summary>
 public sealed record RefreshAccessApiRequest

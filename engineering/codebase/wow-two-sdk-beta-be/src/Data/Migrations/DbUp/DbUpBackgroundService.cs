@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.DbUp;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp;
 
 /// <summary>Runs pending DbUp scripts during host startup.</summary>
 /// <param name="options">The DbUp runner options.</param>

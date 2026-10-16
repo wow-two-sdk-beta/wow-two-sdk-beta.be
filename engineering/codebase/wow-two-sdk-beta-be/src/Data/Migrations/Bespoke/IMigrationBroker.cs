@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Defines reading raw migration SQL from a backing store.</summary>
 /// <remarks>Use a filesystem source for the CLI and dev; use an embedded-resource source for self-contained runtime deploys.</remarks>

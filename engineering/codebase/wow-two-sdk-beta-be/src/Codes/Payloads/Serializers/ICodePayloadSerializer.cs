@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Models;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Models;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Payloads.Serializers;
 
 /// <summary>Defines serialization of typed scanner payloads.</summary>
 public interface ICodePayloadSerializer

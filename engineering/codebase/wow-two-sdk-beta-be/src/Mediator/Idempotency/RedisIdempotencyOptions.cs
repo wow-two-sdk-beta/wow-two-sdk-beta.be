@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Holds the Redis connection, key prefix, in-progress lease and response serializer for Redis idempotency.</summary>
 /// <remarks>Set in code with <c>AddRedisIdempotencyRepository(o => …)</c> or in the host section <c>Mediator:Idempotency:Redis</c>, applied last.</remarks>

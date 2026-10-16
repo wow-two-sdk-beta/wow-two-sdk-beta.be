@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents a straight-line foreground gradient whose color stops run along <see cref="Angle"/>.</summary>
 public sealed record LinearGradientSpec : GradientSpec

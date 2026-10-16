@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using StackExchange.Redis;
 using Testcontainers.Redis;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Tests.Behaviors;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Tests.Behaviors;
 
 /// <summary>
 /// <see cref="RedisIdempotencyRepository"/> against a real Redis: two repositories stand in for two hosts — acquisition,

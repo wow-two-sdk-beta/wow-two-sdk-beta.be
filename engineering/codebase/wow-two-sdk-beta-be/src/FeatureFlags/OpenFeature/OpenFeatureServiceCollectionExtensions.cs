@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OpenFeature;
 
-namespace WoW.Two.Sdk.Backend.Beta.FeatureFlags.OpenFeature;
+namespace WoW.Two.Sdk.Beta.Be.FeatureFlags.OpenFeature;
 
 /// <summary>
 /// Registers an OpenFeature <see cref="IFeatureClient"/> — the vendor-neutral seam that vendor SDKs

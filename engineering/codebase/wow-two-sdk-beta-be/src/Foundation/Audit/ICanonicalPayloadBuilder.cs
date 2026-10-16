@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Defines an unambiguous, type-tagged and length-prefixed encoder for the fields hashed into a chain entry.</summary>
 /// <remarks>Each append writes a type tag, then a length, then the raw bytes — so no field value can ever shift a field boundary or collide with an adjacent one. This is what makes the hash injective over the field tuple, fixing the delimiter ambiguity of a naive <c>'|'</c>-joined string (where <c>"a|b" + "c"</c> and <c>"a" + "b|c"</c> hash identically).</remarks>

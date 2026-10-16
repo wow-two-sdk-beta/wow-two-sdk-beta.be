@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using WoW.Two.Sdk.Backend.Beta.Messaging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+using WoW.Two.Sdk.Beta.Be.Messaging;
+using WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Messaging.Trackers;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Messaging.Trackers;
 
 /// <summary>
 /// Tracks every saga reaction the harness recorded, in order — append-only, thread-safe, and awaitable: a test asserts on what

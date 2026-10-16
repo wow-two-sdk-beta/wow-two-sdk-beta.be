@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
 /// <summary>
 /// Base for SQLite migrator tests — owns a throwaway temp DB file and a fresh <see cref="MigrationsWorkspace"/>,

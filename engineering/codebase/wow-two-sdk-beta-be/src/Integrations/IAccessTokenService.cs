@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Integrations;
+namespace WoW.Two.Sdk.Beta.Be.Integrations;
 
 /// <summary>Defines behavior that supplies the access token an integration client authorizes its calls with; swap the implementation to control which token each call carries.</summary>
 public interface IAccessTokenService

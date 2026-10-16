@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Fluent builder returned by <c>AddUserAccounts</c>; each <c>.AddX()</c> opts a slice into the registration.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

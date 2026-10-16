@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps RGB pixels to their average color and their most common distinct colors.</summary>
 internal static class ImagePaletteMapper

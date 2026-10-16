@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
 
 /// <summary>Extends the identity domain with TOTP registration.</summary>
 public static class TotpServiceCollectionExtensions

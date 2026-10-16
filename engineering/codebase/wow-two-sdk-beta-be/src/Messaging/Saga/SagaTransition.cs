@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>One state's reaction to one event type: the activities to run and the edge to take.</summary>
 /// <typeparam name="TState">The saga state type.</typeparam>

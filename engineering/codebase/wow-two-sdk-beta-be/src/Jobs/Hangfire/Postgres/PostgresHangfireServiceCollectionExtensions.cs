@@ -1,10 +1,10 @@
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Jobs.Hangfire;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.Postgres;
 
 /// <summary>PostgreSQL storage preset for Hangfire jobs.</summary>
 public static class PostgresHangfireServiceCollectionExtensions

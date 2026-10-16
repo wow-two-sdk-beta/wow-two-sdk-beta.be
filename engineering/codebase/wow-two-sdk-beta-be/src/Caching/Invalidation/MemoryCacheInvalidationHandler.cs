@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.Memory;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Handles invalidations by evicting from the in-process <see cref="IMemoryCache"/>.</summary>
 /// <remarks>

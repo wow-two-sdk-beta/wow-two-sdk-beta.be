@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>
 /// Defines the product's part of deleting an account: erase or anonymize what it stores for the user. Every registered

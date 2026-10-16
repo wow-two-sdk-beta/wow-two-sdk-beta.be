@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions.BackgroundServices;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions.Validators;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions.BackgroundServices;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Provides opt-in transaction coordination for one primary EF context.</summary>
 public static class DataSessionServiceCollectionExtensions

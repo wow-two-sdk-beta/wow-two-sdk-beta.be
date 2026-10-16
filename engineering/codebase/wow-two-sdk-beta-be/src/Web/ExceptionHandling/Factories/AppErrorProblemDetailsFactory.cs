@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling.Factories;
+namespace WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 
 /// <summary>Creates ProblemDetails that vary by application error and request context.</summary>
 public sealed class AppErrorProblemDetailsFactory(

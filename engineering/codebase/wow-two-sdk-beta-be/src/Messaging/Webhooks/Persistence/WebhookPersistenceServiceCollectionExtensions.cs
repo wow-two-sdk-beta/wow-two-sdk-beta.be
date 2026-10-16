@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>Registers durable webhook subscriptions and deliveries over Entity Framework Core.</summary>
 public static class WebhookPersistenceServiceCollectionExtensions

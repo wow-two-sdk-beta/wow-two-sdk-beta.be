@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Defines behavior that handles a request and produces a response.</summary>
 public interface IRequestHandler<in TRequest, TResponse> where TRequest : IRequest<TResponse>

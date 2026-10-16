@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.RateLimit;
+namespace WoW.Two.Sdk.Beta.Be.Web.RateLimit;
 
 /// <summary>Provides conventional rate-limit policies; the default partitions per-IP with a sliding window of 100/min.</summary>
 public static class RateLimitServiceCollectionExtensions

@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.FeatureGates;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.FeatureGates;
 
 /// <summary>
 /// Refuses an <see cref="IFeatureGated"/> request as not found while any of its features is disabled, so a dark

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents document information; on update a null field is left as it is, an empty one is cleared.</summary>
 public sealed record PdfMetadataSpec

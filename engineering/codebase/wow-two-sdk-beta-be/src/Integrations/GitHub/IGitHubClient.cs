@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Defines behavior that reads repository metadata from the GitHub REST API, authorizing each call with the configured <see cref="IAccessTokenService"/> so visibility matches that token.</summary>
 public interface IGitHubClient

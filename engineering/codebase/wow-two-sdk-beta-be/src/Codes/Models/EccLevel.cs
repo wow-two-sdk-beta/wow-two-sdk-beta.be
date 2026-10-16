@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models;
 
 /// <summary>Refers to the QR error-correction level — higher levels add redundancy that tolerates a center logo or damage at the cost of density.</summary>
 public enum EccLevel

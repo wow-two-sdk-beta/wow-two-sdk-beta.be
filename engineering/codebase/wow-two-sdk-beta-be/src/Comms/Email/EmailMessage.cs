@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email;
 
 /// <summary>One outgoing message. Provide <see cref="TextBody"/>, <see cref="HtmlBody"/>, or both.</summary>
 public sealed record EmailMessage

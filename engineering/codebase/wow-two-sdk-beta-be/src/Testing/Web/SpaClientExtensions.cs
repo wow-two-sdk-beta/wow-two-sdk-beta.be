@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.Mvc.Testing.Handlers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Web;
 
 /// <summary>Extends test hosts with clients that behave like the single-page app in a browser.</summary>
 public static class SpaClientExtensions

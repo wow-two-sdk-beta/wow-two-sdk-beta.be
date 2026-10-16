@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
 /// <summary>Uniform OAuth baseline: persist tokens, merge scopes, stamp the originating scheme as the <c>wt:provider</c> claim.</summary>
 internal static class OAuthExtensions

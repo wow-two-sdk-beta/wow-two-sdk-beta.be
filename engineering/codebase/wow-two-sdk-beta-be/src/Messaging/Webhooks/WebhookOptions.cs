@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>Holds options for outbound webhook delivery. Uses settable properties so <c>Action&lt;WebhookOptions&gt;</c> configuration composes.</summary>
 public sealed record WebhookOptions

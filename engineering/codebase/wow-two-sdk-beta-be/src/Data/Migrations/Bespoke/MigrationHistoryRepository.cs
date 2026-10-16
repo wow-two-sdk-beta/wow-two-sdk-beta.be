@@ -1,7 +1,7 @@
 using System.Data.Common;
 using Dapper;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Accesses migration-history rows and the apply-loop advisory lock.</summary>
 public sealed class MigrationHistoryRepository(IMigrationDialect dialect, MigrationOptions options) : IMigrationHistoryRepository

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 
 /// <summary>Holds configuration for symmetric JWT issuance; pair with the sibling <c>AddJwtBearerAuthentication</c> on the same key so issued tokens validate across services.</summary>
 public sealed record JwtTokenIssuerOptions

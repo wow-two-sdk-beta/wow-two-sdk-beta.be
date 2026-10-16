@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.OpenApi;
+namespace WoW.Two.Sdk.Beta.Be.Web.OpenApi;
 
 /// <summary>Provides <c>Microsoft.AspNetCore.OpenApi</c> registration (.NET 9 first-party path).</summary>
 public static class OpenApiServiceCollectionExtensions

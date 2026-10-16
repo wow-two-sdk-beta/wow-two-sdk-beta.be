@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Jobs.Batches.BackgroundServices;
+using WoW.Two.Sdk.Beta.Be.Jobs.Batches.BackgroundServices;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 
 /// <summary>Provides registration for in-memory batch pipelines.</summary>
 public static class BatchPipelineServiceCollectionExtensions

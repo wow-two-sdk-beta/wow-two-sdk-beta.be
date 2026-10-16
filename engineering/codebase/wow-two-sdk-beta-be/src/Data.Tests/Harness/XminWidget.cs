@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
 
 public sealed class XminWidget : IKeyedEntity<Guid>, IHasTableName, IHasXmin
 {

@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.Reddit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Reddit;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Reddit;
 
 /// <summary>Reddit OAuth provider.</summary>
 public static class RedditOAuthServiceCollectionExtensions

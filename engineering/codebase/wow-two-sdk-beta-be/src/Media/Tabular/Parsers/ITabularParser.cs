@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 
 /// <summary>Defines reading a tabular document into header-mapped records, one implementation per format.</summary>
 /// <remarks>Resolve the concrete parser or select from the registered set by <see cref="Format"/>, such as by an upload's extension.</remarks>

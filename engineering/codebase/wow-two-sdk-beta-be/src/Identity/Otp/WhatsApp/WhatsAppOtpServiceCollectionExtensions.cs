@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp;
 
 /// <summary>WhatsApp OTP delivery registration.</summary>
 public static class WhatsAppOtpServiceCollectionExtensions

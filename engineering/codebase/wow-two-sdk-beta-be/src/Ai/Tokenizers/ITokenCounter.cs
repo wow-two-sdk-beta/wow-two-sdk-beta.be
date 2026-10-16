@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Tokenizers;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Tokenizers;
 
 /// <summary>Defines behavior that counts model tokens in text — for prompt-budget checks and cost estimation before a call.</summary>
 public interface ITokenCounter

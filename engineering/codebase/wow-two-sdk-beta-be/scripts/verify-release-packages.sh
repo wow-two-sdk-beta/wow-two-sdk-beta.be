@@ -7,13 +7,13 @@ version=${2:?Pass the evaluated package version}
 revision=${3:?Pass the release revision}
 
 packages=(
-  "WoW2.Sdk.Backend.Beta|lib/net10.0/WoW.Two.Sdk.Backend.Beta.dll"
-  "WoW2.Sdk.Backend.Beta.Data.Abstractions|lib/net10.0/WoW.Two.Sdk.Backend.Beta.Data.Abstractions.dll"
-  "WoW2.Sdk.Backend.Beta.Data.Migrations.Cli|tools/net10.0/any/wow-migrate.dll"
-  "WoW2.Sdk.Backend.Beta.Testing|lib/net10.0/WoW.Two.Sdk.Backend.Beta.Testing.dll"
-  "WoW2.Sdk.Backend.Beta.Testing.Data|lib/net10.0/WoW.Two.Sdk.Backend.Beta.Testing.Data.dll"
-  "WoW2.Sdk.Backend.Beta.Testing.Integrations|lib/net10.0/WoW.Two.Sdk.Backend.Beta.Testing.Integrations.dll"
-  "WoW2.Sdk.Backend.Beta.Testing.Messaging|lib/net10.0/WoW.Two.Sdk.Backend.Beta.Testing.Messaging.dll"
+  "WoW2.Sdk.Beta.Be|lib/net10.0/WoW.Two.Sdk.Beta.Be.dll"
+  "WoW2.Sdk.Beta.Be.Data.Abstractions|lib/net10.0/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll"
+  "WoW2.Sdk.Beta.Be.Data.Migrations.Cli|tools/net10.0/any/wow-migrate.dll"
+  "WoW2.Sdk.Beta.Be.Testing|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Data|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Data.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Integrations|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Integrations.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Messaging|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Messaging.dll"
 )
 
 shopt -s nullglob
@@ -40,14 +40,14 @@ for package in "${packages[@]}"; do
   grep -Fxq "$required_asset" <<< "$assets"
 done
 
-grep -Fq 'README.md' <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Backend.Beta.$version.nupkg")"
-grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Backend.Beta.Data.Abstractions.dll' \
-  <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Backend.Beta.Data.Migrations.Cli.$version.nupkg")"
+grep -Fq 'README.md' <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.$version.nupkg")"
+grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll' \
+  <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.Data.Migrations.Cli.$version.nupkg")"
 
 production_ids=(
-  "WoW2.Sdk.Backend.Beta"
-  "WoW2.Sdk.Backend.Beta.Data.Abstractions"
-  "WoW2.Sdk.Backend.Beta.Data.Migrations.Cli"
+  "WoW2.Sdk.Beta.Be"
+  "WoW2.Sdk.Beta.Be.Data.Abstractions"
+  "WoW2.Sdk.Beta.Be.Data.Migrations.Cli"
 )
 for id in "${production_ids[@]}"; do
   nuspec=$(unzip -p "$artifact_dir/$id.$version.nupkg" '*.nuspec')
@@ -65,14 +65,14 @@ require_family_dependency() {
   grep -Fq "dependency id=\"$dependency\" version=\"$version\"" <<< "$nuspec"
 }
 
-require_family_dependency "WoW2.Sdk.Backend.Beta" "WoW2.Sdk.Backend.Beta.Data.Abstractions"
-require_family_dependency "WoW2.Sdk.Backend.Beta.Testing.Data" "WoW2.Sdk.Backend.Beta.Testing"
-require_family_dependency "WoW2.Sdk.Backend.Beta.Testing.Data" "WoW2.Sdk.Backend.Beta"
-require_family_dependency "WoW2.Sdk.Backend.Beta.Testing.Integrations" "WoW2.Sdk.Backend.Beta"
-require_family_dependency "WoW2.Sdk.Backend.Beta.Testing.Messaging" "WoW2.Sdk.Backend.Beta"
+require_family_dependency "WoW2.Sdk.Beta.Be" "WoW2.Sdk.Beta.Be.Data.Abstractions"
+require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Data" "WoW2.Sdk.Beta.Be.Testing"
+require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Data" "WoW2.Sdk.Beta.Be"
+require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Integrations" "WoW2.Sdk.Beta.Be"
+require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Messaging" "WoW2.Sdk.Beta.Be"
 
-testing_nuspec=$(unzip -p "$artifact_dir/WoW2.Sdk.Backend.Beta.Testing.$version.nupkg" '*.nuspec')
-if grep -Fq 'dependency id="WoW2.Sdk.Backend.Beta"' <<< "$testing_nuspec"; then
+testing_nuspec=$(unzip -p "$artifact_dir/WoW2.Sdk.Beta.Be.Testing.$version.nupkg" '*.nuspec')
+if grep -Fq 'dependency id="WoW2.Sdk.Beta.Be"' <<< "$testing_nuspec"; then
   echo "The base Testing package must remain independent of the production mono library" >&2
   exit 1
 fi

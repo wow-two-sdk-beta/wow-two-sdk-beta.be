@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Hosting;
+namespace WoW.Two.Sdk.Beta.Be.Web.Hosting;
 
 /// <summary>
 /// Serves a single-page app from the same host as the API: static assets, a JSON-404 guard for unmatched API routes,

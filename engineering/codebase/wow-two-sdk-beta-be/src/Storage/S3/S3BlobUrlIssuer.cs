@@ -1,8 +1,8 @@
 using Amazon.S3;
 using Amazon.S3.Model;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.S3;
+namespace WoW.Two.Sdk.Beta.Be.Storage.S3;
 
 /// <summary>Issues SigV4 presigned S3 URLs; they are signed locally, with no call to the service.</summary>
 /// <param name="s3">The S3 client holding the credentials.</param>

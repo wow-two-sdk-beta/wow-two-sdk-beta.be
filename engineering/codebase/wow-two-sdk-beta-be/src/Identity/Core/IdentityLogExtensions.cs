@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Writes the identity slices' source-generated log events (IDs 4101–4199).</summary>
 internal static partial class IdentityLogExtensions

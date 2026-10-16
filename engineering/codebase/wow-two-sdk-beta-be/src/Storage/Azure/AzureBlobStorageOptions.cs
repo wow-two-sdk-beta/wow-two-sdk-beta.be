@@ -1,6 +1,6 @@
 using Azure.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Azure;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Azure;
 
 /// <summary>Holds the Azure Blob Storage container and how to reach it: a connection string, or a service URI with a credential.</summary>
 public sealed record AzureBlobStorageOptions

@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 /// <summary>A token held for a user against one provider (composite key user + provider + name).</summary>
 /// <typeparam name="TKey">User key type.</typeparam>
 public class IdentityUserToken<TKey> : ICompositeKeyEntity

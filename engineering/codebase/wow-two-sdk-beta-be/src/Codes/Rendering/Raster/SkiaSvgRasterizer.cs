@@ -1,8 +1,8 @@
 using SkiaSharp;
 using Svg.Skia;
-using WoW.Two.Sdk.Backend.Beta.Codes.Validators;
+using WoW.Two.Sdk.Beta.Be.Codes.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
 
 /// <summary>Provides a Svg.Skia (SkiaSharp) <see cref="ISvgRasterizer"/> that renders the emitter's SVG to PNG with no <c>System.Drawing</c> dependency.</summary>
 public sealed class SkiaSvgRasterizer : ISvgRasterizer

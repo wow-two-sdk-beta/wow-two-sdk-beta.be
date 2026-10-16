@@ -1,7 +1,7 @@
 using System.Globalization;
 using Serilog;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Logging.Services;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Logging.Services;
 
 /// <summary>Provides an outer host boundary with a durable failure sink that exists before application DI and final logging.</summary>
 public sealed class StartupFailureReportingService

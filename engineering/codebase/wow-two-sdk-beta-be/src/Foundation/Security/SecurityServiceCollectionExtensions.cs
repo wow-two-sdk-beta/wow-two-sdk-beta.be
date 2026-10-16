@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Registration helpers for envelope cryptography.</summary>
 public static class SecurityServiceCollectionExtensions

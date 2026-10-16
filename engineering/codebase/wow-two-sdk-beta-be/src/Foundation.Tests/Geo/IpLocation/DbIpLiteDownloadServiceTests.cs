@@ -2,12 +2,12 @@ using System.IO.Compression;
 using System.Net;
 using AwesomeAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.BackgroundServices;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Services;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.BackgroundServices;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Services;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Geo.IpLocation;
 
 /// <summary>The DB-IP Lite refresh falls back a month, skips a current copy and never installs a bad file.</summary>
 public sealed class DbIpLiteDownloadServiceTests : IDisposable

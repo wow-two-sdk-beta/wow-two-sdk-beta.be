@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>
 /// Parses caption text into segments or tracks by selecting a format-specific parser.

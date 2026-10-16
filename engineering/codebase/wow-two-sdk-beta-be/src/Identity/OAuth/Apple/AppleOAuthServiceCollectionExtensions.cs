@@ -2,9 +2,9 @@ using AspNet.Security.OAuth.Apple;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders.Physical;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Apple;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Apple;
 
 /// <summary>Apple Sign-In OAuth provider.</summary>
 public static class AppleOAuthServiceCollectionExtensions

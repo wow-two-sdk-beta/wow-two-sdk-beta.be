@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
 /// <summary>Validates Paddle Billing's signature: <c>Paddle-Signature: ts=…;h1=…</c>, hex HMAC over <c>{ts}:{body}</c>.</summary>
 /// <remarks>The notification destination's secret key keys the HMAC; the event id and type come from the payload.</remarks>

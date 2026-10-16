@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders;
+using WoW.Two.Sdk.Beta.Be.Web.SecureHeaders;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.SecureHeaders;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.SecureHeaders;
 
 /// <summary>
 /// Covers the cross-origin opt-outs on <c>UseOwaspSecureHeaders</c> over an in-memory TestServer host: the

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
 /// <summary>
 /// Fails the host at boot when an interceptor registered via <c>AddEfInterceptor</c>/<c>AddEfSaveChangesInterceptor</c>

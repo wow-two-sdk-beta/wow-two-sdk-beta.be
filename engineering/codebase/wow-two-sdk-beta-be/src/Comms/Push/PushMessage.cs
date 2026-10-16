@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push;
 
 /// <summary>Represents one notification for one device.</summary>
 public sealed record PushMessage

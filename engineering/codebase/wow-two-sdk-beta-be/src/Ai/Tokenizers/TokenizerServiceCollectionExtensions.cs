@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.ML.Tokenizers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Tokenizers;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Tokenizers;
 
 /// <summary>Registers a model-aware <see cref="ITokenCounter"/> for prompt-budget and cost estimation.</summary>
 public static class TokenizerServiceCollectionExtensions

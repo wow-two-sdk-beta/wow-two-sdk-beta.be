@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Email;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Email;
 
 /// <summary>Holds the sender of emailed one-time codes.</summary>
 public sealed record EmailOtpOptions

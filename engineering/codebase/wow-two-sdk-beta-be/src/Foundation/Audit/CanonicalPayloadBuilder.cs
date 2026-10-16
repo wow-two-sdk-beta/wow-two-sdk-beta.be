@@ -1,8 +1,8 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 using System.Buffers.Binary;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Builds an unambiguous canonical byte payload by writing a type tag, a length, then the value bytes for every appended field.</summary>
 /// <remarks>Wire format per field — one tag byte, a 4-byte big-endian length, then that many value bytes; scalars use a fixed length and write their value big-endian, so the byte stream is self-delimiting and injective over the field tuple. Not thread-safe — build one per entry. Calling code reaches the bytes through <see cref="IHashChainSealer{TEntry}"/> / <see cref="IHashChainValidator{TEntry}"/>, not directly.</remarks>

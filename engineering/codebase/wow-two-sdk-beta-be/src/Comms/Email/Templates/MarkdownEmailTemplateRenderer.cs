@@ -7,9 +7,9 @@ using Markdig.Extensions.Tables;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Localization;
+using WoW.Two.Sdk.Beta.Be.Localization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>
 /// Renders Markdown templates into a branded, single-column HTML email with inlined styles, and a plain-text twin from

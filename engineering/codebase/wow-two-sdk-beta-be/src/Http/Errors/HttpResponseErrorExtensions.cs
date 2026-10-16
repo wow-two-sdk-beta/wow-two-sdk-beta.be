@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Net.Http.Json;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Http.Errors;
 
 /// <summary>Turns a dependency's failing response into an <see cref="AppError"/> that keeps its status and problem detail.</summary>
 public static class HttpResponseErrorExtensions

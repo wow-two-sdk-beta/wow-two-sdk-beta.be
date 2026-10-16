@@ -2,16 +2,16 @@ using System.Text;
 using AwesomeAssertions;
 using ClosedXML.Excel;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Csv;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel.Exporters;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel.Parsers;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Csv;
+using WoW.Two.Sdk.Beta.Be.Media.Excel;
+using WoW.Two.Sdk.Beta.Be.Media.Excel.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Excel.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>Spreadsheet imports: XLSX round trips, forgiving headers, row-precise errors and format selection.</summary>
 public sealed class TabularParserTests

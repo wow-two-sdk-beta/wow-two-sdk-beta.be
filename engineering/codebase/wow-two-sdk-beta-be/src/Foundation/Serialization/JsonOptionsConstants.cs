@@ -3,11 +3,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization.Converters;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization.Converters;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-/// <summary>Holds conventional <see cref="JsonSerializerOptions"/> presets for the Wow Two backend SDK.</summary>
+/// <summary>Holds conventional <see cref="JsonSerializerOptions"/> presets for the Wow Two be sdk.</summary>
 public static class JsonOptionsConstants
 {
     /// <summary>Gets the wire options: camelCase, string enums, ISO durations, ignored nulls, NodaTime, and relaxed escaping.</summary>

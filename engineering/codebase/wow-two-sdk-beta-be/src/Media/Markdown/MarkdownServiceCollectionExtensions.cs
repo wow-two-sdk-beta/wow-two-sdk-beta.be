@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+namespace WoW.Two.Sdk.Beta.Be.Media.Markdown;
 
 /// <summary>Markdown registration.</summary>
 public static class MarkdownServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Defines pipeline behavior wrapping a request handler.</summary>
 public interface IRequestInterceptor<in TRequest, TResponse> where TRequest : notnull

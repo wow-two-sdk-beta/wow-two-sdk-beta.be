@@ -1,7 +1,7 @@
 using Testcontainers.MongoDb;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers.MongoDb;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb;
 
 /// <summary>Async fixture spinning up a MongoDB container.</summary>
 public sealed class MongoDbFixture : ContainerFixtureBase<MongoDbContainer>

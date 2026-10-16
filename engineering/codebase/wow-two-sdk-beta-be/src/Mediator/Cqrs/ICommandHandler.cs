@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Cqrs;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Cqrs;
 
 /// <summary>Defines a handler for the <typeparamref name="TCommand"/> command.</summary>
 /// <typeparam name="TCommand">Command type handled.</typeparam>

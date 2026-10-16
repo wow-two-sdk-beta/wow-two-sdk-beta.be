@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines an entity with numeric version optimistic-concurrency tracking.</summary>
 /// <remarks>Provider-agnostic alternative to <see cref="IRowVersioned"/> and <see cref="IHasXmin"/>.</remarks>

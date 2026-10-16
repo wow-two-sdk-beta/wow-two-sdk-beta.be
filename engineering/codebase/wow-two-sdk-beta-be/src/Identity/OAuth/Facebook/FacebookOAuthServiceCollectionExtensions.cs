@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Facebook;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Facebook;
 
 /// <summary>Facebook OAuth provider.</summary>
 public static class FacebookOAuthServiceCollectionExtensions

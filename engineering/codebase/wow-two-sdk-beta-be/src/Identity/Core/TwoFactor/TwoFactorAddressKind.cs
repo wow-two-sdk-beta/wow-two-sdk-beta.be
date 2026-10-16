@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>Refers to the account field a delivered two-factor code is addressed to.</summary>
 public enum TwoFactorAddressKind

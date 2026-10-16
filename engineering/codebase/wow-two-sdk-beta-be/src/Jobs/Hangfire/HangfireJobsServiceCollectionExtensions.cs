@@ -1,7 +1,7 @@
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Hangfire;
 
 /// <summary>Registers Hangfire background jobs (fire-and-forget, delayed, recurring) with SDK serializer conventions and a processing server; pass storage directly or use a preset.</summary>
 public static class HangfireJobsServiceCollectionExtensions

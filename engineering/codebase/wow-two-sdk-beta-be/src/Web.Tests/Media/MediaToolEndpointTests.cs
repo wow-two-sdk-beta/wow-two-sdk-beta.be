@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Logging;
 using SkiaSharp;
-using WoW.Two.Sdk.Backend.Beta.Media.Endpoints;
-using WoW.Two.Sdk.Backend.Beta.Media.Pdf;
-using WoW.Two.Sdk.Backend.Beta.Media.Word;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Media.Endpoints;
+using WoW.Two.Sdk.Beta.Be.Media.Pdf;
+using WoW.Two.Sdk.Beta.Be.Media.Word;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Media;
 
 /// <summary>The image, PDF and Word tools over HTTP: multipart in, files or JSON out, refusals as problem details.</summary>
 public sealed class MediaToolEndpointTests : IAsyncLifetime

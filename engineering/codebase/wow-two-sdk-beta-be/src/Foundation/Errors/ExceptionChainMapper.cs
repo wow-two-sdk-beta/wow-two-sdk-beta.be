@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Maps an exception chain to a flattened, depth-capped diagnostic list.</summary>
 public static class ExceptionChainMapper

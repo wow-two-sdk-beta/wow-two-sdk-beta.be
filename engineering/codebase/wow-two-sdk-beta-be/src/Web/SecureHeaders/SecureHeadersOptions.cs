@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders;
+namespace WoW.Two.Sdk.Beta.Be.Web.SecureHeaders;
 
 /// <summary>Holds the cross-origin isolation policies the OWASP secure-headers preset emits.</summary>
 public sealed record SecureHeadersOptions

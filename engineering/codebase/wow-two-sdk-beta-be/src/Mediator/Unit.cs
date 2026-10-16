@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Void-equivalent type for `IRequest` (no response). Mirrors MediatR's `Unit`.</summary>
 public readonly record struct Unit

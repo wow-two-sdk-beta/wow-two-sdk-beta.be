@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>Marks an endpoint as the named inbound webhook receiver; <c>RequireWebhookSignature</c> adds it as metadata.</summary>
 /// <param name="receiver">The receiver name under <c>Webhooks:Inbound:Receivers</c>.</param>

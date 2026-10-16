@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
 
 /// <summary>Accesses external logins through the context hosting the identity schema.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

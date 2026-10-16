@@ -3,10 +3,10 @@ using AwesomeAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using WoW.Two.Sdk.Backend.Beta.Web.Hosting;
+using WoW.Two.Sdk.Beta.Be.Web.Hosting;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Hosting;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Hosting;
 
 /// <summary>A single-host SPA: route folders answer their own address, other routes fall back to the shell.</summary>
 public sealed class SpaHostingTests : IDisposable

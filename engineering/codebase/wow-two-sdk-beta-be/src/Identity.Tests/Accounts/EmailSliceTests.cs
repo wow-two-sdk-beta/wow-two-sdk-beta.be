@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Emails;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Emails;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Purpose tokens and the email slice: binding, tampering, expiry, stamp rotation and address scoping.</summary>
 public sealed class EmailSliceTests

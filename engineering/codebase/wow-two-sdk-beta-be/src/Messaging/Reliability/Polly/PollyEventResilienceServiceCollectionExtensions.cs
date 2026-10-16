@@ -4,10 +4,10 @@ using Polly;
 using Polly.CircuitBreaker;
 using Polly.Retry;
 
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Polly;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Polly;
 
 /// <summary>DI registration for the Polly-backed event resilience pipeline.</summary>
 public static class PollyEventResilienceServiceCollectionExtensions

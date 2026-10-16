@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>Provides registration for the error-to-HTTP-status mapping seam.</summary>
 public static class ErrorMappingServiceCollectionExtensions

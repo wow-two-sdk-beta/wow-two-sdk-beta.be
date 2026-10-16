@@ -1,10 +1,10 @@
 using System.Text.RegularExpressions;
 using Microsoft.Net.Http.Headers;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestContext.Parsers;
 
 /// <summary>Parses Accept-Language into weighted basic language ranges.</summary>
 public sealed partial class AcceptLanguageParser : IAcceptLanguageParser

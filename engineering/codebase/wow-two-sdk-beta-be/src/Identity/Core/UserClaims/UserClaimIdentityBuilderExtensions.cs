@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
 /// <summary>Opts per-user claims into an identity registration.</summary>
 public static class UserClaimIdentityBuilderExtensions

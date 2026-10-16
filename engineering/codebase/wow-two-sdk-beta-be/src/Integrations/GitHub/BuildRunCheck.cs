@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to outcome of reading the latest run of a workflow — distinguishes succeeded / failed / running / never-ran / unreadable.</summary>
 public enum BuildRunCheck

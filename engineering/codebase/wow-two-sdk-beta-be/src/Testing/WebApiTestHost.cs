@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Time.Testing;
 using NodaTime;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Test host wrapping <see cref="WebApplicationFactory{TEntryPoint}"/> with conventional defaults:

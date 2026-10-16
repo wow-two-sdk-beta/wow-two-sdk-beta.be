@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga.Services;
 
 /// <summary>
 /// Provides one saga instance's message lifecycle: correlate, load, transition and write —

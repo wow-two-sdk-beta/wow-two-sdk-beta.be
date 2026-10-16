@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google;
 
 /// <summary>Holds the accepted audiences for Google ID-token authentication; the audience MUST be the OAuth client id the SPA obtained its token for.</summary>
 public sealed record GoogleIdTokenAuthenticatorOptions

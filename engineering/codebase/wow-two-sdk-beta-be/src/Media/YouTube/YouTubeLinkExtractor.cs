@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+namespace WoW.Two.Sdk.Beta.Be.Media.YouTube;
 
 /// <summary>Finds YouTube video and playlist links in pasted text — one per line, or separated by spaces or commas.</summary>
 public static class YouTubeLinkExtractor

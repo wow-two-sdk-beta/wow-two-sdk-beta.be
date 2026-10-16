@@ -2,9 +2,9 @@ using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.SignalR;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.SignalR;
 
 /// <summary>Registers SignalR with conventional keep-alive, timeout, size, and JSON-protocol defaults.</summary>
 public static class SignalRExtensions

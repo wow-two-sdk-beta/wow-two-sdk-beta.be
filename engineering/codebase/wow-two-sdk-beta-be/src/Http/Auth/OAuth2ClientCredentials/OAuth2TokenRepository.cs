@@ -1,10 +1,10 @@
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Auth.OAuth2ClientCredentials;
+namespace WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials;
 
 /// <summary>Singleton per-client-name access-token cache that single-flights token-endpoint calls so a cold cache triggers exactly one fetch.</summary>
 internal sealed class OAuth2TokenRepository : IDisposable

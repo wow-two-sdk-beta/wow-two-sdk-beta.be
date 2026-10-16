@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>Asks for a sign-in link or code by email; always answered 204, so no account is revealed.</summary>
 public sealed record EmailSignInSendApiRequest

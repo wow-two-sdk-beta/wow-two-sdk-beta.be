@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Ai.Ollama;
+using WoW.Two.Sdk.Beta.Be.Ai.Ollama;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Mcp;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Mcp;
 
 /// <summary>Verifies AI provider registrations against the dependency generation MCP requires.</summary>
 public sealed class AiRegistrationTests

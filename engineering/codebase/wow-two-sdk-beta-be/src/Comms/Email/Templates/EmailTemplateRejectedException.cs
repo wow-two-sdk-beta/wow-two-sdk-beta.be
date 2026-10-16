@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Represents a template that cannot render: missing, or missing values its placeholders name.</summary>
 public sealed class EmailTemplateRejectedException : Exception

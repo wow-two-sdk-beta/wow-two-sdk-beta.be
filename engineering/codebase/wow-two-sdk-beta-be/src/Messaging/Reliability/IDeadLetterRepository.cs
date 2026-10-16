@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Defines poison-message terminus with replay (redrive). Native broker DLQs back this on adapters; in-memory by default.</summary>
 /// <remarks>

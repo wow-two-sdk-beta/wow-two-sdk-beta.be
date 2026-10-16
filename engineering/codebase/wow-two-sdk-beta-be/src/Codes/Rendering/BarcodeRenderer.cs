@@ -2,12 +2,12 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 using ZXing.Common;
-using WoW.Two.Sdk.Backend.Beta.Codes.Validators;
+using WoW.Two.Sdk.Beta.Be.Codes.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering;
 
 /// <summary>Renders barcodes through a ZXing.Net-backed <see cref="IBarcodeRenderer"/> that emits plain managed SVG.</summary>
 public sealed class BarcodeRenderer : IBarcodeRenderer

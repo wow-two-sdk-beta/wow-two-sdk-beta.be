@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Represents a validated, ordered migration with parsed ordinal, name, checksum, and execution flags.</summary>
 public sealed record MigrationDescriptor

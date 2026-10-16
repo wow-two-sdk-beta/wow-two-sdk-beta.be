@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Interceptors;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
 /// <summary>
 /// Pluggable EF Core interceptor registration. An interceptor registered here is auto-wired into every DbContext

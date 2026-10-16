@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Maps a <see cref="StyleSpec"/> to a normalized copy.</summary>
 /// <remarks>Run before the emitter consumes the spec.</remarks>

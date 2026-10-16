@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+using WoW.Two.Sdk.Beta.Be.Media.Markdown;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>Markdown rendering that is safe for user content, with the summaries a page needs.</summary>
 public sealed class MarkdownServiceTests

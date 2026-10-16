@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+namespace WoW.Two.Sdk.Beta.Be.Media.Markdown;
 
 /// <summary>Holds how Markdown renders: raw HTML, link treatment and reading speed.</summary>
 /// <remarks>Set in code with <c>AddMarkdown(o => …)</c> or in the host section <c>Media:Markdown</c>, which is applied last.</remarks>

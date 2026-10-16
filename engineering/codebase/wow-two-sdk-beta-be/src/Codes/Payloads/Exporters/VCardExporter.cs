@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Extensions;
+using WoW.Two.Sdk.Beta.Be.Codes.Payloads.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Exporters;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Payloads.Exporters;
 
 /// <summary>Exports supplied contact data as a vCard 3.0 document.</summary>
 public sealed class VCardExporter : IVCardExporter

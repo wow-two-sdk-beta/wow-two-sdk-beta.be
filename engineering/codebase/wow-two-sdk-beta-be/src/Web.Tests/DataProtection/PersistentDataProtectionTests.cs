@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Web.DataProtection;
+using WoW.Two.Sdk.Beta.Be.Web.DataProtection;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.DataProtection;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.DataProtection;
 
 /// <summary>A persistent key ring lets a replacement host read payloads protected before it started.</summary>
 public sealed class PersistentDataProtectionTests : IDisposable

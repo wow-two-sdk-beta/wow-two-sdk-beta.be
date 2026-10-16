@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>Represents one of a user's passkeys, without its key material.</summary>
 public sealed record PasskeyModel

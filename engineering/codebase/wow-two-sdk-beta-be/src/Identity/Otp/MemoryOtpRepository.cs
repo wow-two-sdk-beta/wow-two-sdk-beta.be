@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Accesses one-time-code records in process memory.</summary>
 public sealed class MemoryOtpRepository : IOtpRepository

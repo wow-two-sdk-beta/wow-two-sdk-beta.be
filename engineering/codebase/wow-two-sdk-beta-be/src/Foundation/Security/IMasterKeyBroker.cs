@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Defines behavior that integrates the master-key (KEK) source an <see cref="ISealService"/> unseals from, so the source swaps without touching the crypto plane.</summary>
 /// <remarks>An environment variable today (<see cref="EnvironmentMasterKeyBroker"/>), a cloud KMS or HSM later. Implementations should treat the returned bytes as sensitive and avoid caching them; the seal service holds the single in-memory copy.</remarks>

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
 /// <summary>
 /// Binds event types to stable wire tokens and aliases at registration time.

@@ -2,10 +2,10 @@ using AwesomeAssertions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests;
 
 /// <summary>Identity core vertical — create → find → delete a user, and case-insensitive duplicate rejection, over in-memory SQLite.</summary>
 public sealed class UserAccountServiceTests

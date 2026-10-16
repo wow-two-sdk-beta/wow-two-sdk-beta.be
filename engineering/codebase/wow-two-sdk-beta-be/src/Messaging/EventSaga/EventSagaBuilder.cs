@@ -1,14 +1,14 @@
 using System.Globalization;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
-using WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.EventSaga.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga;
 
 /// <summary>Fluent builder for a declarative event saga (routing slip). Steps run in the order added.</summary>
 /// <remarks>
 ///   - runs in memory, start to finish — the itinerary does not survive a crash
-///   - for a flow persisted between messages, use <see cref="WoW.Two.Sdk.Backend.Beta.Messaging.Saga.SagaStateMachine{TState}"/> instead
+///   - for a flow persisted between messages, use <see cref="WoW.Two.Sdk.Beta.Be.Messaging.Saga.SagaStateMachine{TState}"/> instead
 /// </remarks>
 public sealed class EventSagaBuilder
 {

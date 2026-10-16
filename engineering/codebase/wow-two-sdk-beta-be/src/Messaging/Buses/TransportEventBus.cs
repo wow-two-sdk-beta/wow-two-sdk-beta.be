@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Services;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Buses;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Buses;
 
 /// <summary>
 /// Dispatches application events through the registered delivery transport. Builds the <see cref="EventEnvelopeModel"/> (id, correlation, transport

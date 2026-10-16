@@ -3,10 +3,10 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using ClosedXML.Attributes;
 using ClosedXML.Excel;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Excel.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Excel.Parsers;
 
 /// <summary>
 /// Parses XLSX worksheets into header-mapped records through ClosedXML. Headers match the <c>XLColumn</c> header the

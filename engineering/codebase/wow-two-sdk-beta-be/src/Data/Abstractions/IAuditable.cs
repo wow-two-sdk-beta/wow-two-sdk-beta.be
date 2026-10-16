@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines a change-audited entity.</summary>
 public interface IAuditable : ICreationAuditable, IModificationAuditable;

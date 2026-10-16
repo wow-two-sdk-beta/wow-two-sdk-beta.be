@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Authorization;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Authorization;
 
 /// <summary>Registration helper.</summary>
 public static class AuthorizationBehaviorServiceCollectionExtensions

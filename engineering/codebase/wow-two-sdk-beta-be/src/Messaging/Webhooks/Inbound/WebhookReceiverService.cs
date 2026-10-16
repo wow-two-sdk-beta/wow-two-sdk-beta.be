@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
 
 /// <summary>
 /// Provides inbound webhook reception: reads the raw body under the receiver's size cap, validates it with the receiver's

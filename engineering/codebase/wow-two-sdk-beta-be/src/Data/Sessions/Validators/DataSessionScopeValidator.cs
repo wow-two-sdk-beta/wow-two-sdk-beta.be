@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions.Validators;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions.Validators;
 
 /// <summary>Validates scoped resolution even when the container disables scope validation.</summary>
 internal sealed class DataSessionScopeValidator(IServiceProvider root)

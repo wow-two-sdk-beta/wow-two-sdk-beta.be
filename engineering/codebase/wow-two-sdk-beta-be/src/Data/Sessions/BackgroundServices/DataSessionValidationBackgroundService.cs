@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions.BackgroundServices;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions.BackgroundServices;
 
 /// <summary>Runs data-session provider validation at host startup without opening a connection.</summary>
 internal sealed class DataSessionValidationBackgroundService(IServiceScopeFactory scopes) : IHostedService

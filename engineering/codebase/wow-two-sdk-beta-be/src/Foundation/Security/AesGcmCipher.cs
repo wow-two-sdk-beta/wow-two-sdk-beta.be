@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>AES-256-GCM authenticated-encryption primitive — the single low-level building block every other type in this module composes.</summary>
 /// <remarks>

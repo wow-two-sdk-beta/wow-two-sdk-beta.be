@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>Defines behavior that maps a <see cref="FieldError"/> to the display message shown for the current request.</summary>
 /// <remarks>

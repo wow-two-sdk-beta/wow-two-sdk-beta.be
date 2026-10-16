@@ -2,7 +2,7 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.Advanced;
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>
 /// Maps a page's JPEG image objects to smaller ones in place: decoded, downscaled to a size limit and re-encoded at a

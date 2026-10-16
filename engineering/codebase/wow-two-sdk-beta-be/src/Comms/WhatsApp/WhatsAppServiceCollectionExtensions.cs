@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Twilio;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Twilio;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Cross-provider WhatsApp registration.</summary>
 public static class WhatsAppServiceCollectionExtensions

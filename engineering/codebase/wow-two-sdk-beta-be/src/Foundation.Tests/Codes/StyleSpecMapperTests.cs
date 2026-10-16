@@ -1,8 +1,8 @@
 using Xunit;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 /// <summary>Proves the pre-emit normalizer rules: quiet-zone floor, logo→H, stylised-module ECC floor (≥ Q).</summary>
 public class StyleSpecMapperTests

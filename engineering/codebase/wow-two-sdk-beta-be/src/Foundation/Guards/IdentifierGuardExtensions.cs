@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using Ardalis.GuardClauses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Guards;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Guards;
 
 /// <summary>Provides custom guard extensions on top of <see cref="IGuardClause"/>.</summary>
 public static partial class IdentifierGuardExtensions

@@ -3,11 +3,11 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
-using WoW.Two.Sdk.Backend.Beta.Web.Buffering;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Web.Buffering;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Web.Idempotency;
 
 /// <summary>
 /// Executes an unsafe request carrying an <c>Idempotency-Key</c> once per key and caller, storing its response through

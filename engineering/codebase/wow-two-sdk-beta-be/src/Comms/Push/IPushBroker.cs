@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push;
 
 /// <summary>
 /// Defines behavior that integrates a push-notification provider; one implementation per provider, failures returned

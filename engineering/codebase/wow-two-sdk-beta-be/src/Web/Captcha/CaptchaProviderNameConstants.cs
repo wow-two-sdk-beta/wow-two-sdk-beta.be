@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Captcha;
 
 /// <summary>Holds the captcha providers the siteverify broker speaks to.</summary>
 public static class CaptchaProviderNameConstants

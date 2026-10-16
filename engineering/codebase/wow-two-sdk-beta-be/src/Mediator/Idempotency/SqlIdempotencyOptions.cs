@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Holds the durable idempotency table, the in-progress lease and the response serializer settings.</summary>
 public sealed record SqlIdempotencyOptions

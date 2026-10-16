@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Holds the safe, default-culture message for each <see cref="AppErrorType"/>; never leaks an underlying exception message.</summary>
 public static class ErrorMessageConstants

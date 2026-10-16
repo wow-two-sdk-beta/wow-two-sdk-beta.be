@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Represents a subject's standing on one quota, after a consumption or as read.</summary>
 public sealed record QuotaResult

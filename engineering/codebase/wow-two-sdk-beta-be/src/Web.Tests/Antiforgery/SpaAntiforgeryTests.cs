@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Testing.Web;
-using WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+using WoW.Two.Sdk.Beta.Be.Testing.Web;
+using WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Antiforgery;
 
 /// <summary>Cookie-carrying unsafe requests need the echoed token; cookieless and exempt requests pass.</summary>
 public sealed class SpaAntiforgeryTests

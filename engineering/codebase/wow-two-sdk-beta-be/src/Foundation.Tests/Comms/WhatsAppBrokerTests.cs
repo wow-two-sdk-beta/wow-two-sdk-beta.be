@@ -4,12 +4,12 @@ using System.Text.Json;
 using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta;
-using WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Twilio;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta;
+using WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Twilio;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Comms;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Comms;
 
 /// <summary>WhatsApp brokers against scripted provider responses, and brokers chosen by host configuration.</summary>
 public sealed class WhatsAppBrokerTests

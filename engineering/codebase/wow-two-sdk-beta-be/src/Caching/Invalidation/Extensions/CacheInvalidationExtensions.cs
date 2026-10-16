@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation.Extensions;
 
 /// <summary>Extends EF Core writes with cache invalidations that every host receives only after commit.</summary>
 public static class CacheInvalidationExtensions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>A registered webhook endpoint: where to deliver, the signing secret, and which event types it wants.</summary>
 public sealed record WebhookSubscription

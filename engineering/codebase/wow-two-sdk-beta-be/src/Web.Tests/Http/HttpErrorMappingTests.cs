@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Http.Errors;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Http.Errors;
+using WoW.Two.Sdk.Beta.Be.Http.Safety;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Http;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
 
 /// <summary>Outbound HTTP failures become application errors instead of anonymous 500s.</summary>
 public sealed class HttpErrorMappingTests

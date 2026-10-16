@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents the versioned style contract the emitter consumes — the single input that fully describes a code's appearance, persisted as camelCase JSON in <c>CodeEntity.StyleJson</c>.</summary>
 /// <remarks>Add a new styling feature as a new field (typically its own nested sub-record), never a new code path; bump <see cref="CurrentSchemaVersion"/> on a non-additive change. Construct the render-default via <see cref="Default"/>.</remarks>

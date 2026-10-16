@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents a collage: how the images are arranged, spaced and framed, and how the result is encoded.</summary>
 public sealed record CollageSpec

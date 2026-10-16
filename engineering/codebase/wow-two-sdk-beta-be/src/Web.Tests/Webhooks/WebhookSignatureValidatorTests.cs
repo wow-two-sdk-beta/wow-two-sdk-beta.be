@@ -2,12 +2,12 @@ using System.Security.Cryptography;
 using System.Text;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound.Validators;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound.Validators;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Webhooks;
 
 /// <summary>The built-in signature schemes against their providers' published examples and their failure modes.</summary>
 public sealed class WebhookSignatureValidatorTests

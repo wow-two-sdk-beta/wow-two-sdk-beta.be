@@ -1,8 +1,8 @@
 using MailKit.Net.Smtp;
 using MimeKit;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.MailKit;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.MailKit;
 
 /// <summary>Integrates an SMTP relay through MailKit as the email provider.</summary>
 public sealed class MailKitEmailBroker : IEmailBroker

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 
 /// <summary>Defines accepting work items that a background loop hands to a handler in batches.</summary>
 /// <typeparam name="TItem">The work item type.</typeparam>

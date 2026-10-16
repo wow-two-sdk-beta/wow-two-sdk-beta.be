@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.WebSockets;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.WebSockets;
 
 /// <summary>Registers the raw-WebSocket middleware with conventional keep-alive and origin defaults.</summary>
 public static class WebSocketExtensions

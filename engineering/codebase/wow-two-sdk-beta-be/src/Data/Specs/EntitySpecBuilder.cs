@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using System.Reflection;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>
 /// Builds the <see cref="EntitySpec"/> of <typeparamref name="TEntity"/> step by step, ending in <see cref="Build"/>.

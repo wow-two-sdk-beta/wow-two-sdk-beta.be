@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Holds one cached response and the contract under which it was acquired.</summary>
 internal sealed record CachedIdempotentResponse

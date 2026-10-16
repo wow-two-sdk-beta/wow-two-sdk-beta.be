@@ -1,6 +1,6 @@
 using DotNet.Testcontainers.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
 /// <summary>
 /// Abstract base for Testcontainers-backed fixtures. Per-engine packages

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Twilio;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Twilio;
 
 /// <summary>Holds Twilio credentials and the WhatsApp sender.</summary>
 public sealed record TwilioWhatsAppOptions

@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Type-erased binding for one observed event type — how to correlate it, and what it does per state.</summary>
 /// <typeparam name="TState">The saga state type.</typeparam>

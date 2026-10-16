@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Defines behavior that hashes a migration body into the stable checksum that detects drift in applied migrations.</summary>
 public interface IMigrationChecksumHasher

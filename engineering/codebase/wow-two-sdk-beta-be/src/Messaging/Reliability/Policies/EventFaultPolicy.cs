@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
 
 /// <summary>
 /// Decides how failed event attempts proceed by evaluating configured rules in order, taking the first

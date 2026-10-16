@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>The outcome of a recursive tree listing at one commit — the categorized result plus every entry GitHub returned.</summary>
 public sealed record RepositoryTree

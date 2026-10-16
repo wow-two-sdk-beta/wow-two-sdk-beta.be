@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>The next step in the consume pipeline — call it to continue, or skip it to short-circuit (drop/handle the message).</summary>
 /// <param name="context">The receive context.</param>

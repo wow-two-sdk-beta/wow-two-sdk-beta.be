@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.FileSystem;
+namespace WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
 
 /// <summary>Registers the local-filesystem <see cref="IBlobRepository"/> implementation.</summary>
 public static class LocalBlobStorageServiceCollectionExtensions

@@ -1,11 +1,11 @@
 using System.Globalization;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
 
 /// <summary>
 /// Provides the delivered-code second factors beside the authenticator: lists the methods an account can use, sends a

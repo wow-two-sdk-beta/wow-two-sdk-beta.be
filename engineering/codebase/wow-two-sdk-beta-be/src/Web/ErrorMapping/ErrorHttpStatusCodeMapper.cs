@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 
 /// <summary>Maps an <see cref="AppErrorType"/> to its default HTTP status code.</summary>
 public sealed class ErrorHttpStatusCodeMapper : IErrorHttpStatusCodeMapper

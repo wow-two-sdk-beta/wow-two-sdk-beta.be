@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>
 /// Defines caption text parsing into segments and tracks across WebVTT, SubRip, TTML and YouTube json3.

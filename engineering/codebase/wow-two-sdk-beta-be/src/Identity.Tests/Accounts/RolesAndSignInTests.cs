@@ -2,18 +2,18 @@ using System.Security.Claims;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using OtpNet;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Logins;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.TwoFactor;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
-using WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Logins;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.TwoFactor;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
+using WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Roles, user claims, the principal factory, sign-in orchestration, two-factor and external logins.</summary>
 public sealed class RolesAndSignInTests

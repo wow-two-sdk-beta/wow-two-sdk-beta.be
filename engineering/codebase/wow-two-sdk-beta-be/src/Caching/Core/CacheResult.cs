@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Creates the <see cref="CacheResult{T}"/> a factory returns to say whether its value may be cached.</summary>
 public static class CacheResult

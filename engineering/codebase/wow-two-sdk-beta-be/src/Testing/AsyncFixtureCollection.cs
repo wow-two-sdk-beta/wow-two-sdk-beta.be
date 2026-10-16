@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Default <see cref="IAsyncFixtureCollection"/> — starts all fixtures sequentially,

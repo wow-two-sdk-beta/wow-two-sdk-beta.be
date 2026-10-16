@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Represents how a built document is titled and laid out; null fields take the configured defaults.</summary>
 public sealed record WordDocumentSpec

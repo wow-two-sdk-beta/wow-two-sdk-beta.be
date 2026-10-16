@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.DataProtection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Guest.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Guest.Serializers;
 
 /// <summary>Serializes guest identity into an authenticated, expiring cookie capability.</summary>
 internal sealed class GuestCookieSerializer(IDataProtectionProvider protection, TimeProvider clock)

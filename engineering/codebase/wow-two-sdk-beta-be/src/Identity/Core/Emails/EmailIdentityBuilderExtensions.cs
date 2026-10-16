@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Emails;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Emails;
 
 /// <summary>Opts the email slice into an identity registration.</summary>
 public static class EmailIdentityBuilderExtensions

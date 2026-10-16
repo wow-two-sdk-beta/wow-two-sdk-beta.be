@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Default <see cref="ISealService"/> — keeps the master key (KEK) in memory and wraps/unwraps data keys with AES-256-GCM.</summary>
 /// <remarks>

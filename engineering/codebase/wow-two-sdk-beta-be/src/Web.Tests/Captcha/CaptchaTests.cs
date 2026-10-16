@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Meta;
-using WoW.Two.Sdk.Backend.Beta.Web.Captcha;
+using WoW.Two.Sdk.Beta.Be.Meta;
+using WoW.Two.Sdk.Beta.Be.Web.Captcha;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Captcha;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Captcha;
 
 /// <summary>Captcha-gated endpoints against a scripted siteverify provider, switched on by host configuration.</summary>
 public sealed class CaptchaTests

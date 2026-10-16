@@ -4,7 +4,7 @@ using System.Globalization;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Provides the SQLite migration dialect for file-create-on-open, busy-timeout serialization, and history-table DDL.</summary>
 public sealed class SqliteMigrationDialect : IMigrationDialect

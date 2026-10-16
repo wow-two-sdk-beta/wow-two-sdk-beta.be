@@ -1,11 +1,11 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>
 /// Holds the SDK's canonical <c>wt:*</c> claim types, mirrored here so the test-auth handler can stamp them without the
 /// Testing package referencing the core lib (it is deliberately self-contained).
 /// </summary>
 /// <remarks>
-/// Keep these string values in lock-step with <c>WoW.Two.Sdk.Backend.Beta.Identity.Claims.NormalizedClaimTypeConstants</c> —
+/// Keep these string values in lock-step with <c>WoW.Two.Sdk.Beta.Be.Identity.Claims.NormalizedClaimTypeConstants</c> —
 /// they are the contract the SDK's <c>ClaimsPrincipalExtensions</c> read by. If the core constants change, change these.
 /// </remarks>
 public static class TestClaimTypeConstants

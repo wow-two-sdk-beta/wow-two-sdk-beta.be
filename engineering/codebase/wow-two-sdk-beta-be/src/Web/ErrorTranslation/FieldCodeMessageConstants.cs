@@ -1,6 +1,6 @@
 using System.Collections.Frozen;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation;
+namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
 /// <summary>Holds the SDK's built-in texts for the field-error codes its own slices emit (identity), by neutral culture.</summary>
 internal static class FieldCodeMessageConstants

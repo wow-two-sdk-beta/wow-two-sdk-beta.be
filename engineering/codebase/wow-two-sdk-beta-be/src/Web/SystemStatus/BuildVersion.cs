@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.SystemStatus;
+namespace WoW.Two.Sdk.Beta.Be.Web.SystemStatus;
 
 /// <summary>Represents what build is running: its informational version, the commit it was built from, and when it was built.</summary>
 public sealed record BuildVersion

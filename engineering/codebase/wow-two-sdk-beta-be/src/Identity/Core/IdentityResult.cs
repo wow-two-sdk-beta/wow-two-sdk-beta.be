@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Represents the outcome of an identity operation — success, or a list of failures.</summary>
 public sealed class IdentityResult

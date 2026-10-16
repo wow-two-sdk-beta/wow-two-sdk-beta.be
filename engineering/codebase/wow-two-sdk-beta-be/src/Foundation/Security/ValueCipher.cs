@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Encrypts and decrypts values through the AES-256-GCM primitive.</summary>
 /// <remarks>A thin, stateless adapter over <see cref="AesGcmCipher"/>; safe to register as a singleton and share across threads.</remarks>

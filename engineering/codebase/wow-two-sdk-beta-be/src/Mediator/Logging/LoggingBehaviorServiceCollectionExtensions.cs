@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Logging;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Logging;
 
 /// <summary>Registration helper.</summary>
 public static class LoggingBehaviorServiceCollectionExtensions

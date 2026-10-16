@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Maps a moment to its quota window: a stable key and the moment the window ends, in UTC.</summary>
 internal static class QuotaPeriodMapper

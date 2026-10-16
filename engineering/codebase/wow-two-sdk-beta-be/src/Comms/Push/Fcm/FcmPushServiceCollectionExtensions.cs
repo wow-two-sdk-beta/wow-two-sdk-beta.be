@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.Fcm;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.Fcm;
 
 /// <summary>Firebase Cloud Messaging registration.</summary>
 public static class FcmPushServiceCollectionExtensions

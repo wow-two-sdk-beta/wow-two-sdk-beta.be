@@ -1,15 +1,15 @@
 using System.Text;
 using SkiaSharp;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Codes;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Codes;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 public sealed class RenderingSafetyTests
 {

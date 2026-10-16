@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>Accesses finished deliveries in <c>webhook_deliveries</c> of <typeparamref name="TContext"/>, one scope per call.</summary>
 /// <typeparam name="TContext">The context hosting the webhook schema.</typeparam>

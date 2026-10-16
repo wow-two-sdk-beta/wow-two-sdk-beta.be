@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Cqrs;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Cqrs;
 
 /// <summary>Defines a command that returns <typeparamref name="TResult"/>.</summary>
 /// <typeparam name="TResult">Result type the command produces.</typeparam>

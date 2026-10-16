@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
-using WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.FeatureGates;
+using WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.FeatureGates;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.FeatureFlags;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.FeatureFlags;
 
 /// <summary>Feature gates: a disabled flag hides an endpoint or a mediator request as not found.</summary>
 public sealed class FeatureGateTests

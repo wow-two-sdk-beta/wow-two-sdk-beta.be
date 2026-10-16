@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Core;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Core;
 
 /// <summary>Default <see cref="ICacheKeyBuilder"/> — joins parts with a colon (<c>user:42:profile</c>). Stateless and thread-safe.</summary>
 public sealed class CacheKeyBuilder : ICacheKeyBuilder

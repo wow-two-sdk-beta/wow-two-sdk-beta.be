@@ -1,7 +1,7 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Tests stable token round trips, required registration, unknown inbound tokens and rename aliases.</summary>
 public sealed class MessageTypeResolverTests

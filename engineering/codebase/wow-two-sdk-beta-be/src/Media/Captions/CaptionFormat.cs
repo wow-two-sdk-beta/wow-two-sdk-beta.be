@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Refers to the caption/subtitle serialization formats the SDK can parse.</summary>
 public enum CaptionFormat

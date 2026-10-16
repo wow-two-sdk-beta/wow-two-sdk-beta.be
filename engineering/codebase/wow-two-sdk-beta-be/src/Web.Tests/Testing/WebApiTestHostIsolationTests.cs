@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Time.Testing;
 using NodaTime;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Time;
-using WoW.Two.Sdk.Backend.Beta.Testing;
+using WoW.Two.Sdk.Beta.Be.Foundation.Time;
+using WoW.Two.Sdk.Beta.Be.Testing;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Testing;
 
 /// <summary>Exercises test-host configuration and clock isolation without process-global state.</summary>
 public sealed class WebApiTestHostIsolationTests

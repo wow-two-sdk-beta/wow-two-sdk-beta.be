@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Renders timed text as plain text — timestamped lines to scan, or paragraphs to read.</summary>
 public static class TimedTextRenderer

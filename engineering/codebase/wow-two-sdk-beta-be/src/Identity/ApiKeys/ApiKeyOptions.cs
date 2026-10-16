@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Holds the shape of a product's API key secrets and how the scheme reads them.</summary>
 public sealed class ApiKeyOptions

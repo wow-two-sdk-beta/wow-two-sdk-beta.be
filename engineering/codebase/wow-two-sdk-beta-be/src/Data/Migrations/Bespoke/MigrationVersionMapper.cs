@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Maps a product build to the version stamp its applied migrations carry.</summary>
 public static class MigrationVersionMapper

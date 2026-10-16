@@ -1,9 +1,9 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Media.Captions;
-using WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Captions;
+using WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media.Captions;
 
 /// <summary>WebVTT reads one segment per spoken line — written captions per cue, rolling ones per line.</summary>
 public sealed class VttCaptionParserTests

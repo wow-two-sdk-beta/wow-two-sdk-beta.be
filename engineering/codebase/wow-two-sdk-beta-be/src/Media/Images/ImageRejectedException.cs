@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents an input image refused before editing: unreadable, unsupported or over a configured limit.</summary>
 public sealed class ImageRejectedException : Exception

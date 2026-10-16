@@ -1,10 +1,10 @@
 using Xunit;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Svg;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Svg;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 /// <summary>Proves the shape seam — <see cref="ModuleShape"/> primitives, eye shapes, the byte-parity path.</summary>
 /// <remarks>Geometry only — the decode proof lives in <see cref="QrDecodeRoundTripTests"/>.</remarks>

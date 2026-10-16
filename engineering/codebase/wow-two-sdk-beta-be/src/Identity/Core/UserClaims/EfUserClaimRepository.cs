@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
 /// <summary>Accesses per-user claims through the context hosting the identity schema.</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using Ardalis.GuardClauses;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
 /// <summary>Represents an expected, transport-agnostic failure — returned via a result or thrown via <see cref="AppException"/>.</summary>
 public record AppError

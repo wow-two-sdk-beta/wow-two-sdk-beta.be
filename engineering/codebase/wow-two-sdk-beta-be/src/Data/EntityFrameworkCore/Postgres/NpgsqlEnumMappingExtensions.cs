@@ -1,8 +1,8 @@
 using System.Reflection;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres;
 
 /// <summary>Bulk registration of CLR enums as PostgreSQL enum types on an <see cref="NpgsqlDataSourceBuilder"/> — the PG type name and each member label are derived from the enum via the SDK casing engine, so the driver-level mapping and any string-based mapping agree by construction.</summary>
 /// <remarks>Replaces the hand-maintained "list every enum twice" registry pattern: call <see cref="MapEnums"/> once with the assembly (or assemblies) holding your enums; Npgsql requires enum mappings at the data-source (driver) level, so this runs on the builder before <c>Build()</c>.</remarks>

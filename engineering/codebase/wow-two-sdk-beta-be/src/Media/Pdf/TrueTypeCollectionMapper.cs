@@ -1,6 +1,6 @@
 using System.Buffers.Binary;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Maps one face of a TrueType collection (<c>.ttc</c>) to a standalone font file, which PDFsharp can embed.</summary>
 internal static class TrueTypeCollectionMapper

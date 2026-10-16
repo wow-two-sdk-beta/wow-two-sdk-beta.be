@@ -1,10 +1,10 @@
 using System.Globalization;
 using System.Runtime.ExceptionServices;
 using CsvHelper;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Csv.Exporters;
+namespace WoW.Two.Sdk.Beta.Be.Media.Csv.Exporters;
 
 /// <summary>Exports supplied rows as a CSV document using invariant culture.</summary>
 /// <remarks>

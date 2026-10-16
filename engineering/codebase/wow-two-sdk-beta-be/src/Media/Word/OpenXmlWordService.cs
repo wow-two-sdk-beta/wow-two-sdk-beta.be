@@ -7,7 +7,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Extensions.Options;
 using Pictures = DocumentFormat.OpenXml.Drawing.Pictures;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Provides Word processing over the Open XML SDK: no Office install, no natives, streams in and bytes out.</summary>
 /// <param name="options">Limits and typography; <c>Media:Word</c> reloads live.</param>

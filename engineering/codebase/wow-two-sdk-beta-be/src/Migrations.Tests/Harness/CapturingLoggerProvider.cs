@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
 /// <summary>Captures every log entry in memory so a test can assert what the migrator reported.</summary>
 public sealed class CapturingLoggerProvider : ILoggerProvider

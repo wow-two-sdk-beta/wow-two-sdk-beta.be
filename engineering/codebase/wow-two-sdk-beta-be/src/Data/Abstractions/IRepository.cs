@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines read-write data access for an aggregate, keyed by <typeparamref name="TId"/> — the union of <see cref="IReadRepository{TEntity, TId}"/> (<c>Get</c>) and <see cref="IWriteRepository{TEntity, TId}"/> (<c>Create</c>/<c>Update</c>/<c>Delete</c>).</summary>
 /// <remarks>Convenience union for single-backend use. For a CQRS split, depend on <see cref="IReadRepository{TEntity, TId}"/> (Dapper) and <see cref="IWriteRepository{TEntity, TId}"/> (EF Core) directly instead.</remarks>

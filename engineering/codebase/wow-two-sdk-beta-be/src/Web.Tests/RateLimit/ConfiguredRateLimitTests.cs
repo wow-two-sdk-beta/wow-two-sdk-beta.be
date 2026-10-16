@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.RateLimit;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.RateLimit;
 
 /// <summary>Rate-limit policies declared in configuration: named, global, and rejected as problem details.</summary>
 public sealed class ConfiguredRateLimitTests

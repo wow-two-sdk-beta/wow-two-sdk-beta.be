@@ -1,7 +1,7 @@
 using System.Reflection;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
 
 /// <summary>Represents how one entity maps to generated SQL: table, columns, key, token, soft delete and tenant.</summary>
 internal sealed class DapperTableModel

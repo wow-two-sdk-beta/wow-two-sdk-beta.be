@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
 /// <summary>
 /// Binds content types to <see cref="IMessageSerializer"/> implementations on the receive path, so a message is decoded by the

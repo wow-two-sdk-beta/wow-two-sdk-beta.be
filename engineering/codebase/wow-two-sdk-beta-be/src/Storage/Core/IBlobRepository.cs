@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Core;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Core;
 
 /// <summary>
 /// Defines a provider-neutral blob (file object) store — save, read, existence, delete, metadata, and listing over

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 /// <summary>Inputs for a <see cref="ClaimProviderSpec.AvatarSynthesizer"/>: the principal plus the canonical values already resolved this pass.</summary>
 public readonly record struct AvatarSynthesisContext

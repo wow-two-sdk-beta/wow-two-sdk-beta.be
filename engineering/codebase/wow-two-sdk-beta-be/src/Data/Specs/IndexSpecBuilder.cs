@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Builds one <see cref="IndexSpec"/> step by step; <see cref="EntitySpecBuilder{TEntity}.Build"/> collects it.</summary>
 public sealed class IndexSpecBuilder

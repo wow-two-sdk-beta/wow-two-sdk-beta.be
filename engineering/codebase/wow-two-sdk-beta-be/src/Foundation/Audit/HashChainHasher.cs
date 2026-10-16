@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 using System.Security.Cryptography;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Audit;
 
 /// <summary>Computes an entry's chain hash by prepending the SDK-owned chain fields, then the consumer's canonical payload.</summary>
 /// <remarks>Single source of the hashing recipe — both <see cref="HashChainSealer{TEntry}"/> and <see cref="HashChainValidator{TEntry}"/> route through it so seal and validate can never diverge. The prepended order is fixed — scheme version, sequence, previous hash — so a consumer canonicalizer cannot omit a chain field and silently weaken the proof.</remarks>

@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Services;
-using WoW.Two.Sdk.Backend.Beta.Observability.Metrics;
-using WoW.Two.Sdk.Backend.Beta.Observability.Tracing;
+using WoW.Two.Sdk.Beta.Be.Messaging.Services;
+using WoW.Two.Sdk.Beta.Be.Observability.Metrics;
+using WoW.Two.Sdk.Beta.Be.Observability.Tracing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>Verifies SDK telemetry collection, bounded messaging dimensions and exporter isolation.</summary>
 public sealed class ObservabilityContractTests

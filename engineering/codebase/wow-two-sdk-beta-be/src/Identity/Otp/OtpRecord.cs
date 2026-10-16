@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>One stored OTP. The canonical shape every <see cref="IOtpRepository"/> maps onto.</summary>
 public sealed record OtpRecord

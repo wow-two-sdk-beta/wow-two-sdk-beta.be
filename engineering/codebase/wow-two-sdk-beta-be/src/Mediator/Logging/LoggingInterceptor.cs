@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Logging;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Logging;
 
 /// <summary>Traces a mediator request and logs its start and successful completion.</summary>
 /// <param name="logger">The logger that records request start, completion, and failure.</param>

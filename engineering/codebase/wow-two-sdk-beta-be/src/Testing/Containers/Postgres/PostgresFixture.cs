@@ -3,9 +3,9 @@ using Npgsql;
 using Respawn;
 using Respawn.Graph;
 using Testcontainers.PostgreSql;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres;
 
 /// <summary>
 /// Async fixture spinning up a PostgreSQL container with a Respawn-backed <see cref="ResetAsync"/>

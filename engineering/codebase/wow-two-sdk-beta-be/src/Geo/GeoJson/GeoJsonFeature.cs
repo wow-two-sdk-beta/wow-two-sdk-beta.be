@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>
 /// A GeoJSON <c>Feature</c> — a geometry with an optional id and a free-form <c>properties</c> bag.

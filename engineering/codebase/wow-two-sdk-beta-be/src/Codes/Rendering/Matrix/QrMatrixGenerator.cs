@@ -1,7 +1,7 @@
 using QRCoder;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
 
 /// <summary>Generates code matrices through a QRCoder-backed <see cref="IQrMatrixGenerator"/>, stripping QRCoder's baked quiet border so the emitter owns the quiet zone.</summary>
 public sealed class QrMatrixGenerator : IQrMatrixGenerator

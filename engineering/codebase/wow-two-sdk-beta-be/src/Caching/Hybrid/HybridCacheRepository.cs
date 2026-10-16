@@ -2,9 +2,9 @@ using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 
 /// <summary>
 /// Accesses cached values through .NET's <see cref="HybridCache"/> (L1 in-process + optional L2

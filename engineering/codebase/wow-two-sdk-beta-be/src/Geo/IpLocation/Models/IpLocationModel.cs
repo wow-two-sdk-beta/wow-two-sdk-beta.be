@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+using WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Models;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Models;
 
 /// <summary>Represents where an IP address is registered, at the precision its database provides.</summary>
 /// <remarks>Country-level databases fill the country and continent only; city-level databases add the rest.</remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Localization;
+namespace WoW.Two.Sdk.Beta.Be.Localization;
 
 /// <summary>
 /// Holds conventional request-localization tunables applied by

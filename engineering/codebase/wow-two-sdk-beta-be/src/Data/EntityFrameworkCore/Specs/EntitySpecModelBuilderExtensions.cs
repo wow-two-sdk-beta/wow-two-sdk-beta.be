@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Specs;
 
 /// <summary>
 /// Maps <see cref="EntitySpec"/>s into an EF Core model: table, key, columns, indexes, concurrency tokens and soft-delete

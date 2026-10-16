@@ -1,10 +1,10 @@
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Data.Sessions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Data.Sessions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.Idempotency;
 
 /// <summary>Deduplicates successful operations within request, tenant and principal scope.</summary>
 /// <typeparam name="TRequest">The request contract.</typeparam>

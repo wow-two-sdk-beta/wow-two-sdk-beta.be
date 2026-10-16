@@ -2,7 +2,7 @@ using System.Diagnostics.Metrics;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 
 /// <summary>Buffers work items in a bounded channel and counts every dropped, processed and failed item.</summary>
 /// <typeparam name="TItem">The work item type.</typeparam>
@@ -12,7 +12,7 @@ namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
 /// </remarks>
 public sealed class BoundedBatchPipeline<TItem> : IBatchPipeline<TItem>
 {
-    private static readonly Meter Meter = new("WoW.Two.Sdk.Backend.Beta.Jobs.Batches");
+    private static readonly Meter Meter = new("WoW.Two.Sdk.Beta.Be.Jobs.Batches");
     private static readonly Counter<long> Dropped = Meter.CreateCounter<long>("batch.items.dropped");
     private static readonly Counter<long> Processed = Meter.CreateCounter<long>("batch.items.processed");
     private static readonly Counter<long> Failed = Meter.CreateCounter<long>("batch.items.failed");

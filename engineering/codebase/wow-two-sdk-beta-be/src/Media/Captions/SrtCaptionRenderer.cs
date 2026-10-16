@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Writes caption segments as a SubRip (<c>.srt</c>) document with 1-based cue numbering. Stateless and thread-safe.</summary>
 public sealed class SrtCaptionRenderer : ICaptionRenderer

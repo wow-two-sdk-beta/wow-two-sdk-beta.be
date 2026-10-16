@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks;
+namespace WoW.Two.Sdk.Beta.Be.Observability.HealthChecks;
 
 /// <summary>Extends health-check registration with a database readiness probe.</summary>
 public static class DatabaseReadinessHealthChecksBuilderExtensions

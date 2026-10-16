@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
   </ItemGroup>
 
   <ItemGroup>

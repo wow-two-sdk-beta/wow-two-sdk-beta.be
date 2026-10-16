@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using FluentValidation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 using Xunit;
-using ValidationException = WoW.Two.Sdk.Backend.Beta.Foundation.Validation.ValidationException;
+using ValidationException = WoW.Two.Sdk.Beta.Be.Foundation.Validation.ValidationException;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Validation;
 
 public sealed class FluentValidationAdapterTests
 {

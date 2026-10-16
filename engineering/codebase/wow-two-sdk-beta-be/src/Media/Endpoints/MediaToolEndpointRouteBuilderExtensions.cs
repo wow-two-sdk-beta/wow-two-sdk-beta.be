@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Images;
-using WoW.Two.Sdk.Backend.Beta.Media.Pdf;
-using WoW.Two.Sdk.Backend.Beta.Media.Word;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Images;
+using WoW.Two.Sdk.Beta.Be.Media.Pdf;
+using WoW.Two.Sdk.Beta.Be.Media.Word;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Media.Endpoints;
 
 /// <summary>
 /// Maps the image, PDF and Word tools as multipart HTTP endpoints, so a file-tool product is one line of routing. Specs travel

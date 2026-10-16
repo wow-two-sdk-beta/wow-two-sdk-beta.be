@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>Metadata for a resolved tenant — its stable id plus optional display name and arbitrary items.</summary>
 public sealed record TenantInfo

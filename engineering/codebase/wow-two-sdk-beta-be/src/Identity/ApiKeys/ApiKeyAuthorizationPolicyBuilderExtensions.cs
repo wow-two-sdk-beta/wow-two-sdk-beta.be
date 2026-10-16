@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Builds authorization policies that admit API keys by the scopes they grant.</summary>
 public static class ApiKeyAuthorizationPolicyBuilderExtensions

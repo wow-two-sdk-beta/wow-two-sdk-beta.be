@@ -1,7 +1,7 @@
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.WebSockets;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.WebSockets;
 
 /// <summary>
 /// Defines behavior that handles an accepted raw WebSocket for its full lifetime. Implementations run the receive/send loop

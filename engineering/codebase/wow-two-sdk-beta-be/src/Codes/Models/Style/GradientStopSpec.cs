@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents one color stop of a <see cref="GradientSpec"/>.</summary>
 public sealed record GradientStopSpec

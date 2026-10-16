@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn;
 
 /// <summary>Opts passwordless email sign-in into an identity registration.</summary>
 public static class EmailSignInIdentityBuilderExtensions

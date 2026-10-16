@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Sms;
 
 /// <summary>Holds the broker choice and fallback wording for SMS OTP delivery.</summary>
 public sealed record SmsOtpOptions

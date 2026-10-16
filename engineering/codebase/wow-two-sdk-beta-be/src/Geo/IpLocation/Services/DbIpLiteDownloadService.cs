@@ -4,7 +4,7 @@ using System.Net;
 using MaxMind.Db;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Services;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Services;
 
 /// <summary>Downloads the monthly DB-IP Lite release and swaps it in only after it opens as a valid database.</summary>
 /// <remarks>

@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
 /// <summary>Applies SDK contract-driven model conventions — soft-delete query filter and the <see cref="IVersioned"/> concurrency token.</summary>
 public static class EntityModelExtensions

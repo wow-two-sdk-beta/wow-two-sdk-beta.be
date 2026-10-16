@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Push.WebPush;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Push.WebPush;
 
 /// <summary>
 /// Integrates the Web Push protocol (RFC 8030) with VAPID (RFC 8292) and <c>aes128gcm</c> payload encryption (RFC 8291).

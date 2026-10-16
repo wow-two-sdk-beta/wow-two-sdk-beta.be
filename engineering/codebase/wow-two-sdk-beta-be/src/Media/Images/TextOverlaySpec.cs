@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Represents text drawn on an image: a caption, a label or a tiled watermark.</summary>
 public sealed record TextOverlaySpec

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Payloads.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Payloads.Extensions;
 
 /// <summary>Extends payload formatting with escaped and folded UTF-8 content lines for contact and calendar documents.</summary>
 internal static class ContentLineExtensions

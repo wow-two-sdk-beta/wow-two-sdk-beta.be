@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>Defines validating an instance of <typeparamref name="T"/>.</summary>
 /// <typeparam name="T">The validated type.</typeparam>

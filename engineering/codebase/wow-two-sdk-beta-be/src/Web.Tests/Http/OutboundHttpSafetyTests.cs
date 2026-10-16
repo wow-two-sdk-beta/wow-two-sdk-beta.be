@@ -2,10 +2,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety.Validators;
+using WoW.Two.Sdk.Beta.Be.Http.Safety;
+using WoW.Two.Sdk.Beta.Be.Http.Safety.Validators;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Http;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
 
 public sealed class OutboundHttpSafetyTests
 {

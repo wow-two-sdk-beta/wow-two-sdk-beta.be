@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Time.Testing;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing;
+namespace WoW.Two.Sdk.Beta.Be.Testing;
 
 /// <summary>
 /// Convenience xUnit base class for an integration test that needs a <see cref="WebApiTestHost{TEntryPoint}"/>.

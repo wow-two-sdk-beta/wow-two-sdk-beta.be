@@ -1,9 +1,9 @@
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest.Serializers;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest.Serializers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.DataProtection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Guest;
+using WoW.Two.Sdk.Beta.Be.Identity.Guest;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+namespace WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 /// <summary>Provides the current tri-state principal from ambient claims and cookies.</summary>
 /// <remarks>Resolves on each access so this singleton never retains one request's principal; never writes a cookie — use <see cref="Guest.Services.IGuestSessionService"/> for provisioning.</remarks>

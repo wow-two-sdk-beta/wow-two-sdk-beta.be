@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Vonage;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Vonage;
 
 /// <summary>Integrates the Vonage SMS API as the SMS provider; a message counts as sent when every part reports status <c>0</c>.</summary>
 /// <param name="httpClientFactory">Creates the named client registered by <c>AddVonageSmsBroker</c>.</param>

@@ -7,7 +7,7 @@ using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Markdown;
+namespace WoW.Two.Sdk.Beta.Be.Media.Markdown;
 
 /// <summary>
 /// Provides <see cref="IMarkdownService"/> over Markdig with the advanced extensions and YAML front matter. Raw HTML is

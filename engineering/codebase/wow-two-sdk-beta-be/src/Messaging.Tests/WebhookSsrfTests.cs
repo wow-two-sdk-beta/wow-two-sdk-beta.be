@@ -1,9 +1,9 @@
 using System.Net;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
 
 /// <summary>SSRF guard: https-scheme + host-allowlist pre-flight, and connect-time blocking of private-IP targets.</summary>
 public sealed class WebhookSsrfTests

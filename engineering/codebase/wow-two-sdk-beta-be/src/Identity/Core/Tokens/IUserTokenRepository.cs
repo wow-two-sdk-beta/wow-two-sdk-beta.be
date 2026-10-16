@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Tokens;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Tokens;
 
 /// <summary>Defines stored user tokens: named values per user and provider (authenticator key, recovery codes, provider tokens).</summary>
 /// <typeparam name="TKey">The primary-key type.</typeparam>

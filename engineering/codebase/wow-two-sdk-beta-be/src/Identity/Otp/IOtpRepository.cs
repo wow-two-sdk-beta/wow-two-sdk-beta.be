@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Defines persistence seam for OTP records; defaults to the in-memory store, multi-instance deployments supply shared storage. "Pending" means not yet consumed — expiry is judged by <see cref="IOtpService"/>, not the store.</summary>
 public interface IOtpRepository

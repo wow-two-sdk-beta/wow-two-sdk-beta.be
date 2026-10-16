@@ -1,8 +1,8 @@
 using System.Buffers.Text;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Paging;
 
 /// <summary>Maps the keys of a page's last row to an opaque token and back: base64url of their JSON array.</summary>
 internal static class PageTokenMapper

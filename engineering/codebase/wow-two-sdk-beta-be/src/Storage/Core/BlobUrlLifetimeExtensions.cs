@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Core;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Core;
 
 /// <summary>Holds the lifetime rule every URL issuer shares: positive and at most 7 days, the S3 signing ceiling.</summary>
 internal static class BlobUrlLifetimeExtensions

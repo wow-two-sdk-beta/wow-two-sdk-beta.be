@@ -1,12 +1,12 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Paging;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Sqlite;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Paging;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>Offset and keyset paging on SQLite and PostgreSQL: sizes, totals, ties, string and Guid keys, projections, bad tokens.</summary>
 public sealed class PagingTests : IClassFixture<PagingTests.PostgresFixture>

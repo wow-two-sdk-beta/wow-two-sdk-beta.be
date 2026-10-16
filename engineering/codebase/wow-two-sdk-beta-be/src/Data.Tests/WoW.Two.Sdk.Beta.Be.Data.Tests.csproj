@@ -45,9 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
     <!-- The harness under test as well as used by it: RelationalTestDb + the DI-built-context seam. -->
-    <ProjectReference Include="../Testing.Data/WoW.Two.Sdk.Backend.Beta.Testing.Data.csproj" />
+    <ProjectReference Include="../Testing.Data/WoW.Two.Sdk.Beta.Be.Testing.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

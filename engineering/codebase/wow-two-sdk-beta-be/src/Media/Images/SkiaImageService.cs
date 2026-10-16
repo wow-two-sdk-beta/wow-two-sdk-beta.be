@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>
 /// Provides <see cref="IImageService"/> over SkiaSharp: decode within the configured limits, orient, crop, rotate,

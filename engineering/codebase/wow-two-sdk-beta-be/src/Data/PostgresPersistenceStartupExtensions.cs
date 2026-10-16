@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data;
+namespace WoW.Two.Sdk.Beta.Be.Data;
 
 /// <summary>Startup helper that creates the database if missing then applies pending bespoke migrations — the run-once boot step for hosts registered via <see cref="PostgresPersistenceServiceCollectionExtensions.AddPostgresPersistence{TContext}"/>.</summary>
 public static class PostgresPersistenceStartupExtensions

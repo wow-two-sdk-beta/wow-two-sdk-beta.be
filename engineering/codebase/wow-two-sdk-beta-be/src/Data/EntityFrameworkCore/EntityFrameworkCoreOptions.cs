@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 
 /// <summary>Holds configuration for a DbContext registered via <c>AddEntityFrameworkCore&lt;T&gt;</c>.</summary>
 public sealed record EntityFrameworkCoreOptions

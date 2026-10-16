@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
 /// <summary>Issues this SDK's signature headers: <c>X-Webhook-Signature</c> from the registered hasher, timestamp and id.</summary>
 /// <param name="hasher">Computes the <c>sha256=</c> signature.</param>

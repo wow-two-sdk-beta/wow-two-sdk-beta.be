@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Metrics;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.Prometheus;
+namespace WoW.Two.Sdk.Beta.Be.Observability.Prometheus;
 
 /// <summary>Provides Prometheus scrape-exporter registration. Pair with <c>AddOpenTelemetryMetrics</c>.</summary>
 public static class PrometheusServiceCollectionExtensions

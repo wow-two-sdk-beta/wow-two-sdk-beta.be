@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Eskiz;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Eskiz;
 
 /// <summary>
 /// Integrates the Eskiz gateway (notify.eskiz.uz) as the SMS provider. Signs in with the account credentials, keeps the

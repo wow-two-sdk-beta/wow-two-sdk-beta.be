@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 /// <summary>Defines an entity scoped to a tenant.</summary>
 /// <typeparam name="TTenantId">The tenant-id type.</typeparam>

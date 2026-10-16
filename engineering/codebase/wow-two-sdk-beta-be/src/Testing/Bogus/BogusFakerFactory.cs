@@ -1,6 +1,6 @@
 using Bogus;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Bogus;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Bogus;
 
 /// <summary>
 /// Creates conventional <see cref="global::Bogus.Faker{T}"/> wrappers with a deterministic seed for reproducible tests.

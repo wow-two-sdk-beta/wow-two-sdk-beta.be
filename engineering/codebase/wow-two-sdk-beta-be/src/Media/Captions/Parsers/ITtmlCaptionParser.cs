@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 /// <summary>Defines TTML / DFXP XML parsing into ordered, cleaned <see cref="CaptionSegment"/> values.</summary>
 public interface ITtmlCaptionParser

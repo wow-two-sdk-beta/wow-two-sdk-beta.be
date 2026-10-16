@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>Maps a requested page size to the one served: the default when absent, within 1 and the cap.</summary>
 public static class PageSizeMapper

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp;
 
 /// <summary>Holds the names WhatsApp brokers register under, and the host configuration sections they read.</summary>
 public static class WhatsAppBrokerNameConstants

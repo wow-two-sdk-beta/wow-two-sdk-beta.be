@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 
 /// <summary>Refers to how much weight a <see cref="FieldError"/> carries — whether it blocks the operation or only advises.</summary>
 /// <remarks>

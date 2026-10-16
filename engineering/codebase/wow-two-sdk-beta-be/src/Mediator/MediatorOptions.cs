@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Holds configuration for what <c>AddMediator</c> wires beside the dispatcher.</summary>
 public sealed record MediatorOptions

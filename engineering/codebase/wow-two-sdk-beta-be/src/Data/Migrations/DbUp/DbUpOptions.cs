@@ -1,7 +1,7 @@
 using System.Reflection;
 using DbUp.Builder;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.DbUp;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp;
 
 /// <summary>Holds options for the DbUp startup runner.</summary>
 public sealed record DbUpOptions

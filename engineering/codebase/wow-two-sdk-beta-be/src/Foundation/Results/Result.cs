@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 /// <summary>Represents the outcome of an operation that returns no value.</summary>
 public abstract record Result : IResult

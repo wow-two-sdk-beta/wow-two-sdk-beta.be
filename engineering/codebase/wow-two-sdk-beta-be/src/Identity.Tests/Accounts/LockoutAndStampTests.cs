@@ -11,14 +11,14 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.Cookies;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Lockout;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.SecurityStamps;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt;
-using WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+using WoW.Two.Sdk.Beta.Be.Identity.Cookies;
+using WoW.Two.Sdk.Beta.Be.Identity.Core;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Lockout;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.SecurityStamps;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt;
+using WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Tests.Accounts;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Tests.Accounts;
 
 /// <summary>Lockout windows, and security-stamp revocation of cookie and bearer principals through a real pipeline.</summary>
 public sealed class LockoutAndStampTests

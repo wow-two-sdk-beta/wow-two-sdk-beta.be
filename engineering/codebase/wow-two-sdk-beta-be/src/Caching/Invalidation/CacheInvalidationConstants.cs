@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Invalidation;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Invalidation;
 
 /// <summary>Holds the fixed channel and payload vocabulary of cross-host cache invalidation.</summary>
 public static class CacheInvalidationConstants

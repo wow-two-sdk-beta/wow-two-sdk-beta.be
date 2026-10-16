@@ -1,8 +1,8 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>
 /// Rollback: with <c>AllowRollback</c>, <c>RollbackAsync()</c> runs the latest migration's Rollback.sql and removes

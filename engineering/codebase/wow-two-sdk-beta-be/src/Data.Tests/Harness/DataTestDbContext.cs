@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Ef;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Ef;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
 
 /// <summary>The suite's context — an <see cref="AppDbContextBase"/> so it flows through the SDK's own registration path, plus the outbox mapping the PR4 collision cases need.</summary>
 /// <param name="options">The options configuring this context.</param>

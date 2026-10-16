@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks;
+namespace WoW.Two.Sdk.Beta.Be.Observability.HealthChecks;
 
 /// <summary>Provides health-check registration helpers over the built-in <c>IHealthChecksBuilder</c>.</summary>
 public static class HealthChecksServiceCollectionExtensions

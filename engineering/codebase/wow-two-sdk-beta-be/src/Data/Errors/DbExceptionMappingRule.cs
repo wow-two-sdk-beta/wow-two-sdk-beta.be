@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Data.Errors;
 
 /// <summary>Maps Npgsql, EF Core and repository concurrency exceptions to an <see cref="AppError"/> — the SDK's built-in <see cref="IExceptionMappingRule"/> for the data layer.</summary>
 public sealed class DbExceptionMappingRule : IExceptionMappingRule

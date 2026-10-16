@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Coordinates;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Coordinates;
 
 /// <summary>
 /// A WGS-84 geographic coordinate — latitude/longitude in decimal degrees, with an optional altitude in

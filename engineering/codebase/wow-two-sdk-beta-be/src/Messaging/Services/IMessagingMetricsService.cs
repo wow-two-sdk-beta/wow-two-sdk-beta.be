@@ -3,7 +3,7 @@ using System.Diagnostics.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Services;
 
 /// <summary>
 /// Defines recording of messaging telemetry. The default implementation records to the <see cref="MessagingMeterConstants.Name"/>

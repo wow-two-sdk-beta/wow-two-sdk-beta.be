@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
-using WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Opts the password slice and its optional breach check into an identity registration.</summary>
 public static class PasswordIdentityBuilderExtensions
@@ -52,7 +52,7 @@ public static class PasswordIdentityBuilderExtensions
             var options = serviceProvider.GetRequiredService<BreachedPasswordOptions>();
             http.BaseAddress = options.BaseAddress;
             http.Timeout = options.Timeout;
-            http.DefaultRequestHeaders.UserAgent.ParseAdd("WoW2.Sdk.Backend.Beta");
+            http.DefaultRequestHeaders.UserAgent.ParseAdd("WoW2.Sdk.Beta.Be");
         });
         builder.Services.TryAddEnumerable(ServiceDescriptor.Scoped<IUserPasswordValidator<TUser>, BreachedPasswordValidator<TUser>>());
         return builder;

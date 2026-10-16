@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Microsoft;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Microsoft;
 
 /// <summary>Microsoft Account / Entra ID OAuth provider.</summary>
 public static class MicrosoftOAuthServiceCollectionExtensions

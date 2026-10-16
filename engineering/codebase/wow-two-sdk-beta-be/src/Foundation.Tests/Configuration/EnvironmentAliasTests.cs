@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Configuration;
+using WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Configuration;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Configuration;
 
 /// <summary>
 /// Covers <see cref="EnvironmentAliasExtensions.UseEnvironmentAliases"/>: listed variables reach their mapped keys,

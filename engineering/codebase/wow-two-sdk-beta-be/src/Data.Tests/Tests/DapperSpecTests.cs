@@ -1,14 +1,14 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.Options;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
-using WoW.Two.Sdk.Backend.Beta.Data.Specs;
-using WoW.Two.Sdk.Backend.Beta.Data.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.EntityFrameworkCore;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
+using WoW.Two.Sdk.Beta.Be.Data.Specs;
+using WoW.Two.Sdk.Beta.Be.Data.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>One entity spec shapes Dapper's SQL: renamed table and columns, ignored and store-written properties, stamps and soft delete.</summary>
 [Collection(DataTestCollection.Name)]

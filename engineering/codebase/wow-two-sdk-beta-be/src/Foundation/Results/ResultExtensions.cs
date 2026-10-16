@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 /// <summary>Provides bridge extensions converting a result to the throw path.</summary>
 public static class ResultExtensions

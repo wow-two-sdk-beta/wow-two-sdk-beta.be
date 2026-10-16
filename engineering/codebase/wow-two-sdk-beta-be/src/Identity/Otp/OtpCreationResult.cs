@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Represents outcome of <see cref="IOtpService.CreateAsync(string, string, CancellationToken)"/>.</summary>
 public sealed record OtpCreationResult

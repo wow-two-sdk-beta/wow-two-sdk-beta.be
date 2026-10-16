@@ -1,8 +1,8 @@
 using System.Globalization;
-using WoW.Two.Sdk.Backend.Beta.Comms.Sms;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp.Models;
+using WoW.Two.Sdk.Beta.Be.Comms.Sms;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp.Sms;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp.Sms;
 
 /// <summary>
 /// Handles <see cref="OtpDeliveryEnvelopeModel"/> deliveries as text messages through the SMS broker the envelope or

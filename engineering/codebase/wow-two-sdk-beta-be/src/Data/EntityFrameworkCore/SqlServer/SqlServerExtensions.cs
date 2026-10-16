@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SqlServer;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SqlServer;
 
 /// <summary>SDK-conventional SqlServer provider helpers — retry-on-failure default + command timeout.</summary>
 public static class SqlServerExtensions

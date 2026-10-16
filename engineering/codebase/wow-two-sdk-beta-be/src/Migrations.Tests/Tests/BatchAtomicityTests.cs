@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Verifies on PostgreSQL that a failed apply never leaves part of a transactional batch behind.</summary>
 [Collection(PostgresMigrationCollection.Name)]

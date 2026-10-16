@@ -5,7 +5,7 @@
 
     Configurable fakes for the SDK's outbound integration clients (IGitHubClient, IContainerRegistryClient)
     that the dependency-light base Testing package deliberately CANNOT hold: they implement contracts that
-    live in the CORE mono-lib (WoW.Two.Sdk.Backend.Beta.Integrations.*), so a reference to them would drag
+    live in the CORE mono-lib (WoW.Two.Sdk.Beta.Be.Integrations.*), so a reference to them would drag
     the whole core into base Testing. They live here instead — keeping base Testing free of a core dependency
     (mirrors the Testing.Data split for the data tier).
 
@@ -16,8 +16,8 @@
 
   <PropertyGroup>
     <!-- Published ID uses the OWNED WoW2.* reserved prefix. Assembly + namespaces remain WoW.Two.*. -->
-    <PackageId>WoW2.Sdk.Backend.Beta.Testing.Integrations</PackageId>
-    <Description>WoW Two backend SDK integration-client test doubles (beta-forever) — configurable FakeGitHubClient and FakeContainerRegistryClient implementing the SDK's IGitHubClient / IContainerRegistryClient. Canned per-call outcomes, per-tag image existence, toggleable failure paths. References core; reference from test projects only.</Description>
+    <PackageId>WoW2.Sdk.Beta.Be.Testing.Integrations</PackageId>
+    <Description>WoW Two be sdk integration-client test doubles (beta-forever) — configurable FakeGitHubClient and FakeContainerRegistryClient implementing the SDK's IGitHubClient / IContainerRegistryClient. Canned per-call outcomes, per-tag image existence, toggleable failure paths. References core; reference from test projects only.</Description>
     <PackageTags>wow-two; backend; beta; sdk; testing; fakes; integrations; github; ghcr; xunit</PackageTags>
 
     <!-- Test-HELPER library (not a test SUITE): ships no runner. Tell `dotnet test` to skip it. -->
@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <!-- Core: the IGitHubClient / IContainerRegistryClient contracts and their result types live in the mono-lib. -->
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
   </ItemGroup>
 
 </Project>

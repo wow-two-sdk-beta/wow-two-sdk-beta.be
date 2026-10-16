@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>Holds the relying party a passkey is bound to and how ceremonies run.</summary>
 /// <remarks>Set in code with <c>.AddPasskeys(o => …)</c> or in the host section <c>Identity:Passkeys</c>, which is applied last.</remarks>

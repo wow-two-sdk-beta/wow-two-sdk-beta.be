@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+namespace WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
 /// <summary>Accesses a fixed set of tenants in process memory.</summary>
 public sealed class InMemoryTenantRepository : ITenantRepository

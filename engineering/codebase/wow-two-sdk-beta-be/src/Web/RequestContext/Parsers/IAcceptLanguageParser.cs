@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Web.RequestContext.Parsers;
 
 /// <summary>Defines parsing of HTTP language preferences.</summary>
 public interface IAcceptLanguageParser

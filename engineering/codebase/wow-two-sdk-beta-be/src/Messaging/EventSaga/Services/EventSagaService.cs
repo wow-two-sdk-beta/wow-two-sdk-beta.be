@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga.Services;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.EventSaga.Services;
 
 /// <summary>
 /// Provides ordered event-saga execution in one DI scope per run, shared by all steps. On failure

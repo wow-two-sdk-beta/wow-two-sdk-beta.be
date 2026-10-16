@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 
 /// <summary>
 /// Issues Standard Webhooks headers — <c>webhook-id</c>, <c>webhook-timestamp</c> and <c>webhook-signature: v1,…</c>

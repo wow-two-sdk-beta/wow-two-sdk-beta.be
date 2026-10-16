@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>A throwaway on-disk migrations root for one test (the <c>{root}/NNN-name/{Apply,Rollback}.sql</c> layout the filesystem source reads), under the OS temp dir and deleted on dispose.</summary>
 /// <remarks>The source requires a Rollback.sql in every folder, so <see cref="Write"/> always writes both; pass an empty rollback when a migration is never rolled back in the test.</remarks>

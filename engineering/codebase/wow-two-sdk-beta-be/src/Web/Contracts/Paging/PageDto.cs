@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>
 /// Represents an offset page of a list read — the UI SDK's <c>Page&lt;T&gt;</c>: the rows, the 1-based page, the size

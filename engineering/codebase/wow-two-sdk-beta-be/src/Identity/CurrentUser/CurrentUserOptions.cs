@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.CurrentUser;
+namespace WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 /// <summary>Holds tunable inputs for cookie/claims-based current-user resolution; keep <see cref="GuestCookieName"/> in sync with <see cref="Guest.GuestSessionOptions.CookieName"/>.</summary>
 public sealed record CurrentUserOptions

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Defines a check a candidate password must pass before the password slice stores it.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

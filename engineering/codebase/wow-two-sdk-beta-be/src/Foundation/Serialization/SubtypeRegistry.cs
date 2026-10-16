@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
 /// <summary>Binds each <typeparamref name="TKind"/> member to the <typeparamref name="TBase"/> subtype it identifies, so a union declared outside its types is closed and complete.</summary>
 /// <typeparam name="TBase">The polymorphic base type.</typeparam>

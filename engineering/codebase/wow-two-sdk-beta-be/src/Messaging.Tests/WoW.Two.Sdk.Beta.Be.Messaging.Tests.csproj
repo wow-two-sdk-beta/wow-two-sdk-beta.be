@@ -40,9 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
     <!-- The consumer-facing harness under test here as well as used by it: MessagingTestHarness + MessagingRecorder. -->
-    <ProjectReference Include="../Testing.Messaging/WoW.Two.Sdk.Backend.Beta.Testing.Messaging.csproj" />
+    <ProjectReference Include="../Testing.Messaging/WoW.Two.Sdk.Beta.Be.Testing.Messaging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

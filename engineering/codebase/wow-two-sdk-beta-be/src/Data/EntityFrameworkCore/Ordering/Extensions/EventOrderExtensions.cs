@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Ordering.Extensions;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Ordering.Extensions;
 
 /// <summary>Extends EF Core updates with a watermark that ignores events older than the state already applied.</summary>
 public static class EventOrderExtensions

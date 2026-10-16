@@ -3,11 +3,11 @@ using AwesomeAssertions;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Caching.Core;
-using WoW.Two.Sdk.Backend.Beta.Caching.Hybrid;
+using WoW.Two.Sdk.Beta.Be.Caching.Core;
+using WoW.Two.Sdk.Beta.Be.Caching.Hybrid;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Caching;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Caching;
 
 /// <summary>Two hosts over one L2: an entry written in an old shape is dropped and recomputed, or surfaced, by configuration.</summary>
 public sealed class HybridCacheDeserializationTests

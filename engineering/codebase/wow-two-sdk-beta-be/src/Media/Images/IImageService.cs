@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>
 /// Defines behavior that reads, edits, combines and summarizes raster images — each call decodes once and encodes once.

@@ -1,15 +1,15 @@
 using Xunit;
 using SkiaSharp;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models;
-using WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Matrix;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Raster;
-using WoW.Two.Sdk.Backend.Beta.Codes.Rendering.Svg;
+using WoW.Two.Sdk.Beta.Be.Codes.Models;
+using WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Matrix;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Raster;
+using WoW.Two.Sdk.Beta.Be.Codes.Rendering.Svg;
 using ZXing;
 using ZXing.Common;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Codes;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Codes;
 
 /// <summary>Proves a styled QR still decodes back to its payload.</summary>
 public sealed class QrDecodeRoundTripTests

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Reads what an API key grants from the principal the <c>ApiKey</c> scheme authenticated.</summary>
 public static class ApiKeyClaimsPrincipalExtensions

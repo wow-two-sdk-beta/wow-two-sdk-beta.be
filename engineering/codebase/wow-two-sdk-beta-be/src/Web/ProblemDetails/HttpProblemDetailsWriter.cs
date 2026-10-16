@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+namespace WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 
 internal sealed class HttpProblemDetailsWriter : IProblemDetailsWriter
 {

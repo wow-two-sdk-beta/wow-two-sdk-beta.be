@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
 /// <summary>Registers an options, settings or module-options record through one recipe: fill it, validate it, project it.</summary>
 /// <remarks>

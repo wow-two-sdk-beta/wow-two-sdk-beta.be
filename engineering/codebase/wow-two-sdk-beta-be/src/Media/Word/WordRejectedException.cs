@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Represents a Word document refused: unreadable, over a configured limit, or a template missing values.</summary>
 public sealed class WordRejectedException : Exception

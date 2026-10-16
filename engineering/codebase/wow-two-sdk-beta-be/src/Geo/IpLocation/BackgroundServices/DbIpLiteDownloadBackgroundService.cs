@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Services;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.BackgroundServices;
+namespace WoW.Two.Sdk.Beta.Be.Geo.IpLocation.BackgroundServices;
 
 /// <summary>Runs the DB-IP Lite refresh at startup and then once per refresh interval.</summary>
 /// <remarks>A failed refresh is logged and retried at the next interval; it never stops the host.</remarks>

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>Drives the registered <see cref="IReceiveTransport"/>, routing each received message through the <see cref="MessagePump"/> into the <see cref="EventProcessingPipeline"/>. Transport-agnostic — in-memory and every broker adapter reuse it.</summary>
 internal sealed class TransportConsumerBackgroundService(IReceiveTransport receiveTransport, MessagePump pump, BusControl busControl) : BackgroundService

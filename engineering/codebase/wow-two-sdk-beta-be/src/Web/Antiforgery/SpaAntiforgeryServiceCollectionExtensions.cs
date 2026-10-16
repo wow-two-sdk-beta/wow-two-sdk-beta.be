@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Antiforgery;
+namespace WoW.Two.Sdk.Beta.Be.Web.Antiforgery;
 
 /// <summary>Provides antiforgery protection for single-page apps that authenticate with cookies.</summary>
 public static class SpaAntiforgeryServiceCollectionExtensions

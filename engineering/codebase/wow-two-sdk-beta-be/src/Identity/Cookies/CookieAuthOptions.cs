@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Cookies;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Cookies;
 
 /// <summary>Holds cookie authentication options.</summary>
 public sealed record CookieAuthOptions

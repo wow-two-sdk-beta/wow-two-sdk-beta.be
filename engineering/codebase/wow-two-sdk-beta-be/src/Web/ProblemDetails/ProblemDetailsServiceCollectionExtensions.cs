@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+namespace WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 
 /// <summary>Provides ProblemDetails registration enriched with <c>traceId</c>, <c>requestId</c>, and a status-derived <c>code</c>.</summary>
 public static class ProblemDetailsServiceCollectionExtensions

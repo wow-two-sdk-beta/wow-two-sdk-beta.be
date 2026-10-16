@@ -1,10 +1,10 @@
 using System.Text;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
-using WoW.Two.Sdk.Backend.Beta.Storage.FileSystem;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Storage;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Storage;
 
 /// <summary>Local blob storage and path rules: folder-style prefixes list, unsafe paths and prefixes are refused.</summary>
 public sealed class LocalBlobStorageTests : IDisposable

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>Holds how mappers treat entity specs.</summary>
 /// <remarks>Set in code with <c>AddEntitySpecs(…, o => …)</c> or in the host section <c>Data:Specs</c>, which is applied last.</remarks>

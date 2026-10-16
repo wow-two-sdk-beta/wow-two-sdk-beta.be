@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Holds the inputs that steer one-time code creation, verification and message wording.</summary>
 /// <remarks>Set in code with <c>AddOtpService(o => …)</c> or in the host section <c>Identity:Otp</c>, which is applied last.</remarks>

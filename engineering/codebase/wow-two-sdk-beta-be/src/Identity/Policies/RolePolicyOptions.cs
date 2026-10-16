@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Policies;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Policies;
 
 /// <summary>Holds scope → allowed-roles map backing <see cref="DictionaryRolePolicy"/>.</summary>
 public sealed record RolePolicyOptions

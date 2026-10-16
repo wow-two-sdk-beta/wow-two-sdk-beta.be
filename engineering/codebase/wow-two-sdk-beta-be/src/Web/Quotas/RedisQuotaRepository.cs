@@ -1,6 +1,6 @@
 using StackExchange.Redis;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Accesses quota counters in Redis through Lua scripts, so hosts share counts and a check never races its increment.</summary>
 /// <param name="redis">The shared connection.</param>

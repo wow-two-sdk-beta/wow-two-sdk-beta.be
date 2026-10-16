@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Time.Testing;
-using WoW.Two.Sdk.Backend.Beta.Meta;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
-using WoW.Two.Sdk.Backend.Beta.Storage.FileSystem;
-using WoW.Two.Sdk.Backend.Beta.Storage.Transfer;
+using WoW.Two.Sdk.Beta.Be.Meta;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
+using WoW.Two.Sdk.Beta.Be.Storage.Transfer;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Storage;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Storage;
 
 /// <summary>HMAC-signed transfer URLs over local storage: direct upload and download, and every way a URL is refused.</summary>
 public sealed class BlobTransferTests : IAsyncLifetime

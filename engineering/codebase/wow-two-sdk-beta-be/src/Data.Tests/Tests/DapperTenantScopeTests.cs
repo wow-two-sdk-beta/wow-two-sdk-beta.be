@@ -2,12 +2,12 @@ using AwesomeAssertions;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper;
-using WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
-using WoW.Two.Sdk.Backend.Beta.Tenancy.Core;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper;
+using WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
+using WoW.Two.Sdk.Beta.Be.Tenancy.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Data.Tests.Tests;
 
 /// <summary>Verifies server-owned tenant isolation in generated Dapper CRUD SQL.</summary>
 public sealed class DapperTenantScopeTests

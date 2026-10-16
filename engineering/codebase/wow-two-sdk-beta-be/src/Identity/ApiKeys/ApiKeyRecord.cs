@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Represents a live API key as a repository answers a lookup — enough to authenticate and to record use.</summary>
 public sealed record ApiKeyRecord

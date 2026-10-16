@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.Distance;
+namespace WoW.Two.Sdk.Beta.Be.Geo.Distance;
 
 /// <summary>Conversions between metres and the other <see cref="DistanceUnit"/> values.</summary>
 public static class DistanceUnitExtensions

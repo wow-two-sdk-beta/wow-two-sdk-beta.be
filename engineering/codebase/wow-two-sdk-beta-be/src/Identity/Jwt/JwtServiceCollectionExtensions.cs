@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt;
 /// <summary>JWT bearer registration helpers.</summary>
 public static class JwtServiceCollectionExtensions
 {

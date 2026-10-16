@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Email.Templates;
 
 /// <summary>Represents a rendered email: subject, branded HTML and its plain-text twin.</summary>
 public sealed record EmailTemplateResult

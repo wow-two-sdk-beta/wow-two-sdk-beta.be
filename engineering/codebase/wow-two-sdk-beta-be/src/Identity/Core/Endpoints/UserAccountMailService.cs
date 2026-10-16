@@ -1,9 +1,9 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Comms.Email;
+using WoW.Two.Sdk.Beta.Be.Comms.Email;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>
 /// Provides the account emails — confirmation and password reset — composed from <see cref="UserAccountEmailSettings"/>

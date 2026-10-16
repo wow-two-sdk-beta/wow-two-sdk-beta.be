@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Data.Errors;
 
 /// <summary>Maps an Npgsql or EF Core exception to an <see cref="AppError"/>.</summary>
 public static class DbErrorMapper

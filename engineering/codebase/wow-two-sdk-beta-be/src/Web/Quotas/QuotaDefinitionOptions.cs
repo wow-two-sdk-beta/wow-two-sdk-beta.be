@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Web.Quotas;
+namespace WoW.Two.Sdk.Beta.Be.Web.Quotas;
 
 /// <summary>Holds one quota: its window and its limit per plan.</summary>
 public sealed record QuotaDefinitionOptions

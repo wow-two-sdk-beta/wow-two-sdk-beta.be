@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
 /// <summary>Serializes the migration tests sharing one resettable PostgreSQL container.</summary>
 [CollectionDefinition(Name, DisableParallelization = true)]

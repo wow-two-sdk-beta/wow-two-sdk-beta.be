@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Refers to the database engine a migration run targets, selecting the matching SQL dialect.</summary>
 public enum DatabaseProvider

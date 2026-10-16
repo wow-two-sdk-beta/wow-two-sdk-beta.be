@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Holds password rules (consumed by the password slice). Defaults follow NIST SP 800-63B: length over composition.</summary>
 public sealed record PasswordOptions

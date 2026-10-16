@@ -1,9 +1,9 @@
 using AwesomeAssertions;
 using Dapper;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Harness;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Verifies the dry run on SQLite, whose transactional DDL lets one rolled-back transaction rehearse the batch.</summary>
 public sealed class SqliteDryRunTests : SqliteMigratorTestBase

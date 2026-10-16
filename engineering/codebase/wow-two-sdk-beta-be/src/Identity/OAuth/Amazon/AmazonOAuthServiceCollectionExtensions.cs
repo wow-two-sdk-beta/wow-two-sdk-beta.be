@@ -1,9 +1,9 @@
 using AspNet.Security.OAuth.Amazon;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Amazon;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Amazon;
 
 /// <summary>Amazon OAuth provider.</summary>
 public static class AmazonOAuthServiceCollectionExtensions

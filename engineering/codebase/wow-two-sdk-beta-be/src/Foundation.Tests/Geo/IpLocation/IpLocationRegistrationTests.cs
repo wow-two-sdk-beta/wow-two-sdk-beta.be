@@ -2,11 +2,11 @@ using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation;
-using WoW.Two.Sdk.Backend.Beta.Geo.IpLocation.Brokers;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation;
+using WoW.Two.Sdk.Beta.Be.Geo.IpLocation.Brokers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Geo.IpLocation;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Geo.IpLocation;
 
 /// <summary>The DB-IP Lite registration points the broker at the file its refresh maintains.</summary>
 public sealed class IpLocationRegistrationTests

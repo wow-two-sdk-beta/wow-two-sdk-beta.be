@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Json;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Json;
 
 /// <summary>Value converter that serializes a CLR type to JSON for storage and deserializes on read — use for storing complex objects as Postgres <c>jsonb</c> or SqlServer <c>nvarchar(max)</c>.</summary>
 /// <typeparam name="T">The CLR type being converted.</typeparam>

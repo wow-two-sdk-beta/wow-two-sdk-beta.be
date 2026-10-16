@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.Sms.Twilio;
+namespace WoW.Two.Sdk.Beta.Be.Comms.Sms.Twilio;
 
 /// <summary>Integrates the Twilio Messages API as the SMS provider.</summary>
 /// <param name="httpClientFactory">Creates the named client registered by <c>AddTwilioSmsBroker</c>.</param>

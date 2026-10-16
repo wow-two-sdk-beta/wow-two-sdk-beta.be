@@ -1,7 +1,7 @@
 using Testcontainers.RabbitMq;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Containers.RabbitMq;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Containers.RabbitMq;
 
 /// <summary>Async fixture spinning up a RabbitMQ container.</summary>
 public sealed class RabbitMqFixture : ContainerFixtureBase<RabbitMqContainer>

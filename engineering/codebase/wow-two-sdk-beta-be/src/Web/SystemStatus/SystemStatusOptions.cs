@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.SystemStatus;
+namespace WoW.Two.Sdk.Beta.Be.Web.SystemStatus;
 
 /// <summary>Holds what the system status endpoint reports beside the build version.</summary>
 public sealed record SystemStatusOptions

@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Excel.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Excel.Parsers;
 
 /// <summary>Defines XLSX parsing into header-mapped records.</summary>
 public interface IExcelParser

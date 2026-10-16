@@ -2,11 +2,11 @@ using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Http.Safety;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Issuers;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Http.Safety;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>
 /// Delivers a signed webhook request over <c>IHttpClientFactory</c> with a bounded retry budget: transient failures

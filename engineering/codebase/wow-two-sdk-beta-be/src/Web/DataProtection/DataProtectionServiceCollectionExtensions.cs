@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.DataProtection;
+namespace WoW.Two.Sdk.Beta.Be.Web.DataProtection;
 
 /// <summary>Provides registration for a persistent Data Protection key ring.</summary>
 public static class DataProtectionServiceCollectionExtensions

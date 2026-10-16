@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace WoW.Two.Sdk.Backend.Beta.Ai.Mcp;
+namespace WoW.Two.Sdk.Beta.Be.Ai.Mcp;
 
 /// <summary>Maps MCP endpoints protected by a named host policy.</summary>
 public static class McpEndpointRouteBuilderExtensions

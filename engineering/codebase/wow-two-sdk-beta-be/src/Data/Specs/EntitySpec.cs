@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Specs;
+namespace WoW.Two.Sdk.Beta.Be.Data.Specs;
 
 /// <summary>
 /// Represents one entity's storage shape — table, key, columns, indexes, concurrency, soft delete and tenant — in terms

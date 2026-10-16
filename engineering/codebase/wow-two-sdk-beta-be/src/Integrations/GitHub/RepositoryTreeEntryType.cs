@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to kind of object a tree entry points at, as the Git trees API reports it.</summary>
 public enum RepositoryTreeEntryType

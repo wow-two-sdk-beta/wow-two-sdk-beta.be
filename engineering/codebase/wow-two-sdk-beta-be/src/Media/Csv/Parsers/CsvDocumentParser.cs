@@ -1,10 +1,10 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using CsvHelper;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Parsers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Csv.Parsers;
+namespace WoW.Two.Sdk.Beta.Be.Media.Csv.Parsers;
 
 /// <summary>Parses CSV streams into header-mapped records through CsvHelper with invariant culture.</summary>
 public sealed class CsvDocumentParser : ICsvParser, ITabularParser

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
 /// <summary>Default <see cref="IRetryPolicy"/> — fixed / exponential / exponential-with-jitter backoff, dependency-free.</summary>
 public sealed class RetryPolicy : IRetryPolicy

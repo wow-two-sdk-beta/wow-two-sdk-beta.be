@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Maps image formats to media types, extensions and Skia's encoder formats.</summary>
 public static class ImageFormatMapper

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 /// <summary>
 /// Helpers for round-tripping cookies through a <c>WebApplicationFactory&lt;T&gt;</c> test host whose endpoints

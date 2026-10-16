@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Phones;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Phones;
 
 /// <summary>Opts the phone slice into an identity registration.</summary>
 public static class PhoneIdentityBuilderExtensions

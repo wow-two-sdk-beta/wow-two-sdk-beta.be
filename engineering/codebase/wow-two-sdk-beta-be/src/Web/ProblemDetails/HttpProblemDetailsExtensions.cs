@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.HostFiltering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+namespace WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 
 /// <summary>Composes the opt-in HTTP ProblemDetails boundary without changing success response contracts.</summary>
 public static class HttpProblemDetailsExtensions
@@ -40,7 +40,7 @@ public static class HttpProblemDetailsExtensions
     public static IApplicationBuilder UseHttpProblemDetails(this IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app);
-        const string marker = "WoW.Two.Sdk.Backend.Beta.HttpProblemDetails";
+        const string marker = "WoW.Two.Sdk.Beta.Be.HttpProblemDetails";
         if (app.Properties.ContainsKey(marker)) return app;
         app.Properties[marker] = true;
         app.Use(async (context, next) =>

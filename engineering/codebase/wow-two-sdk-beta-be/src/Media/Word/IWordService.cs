@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>
 /// Defines behavior that reads, fills and builds Word (.docx) documents. Inputs over the configured limit, not a Word

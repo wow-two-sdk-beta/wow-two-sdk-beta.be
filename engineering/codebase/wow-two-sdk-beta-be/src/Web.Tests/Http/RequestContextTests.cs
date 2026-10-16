@@ -1,10 +1,10 @@
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Mappers;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Models;
-using WoW.Two.Sdk.Backend.Beta.Web.RequestContext.Parsers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Mappers;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Models;
+using WoW.Two.Sdk.Beta.Be.Web.RequestContext.Parsers;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.Http;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
 
 public sealed class RequestContextTests
 {

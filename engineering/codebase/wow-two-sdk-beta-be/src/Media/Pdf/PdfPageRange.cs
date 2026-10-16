@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents a run of 1-based pages, <see cref="To"/> inclusive; an open end runs to the last page.</summary>
 public sealed record PdfPageRange

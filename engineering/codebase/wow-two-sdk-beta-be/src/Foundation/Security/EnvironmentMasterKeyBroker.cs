@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>Integrates the process environment as the master-key source — a base64-encoded 256-bit key read from one variable.</summary>
 /// <remarks>The env-var name comes from <see cref="EnvelopeCryptographyOptions.MasterKeyEnvironmentVariable"/>. Suitable for containers and local development; swap for a KMS/HSM-backed broker in production by registering your own <see cref="IMasterKeyBroker"/> before <c>AddEnvelopeCryptography</c>. Never logs the key value.</remarks>

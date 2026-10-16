@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.BackgroundRemoval;
+namespace WoW.Two.Sdk.Beta.Be.Media.BackgroundRemoval;
 
 /// <summary>Optional background segmentation without persistence or publication side effects.</summary>
 public interface IBackgroundRemovalService

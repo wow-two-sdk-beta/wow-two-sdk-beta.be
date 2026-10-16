@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using WoW.Two.Sdk.Backend.Beta.Data.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Data.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Errors;
 
 /// <summary>Covers the SDK's data-layer <see cref="IExceptionMappingRule"/> (lives under Data, exercised here alongside the rest of the errors layer).</summary>
 public sealed class DbExceptionMappingRuleTests
@@ -55,7 +55,7 @@ public sealed class DbExceptionMappingRuleTests
 
     [Fact]
     public void TryMap_ShouldReturnConflict_WhenARepositoryTokenIsStale()
-        => Rule.TryMap(new WoW.Two.Sdk.Backend.Beta.Data.Abstractions.ConcurrencyConflictException(typeof(object), 7))!.Type.Should().Be(AppErrorType.Conflict);
+        => Rule.TryMap(new WoW.Two.Sdk.Beta.Be.Data.Abstractions.ConcurrencyConflictException(typeof(object), 7))!.Type.Should().Be(AppErrorType.Conflict);
 
     [Theory]
     [InlineData("57P03")]

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Realtime.WebSockets;
+namespace WoW.Two.Sdk.Beta.Be.Realtime.WebSockets;
 
 /// <summary>Holds conventional options for the raw-WebSocket middleware applied by <see cref="WebSocketExtensions"/>.</summary>
 public sealed record WebSocketConventionOptions

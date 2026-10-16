@@ -1,27 +1,27 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Time;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks;
-using WoW.Two.Sdk.Backend.Beta.Observability.Logging;
-using WoW.Two.Sdk.Backend.Beta.Observability.Metrics;
-using WoW.Two.Sdk.Backend.Beta.Observability.Otlp;
-using WoW.Two.Sdk.Backend.Beta.Observability.Tracing;
-using WoW.Two.Sdk.Backend.Beta.Web.Compression;
-using WoW.Two.Sdk.Backend.Beta.Web.Cors;
-using WoW.Two.Sdk.Backend.Beta.Web.ExceptionHandling;
-using WoW.Two.Sdk.Backend.Beta.Web.Hosting;
-using WoW.Two.Sdk.Backend.Beta.Web.OpenApi;
-using WoW.Two.Sdk.Backend.Beta.Web.OutputCache;
-using WoW.Two.Sdk.Backend.Beta.Http.Errors;
-using WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests;
-using WoW.Two.Sdk.Backend.Beta.Web.Idempotency;
-using WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
-using WoW.Two.Sdk.Backend.Beta.Web.RateLimit;
-using WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders;
+using WoW.Two.Sdk.Beta.Be.Foundation.Time;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Observability.HealthChecks;
+using WoW.Two.Sdk.Beta.Be.Observability.Logging;
+using WoW.Two.Sdk.Beta.Be.Observability.Metrics;
+using WoW.Two.Sdk.Beta.Be.Observability.Otlp;
+using WoW.Two.Sdk.Beta.Be.Observability.Tracing;
+using WoW.Two.Sdk.Beta.Be.Web.Compression;
+using WoW.Two.Sdk.Beta.Be.Web.Cors;
+using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Web.Hosting;
+using WoW.Two.Sdk.Beta.Be.Web.OpenApi;
+using WoW.Two.Sdk.Beta.Be.Web.OutputCache;
+using WoW.Two.Sdk.Beta.Be.Http.Errors;
+using WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests;
+using WoW.Two.Sdk.Beta.Be.Web.Idempotency;
+using WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
+using WoW.Two.Sdk.Beta.Be.Web.RateLimit;
+using WoW.Two.Sdk.Beta.Be.Web.SecureHeaders;
 
-namespace WoW.Two.Sdk.Backend.Beta.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Meta;
 
 /// <summary>Provides the one-import P1 boot floor (logging, tracing, metrics, health, proxy-aware hosting, OpenAPI, problem details, rate limit, output cache, compression); auth, mediator, and data stay explicit.</summary>
 public static class ApiDefaultsExtensions

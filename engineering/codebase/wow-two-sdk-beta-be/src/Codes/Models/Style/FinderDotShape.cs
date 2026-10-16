@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Refers to the geometry of the inner 3×3 pupil of each finder pattern, independent of the outer <see cref="FinderShape"/> and of <see cref="ModuleShape"/>.</summary>
 public enum FinderDotShape

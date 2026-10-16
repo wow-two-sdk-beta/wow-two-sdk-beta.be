@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData;
 
 /// <summary>Exports the names of the user's roles as the <c>roles</c> section; registered by <c>AddRoles</c>.</summary>
 /// <typeparam name="TUser">The user entity.</typeparam>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.FeatureFlags.Core;
+namespace WoW.Two.Sdk.Beta.Be.FeatureFlags.Core;
 
 /// <summary>
 /// Defines a minimal, vendor-neutral feature-flag check. The default implementation wraps

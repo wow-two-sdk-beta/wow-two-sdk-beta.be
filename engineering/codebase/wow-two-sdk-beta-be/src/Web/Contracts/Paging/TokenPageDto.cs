@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging;
+namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>
 /// Represents a keyset page of a list read — the UI SDK's <c>TokenPage&lt;T&gt;</c>: the rows, the size served and the

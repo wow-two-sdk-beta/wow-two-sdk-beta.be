@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>The outcome of reading one repository file at one commit — the categorized result plus the raw bytes when found.</summary>
 public sealed record RepositoryFile

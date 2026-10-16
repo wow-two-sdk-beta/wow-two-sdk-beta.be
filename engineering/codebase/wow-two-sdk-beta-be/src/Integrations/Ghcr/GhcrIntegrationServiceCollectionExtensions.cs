@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.Ghcr;
 
 /// <summary>GHCR integration registration.</summary>
 public static class GhcrIntegrationServiceCollectionExtensions

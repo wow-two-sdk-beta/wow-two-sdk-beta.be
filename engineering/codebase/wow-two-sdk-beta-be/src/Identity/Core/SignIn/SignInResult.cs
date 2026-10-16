@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SignIn;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SignIn;
 
 /// <summary>Carries a sign-in attempt's status, and the principal or two-factor ticket it produced.</summary>
 public sealed record SignInResult

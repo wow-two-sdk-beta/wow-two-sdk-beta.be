@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Errors;
+namespace WoW.Two.Sdk.Beta.Be.Http.Errors;
 
 /// <summary>Registers the outbound HTTP exception mapping.</summary>
 public static class HttpExceptionMappingServiceCollectionExtensions

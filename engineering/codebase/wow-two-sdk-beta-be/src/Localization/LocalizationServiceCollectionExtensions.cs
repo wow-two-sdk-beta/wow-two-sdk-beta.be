@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Localization.Formatters;
+using WoW.Two.Sdk.Beta.Be.Localization.Formatters;
 
-namespace WoW.Two.Sdk.Backend.Beta.Localization;
+namespace WoW.Two.Sdk.Beta.Be.Localization;
 
 /// <summary>Registration helpers for the Localization vector — resx localization, request-culture conventions, and humanizing.</summary>
 public static class LocalizationServiceCollectionExtensions

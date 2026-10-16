@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>Accesses passkeys through the context hosting the identity schema.</summary>
 /// <typeparam name="TKey">User key type.</typeparam>

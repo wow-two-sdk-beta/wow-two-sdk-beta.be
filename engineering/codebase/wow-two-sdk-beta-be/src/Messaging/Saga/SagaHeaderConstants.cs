@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>Holds reserved transport headers a scheduled saga timeout carries, so an instance can tell a live timeout from a cancelled or superseded one.</summary>
 /// <remarks>

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
 /// <summary>
 /// Allow-list <see cref="IMessageHeaderPropagationPolicy"/> — a header flows only if its name is on the list.

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Naming;
 
 /// <summary>Model-wide enum-to-string conversion — the bulk counterpart to the per-property <see cref="EnumPropertyBuilderExtensions.HasEnumStringConversion{TEnum}"/>.</summary>
 public static class EnumStringModelBuilderExtensions

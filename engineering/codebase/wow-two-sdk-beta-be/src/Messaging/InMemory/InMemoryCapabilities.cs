@@ -1,7 +1,7 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Transport;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Transport;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>
 /// In-memory capability flags — the scheduler gives real delayed and absolute-time delivery; dead-lettering and dedupe

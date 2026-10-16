@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passwords;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passwords;
 
 /// <summary>Holds the breached-password check's endpoint, threshold and failure behavior.</summary>
 public sealed record BreachedPasswordOptions

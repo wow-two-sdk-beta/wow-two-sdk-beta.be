@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 
 /// <summary>Extends the batch pipeline domain with its log messages — static because the pipeline is generic and the logging source generator emits into the declaring type.</summary>
 internal static partial class BatchPipelineLogExtensions

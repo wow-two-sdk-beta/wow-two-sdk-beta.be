@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp;
 
 /// <summary>Holds the TOTP parameters an authenticator app has to agree on (RFC 6238).</summary>
 public sealed record TotpOptions

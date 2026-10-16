@@ -2,10 +2,10 @@ using System.Collections.Concurrent;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WoW.Two.Sdk.Backend.Beta.Jobs.Batches;
+using WoW.Two.Sdk.Beta.Be.Jobs.Batches;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Jobs.Batches;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Jobs.Batches;
 
 /// <summary>Batch pipelines deliver bounded batches, drop without blocking, survive a failed batch and drain on shutdown.</summary>
 public sealed class BatchPipelineTests

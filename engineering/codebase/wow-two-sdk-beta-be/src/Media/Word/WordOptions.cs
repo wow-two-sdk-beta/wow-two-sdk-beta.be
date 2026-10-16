@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Word;
+namespace WoW.Two.Sdk.Beta.Be.Media.Word;
 
 /// <summary>Holds the limits and typography that steer Word processing.</summary>
 /// <remarks>Set in code with <c>AddWordProcessing(o => …)</c> or in the host section <c>Media:Word</c>, which is applied last.</remarks>

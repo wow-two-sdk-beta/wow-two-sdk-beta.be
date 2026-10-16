@@ -1,9 +1,9 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Mediator.ExceptionHandling;
+using WoW.Two.Sdk.Beta.Be.Mediator.ExceptionHandling;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator;
+namespace WoW.Two.Sdk.Beta.Be.Mediator;
 
 /// <summary>Provides DI registration for the mediator and handler scanning.</summary>
 public static class MediatorServiceCollectionExtensions

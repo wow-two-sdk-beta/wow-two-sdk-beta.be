@@ -1,6 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt;
 
 /// <summary>Holds jWT bearer registration options.</summary>
 public sealed record JwtOptions

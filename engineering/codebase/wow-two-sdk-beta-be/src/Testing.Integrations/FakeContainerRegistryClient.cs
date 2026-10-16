@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr;
+using WoW.Two.Sdk.Beta.Be.Integrations.Ghcr;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Integrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Integrations;
 
 /// <summary>
 /// Connects tests to configurable container-registry outcomes without a remote probe

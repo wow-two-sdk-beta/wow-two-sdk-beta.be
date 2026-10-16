@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Security.Claims;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
-using WoW.Two.Sdk.Backend.Beta.Identity.Core.UserClaims;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>
 /// Creates the <see cref="ClaimsPrincipal"/> a sign-in issues for a user: id, user name, email and security stamp, plus

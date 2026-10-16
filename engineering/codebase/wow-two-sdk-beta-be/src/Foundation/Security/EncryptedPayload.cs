@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 /// <summary>An AES-GCM authenticated-encryption blob — the nonce, authentication tag, and ciphertext that together let a holder of the key recover the plaintext and detect tampering.</summary>
 /// <remarks>Self-describing: persist or transmit all three fields together — decryption needs every one. None of the fields is secret on its own; confidentiality lives entirely in the key.</remarks>

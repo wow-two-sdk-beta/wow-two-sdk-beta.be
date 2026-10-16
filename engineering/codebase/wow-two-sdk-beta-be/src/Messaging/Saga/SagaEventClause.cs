@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>One event's behaviour in one state. Built by <c>When</c> and attached by <c>Initially</c> / <c>During</c> / <c>DuringAny</c>.</summary>
 /// <typeparam name="TState">The saga state type.</typeparam>

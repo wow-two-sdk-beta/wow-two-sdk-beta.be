@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta;
 
 /// <summary>Integrates Meta's WhatsApp Cloud API as the WhatsApp provider.</summary>
 /// <param name="httpClientFactory">Creates the named client registered by <c>AddMetaWhatsAppBroker</c>.</param>

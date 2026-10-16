@@ -1,11 +1,11 @@
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SkiaSharp;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Media.Pdf;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>PDF tools over PDFsharp and PdfPig: image pages, page surgery, metadata, AES-256, stamps read back as text.</summary>
 public sealed class PdfServiceTests

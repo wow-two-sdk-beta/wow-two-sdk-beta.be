@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>Holds options for identity core and its slices. Mutable properties so <c>Action&lt;IdentityCoreOptions&gt;</c> composes.</summary>
 public sealed record IdentityCoreOptions

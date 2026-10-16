@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Media.Images;
+using WoW.Two.Sdk.Beta.Be.Media.Images;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents page numbers stamped on pages.</summary>
 public sealed record PdfPageNumberSpec

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Represents text stamped across pages, such as DRAFT or CONFIDENTIAL.</summary>
 public sealed record PdfWatermarkSpec

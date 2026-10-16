@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Represents a center logo overlaid on the rendered code as an <c>&lt;image&gt;</c>.</summary>
 public sealed record LogoSpec

@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
 /// <summary>Maps identifiers between <see cref="CaseStyle"/> values.</summary>
 public static class CaseMapper

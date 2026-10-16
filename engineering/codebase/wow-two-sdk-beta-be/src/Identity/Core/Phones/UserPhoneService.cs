@@ -1,7 +1,7 @@
 using System.Globalization;
-using WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+using WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Phones;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Phones;
 
 /// <summary>
 /// Provides the phone slice over the shipped <see cref="IOtpService"/>: set a number, confirm it with a one-time code

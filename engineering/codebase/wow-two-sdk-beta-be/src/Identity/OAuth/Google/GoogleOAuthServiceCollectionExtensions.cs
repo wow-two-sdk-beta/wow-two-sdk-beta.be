@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Extensions;
+using WoW.Two.Sdk.Beta.Be.Identity.OAuth.Extensions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google;
+namespace WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google;
 
 /// <summary>Google OAuth provider registration.</summary>
 public static class GoogleOAuthServiceCollectionExtensions

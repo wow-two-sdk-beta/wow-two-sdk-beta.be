@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Http.Resilience;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Http.Resilience;
 
-namespace WoW.Two.Sdk.Backend.Beta.Http.Refit;
+namespace WoW.Two.Sdk.Beta.Be.Http.Refit;
 
 /// <summary>Provides registration for declarative Refit API clients with SDK JSON, a base address, and the standard resilience pipeline.</summary>
 public static class RefitClientServiceCollectionExtensions

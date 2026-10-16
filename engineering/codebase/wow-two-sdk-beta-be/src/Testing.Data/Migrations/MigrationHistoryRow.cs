@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Data.Migrations;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
 /// <summary>A projected <c>migration_history</c> row for test assertions.</summary>
 /// <remarks>A settable-property class (not a record) so Dapper leniently converts SQLite's <c>Int64</c> ordinal to <c>int</c>; a record's ctor matching is strict on the column type and would reject it.</remarks>

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 /// <summary>Provides delivery logging into <see cref="IWebhookDeliveryRepository"/>; a failed write is logged, never thrown into the publisher.</summary>
 /// <param name="deliveries">The delivery store.</param>

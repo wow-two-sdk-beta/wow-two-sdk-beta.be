@@ -1,6 +1,6 @@
 using System.Data.Common;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Sessions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Sessions;
 
 /// <summary>Owns an independent connection or borrows a session connection until disposal.</summary>
 public sealed class DataConnectionLease : IAsyncDisposable

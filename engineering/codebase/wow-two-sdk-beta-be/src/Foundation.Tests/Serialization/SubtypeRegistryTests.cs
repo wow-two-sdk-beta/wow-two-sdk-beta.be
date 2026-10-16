@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Serialization;
 
 public sealed class SubtypeRegistryTests
 {

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Captions;
+namespace WoW.Two.Sdk.Beta.Be.Media.Captions;
 
 /// <summary>Shared timecode parsing across caption formats (VTT/SRT clock times, TTML clock + offset times).</summary>
 internal static class CaptionTimecodeMapper

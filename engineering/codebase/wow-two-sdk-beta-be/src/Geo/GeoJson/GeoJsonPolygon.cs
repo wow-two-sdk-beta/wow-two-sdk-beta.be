@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
+namespace WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
 
 /// <summary>
 /// A GeoJSON <c>Polygon</c> — one or more linear rings. The first ring is the exterior boundary; any

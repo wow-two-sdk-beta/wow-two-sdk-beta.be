@@ -37,10 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WoW.Two.Sdk.Backend.Beta.csproj" />
+    <ProjectReference Include="../WoW.Two.Sdk.Beta.Be.csproj" />
     <!-- Dogfood: the SDK's own migrator suite consumes the extracted Testing.Data harness (MigratorHarness, MigrationsWorkspace). -->
-    <ProjectReference Include="../Testing.Data/WoW.Two.Sdk.Backend.Beta.Testing.Data.csproj" />
-    <ProjectReference Include="../Data/Migrations/cli/WoW.Two.Sdk.Backend.Beta.Data.Migrations.Cli.csproj"
+    <ProjectReference Include="../Testing.Data/WoW.Two.Sdk.Beta.Be.Testing.Data.csproj" />
+    <ProjectReference Include="../Data/Migrations/cli/WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli.csproj"
                       ReferenceOutputAssembly="false" />
   </ItemGroup>
 

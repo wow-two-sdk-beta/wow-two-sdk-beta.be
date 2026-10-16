@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.BackgroundRemoval;
+namespace WoW.Two.Sdk.Beta.Be.Media.BackgroundRemoval;
 
 /// <summary>Registers the optional private worker adapter without model or asset persistence.</summary>
 public static class BackgroundRemovalServiceCollectionExtensions

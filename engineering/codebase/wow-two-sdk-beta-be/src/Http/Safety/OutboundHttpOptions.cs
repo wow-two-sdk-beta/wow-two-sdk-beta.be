@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Http.Safety;
+namespace WoW.Two.Sdk.Beta.Be.Http.Safety;
 
 /// <summary>Holds destination restrictions for a directly connected outbound HTTP client.</summary>
 public sealed record OutboundHttpOptions

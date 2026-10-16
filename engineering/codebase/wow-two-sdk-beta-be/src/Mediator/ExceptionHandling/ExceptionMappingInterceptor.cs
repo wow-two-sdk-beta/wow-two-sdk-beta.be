@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Mediator.Result;
-using WoW.Two.Sdk.Backend.Beta.Observability.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Mediator.Result;
+using WoW.Two.Sdk.Beta.Be.Observability.Errors;
 
-namespace WoW.Two.Sdk.Backend.Beta.Mediator.ExceptionHandling;
+namespace WoW.Two.Sdk.Beta.Be.Mediator.ExceptionHandling;
 
 /// <summary>Converts an exception escaping a handler into an <c>AppResult.Failure</c> so the mediator never throws for result-returning requests.</summary>
 /// <typeparam name="TRequest">The request type.</typeparam>

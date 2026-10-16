@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys;
 
 /// <summary>Defines the seam reaching stored passkeys.</summary>
 /// <typeparam name="TKey">User key type.</typeparam>

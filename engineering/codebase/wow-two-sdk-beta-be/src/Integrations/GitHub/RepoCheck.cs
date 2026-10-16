@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to outcome of a repository-existence probe — separates a genuinely missing repo from one the token can't see.</summary>
 public enum RepoCheck

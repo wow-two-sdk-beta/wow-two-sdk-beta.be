@@ -1,8 +1,8 @@
 using System.Globalization;
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.Core;
 
-namespace WoW.Two.Sdk.Backend.Beta.Storage.Transfer;
+namespace WoW.Two.Sdk.Beta.Be.Storage.Transfer;
 
 /// <summary>
 /// Issues URLs of the SDK's transfer routes (<c>MapBlobTransferEndpoints</c>), signed with HMAC-SHA256 over the method,

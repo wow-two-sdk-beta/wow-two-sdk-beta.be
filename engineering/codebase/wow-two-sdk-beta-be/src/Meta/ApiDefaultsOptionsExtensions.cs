@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace WoW.Two.Sdk.Backend.Beta.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Meta;
 
 /// <summary>Extends <see cref="ApiDefaultsOptions"/> with configuration binding for deployment-specific settings.</summary>
 public static class ApiDefaultsOptionsExtensions

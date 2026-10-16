@@ -4,10 +4,10 @@ using System.Text;
 using AwesomeAssertions;
 using Microsoft.Extensions.Options;
 using SkiaSharp;
-using WoW.Two.Sdk.Backend.Beta.Media.BackgroundRemoval;
+using WoW.Two.Sdk.Beta.Be.Media.BackgroundRemoval;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Media;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Media;
 
 /// <summary>Worker boundaries use real raster bytes and in-memory HTTP responses.</summary>
 public sealed class BackgroundRemovalTests

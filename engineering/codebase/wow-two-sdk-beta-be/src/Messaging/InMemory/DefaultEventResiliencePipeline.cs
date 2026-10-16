@@ -1,10 +1,10 @@
 using Microsoft.Extensions.Options;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability;
 
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Policies;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Reliability.Services;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Policies;
+using WoW.Two.Sdk.Beta.Be.Messaging.Reliability.Services;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.InMemory;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.InMemory;
 
 /// <summary>
 /// Default <see cref="IEventResiliencePipeline"/> — classifies the failure via <see cref="IEventFaultPolicy"/>,

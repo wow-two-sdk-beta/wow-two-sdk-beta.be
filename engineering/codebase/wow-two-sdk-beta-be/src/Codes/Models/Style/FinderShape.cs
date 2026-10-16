@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Codes.Models.Style;
+namespace WoW.Two.Sdk.Beta.Be.Codes.Models.Style;
 
 /// <summary>Refers to the geometry of the outer 7×7 frame of each finder pattern, rendered independently of <see cref="ModuleShape"/> so the data body can be stylised while the eyes stay crisp.</summary>
 public enum FinderShape

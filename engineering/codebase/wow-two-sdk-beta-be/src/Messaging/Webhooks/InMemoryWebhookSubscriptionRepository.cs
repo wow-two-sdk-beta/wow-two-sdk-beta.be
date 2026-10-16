@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 /// <summary>
 /// Accesses webhook subscriptions in process memory. Seeded from

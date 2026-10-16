@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Integrations.GitHub;
+namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
 
 /// <summary>Refers to outcome of reading a branch head or a commit tree — separates a missing ref from one the token can't see or a transport failure.</summary>
 public enum RepositoryLookup

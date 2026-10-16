@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Text;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance;
 
 /// <summary>JWT issuance registration.</summary>
 public static class JwtIssuanceServiceCollectionExtensions

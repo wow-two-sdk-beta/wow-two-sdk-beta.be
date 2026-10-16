@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Endpoints;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Endpoints;
 
 /// <summary>
 /// Holds the <c>UserAccounts:Emails</c> configuration section: the links and texts of confirmation and password-reset

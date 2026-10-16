@@ -1,7 +1,7 @@
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.AcroForms;
 
-namespace WoW.Two.Sdk.Backend.Beta.Media.Pdf;
+namespace WoW.Two.Sdk.Beta.Be.Media.Pdf;
 
 /// <summary>Maps a PDFsharp form to <see cref="PdfFormField"/>s, and fill values onto its fields.</summary>
 internal static class PdfFormMapper

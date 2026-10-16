@@ -1,7 +1,7 @@
 using AwesomeAssertions;
-using WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-namespace WoW.Two.Sdk.Backend.Beta.Migrations.Tests.Tests;
+namespace WoW.Two.Sdk.Beta.Be.Migrations.Tests.Tests;
 
 /// <summary>Direct SQLite dialect checks for the parts the runner does not exercise (the CLI calls EnsureDatabaseExists).</summary>
 public sealed class SqliteDialectTests

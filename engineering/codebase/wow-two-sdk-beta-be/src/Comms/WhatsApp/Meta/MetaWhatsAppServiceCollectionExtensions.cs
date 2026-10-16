@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Options;
+using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
-namespace WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta;
 
 /// <summary>WhatsApp Cloud API registration.</summary>
 public static class MetaWhatsAppServiceCollectionExtensions

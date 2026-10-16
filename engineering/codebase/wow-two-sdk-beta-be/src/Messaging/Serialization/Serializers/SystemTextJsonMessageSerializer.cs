@@ -1,11 +1,11 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
 /// <summary>Serializes event bodies as UTF-8 JSON using System.Text.Json with configured options and decodes them into the requested type.</summary>
 public sealed class SystemTextJsonMessageSerializer : IMessageSerializer

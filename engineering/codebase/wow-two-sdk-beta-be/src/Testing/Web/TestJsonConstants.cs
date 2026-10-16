@@ -3,11 +3,11 @@ using System.Text.Json.Serialization;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
-namespace WoW.Two.Sdk.Backend.Beta.Testing.Web;
+namespace WoW.Two.Sdk.Beta.Be.Testing.Web;
 
 /// <summary>
 /// Holds shared <see cref="JsonSerializerOptions"/> for E2E HTTP tests, aligned to the SDK's API serializer
-/// (<c>WoW.Two.Sdk.Backend.Beta.Foundation.Serialization.JsonOptionsConstants.Default</c>).
+/// (<c>WoW.Two.Sdk.Beta.Be.Foundation.Serialization.JsonOptionsConstants.Default</c>).
 /// </summary>
 /// <remarks>
 ///   - the NodaTime converters are registered against Tzdb, so a NodaTime payload deserializes unaided

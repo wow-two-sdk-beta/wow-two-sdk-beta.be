@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Http.Auth.OAuth2ClientCredentials;
+namespace WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials;
 
 /// <summary>Holds configuration for the OAuth2 <c>client_credentials</c> handler; tokens are fetched from <see cref="TokenEndpoint"/>, cached per client name, and refreshed <see cref="RefreshSkew"/> before expiry.</summary>
 public sealed record OAuth2ClientCredentialsOptions

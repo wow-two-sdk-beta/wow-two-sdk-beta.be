@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Represents a migration as discovered by an <see cref="IMigrationBroker"/>, pre-validation.</summary>
 public sealed record RawMigration

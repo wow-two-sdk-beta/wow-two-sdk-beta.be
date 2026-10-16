@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories;
+namespace WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories;
 
 /// <summary>Registration helpers for the Dapper thin repository.</summary>
 public static class DapperRepositoryServiceCollectionExtensions

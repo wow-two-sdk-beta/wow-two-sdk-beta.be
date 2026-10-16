@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 /// <summary>A claim held by a user.</summary>
 /// <typeparam name="TKey">Role key type.</typeparam>
 public class IdentityUserClaim<TKey> : IKeyedEntity<int>

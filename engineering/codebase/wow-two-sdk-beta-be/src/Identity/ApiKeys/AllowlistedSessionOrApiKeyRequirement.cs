@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys;
+namespace WoW.Two.Sdk.Beta.Be.Identity.ApiKeys;
 
 /// <summary>Requires an allowlisted session or an API key that grants <see cref="Scope"/>; evaluated by <see cref="AllowlistedSessionOrApiKeyAuthorizationHandler"/>.</summary>
 public sealed class AllowlistedSessionOrApiKeyRequirement : IAuthorizationRequirement

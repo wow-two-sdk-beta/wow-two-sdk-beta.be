@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.SecurityStamps;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.SecurityStamps;
 
 /// <summary>
 /// Validates that a principal's security stamp still equals the stored user's, so rotating the stamp revokes cookies and

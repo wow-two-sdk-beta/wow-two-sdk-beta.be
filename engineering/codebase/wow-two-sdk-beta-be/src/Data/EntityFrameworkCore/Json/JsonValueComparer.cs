@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 
-namespace WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Json;
+namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Json;
 
 /// <summary>Value comparer for JSON-mapped CLR types — compares by serialized form, hashes by serialized string, and deep-clones via re-serialization.</summary>
 /// <remarks>EF Core's snapshot/change-tracking machinery needs an explicit comparer for mutable reference types stored as JSON, otherwise updates are missed.</remarks>

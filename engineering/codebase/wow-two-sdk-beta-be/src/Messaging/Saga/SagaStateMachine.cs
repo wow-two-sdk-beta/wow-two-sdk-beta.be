@@ -1,6 +1,6 @@
-using WoW.Two.Sdk.Backend.Beta.Messaging.Models;
+using WoW.Two.Sdk.Beta.Be.Messaging.Models;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Saga;
 
 /// <summary>
 /// A declarative, event-driven saga: a set of states, and per state the events it reacts to. Derive from it, declare
@@ -11,7 +11,7 @@ namespace WoW.Two.Sdk.Backend.Beta.Messaging.Saga;
 /// <remarks>
 ///   - Never hold per-message state on the machine
 ///   - resolve anything a transition needs from <see cref="SagaTransitionContext{TState,TEvent}.Services"/>
-///   - for a linear itinerary this process drives, use <see cref="WoW.Two.Sdk.Backend.Beta.Messaging.EventSaga.EventSagaBuilder"/> instead
+///   - for a linear itinerary this process drives, use <see cref="WoW.Two.Sdk.Beta.Be.Messaging.EventSaga.EventSagaBuilder"/> instead
 /// </remarks>
 public abstract class SagaStateMachine<TState>
     where TState : class, ISagaState

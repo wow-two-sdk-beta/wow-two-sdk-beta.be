@@ -6,13 +6,13 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Comms.Push;
-using WoW.Two.Sdk.Backend.Beta.Comms.Push.Apns;
-using WoW.Two.Sdk.Backend.Beta.Comms.Push.Fcm;
-using WoW.Two.Sdk.Backend.Beta.Comms.Push.WebPush;
+using WoW.Two.Sdk.Beta.Be.Comms.Push;
+using WoW.Two.Sdk.Beta.Be.Comms.Push.Apns;
+using WoW.Two.Sdk.Beta.Be.Comms.Push.Fcm;
+using WoW.Two.Sdk.Beta.Be.Comms.Push.WebPush;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Foundation.Tests.Comms;
+namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Comms;
 
 /// <summary>Push brokers against scripted gateways: signed provider tokens, token reuse, payload shape, invalid-token mapping.</summary>
 public sealed class PushBrokerTests

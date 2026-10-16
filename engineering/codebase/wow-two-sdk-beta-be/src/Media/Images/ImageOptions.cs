@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Media.Images;
+namespace WoW.Two.Sdk.Beta.Be.Media.Images;
 
 /// <summary>Holds the limits, encoder defaults and fonts that steer image processing.</summary>
 /// <remarks>Set in code with <c>AddImageProcessing(o => …)</c> or in the host section <c>Media:Images</c>, which is applied last.</remarks>

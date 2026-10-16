@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Caching.Memory;
+namespace WoW.Two.Sdk.Beta.Be.Caching.Memory;
 
 /// <summary>Registers the in-process memory cache for trivial single-instance caching needs.</summary>
 public static class MemoryCacheServiceCollectionExtensions

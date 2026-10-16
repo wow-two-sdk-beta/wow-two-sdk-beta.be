@@ -1,4 +1,4 @@
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Otp;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Otp;
 
 /// <summary>Represents outcome of <see cref="IOtpService.VerifyAsync"/>.</summary>
 public sealed record OtpVerificationResult

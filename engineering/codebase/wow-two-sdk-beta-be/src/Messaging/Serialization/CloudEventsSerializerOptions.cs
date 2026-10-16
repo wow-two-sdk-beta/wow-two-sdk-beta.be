@@ -2,12 +2,12 @@ using System.Buffers;
 using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Errors;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Results;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
+using WoW.Two.Sdk.Beta.Be.Foundation.Results;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
-namespace WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
+namespace WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
 
 /// <summary>Holds tuning for <see cref="CloudEventsMessageSerializer"/> — the producer identity and the optional context attributes it stamps.</summary>
 /// <remarks>

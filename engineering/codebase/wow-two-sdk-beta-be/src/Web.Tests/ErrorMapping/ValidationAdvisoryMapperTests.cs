@@ -2,13 +2,13 @@ using System.Text.Json;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Validation.Trackers;
-using WoW.Two.Sdk.Backend.Beta.Web.Contracts;
-using WoW.Two.Sdk.Backend.Beta.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
+using WoW.Two.Sdk.Beta.Be.Foundation.Validation.Trackers;
+using WoW.Two.Sdk.Beta.Be.Web.Contracts;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 using Xunit;
 
-namespace WoW.Two.Sdk.Backend.Beta.Web.Tests.ErrorMapping;
+namespace WoW.Two.Sdk.Beta.Be.Web.Tests.ErrorMapping;
 
 /// <summary>Tracked advisories reach the success envelope with request-resolved messages.</summary>
 public sealed class ValidationAdvisoryMapperTests

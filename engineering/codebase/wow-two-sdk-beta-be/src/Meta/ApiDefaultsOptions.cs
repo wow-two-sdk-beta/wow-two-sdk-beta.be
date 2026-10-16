@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace WoW.Two.Sdk.Backend.Beta.Meta;
+namespace WoW.Two.Sdk.Beta.Be.Meta;
 
 /// <summary>Holds configuration for <c>AddApiDefaults</c> / <c>UseApiDefaults</c>; every toggle defaults on.</summary>
 public sealed record ApiDefaultsOptions
@@ -57,11 +57,11 @@ public sealed record ApiDefaultsOptions
     /// Code configuration for the validation module (translation and friends); the host section <c>Validation</c> is
     /// applied after it.
     /// </summary>
-    public Action<WoW.Two.Sdk.Backend.Beta.Foundation.Validation.ValidationOptions>? Validation { get; set; }
+    public Action<WoW.Two.Sdk.Beta.Be.Foundation.Validation.ValidationOptions>? Validation { get; set; }
 
     /// <summary>
     /// Serves a single-page app from the host when set: its bundle inside the pipeline — behind the secure headers and
     /// compression, before routing — and its fallback documents. <c>null</c> (default) serves no app.
     /// </summary>
-    public Action<WoW.Two.Sdk.Backend.Beta.Web.Hosting.SpaHostingOptions>? SpaHosting { get; set; }
+    public Action<WoW.Two.Sdk.Beta.Be.Web.Hosting.SpaHostingOptions>? SpaHosting { get; set; }
 }

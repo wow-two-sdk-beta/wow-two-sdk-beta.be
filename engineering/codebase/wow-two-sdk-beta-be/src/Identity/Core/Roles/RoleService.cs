@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Naming;
+using WoW.Two.Sdk.Beta.Be.Foundation.Naming;
 
-namespace WoW.Two.Sdk.Backend.Beta.Identity.Core.Roles;
+namespace WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 
 /// <summary>Provides role administration: create, rename, delete and find roles, and manage the claims a role grants.</summary>
 /// <typeparam name="TRole">The role entity.</typeparam>
