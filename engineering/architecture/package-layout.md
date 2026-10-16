@@ -22,12 +22,12 @@ wow-two-sdk.backend.beta/
     │   └── analysis/philosophy/                 ← ideas.md + targets.md
     └── codebase/
         ├── codebase.md
-        └── wow-two-back-beta-sdk/               ← the one code dir → src/ below
+        └── wow-two-sdk-beta-be/                 ← the one code dir → src/ below
 ```
 
 Shell shape follows [`sdk-structure.md`](../../../../../conventions/development/repo/structure/sdk-structure.md).
 
-## Code dir — `engineering/codebase/wow-two-back-beta-sdk/`
+## Code dir — `engineering/codebase/wow-two-sdk-beta-be/`
 
 Paths below are code-dir-relative; `src/` moved here verbatim, so every MSBuild path is unchanged.
 

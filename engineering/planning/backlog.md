@@ -11,54 +11,54 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Feature | State | Spec |
 |---|---|---|
 | One-call API defaults (`AddApiDefaults`) | shipped | — |
-| Test hosts, container fixtures, fakes and harnesses | shipped | [Testing.spec.md](../codebase/wow-two-back-beta-sdk/src/Testing/Testing.spec.md) |
+| Test hosts, container fixtures, fakes and harnesses | shipped | [Testing.spec.md](../codebase/wow-two-sdk-beta-be/src/Testing/Testing.spec.md) |
 | Errors, results and exception mapping | shipped | — |
 | Validation with advisories and translated messages | shipped | — |
 | Serialization presets and stored JSON profiles | shipped | — |
 | Time, identifier, naming and configuration primitives | shipped | — |
-| Envelope encryption | shipped | [Security.spec.md](../codebase/wow-two-back-beta-sdk/src/Foundation/Security/Security.spec.md) |
-| Hash-chained audit trail | shipped | [HashChain.spec.md](../codebase/wow-two-back-beta-sdk/src/Foundation/Audit/HashChain.spec.md) |
+| Envelope encryption | shipped | [Security.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Security/Security.spec.md) |
+| Hash-chained audit trail | shipped | [HashChain.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Audit/HashChain.spec.md) |
 | Logging, tracing, metrics and health checks | shipped | — |
 | Proxy-aware hosting and request limits | shipped | — |
 | OpenAPI and ProblemDetails responses | shipped | — |
 | Secure headers, CORS and SPA antiforgery | shipped | — |
 | Rate limits, usage quotas and captcha | shipped | — |
 | Idempotency keys, conditional requests and paging | shipped | — |
-| Request context: language and device | shipped | [RequestContext.spec.md](../codebase/wow-two-back-beta-sdk/src/Web/RequestContext/RequestContext.spec.md) |
-| Mediator with CQRS markers and behaviors | shipped | [Mediator.spec.md](../codebase/wow-two-back-beta-sdk/src/Mediator/Mediator.spec.md) |
-| Transactional mediator requests | shipped | [data-units.spec.md](../codebase/wow-two-back-beta-sdk/src/Mediator/DataUnits/data-units.spec.md) |
+| Request context: language and device | shipped | [RequestContext.spec.md](../codebase/wow-two-sdk-beta-be/src/Web/RequestContext/RequestContext.spec.md) |
+| Mediator with CQRS markers and behaviors | shipped | [Mediator.spec.md](../codebase/wow-two-sdk-beta-be/src/Mediator/Mediator.spec.md) |
+| Transactional mediator requests | shipped | [data-units.spec.md](../codebase/wow-two-sdk-beta-be/src/Mediator/DataUnits/data-units.spec.md) |
 | Feature flags and gates | shipped | — |
 | JWT, cookie and OIDC authentication | shipped | — |
-| OAuth sign-in with claim normalization | shipped | [ClaimNormalization.spec.md](../codebase/wow-two-back-beta-sdk/src/Identity/Claims/ClaimNormalization.spec.md) |
-| Authorization policies and allowlists | shipped | [Authorization.spec.md](../codebase/wow-two-back-beta-sdk/src/Identity/Authorization/Authorization.spec.md) |
+| OAuth sign-in with claim normalization | shipped | [ClaimNormalization.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Claims/ClaimNormalization.spec.md) |
+| Authorization policies and allowlists | shipped | [Authorization.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Authorization/Authorization.spec.md) |
 | User accounts: passwords, email, lockout, roles, 2FA, phone, passkeys | shipped | — |
 | Account HTTP API and passwordless email sign-in | shipped | — |
 | OTP delivery over Telegram, SMS, WhatsApp and email | shipped | — |
-| API keys | shipped | [ApiKeys.spec.md](../codebase/wow-two-back-beta-sdk/src/Identity/ApiKeys/ApiKeys.spec.md) |
-| Guest sessions | shipped | [GuestSession.spec.md](../codebase/wow-two-back-beta-sdk/src/Identity/Guest/GuestSession.spec.md) |
+| API keys | shipped | [ApiKeys.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/ApiKeys/ApiKeys.spec.md) |
+| Guest sessions | shipped | [GuestSession.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Guest/GuestSession.spec.md) |
 | EF Core and Dapper persistence | shipped | — |
 | SQL migrator and `wow-migrate` CLI | shipped | — |
-| Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-back-beta-sdk/src/Data/Sessions/sessions.spec.md) |
+| Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md) |
 | Entity specs, concurrency tokens and transaction locks | shipped | — |
 | Caching with commit-aware invalidation | shipped | — |
-| Resilient, destination-safe outbound HTTP | shipped | [safety.spec.md](../codebase/wow-two-back-beta-sdk/src/Http/Safety/safety.spec.md) |
-| Event bus with outbox, inbox, sagas and dead-letter admin | shipped | [Messaging.spec.md](../codebase/wow-two-back-beta-sdk/src/Messaging/Messaging.spec.md) |
-| Webhooks: outbound, inbound and durable subscriptions | shipped | [Webhooks.spec.md](../codebase/wow-two-back-beta-sdk/src/Messaging/Webhooks/Webhooks.spec.md) |
+| Resilient, destination-safe outbound HTTP | shipped | [safety.spec.md](../codebase/wow-two-sdk-beta-be/src/Http/Safety/safety.spec.md) |
+| Event bus with outbox, inbox, sagas and dead-letter admin | shipped | [Messaging.spec.md](../codebase/wow-two-sdk-beta-be/src/Messaging/Messaging.spec.md) |
+| Webhooks: outbound, inbound and durable subscriptions | shipped | [Webhooks.spec.md](../codebase/wow-two-sdk-beta-be/src/Messaging/Webhooks/Webhooks.spec.md) |
 | Background jobs and batch pipelines | shipped | — |
 | Email templates, SMS, WhatsApp and push | shipped | — |
 | Blob storage with signed URLs | shipped | — |
 | Image and PDF tools | shipped | — |
 | Word, Markdown, CSV and XLSX documents | shipped | — |
 | Captions and YouTube link parsing | shipped | — |
-| QR and barcode rendering | shipped | [Rendering.spec.md](../codebase/wow-two-back-beta-sdk/src/Codes/Rendering/Rendering.spec.md) |
-| Scanner payload encoders | shipped | [Payloads.spec.md](../codebase/wow-two-back-beta-sdk/src/Codes/Payloads/Payloads.spec.md) |
+| QR and barcode rendering | shipped | [Rendering.spec.md](../codebase/wow-two-sdk-beta-be/src/Codes/Rendering/Rendering.spec.md) |
+| Scanner payload encoders | shipped | [Payloads.spec.md](../codebase/wow-two-sdk-beta-be/src/Codes/Payloads/Payloads.spec.md) |
 | Geo primitives and IP location | shipped | — |
 | Realtime over SignalR, SSE and WebSockets | shipped | — |
 | Request localization and formatters | shipped | — |
 | GitHub and container-registry clients | shipped | — |
 | Per-row multi-tenancy | shipped | — |
 | AI chat and embeddings over Ollama | shipped | — |
-| Stateless HTTP MCP hosting with endpoint and tool authorization | implemented | [Mcp.spec.md](../codebase/wow-two-back-beta-sdk/src/Ai/Mcp/Mcp.spec.md) |
+| Stateless HTTP MCP hosting with endpoint and tool authorization | implemented | [Mcp.spec.md](../codebase/wow-two-sdk-beta-be/src/Ai/Mcp/Mcp.spec.md) |
 | Payments | planned | — |
 | Search | planned | — |
 | Workflow | planned | — |

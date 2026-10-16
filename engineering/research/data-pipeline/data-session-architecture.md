@@ -4,7 +4,7 @@
 
 ## September 26 implementation boundary
 
-[Implemented session contract](../../codebase/wow-two-back-beta-sdk/src/Data/Sessions/sessions.spec.md)
+[Implemented session contract](../../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md)
 and [sweep evidence](../sdk-completion/sweep-2026-09-26.md) govern the current subset. The design below
 remains the complete-vector roadmap. Implemented: scoped EF-first transactions, Dapper leases,
 nested savepoints, explicit completion callbacks, transactional mediator requests and delayed

@@ -4,7 +4,7 @@ name: publish
 # tests and verifies its packages, publishes to nuget.org, then pushes that commit and tag.
 #
 # Every `run:` step below executes from the code dir — `defaults.run.working-directory:
-# engineering/codebase/wow-two-back-beta-sdk` (per conventions/development/repo/structure/
+# engineering/codebase/wow-two-sdk-beta-be` (per conventions/development/repo/structure/
 # sdk-structure.md). So every `src/...` path here is code-dir-relative, not repo-root-relative.
 #
 # Version is the source of truth in src/Directory.Build.props — format 10.{y}.{z}-beta:
@@ -35,7 +35,7 @@ jobs:
       revision: ${{ steps.bump.outputs.revision }}
     defaults:
       run:
-        working-directory: engineering/codebase/wow-two-back-beta-sdk
+        working-directory: engineering/codebase/wow-two-sdk-beta-be
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          global-json-file: engineering/codebase/wow-two-back-beta-sdk/global.json
+          global-json-file: engineering/codebase/wow-two-sdk-beta-be/global.json
 
       - name: Bump version (10.y.z-beta)
         id: bump
@@ -97,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: packages-${{ steps.bump.outputs.version }}
-          path: engineering/codebase/wow-two-back-beta-sdk/artifacts
+          path: engineering/codebase/wow-two-sdk-beta-be/artifacts
           if-no-files-found: error
 
       - name: Authenticate to NuGet (Trusted Publishing)   # OIDC → short-lived API key, no stored secret

@@ -44,7 +44,7 @@ Product evidence: [backend adoption](../../../../../ventures/10x-venture-forever
   optional-calendar-end and test-host corrections recorded below.
 
 Product file names below resolve under ForeverPin's `engineering/codebase/forever-pin.backend-services/`.
-SDK source paths resolve under `engineering/codebase/wow-two-back-beta-sdk/src/`.
+SDK source paths resolve under `engineering/codebase/wow-two-sdk-beta-be/src/`.
 
 ---
 
@@ -351,11 +351,11 @@ and its verification are recorded in the 2026-09-26 candidate section above.
 
 ### Source pointers
 
-- Error wrapping: [database mapping rule](../../codebase/wow-two-back-beta-sdk/src/Data/Errors/DbExceptionMappingRule.cs).
-- Format dispatch: [code renderer](../../codebase/wow-two-back-beta-sdk/src/Codes/Rendering/CodeRenderer.cs).
-- SVG attributes: [SVG renderer](../../codebase/wow-two-back-beta-sdk/src/Codes/Rendering/Svg/SvgRenderer.cs).
-- Guest trust: [current-user service](../../codebase/wow-two-back-beta-sdk/src/Identity/CurrentUser/CookieCurrentUserService.cs).
-- Stored profiles: [profile registration](../../codebase/wow-two-back-beta-sdk/src/Foundation/Serialization/StoredJsonOptionsProfileExtensions.cs).
+- Error wrapping: [database mapping rule](../../codebase/wow-two-sdk-beta-be/src/Data/Errors/DbExceptionMappingRule.cs).
+- Format dispatch: [code renderer](../../codebase/wow-two-sdk-beta-be/src/Codes/Rendering/CodeRenderer.cs).
+- SVG attributes: [SVG renderer](../../codebase/wow-two-sdk-beta-be/src/Codes/Rendering/Svg/SvgRenderer.cs).
+- Guest trust: [current-user service](../../codebase/wow-two-sdk-beta-be/src/Identity/CurrentUser/CookieCurrentUserService.cs).
+- Stored profiles: [profile registration](../../codebase/wow-two-sdk-beta-be/src/Foundation/Serialization/StoredJsonOptionsProfileExtensions.cs).
 - Product JSON tracking: [code mapping](../../../../../ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Persistence/Configurations/CodeEntityConfiguration.cs).
 - Update validation: [update validator](../../../../../ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Application/Codes/Core/Validators/CodeUpdateModelValidator.cs).
 - Preview bypass: [codes controller](../../../../../ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Api/Codes/Core/Controllers/CodesController.cs).

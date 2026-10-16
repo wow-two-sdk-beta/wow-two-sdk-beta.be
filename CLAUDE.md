@@ -56,7 +56,7 @@ wow-two-sdk.backend.beta/
     │       └── philosophy/             ← ideas.md + targets.md (source-of-truth)
     └── codebase/
         ├── codebase.md
-        └── wow-two-back-beta-sdk/      ← THE code dir — all `src/…` paths below are relative to here
+        └── wow-two-sdk-beta-be/        ← THE code dir — all `src/…` paths below are relative to here
             └── src/                    ← all csprojs + slnx + Directory.{Build,Packages}.props + .editorconfig
                 ├── Meta/                       ← WoW.Two.Sdk.Backend.Beta meta-package
                 ├── Foundation/                 ← P1 leaves (Time, Errors, Results, Validation, Naming, …)
@@ -71,7 +71,7 @@ wow-two-sdk.backend.beta/
                 └── *.Tests/                    ← Data · Foundation · Identity · Mediator · Messaging · Migrations · Web
 ```
 
-> **Path convention**: a bare `src/…` in any doc is **code-dir-relative** (`engineering/codebase/wow-two-back-beta-sdk/src/…`), matching the frontend SDK.
+> **Path convention**: a bare `src/…` in any doc is **code-dir-relative** (`engineering/codebase/wow-two-sdk-beta-be/src/…`), matching the frontend SDK.
 
 ## Per-package shape
 
@@ -97,12 +97,12 @@ See [`engineering/architecture/package-layout.md`](./engineering/architecture/pa
 - `Directory.Packages.props` is the single source of truth for NuGet versions (Central Package Management).
 - Every csproj inherits `Directory.Build.props` — `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`, `Nullable enable`, `<GenerateDocumentationFile>true</GenerateDocumentationFile>`, `MIT`, source-link, deterministic builds.
 - Foundation can NOT import domain packages. Domain packages can import any sibling domain. (Future: enforce via Roslyn analyzer.)
-- Solution file is `engineering/codebase/wow-two-back-beta-sdk/src/WoW.Two.Sdk.Backend.Beta.slnx` (.NET 10 SDK XML solution format).
+- Solution file is `engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Backend.Beta.slnx` (.NET 10 SDK XML solution format).
 
 ## Build & test
 
 ```bash
-cd engineering/codebase/wow-two-back-beta-sdk/src
+cd engineering/codebase/wow-two-sdk-beta-be/src
 dotnet restore -m:1                                  # -m:1 avoids EMFILE on macOS
 dotnet build WoW.Two.Sdk.Backend.Beta.slnx --no-restore -m:1
 ```

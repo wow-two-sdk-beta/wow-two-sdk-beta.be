@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # BE SDK conventions sweep — mechanical checks against conventions/development/backend/dotnet/
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd) || exit 1
-SRC="$SCRIPT_DIR/../codebase/wow-two-back-beta-sdk/src"
+SRC="$SCRIPT_DIR/../codebase/wow-two-sdk-beta-be/src"
 cd "$SRC" || exit 1
 T=$(mktemp)
 grep -rhoE '^\s*(public|internal)\s+(sealed\s+|abstract\s+|static\s+|partial\s+|readonly\s+|ref\s+|record\s+)*(class|interface|record|struct|enum)\s+[A-Za-z0-9_]+' --include='*.cs' --exclude-dir=bin --exclude-dir=obj . \

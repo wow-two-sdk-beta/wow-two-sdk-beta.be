@@ -65,7 +65,7 @@ app.Run();
 ```
 
 Need per-concern control? Every piece `AddApiDefaults` wires is a public extension you can call
-directly — the expansion is listed in [`src/Meta/Meta.md`](./engineering/codebase/wow-two-back-beta-sdk/src/Meta/Meta.md).
+directly — the expansion is listed in [`src/Meta/Meta.md`](./engineering/codebase/wow-two-sdk-beta-be/src/Meta/Meta.md).
 
 ## Read these first
 
@@ -76,7 +76,7 @@ directly — the expansion is listed in [`src/Meta/Meta.md`](./engineering/codeb
 ## Build
 
 ```bash
-cd engineering/codebase/wow-two-back-beta-sdk/src
+cd engineering/codebase/wow-two-sdk-beta-be/src
 ulimit -n 65535          # macOS — avoid EMFILE
 export MSBUILDDISABLENODEREUSE=1
 dotnet restore WoW.Two.Sdk.Backend.Beta.slnx -m:1
