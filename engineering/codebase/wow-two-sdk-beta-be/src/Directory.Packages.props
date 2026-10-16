@@ -202,7 +202,7 @@
     <PackageVersion Include="MQTTnet" Version="5.0.1.1416" />
     <!-- Messaging serializer breadth. MessagePack is MIT (core-permissible). CloudEvents needs no package —
          the structured JSON event format is written directly on System.Text.Json. -->
-    <PackageVersion Include="MessagePack" Version="3.1.8" />
+    <PackageVersion Include="MessagePack" Version="3.1.9" />
   </ItemGroup>
 
   <ItemGroup Label="Background jobs">
