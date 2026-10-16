@@ -1,17 +1,17 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.Logging
+# WoW.Two.Sdk.Beta.Be.Observability.Logging
 
 > Serilog wired into `ILogger<T>` with sane defaults (Console + rolling File). Public seam is `ILogger<T>` — never depend on Serilog types in your app code.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Logging
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Logging
 ```
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Observability.Logging.Services;
+using WoW.Two.Sdk.Beta.Be.Observability.Logging.Services;
 
 await new StartupFailureReportingService().RunAsync(async cancellationToken =>
 {

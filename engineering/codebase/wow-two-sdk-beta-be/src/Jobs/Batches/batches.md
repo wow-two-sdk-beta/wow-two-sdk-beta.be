@@ -23,5 +23,5 @@ public sealed class ScanBatchHandler(AppDbContext db) : IBatchHandler<ScanRecord
 - Producers never block: a full or stopping pipeline drops the item, counts it and logs at powers of two.
 - Each batch runs in its own DI scope; a thrown exception fails that batch only, and the loop continues.
 - Shutdown refuses new items, drains until the host's shutdown budget expires, then counts the rest as failed.
-- Metrics (`WoW.Two.Sdk.Backend.Beta.Jobs.Batches`): `batch.items.dropped`, `.processed`, `.failed`, tagged `pipeline`.
+- Metrics (`WoW.Two.Sdk.Beta.Be.Jobs.Batches`): `batch.items.dropped`, `.processed`, `.failed`, tagged `pipeline`.
 - Delivery is best-effort: a crash loses accepted items. Durable work belongs in the outbox or a job store.

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.OutputCache
+# WoW.Two.Sdk.Beta.Be.Web.OutputCache
 
 > `Microsoft.AspNetCore.OutputCaching` wiring with a default 60s policy.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.OutputCache
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.OutputCache
 ```
 
 ## Usage

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.Prometheus
+# WoW.Two.Sdk.Beta.Be.Observability.Prometheus
 
 > Prometheus scrape exporter for OTel metrics.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Prometheus
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Prometheus
 ```
 
 ## Usage

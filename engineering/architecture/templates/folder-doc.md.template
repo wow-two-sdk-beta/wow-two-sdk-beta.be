@@ -1,17 +1,17 @@
-# WoW.Two.Sdk.Backend.Beta.{AreaPath}
+# WoW.Two.Sdk.Beta.Be.{AreaPath}
 
 > {Description}
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.{AreaPath}
+dotnet add package WoW.Two.Sdk.Beta.Be.{AreaPath}
 ```
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.{AreaPath};
+using WoW.Two.Sdk.Beta.Be.{AreaPath};
 
 builder.Services.Add{ModuleName}();
 ```

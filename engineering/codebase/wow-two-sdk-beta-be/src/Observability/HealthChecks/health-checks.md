@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks
+# WoW.Two.Sdk.Beta.Be.Observability.HealthChecks
 
 > `Microsoft.Extensions.Diagnostics.HealthChecks` + Xabaril provider checks pre-installed (SqlServer, Postgres, MySql, Redis, RabbitMQ, Kafka, Mongo, Elasticsearch, Network, Uris, AzureServiceBus, AzureStorage, AwsS3, AwsSqs).
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.HealthChecks
 ```
 
 ## Usage

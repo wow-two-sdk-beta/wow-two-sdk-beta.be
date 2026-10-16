@@ -1,10 +1,10 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.MultiHost
+# WoW.Two.Sdk.Beta.Be.Testing.MultiHost
 
 > Boot **several in-process web hosts over one set of shared backing services** in a single
 > integration-test fixture — e.g. a management API + a redirect API sharing one Postgres container.
 > Single-host tests stay on `WebApiTestBase<T>`; reach for this only for "two services, one database".
 
-Part of the `WoW.Two.Sdk.Backend.Beta.Testing` package — no extra install.
+Part of the `WoW.Two.Sdk.Beta.Be.Testing` package — no extra install.
 
 ## What `MultiHostFixture` orchestrates
 
@@ -47,8 +47,8 @@ extern alias redirecthost;
 
 using ApiProgram      = apihost::Program;
 using RedirectProgram = redirecthost::Program;
-using WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres;
-using WoW.Two.Sdk.Backend.Beta.Testing.MultiHost;
+using WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres;
+using WoW.Two.Sdk.Beta.Be.Testing.MultiHost;
 
 public sealed class AppFixture : MultiHostFixture
 {

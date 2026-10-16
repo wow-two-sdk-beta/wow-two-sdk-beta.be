@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders
+# WoW.Two.Sdk.Beta.Be.Web.SecureHeaders
 
 > OWASP-flavored secure-headers middleware. Wraps `NetEscapades.AspNetCore.SecurityHeaders` with API-shaped defaults.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.SecureHeaders
 ```
 
 ## Usage

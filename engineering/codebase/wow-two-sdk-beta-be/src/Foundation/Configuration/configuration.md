@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Foundation.Configuration
+# WoW.Two.Sdk.Beta.Be.Foundation.Configuration
 
 > Env-var-overlay settings loader — binds an appsettings section (named after the settings type), then overlays `[EnvironmentVariable]`-marked properties from environment variables. Empty env vars are treated as absent; required properties throw when still unset.
 

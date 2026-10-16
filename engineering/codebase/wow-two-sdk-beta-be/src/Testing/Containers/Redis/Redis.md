@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.Redis
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.Redis
 
 > Redis Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.Redis
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.Redis
 ```
 
 ## Usage

@@ -4,12 +4,12 @@
 
 > **Concrete API + usage.** Updated when public surface changes.
 
-NuGet: `WoW.Two.Sdk.Backend.Beta` (mono-lib) · namespace `WoW.Two.Sdk.Backend.Beta.Identity.Claims`.
+NuGet: `WoW.Two.Sdk.Beta.Be` (mono-lib) · namespace `WoW.Two.Sdk.Beta.Be.Identity.Claims`.
 
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Identity.Claims;
+using WoW.Two.Sdk.Beta.Be.Identity.Claims;
 
 builder.Services.AddClaimNormalization();                              // opt-in, after OAuth + cookie registration
 builder.Services.AddClaimNormalization(o => o.AddProvider("Acme", acmeProfile));   // or configure

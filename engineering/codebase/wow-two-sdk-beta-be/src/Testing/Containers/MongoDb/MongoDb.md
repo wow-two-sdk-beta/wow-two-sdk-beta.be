@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.MongoDb
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb
 
 > MongoDB Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.MongoDb
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb
 ```
 
 ## Usage

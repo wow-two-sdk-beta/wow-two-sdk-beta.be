@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.RabbitMq
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.RabbitMq
 
 > RabbitMQ Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.RabbitMq
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.RabbitMq
 ```
 
 ## Usage

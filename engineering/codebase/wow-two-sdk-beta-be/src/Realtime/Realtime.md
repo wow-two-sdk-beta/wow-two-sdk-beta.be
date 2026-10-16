@@ -2,7 +2,7 @@
 
 *Server-push over three transports: SignalR (bidirectional RPC + presence), SSE (one-way streaming — the LLM-token sweet spot), and raw WebSockets.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Realtime`. All three transports ship in the ASP.NET Core shared framework; only the SignalR **Redis backplane** pulls one add-on package.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Realtime`. All three transports ship in the ASP.NET Core shared framework; only the SignalR **Redis backplane** pulls one add-on package.
 
 ## Pick a transport
 

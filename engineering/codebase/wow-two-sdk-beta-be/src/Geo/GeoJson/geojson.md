@@ -3,7 +3,7 @@
 *RFC 7946 GeoJSON read/write — Point, LineString, Polygon, Feature, FeatureCollection.*
 
 `IGeoJsonSerializer` and `GeoJsonSerializer` live in `Serializers/`, namespace
-`WoW.Two.Sdk.Backend.Beta.Geo.GeoJson.Serializers`.
+`WoW.Two.Sdk.Beta.Be.Geo.GeoJson.Serializers`.
 
 | Type | Role |
 |---|---|
@@ -13,8 +13,8 @@
 | `GeoJsonSerializer` | `Serialize(...)` / `ParseGeometry` / `ParseFeature` / `ParseFeatureCollection` |
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Geo.GeoJson;
-using WoW.Two.Sdk.Backend.Beta.Geo.GeoJson.Serializers;
+using WoW.Two.Sdk.Beta.Be.Geo.GeoJson;
+using WoW.Two.Sdk.Beta.Be.Geo.GeoJson.Serializers;
 
 IGeoJsonSerializer serializer = new GeoJsonSerializer();
 var pt = new GeoJsonPoint { Position = GeoPosition.FromCoordinate(coord) };

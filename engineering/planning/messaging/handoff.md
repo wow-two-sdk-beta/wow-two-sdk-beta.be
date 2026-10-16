@@ -3,18 +3,18 @@
 *Last updated: 2026-07-19*
 
 > Source of truth for *what to build*: [`events-maturity-backlog.md`](../../research/messaging/events-maturity-backlog.md). This file = timeline + next batch.
-> Repo: `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta`. Memory: `project_messaging_layer`.
+> Repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.be`. Memory: `project_messaging_layer`.
 
 ## Restart prompt
 
-> "continue the backend-beta events layer — read `engineering/planning/messaging/handoff.md`; run BATCH N."
+> "continue the be sdk events layer — read `engineering/planning/messaging/handoff.md`; run BATCH N."
 
 ## Build & test
 
 ```bash
 cd src; export MSBUILDDISABLENODEREUSE=1; ulimit -n 65535
-dotnet build WoW.Two.Sdk.Backend.Beta.csproj -m:1                                    # 0 errors; 41 NuGet-advisory warns
-dotnet test Messaging.Tests/WoW.Two.Sdk.Backend.Beta.Messaging.Tests.csproj -m:1     # Docker. 96 pass / 1 skip (Redis + Rabbit + Kafka + NATS + PG containers)
+dotnet build WoW.Two.Sdk.Beta.Be.csproj -m:1                                    # 0 errors; 41 NuGet-advisory warns
+dotnet test Messaging.Tests/WoW.Two.Sdk.Beta.Be.Messaging.Tests.csproj -m:1     # Docker. 96 pass / 1 skip (Redis + Rabbit + Kafka + NATS + PG containers)
 ```
 
 - warnings-as-errors: CS1591 (XML doc every **public** member) · IDE0005 (no unused usings) · CA2263 (AwesomeAssertions generic `Be<T>()`)

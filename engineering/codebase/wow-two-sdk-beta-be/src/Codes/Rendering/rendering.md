@@ -24,7 +24,7 @@ IQrMatrixGenerator (QRCoder, quiet-zone stripped)
 
 SkiaSharp needs its native lib **and** fontconfig on Linux:
 
-1. `SkiaSharp.NativeAssets.Linux` — referenced by the mono-lib (`WoW.Two.Sdk.Backend.Beta.csproj`, Codes ItemGroup; ships `libSkiaSharp.so` for linux-x64/arm64/musl into any Linux publish). Pinned to the SkiaSharp version `Svg.Skia` drags in (3.119.2).
+1. `SkiaSharp.NativeAssets.Linux` — referenced by the mono-lib (`WoW.Two.Sdk.Beta.Be.csproj`, Codes ItemGroup; ships `libSkiaSharp.so` for linux-x64/arm64/musl into any Linux publish). Pinned to the SkiaSharp version `Svg.Skia` drags in (3.119.2).
 2. **`libfontconfig1`** — NOT in the `mcr.microsoft.com/dotnet/aspnet` base image. Without it, `SKImageInfo`'s static ctor throws on first raster (`sk_colortype_get_default_8888`). The image **must** install it:
 
 ```dockerfile

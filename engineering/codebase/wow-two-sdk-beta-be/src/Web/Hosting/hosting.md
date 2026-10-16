@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.Hosting
+# WoW.Two.Sdk.Beta.Be.Web.Hosting
 
 > ASP.NET Core hosting plumbing — forwarded headers + request decompression with sane defaults.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.Hosting
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.Hosting
 ```
 
 ## Usage

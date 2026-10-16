@@ -6,12 +6,12 @@
 
 ## Package
 
-`WoW2.Sdk.Backend.Beta`
+`WoW2.Sdk.Beta.Be`
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+using WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 
 builder.Services.AddHttpProblemDetails();
 builder.Services.AddControllers();

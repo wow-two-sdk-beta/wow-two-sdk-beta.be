@@ -1,6 +1,6 @@
-# Backend Beta SDK — Backlog
+# be sdk — Backlog
 
-*Last updated: 2026-10-05*
+*Last updated: 2026-10-16*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).

@@ -4,12 +4,12 @@
 
 > **Concrete API + usage.** Updated when public surface changes.
 
-NuGet: `WoW.Two.Sdk.Backend.Beta` (mono-lib) · namespace `WoW.Two.Sdk.Backend.Beta.Foundation.Security`.
+NuGet: `WoW.Two.Sdk.Beta.Be` (mono-lib) · namespace `WoW.Two.Sdk.Beta.Be.Foundation.Security`.
 
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Foundation.Security;
+using WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
 builder.Services.AddEnvelopeCryptography();                                   // env-var key source (MASTER_KEY)
 builder.Services.AddEnvelopeCryptography(o => o.MasterKeyEnvironmentVariable = "APP_MASTER_KEY");

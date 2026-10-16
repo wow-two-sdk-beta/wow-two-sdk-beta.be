@@ -2,9 +2,9 @@
 
 *Last updated: 2026-09-29*
 
-> **Planning spec.** Absorb the per-product mediator wrapper (`*.Common/Mediator`, currently in haven + smart-qr) into the backend beta SDK so products consume the SDK mediator's CQRS layer + standard result, and delete their copy. Pairs with the `ApplicationResult → AppResult` rename.
+> **Planning spec.** Absorb the per-product mediator wrapper (`*.Common/Mediator`, currently in haven + smart-qr) into the be sdk so products consume the SDK mediator's CQRS layer + standard result, and delete their copy. Pairs with the `ApplicationResult → AppResult` rename.
 >
-> Source of truth for behavior the wrappers add: `conventions/development/backend/messaging/mediator.md` + `conventions/development/backend/foundation/result-pattern.md`. SDK code lives in `src/Mediator/`; ships in the `WoW.Two.Sdk.Backend.Beta` mono-lib.
+> Source of truth for behavior the wrappers add: `conventions/development/backend/messaging/mediator.md` + `conventions/development/backend/foundation/result-pattern.md`. SDK code lives in `src/Mediator/`; ships in the `WoW.Two.Sdk.Beta.Be` mono-lib.
 
 ## Problem
 
@@ -63,7 +63,7 @@ Constraints: `where TSuccess : ISuccessResult, where TFailure : IFailureResult`.
 | Impl | `sealed Mediator(IServiceProvider) : IMediator` (`Mediator.cs`) | cached per-type dispatcher delegate; behaviors wrap handler |
 | Void | `readonly record struct Unit` (`Value`, `Task`) | mirrors MediatR `Unit` |
 | Registration | `AddMediator()` / `AddMediator(params Assembly[])`, `AddMediatorBehavior(typeof(B<,>))` | scans `IRequestHandler<,>` + `INotificationHandler<>` as `Transient`; `IMediator`/`ISender`/`IPublisher` via `TryAdd` |
-| Behaviors (built-in) | `LoggingBehavior<,>`, `ValidationBehavior<,>` (uses SDK `IValidator<T>` @ `WoW.Two.Sdk.Backend.Beta.Validation`), `AuthorizationBehavior<,>` (`IRequireAuthorization`), `IdempotencyBehavior<,>` (`IIdempotent`) | each with an `AddMediator{X}Behavior()` extension; registration order = execution order |
+| Behaviors (built-in) | `LoggingBehavior<,>`, `ValidationBehavior<,>` (uses SDK `IValidator<T>` @ `WoW.Two.Sdk.Beta.Be.Validation`), `AuthorizationBehavior<,>` (`IRequireAuthorization`), `IdempotencyBehavior<,>` (`IIdempotent`) | each with an `AddMediator{X}Behavior()` extension; registration order = execution order |
 | Docs | `Mediator.spec.md`, `Mediator.standard.md`, `mediator.md` | + per-behavior `*.md` |
 
 So the SDK is strictly **richer** at the primitive layer than the wrapper (the products run MediatR with **no** behaviors; the SDK ships 4) — but it is **missing the CQRS-flavored facade and the result union** the products depend on.
@@ -175,17 +175,17 @@ public static TOut Match<TSuccess, TFailure, TOut>(
 
 1. **`SendAsync` vs `Send`** — recommend `SendAsync` extension methods (above) to minimize product churn. Decide before migrating products.
 2. **CQRS markers vs plain `IRequest`** — `mediator.md` currently prefers plain `IRequest` + name/folder convention; products use explicit `IQuery`/`ICommand`. Absorption ships the explicit markers; update `mediator.md` to match (or consciously keep both and document when to use which).
-3. **`AppResult` lands in the mediator package, or a sibling `Result` slice?** Today it sits *inside* `Common/Mediator` and `result-pattern.md` says it "lives in each product's `Common/Mediator/`". Recommend `src/Mediator/Result/` (one slice, one import) so a single `using WoW.Two.Sdk.Backend.Beta.Mediator` brings both. If a non-mediator consumer ever needs `AppResult`, promote to `Foundation` later.
+3. **`AppResult` lands in the mediator package, or a sibling `Result` slice?** Today it sits *inside* `Common/Mediator` and `result-pattern.md` says it "lives in each product's `Common/Mediator/`". Recommend `src/Mediator/Result/` (one slice, one import) so a single `using WoW.Two.Sdk.Beta.Be.Mediator` brings both. If a non-mediator consumer ever needs `AppResult`, promote to `Foundation` later.
 4. **`.Match` placement** — extension vs instance method (above).
 
 ## Target end-state
 
 Per product (haven, smart-qr, and every future product the `create-repo` template stamps):
 
-1. **Reference the SDK** — add `WoW.Two.Sdk.Backend.Beta` package ref (already present where the SDK is consumed; otherwise add).
+1. **Reference the SDK** — add `WoW.Two.Sdk.Beta.Be` package ref (already present where the SDK is consumed; otherwise add).
 2. **Delete `{Product}.Common/Mediator/`** — all 13 files (both Group A and Group B) removed; **MediatR package reference dropped** from the product (it now lives nowhere — the SDK mediator is MIT and MediatR-free).
 3. **Swap registration** — `AddHavenMediator(asm)` / `AddSmartQrMediator(asm)` → `AddMediator(asm)`. Optionally chain `AddMediatorLoggingBehavior()` / `AddMediatorValidationBehavior()` (free upgrade — products currently run **no** behaviors).
-4. **Swap namespaces** — `using Haven.Common.Mediator;` / `using SmartQr.Common.Mediator;` → `using WoW.Two.Sdk.Backend.Beta.Mediator;` across every file that referenced `IQuery`/`ICommand`/`IQueryHandler`/`ICommandHandler`/`IMediator`/`ApplicationResult`/the markers.
+4. **Swap namespaces** — `using Haven.Common.Mediator;` / `using SmartQr.Common.Mediator;` → `using WoW.Two.Sdk.Beta.Be.Mediator;` across every file that referenced `IQuery`/`ICommand`/`IQueryHandler`/`ICommandHandler`/`IMediator`/`ApplicationResult`/the markers.
 5. **Rename `ApplicationResult` → `AppResult`** — folds in here (same edit that swaps the namespace). Renames the carrier symbol only; markers (`ISuccessResult`/`IFailureResult`/`IApplicationSuccessContext`/`IApplicationFailureContext`) keep their names.
 6. **Adopt `.Match`** — rewrite the interim controller consume (haven `switch` in `ExternalListingContentExtractionController`; smart-qr `is`-pattern in `CodesController`) to `result.Match(onSuccess, onFailure)`.
 

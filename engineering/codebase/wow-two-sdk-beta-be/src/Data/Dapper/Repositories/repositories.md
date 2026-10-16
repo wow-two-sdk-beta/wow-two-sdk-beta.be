@@ -2,7 +2,7 @@
 
 > Thin generic CRUD repository on the Dapper hot path. Same `Create / Update / Delete / Get` vocabulary as the EF repo — SQL generated from `IHasTableName` + `SqlNamingMapper` + reflected properties.
 
-Namespace: `WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories`
+Namespace: `WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories`
 Contracts: `IRepository<TEntity, TId>` / `IReadRepository<TEntity, TId>` (same as EF — interchangeable at the call site).
 
 ## Requirements

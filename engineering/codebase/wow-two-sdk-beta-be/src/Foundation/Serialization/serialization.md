@@ -1,18 +1,18 @@
-# WoW.Two.Sdk.Backend.Beta.Foundation.Serialization
+# WoW.Two.Sdk.Beta.Be.Foundation.Serialization
 
 > Pre-built `JsonSerializerOptions` for the HTTP wire contract and independent stored documents.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Serialization
+dotnet add package WoW.Two.Sdk.Beta.Be.Serialization
 ```
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Foundation.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Web.Json;
+using WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
+using WoW.Two.Sdk.Beta.Be.Web.Json;
 
 builder.Services.AddControllersWithSdkJson();
 

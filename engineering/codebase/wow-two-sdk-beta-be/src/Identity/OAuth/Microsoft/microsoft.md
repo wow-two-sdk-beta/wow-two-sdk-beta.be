@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Microsoft
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.Microsoft
 
 > Microsoft Account / Entra ID OAuth provider via built-in `Microsoft.AspNetCore.Authentication.MicrosoftAccount`. Scheme `Microsoft`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Microsoft
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.Microsoft
 ```
 
 ## Usage

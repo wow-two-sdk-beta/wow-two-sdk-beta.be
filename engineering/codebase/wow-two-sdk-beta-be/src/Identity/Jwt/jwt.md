@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.Jwt
+# WoW.Two.Sdk.Beta.Be.Identity.Jwt
 
 > JWT bearer authentication with issuer, audience, lifetime, algorithm and one verification-key source enforced.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Jwt
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Jwt
 ```
 
 ## Usage

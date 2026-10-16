@@ -1,6 +1,6 @@
-# WoW.Two.Sdk.Backend.Beta.Foundation.Errors
+# WoW.Two.Sdk.Beta.Be.Foundation.Errors
 
-> The transport-agnostic failure model: `AppError` (value) + `AppErrorType` (kind) + `AppException` (throw form), the `AppErrorFactory` catalog, descriptive `ErrorNature`, and the extensible exception→`AppError` mapping seam. Consumed by results, the mediator behaviors, and the ProblemDetails handlers. Part of the core mono-lib (`WoW2.Sdk.Backend.Beta`) — no separate package.
+> The transport-agnostic failure model: `AppError` (value) + `AppErrorType` (kind) + `AppException` (throw form), the `AppErrorFactory` catalog, descriptive `ErrorNature`, and the extensible exception→`AppError` mapping seam. Consumed by results, the mediator behaviors, and the ProblemDetails handlers. Part of the core mono-lib (`WoW2.Sdk.Beta.Be`) — no separate package.
 
 ## Model
 

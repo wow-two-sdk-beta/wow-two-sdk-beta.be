@@ -2,7 +2,7 @@
 
 > SDK-conventional Npgsql wiring: `UseNpgsqlConventional` (retry + timeout), `AddNpgsqlDataSource` (shared data source for EF + Dapper), `ApplyNpgsqlConventions` (xmin concurrency), and **`MapEnums`** (bulk enum registration via the casing engine).
 
-Namespace: `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres`
+Namespace: `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres`
 
 ## Bulk enum mapping — `MapEnums`
 

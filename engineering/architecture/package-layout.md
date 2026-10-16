@@ -1,6 +1,6 @@
 # Package layout
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-16*
 
 > SDK-internal architecture — the repo/package shape, layering rule, package-id grammar, and the three-layer doc strategy for this mono-lib.
 > Code-style conventions (naming, documentation) are **centralized** in `wow-two-ws/conventions/` and apply to this repo too; only layout/registry live here.
@@ -8,7 +8,7 @@
 ## Repo structure
 
 ```
-wow-two-sdk.backend.beta/
+wow-two-sdk-beta.be/
 ├── README.md · CLAUDE.md · .github/workflows/   ← entry docs + CI (root-pinned)
 └── engineering/
     ├── engineering.md
@@ -33,21 +33,21 @@ Paths below are code-dir-relative; `src/` moved here verbatim, so every MSBuild 
 
 ```
 src/
-├── WoW.Two.Sdk.Backend.Beta.slnx      ← solution at src/ root (.slnx — canonical)
-├── WoW.Two.Sdk.Backend.Beta.csproj    ← core lib (globs every shipping folder)
+├── WoW.Two.Sdk.Beta.Be.slnx           ← solution at src/ root (.slnx — canonical)
+├── WoW.Two.Sdk.Beta.Be.csproj         ← core lib (globs every shipping folder)
 ├── Directory.Build.props              ← shared MSBuild properties
 ├── Directory.Packages.props           ← centralized package versions
 ├── .editorconfig                      ← rules for entire src/
 │
 ├── Meta/
-│   └── WoW.Two.Sdk.Backend.Beta/      ← meta-package — refs curated set
+│   └── WoW.Two.Sdk.Beta.Be/           ← meta-package — refs curated set
 │
 ├── Foundation/                        ← P1 — leaf-level deps
-│   ├── Time/         → WoW.Two.Sdk.Backend.Beta.Foundation.Time
-│   ├── Errors/       → WoW.Two.Sdk.Backend.Beta.Foundation.Errors
-│   ├── Results/      → WoW.Two.Sdk.Backend.Beta.Foundation.Results
-│   ├── Validation/   → WoW.Two.Sdk.Backend.Beta.Foundation.Validation
-│   └── Serialization/ → WoW.Two.Sdk.Backend.Beta.Foundation.Serialization
+│   ├── Time/         → WoW.Two.Sdk.Beta.Be.Foundation.Time
+│   ├── Errors/       → WoW.Two.Sdk.Beta.Be.Foundation.Errors
+│   ├── Results/      → WoW.Two.Sdk.Beta.Be.Foundation.Results
+│   ├── Validation/   → WoW.Two.Sdk.Beta.Be.Foundation.Validation
+│   └── Serialization/ → WoW.Two.Sdk.Beta.Be.Foundation.Serialization
 │
 ├── Observability/                     ← P1
 │   ├── Logging/
@@ -95,7 +95,7 @@ apps/                                  ← (planned) sandbox sibling of src/
 
 ```
 src/<area>/<package>/
-├── WoW.Two.Sdk.Backend.Beta.<Domain>.csproj
+├── WoW.Two.Sdk.Beta.Be.<Domain>.csproj
 ├── <Module>Module.cs                      ← `Add<Module>` IServiceCollection extension
 ├── <Public types>.cs                      ← API surface
 ├── Internal/                              ← anything `internal class`
@@ -112,12 +112,12 @@ src/<area>/<package>/
 
 The package-id / folder / namespace shape is SDK-architecture and lives here. **Symbol-level naming** (extension-class / registration-method / options / predicates / data-verbs / acronyms / banned symbols) is centralized in `wow-two-ws/conventions/development/backend/code-style/naming.md` and applies to this repo.
 
-- **NuGet package id**: `WoW2.Sdk.Backend.Beta[.<Role>]` — the seven IDs are listed in the [package registry](package-registry.md#published-package-family)
+- **NuGet package id**: `WoW2.Sdk.Beta.Be[.<Role>]` — the seven IDs are listed in the [package registry](package-registry.md#published-package-family)
 - **Folder name**: `PascalCase`, matching the package-id / namespace segment 1:1 (`Time/`, `OutputCache/`, `FeatureFlags/`). Provider leaves nest under their concept parent — `Comms/Email/MailKit/` → `…Comms.Email.MailKit`, not a flat `Comms/EmailMailKit/`
-- **Namespace**: follows the folder tree under `WoW.Two.Sdk.Backend.Beta`, file-scoped (`namespace WoW.Two.Sdk.Backend.Beta.Time;`)
+- **Namespace**: follows the folder tree under `WoW.Two.Sdk.Beta.Be`, file-scoped (`namespace WoW.Two.Sdk.Beta.Be.Time;`)
 - **Linux CI is case-sensitive** — build-file path globs (`DefaultItemExcludes`, `.slnx` paths, workflow `dotnet pack` paths) must match the on-disk PascalCase exactly; a lowercased path silently no-ops on `ubuntu-latest`
 
-Examples: `WoW.Two.Sdk.Backend.Beta` (meta) · `…Beta.Caching.Redis` · `…Beta.Identity.OAuth.Google` · `…Beta.Testing.Containers.Postgres`.
+Examples: `WoW.Two.Sdk.Beta.Be` (meta) · `…Be.Caching.Redis` · `…Be.Identity.OAuth.Google` · `…Be.Testing.Containers.Postgres`.
 
 ## Layering rule
 
@@ -129,7 +129,7 @@ This mirrors the UI lib's foundation/domain rule. Future: enforce via custom Ros
 
 ## Per-package file conventions
 
-- Use **file-scoped namespaces** (`namespace WoW.Two.Sdk.Backend.Beta.Time;`)
+- Use **file-scoped namespaces** (`namespace WoW.Two.Sdk.Beta.Be.Time;`)
 - Use **C# 13+** features freely (primary constructors, collection expressions, partial properties)
 - **Nullable enabled** + warnings as errors for nullability
 - **`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`** on every csproj
@@ -138,7 +138,7 @@ This mirrors the UI lib's foundation/domain rule. Future: enforce via custom Ros
 
 ## Solution organization
 
-Single `WoW.Two.Sdk.Backend.Beta.slnx` at `src/` root, split into `Libraries` and `Tests` solution folders.
+Single `WoW.Two.Sdk.Beta.Be.slnx` at `src/` root, split into `Libraries` and `Tests` solution folders.
 
 ## Versioning
 

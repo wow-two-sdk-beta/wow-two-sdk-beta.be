@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Facebook
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.Facebook
 
 > Facebook OAuth provider via built-in `Microsoft.AspNetCore.Authentication.Facebook`. Scheme `Facebook`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Facebook
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.Facebook
 ```
 
 ## Usage

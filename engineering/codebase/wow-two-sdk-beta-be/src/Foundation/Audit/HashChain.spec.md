@@ -4,13 +4,13 @@
 
 > **Concrete API + usage.** Updated when public surface changes.
 
-NuGet: `WoW.Two.Sdk.Backend.Beta` (mono-lib) · namespace `WoW.Two.Sdk.Backend.Beta.Foundation.Audit`.
+NuGet: `WoW.Two.Sdk.Beta.Be` (mono-lib) · namespace `WoW.Two.Sdk.Beta.Be.Foundation.Audit`.
 
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit;
-using WoW.Two.Sdk.Backend.Beta.Foundation.Audit.Validators;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit;
+using WoW.Two.Sdk.Beta.Be.Foundation.Audit.Validators;
 
 builder.Services.AddHashChain<AuditEntry, AuditEntryCanonicalizer>();
 

@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Data.Migrations
+# WoW.Two.Sdk.Beta.Be.Data.Migrations
 
 *Last updated: 2026-10-15*
 

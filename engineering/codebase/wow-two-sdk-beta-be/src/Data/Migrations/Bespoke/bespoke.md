@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke
+# WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke
 
 > Bespoke, host-agnostic SQL migrator — raw `.sql` pairs, normalized-checksum tracking, PostgreSQL and SQLite dialects. Roll-forward in prod, rollback in dev/test only.
 
@@ -76,7 +76,7 @@ wow-migrate apply --dry-run --connection "$DB" --sql-dir ./Migrations   # 0 pass
 > The engine was **built greenfield in `smart-qr`** and proven against the real product (see §0.0), then **extracted here** (see §6 — a *build-then-extract*, not a file move). The one real code change at extraction was the connection seam (below). This doc is **updated each iteration** as the engine, CLI, and conventions firm up.
 > Sits beside the existing `Ef/` and `DbUp/` runners (both shipped as folders in the mono-lib) as the third — and intended default — strategy. The strategy index that routes Ef vs DbUp vs Sql is `../migrations.md`.
 
-> **Extraction landed (2026-06-13).** 22 engine files copied into `src/Data/Migrations/Bespoke/`; namespace rewritten `SmartQr.Common.Persistence.Migrations` → `WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke`. **Connection seam re-pointed** to the SDK's `IDbConnectionFactory` (`src/Data/Dapper/IDbConnectionFactory.cs`, `CreateOpenAsync` → `ValueTask<DbConnection>`, `Create` → `DbConnection`): the injected factory is now `IDbConnectionFactory`, and connection/transaction params across `MigrationRunnerService`, `IMigrationHistoryRepository`/`MigrationHistoryRepository`, and `IMigrationDialect`/`PostgresMigrationDialect` are now BCL `System.Data.Common.DbConnection` / `DbTransaction`. **No `DbConnection → NpgsqlConnection` downcast was required** — every connection call is Dapper (`ExecuteAsync`/`QueryAsync`) or BCL `DbConnection.BeginTransactionAsync`, all of which work over `DbConnection`. The single **genuinely Npgsql-typed site** is `PostgresMigrationDialect.EnsureDatabaseExistsAsync`, which constructs its **own** `NpgsqlConnection`/`NpgsqlCommand`/`NpgsqlConnectionStringBuilder` from a connection string (the maintenance-DB `CREATE DATABASE` step) — that is the documented provider-leak point (§2.1.1), self-contained and untouched. Real shipped type names: `IMigrationRunnerService`/`MigrationRunnerService`, `IMigrationHistoryRepository`/`MigrationHistoryRepository`, `IMigrationScanner`/`MigrationScannerService`, `IMigrationSource` (+ `FileSystemMigrationSource`, `EmbeddedResourceMigrationSource`), `IMigrationDialect`/`PostgresMigrationDialect`, `MigrationDescriptor`, `MigrationHistoryEntry`, `MigrationStatus`, `MigrationOptions`, `DatabaseProvider`, `RawMigration`, `MigrationDriftException`, `MigrationOrphanException`, `MigrationChecksumHasher`, `MigrationConstants`, and the `AddDatabaseBespokeMigrations` registration (`MigrationServiceCollectionExtensions`). **Not yet here:** the CLI host, the `IHostedService` adapter, and the `…Data.Abstractions` BCL split (§0.1) — the engine currently rides the mono-lib's transitive `Npgsql` (via the EF provider) + `Dapper`, and web-freedom is not yet enforced. Three SDK-only analyzer fixes were applied during extraction (the SDK runs `TreatWarningsAsErrors`, smart-qr did not): CA1859 on `EmbeddedResourceMigrationSource.GetRollbackOrThrow` (param `IReadOnlyDictionary` → `Dictionary`) and on `CreateDialect` (return `IMigrationDialect` → concrete `PostgresMigrationDialect`, registered as `services.AddSingleton<IMigrationDialect>(…)`), and CA1310 on `MigrationScannerService` (`StartsWith("--")` → `StartsWith("--", StringComparison.Ordinal)`).
+> **Extraction landed (2026-06-13).** 22 engine files copied into `src/Data/Migrations/Bespoke/`; namespace rewritten `SmartQr.Common.Persistence.Migrations` → `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke`. **Connection seam re-pointed** to the SDK's `IDbConnectionFactory` (`src/Data/Dapper/IDbConnectionFactory.cs`, `CreateOpenAsync` → `ValueTask<DbConnection>`, `Create` → `DbConnection`): the injected factory is now `IDbConnectionFactory`, and connection/transaction params across `MigrationRunnerService`, `IMigrationHistoryRepository`/`MigrationHistoryRepository`, and `IMigrationDialect`/`PostgresMigrationDialect` are now BCL `System.Data.Common.DbConnection` / `DbTransaction`. **No `DbConnection → NpgsqlConnection` downcast was required** — every connection call is Dapper (`ExecuteAsync`/`QueryAsync`) or BCL `DbConnection.BeginTransactionAsync`, all of which work over `DbConnection`. The single **genuinely Npgsql-typed site** is `PostgresMigrationDialect.EnsureDatabaseExistsAsync`, which constructs its **own** `NpgsqlConnection`/`NpgsqlCommand`/`NpgsqlConnectionStringBuilder` from a connection string (the maintenance-DB `CREATE DATABASE` step) — that is the documented provider-leak point (§2.1.1), self-contained and untouched. Real shipped type names: `IMigrationRunnerService`/`MigrationRunnerService`, `IMigrationHistoryRepository`/`MigrationHistoryRepository`, `IMigrationScanner`/`MigrationScannerService`, `IMigrationSource` (+ `FileSystemMigrationSource`, `EmbeddedResourceMigrationSource`), `IMigrationDialect`/`PostgresMigrationDialect`, `MigrationDescriptor`, `MigrationHistoryEntry`, `MigrationStatus`, `MigrationOptions`, `DatabaseProvider`, `RawMigration`, `MigrationDriftException`, `MigrationOrphanException`, `MigrationChecksumHasher`, `MigrationConstants`, and the `AddDatabaseBespokeMigrations` registration (`MigrationServiceCollectionExtensions`). **Not yet here:** the CLI host, the `IHostedService` adapter, and the `…Data.Abstractions` BCL split (§0.1) — the engine currently rides the mono-lib's transitive `Npgsql` (via the EF provider) + `Dapper`, and web-freedom is not yet enforced. Three SDK-only analyzer fixes were applied during extraction (the SDK runs `TreatWarningsAsErrors`, smart-qr did not): CA1859 on `EmbeddedResourceMigrationSource.GetRollbackOrThrow` (param `IReadOnlyDictionary` → `Dictionary`) and on `CreateDialect` (return `IMigrationDialect` → concrete `PostgresMigrationDialect`, registered as `services.AddSingleton<IMigrationDialect>(…)`), and CA1310 on `MigrationScannerService` (`StartsWith("--")` → `StartsWith("--", StringComparison.Ordinal)`).
 
 > **SQLite dialect + web-freedom arch test landed (2026-06-18).** A second `IMigrationDialect` — `SqliteMigrationDialect` — ships beside `PostgresMigrationDialect` (`DatabaseProvider.Sqlite` + the `CreateDialect` switch, which now returns the interface). It maps the Postgres-isms: no advisory lock → `PRAGMA busy_timeout` + the `ordinal` PK backstop (**weaker than PG's whole-loop lock** — a racing 2nd writer may fault but the DB ends consistent; fine for single-process startup-migrate); file-create-on-open for `EnsureDatabaseExistsAsync`; affinity-typed (`INTEGER`/`TEXT`) `migration_history` DDL; and a Dapper `DateTimeOffset`↔TEXT handler (SQLite stores it as TEXT, which Dapper won't convert natively). The one engine change this forced is `IMigrationDialect.QualifyHistoryTable(schema, table)` — `MigrationHistoryRepository` no longer hardcodes PG `"schema"."table"` (the lone cross-provider leak). A turnkey `SqliteConnectionFactory` + `AddSqliteConnectionFactory` is the SQLite connection seam (SQLite has no `DbDataSource`, so `AddDataSourceConnectionFactory` doesn't apply). Verification: a new SDK test project `src/Migrations.Tests/` — **14 green, SQLite temp-file, no Docker** — ports the smart-qr scenario set (apply / drift+repair / orphan / @no-transaction / concurrency / failure-mid-batch / rollback) + dialect-direct tests, AND the **§6-step-4 web-freedom NetArchTest** (`Architecture/EngineWebFreedomTests.cs` — asserts the engine namespace imports no `Microsoft.AspNetCore.*` / `MediatR` / `Microsoft.Extensions.Hosting` / `System.CommandLine`; passes). `Microsoft.Data.Sqlite` + `NetArchTest.Rules` added to CPM; the `wow-migrate` CLI link-compiles the dialect (added `Microsoft.Data.Sqlite`, verified still web-free). All three apps (smart-qr · secrets-vault · wheelhouse) have now adopted + verified green on **Postgres** — so the engine is **STABLE** (2026-06-18). The apps use the Postgres dialect; the SQLite dialect above ships as a **bonus capability, currently unused by the three apps**.
 
@@ -133,11 +133,11 @@ First iteration shipped in `smart-qr-poc` — engine in `SmartQr.Common.Persiste
 
 > **This blocks the whole host-agnostic story. Resolve it first.**
 
-`IDbConnectionFactory` / `DataSourceConnectionFactory` currently live in `src/Data/Dapper/` **inside the mono-lib** (`src/WoW.Two.Sdk.Backend.Beta.csproj`), which carries `<FrameworkReference Include="Microsoft.AspNetCore.App"/>` (verified at `src/WoW.Two.Sdk.Backend.Beta.csproj:32`) plus Hangfire.AspNetCore, OAuth, OpenTelemetry.AspNetCore. There is **no standalone `…Data.Dapper` package** — it is a folder. Any reference to obtain `IDbConnectionFactory` therefore drags the entire ASP.NET-bearing mono-lib transitively.
+`IDbConnectionFactory` / `DataSourceConnectionFactory` currently live in `src/Data/Dapper/` **inside the mono-lib** (`src/WoW.Two.Sdk.Beta.Be.csproj`), which carries `<FrameworkReference Include="Microsoft.AspNetCore.App"/>` (verified at `src/WoW.Two.Sdk.Beta.Be.csproj:32`) plus Hangfire.AspNetCore, OAuth, OpenTelemetry.AspNetCore. There is **no standalone `…Data.Dapper` package** — it is a folder. Any reference to obtain `IDbConnectionFactory` therefore drags the entire ASP.NET-bearing mono-lib transitively.
 
 A `dotnet tool` CLI that pulled the mono-lib would ship the whole ASP.NET surface — defeating the point. So:
 
-1. Create a tiny **BCL-only** package/csproj `WoW.Two.Sdk.Backend.Beta.Data.Abstractions` (outside the mono-lib), depending **only** on `System.Data.Common` + `Npgsql`. **No `FrameworkReference`.**
+1. Create a tiny **BCL-only** package/csproj `WoW.Two.Sdk.Beta.Be.Data.Abstractions` (outside the mono-lib), depending **only** on `System.Data.Common` + `Npgsql`. **No `FrameworkReference`.**
 2. Move `IDbConnectionFactory` + `DataSourceConnectionFactory` there (or mirror the interface; the mono-lib re-exports/type-forwards for existing consumers).
 3. The migrator engine and the CLI reference **`…Data.Abstractions`**, never the mono-lib.
 
@@ -172,7 +172,7 @@ This folder already ships DbUp and EF runners. The bespoke engine exists because
 
 The engine source depends only on:
 
-- `IDbConnectionFactory` — from the new **`WoW.Two.Sdk.Backend.Beta.Data.Abstractions`** package (§0.1), BCL surface (`DbConnection` / `DbDataSource`). **Not** the mono-lib.
+- `IDbConnectionFactory` — from the new **`WoW.Two.Sdk.Beta.Be.Data.Abstractions`** package (§0.1), BCL surface (`DbConnection` / `DbDataSource`). **Not** the mono-lib.
 - `Npgsql` — provider (advisory lock, transactional DDL). Standalone package ref (§2.1.1).
 - `Dapper` — thin mapping for `migration_history` reads/writes.
 - `Microsoft.Extensions.Logging.Abstractions` — `ILogger`.
@@ -190,7 +190,7 @@ The API is typed on BCL `DbConnection` (the SDK abstraction is BCL-only), but th
 ### 2.2 Public API sketch
 
 ```csharp
-namespace WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke;
+namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>The host-facing entry point. Every host (CLI, HTTP, hosted-service) resolves this.
 /// Apply/status only — no destructive ops.</summary>
@@ -463,7 +463,7 @@ public sealed class MigrationBootstrapService(
 The CLI is the one host that **cannot** reference the mono-lib (it would drag ASP.NET into a developer tool). It is a **separate, genuinely web-free package outside the mono-lib**.
 
 - **Local `dotnet tool`** via `.config/dotnet-tools.json` manifest (mirrors `dotnet ef`): version-pinned per repo, `dotnet tool restore` on clone, no global pollution, CI-friendly.
-- References **`WoW.Two.Sdk.Backend.Beta.Data.Abstractions`** (§0.1) for `IDbConnectionFactory`, plus a **shared copy of the engine sources** (linked `<Compile Include="../Sql/**/*.cs">` or a thin web-free engine csproj that also lives outside the mono-lib). It **never** references `WoW.Two.Sdk.Backend.Beta.csproj`.
+- References **`WoW.Two.Sdk.Beta.Be.Data.Abstractions`** (§0.1) for `IDbConnectionFactory`, plus a **shared copy of the engine sources** (linked `<Compile Include="../Sql/**/*.cs">` or a thin web-free engine csproj that also lives outside the mono-lib). It **never** references `WoW.Two.Sdk.Beta.Be.csproj`.
 - **No** `<FrameworkReference Include="Microsoft.AspNetCore.App"/>`. A CI assertion (`dotnet list <cli>.csproj package --include-transitive`) fails the build if `Microsoft.AspNetCore.*` / `MediatR` appears (§6 step 4).
 
 **Cross-platform realities (.NET 10):**
@@ -474,20 +474,20 @@ The CLI is the one host that **cannot** reference the mono-lib (it would drag AS
 ```jsonc
 // .config/dotnet-tools.json
 { "version": 1, "isRoot": true,
-  "tools": { "WoW.Two.Sdk.Backend.Beta.Migrations.Cli": { "version": "0.0.*", "commands": ["wow-migrate"] } } }
+  "tools": { "WoW.Two.Sdk.Beta.Be.Migrations.Cli": { "version": "0.0.*", "commands": ["wow-migrate"] } } }
 ```
 
 ```xml
-<!-- WoW.Two.Sdk.Backend.Beta.Migrations.Cli.csproj  (OUTSIDE the mono-lib; web-free) -->
+<!-- WoW.Two.Sdk.Beta.Be.Migrations.Cli.csproj  (OUTSIDE the mono-lib; web-free) -->
 <PropertyGroup>
   <OutputType>Exe</OutputType>
   <PackAsTool>true</PackAsTool>
   <ToolCommandName>wow-migrate</ToolCommandName>
-  <PackageId>WoW.Two.Sdk.Backend.Beta.Migrations.Cli</PackageId>   <!-- dotted WoW.Two, matches ecosystem -->
+  <PackageId>WoW.Two.Sdk.Beta.Be.Migrations.Cli</PackageId>   <!-- dotted WoW.Two, matches ecosystem -->
   <CreateRidSpecificToolPackages>false</CreateRidSpecificToolPackages> <!-- .NET 10: keep platform-agnostic -->
 </PropertyGroup>
 <ItemGroup>
-  <ProjectReference Include="../../Abstractions/WoW.Two.Sdk.Backend.Beta.Data.Abstractions.csproj" />
+  <ProjectReference Include="../../Abstractions/WoW.Two.Sdk.Beta.Be.Data.Abstractions.csproj" />
   <!-- engine sources shared via linked compile or a web-free engine csproj — NOT the mono-lib -->
   <PackageReference Include="System.CommandLine" />
   <PackageReference Include="Spectre.Console" />   <!-- status tables / apply progress -->
@@ -628,7 +628,7 @@ src/Data/Migrations/BespokeFiles/
         └── 20260611T1030_add-service-column.sql
 ```
 
-**Engine code** ships as a **folder in the mono-lib** (no own csproj — globbed into `src/WoW.Two.Sdk.Backend.Beta.csproj`, exactly like `Ef/` and `DbUp/`):
+**Engine code** ships as a **folder in the mono-lib** (no own csproj — globbed into `src/WoW.Two.Sdk.Beta.Be.csproj`, exactly like `Ef/` and `DbUp/`):
 
 ```
 src/Data/Migrations/Bespoke/
@@ -667,7 +667,7 @@ The CLI lives **outside** the mono-lib in a sibling web-free package (`Migration
 | 0 | **Prereq:** ship `…Data.Abstractions` (BCL-only, §0.1). Gate everything below on it. |
 | 1 | Build the engine in `smart-qr` (greenfield): `IMigrationRunner` / `IMigrationDevRunner`, `MigrationRunner`, sources, `PostgresMigrationTracker`, result types + `MigrationDriftException`, models, options, `MigrationContentNormalizer`, `OrdinalAllocator`. Prove against smart-qr's DB. |
 | 2 | Build file-gen commands in smart-qr: `new` (flat Dev) / `promote` / `init` / `repair`. |
-| 3 | ✅ **DONE (2026-06-13)** — copied the 22 engine `.cs` to `src/Data/Migrations/Bespoke/`; namespace rewrite `SmartQr.Common.Persistence.Migrations` → `WoW.Two.Sdk.Backend.Beta.Data.Migrations.Bespoke`. (CLI/HTTP adapters not extracted yet — engine only.) |
+| 3 | ✅ **DONE (2026-06-13)** — copied the 22 engine `.cs` to `src/Data/Migrations/Bespoke/`; namespace rewrite `SmartQr.Common.Persistence.Migrations` → `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke`. (CLI/HTTP adapters not extracted yet — engine only.) |
 | 4 | **Enforce zero forbidden refs mechanically** (not eyeball): add an architecture test (NetArchTest / a custom Roslyn test) asserting the engine **source** imports no `Microsoft.AspNetCore.*`, `MediatR`, `System.CommandLine`, `Microsoft.Extensions.Hosting`, or domain namespaces; **and** a CI gate `dotnet list <web-free-engine/cli>.csproj package --include-transitive` asserting no `Microsoft.AspNetCore.*` / `MediatR`. The mono-lib folder inherits ASP.NET at the *csproj* level, so the **source-import** test is what guarantees web-freedom there; the transitive-package gate guards the CLI's web-free csproj. |
 | 5 | ✅ **DONE (2026-06-13)** — re-pointed the injected factory `DbConnectionFactory` → `IDbConnectionFactory`; connection/transaction params across `MigrationRunnerService`, `IMigrationHistoryRepository`/`MigrationHistoryRepository`, `IMigrationDialect`/`PostgresMigrationDialect` are now BCL `DbConnection`/`DbTransaction`. The advisory-lock + transactional-DDL code works over `DbConnection` with **no downcast** (Dapper / BCL surface only). The lone genuinely-Npgsql site (`PostgresMigrationDialect.EnsureDatabaseExistsAsync`, §2.1.1) self-constructs its `NpgsqlConnection` and is untouched. |
 | 6 | Wire packaging: add the standalone web-free engine/CLI csproj **outside** the mono-lib; CLI `ProjectReference` → `…Data.Abstractions` + engine sources, **never** the mono-lib. Add `System.CommandLine` / `Spectre.Console` / standalone `Npgsql` to `Directory.Packages.props` (CPM, §4.1.1). |
@@ -683,7 +683,7 @@ The CLI lives **outside** the mono-lib in a sibling web-free package (`Migration
 
 | # | Item | Lean | Status |
 |---|---|---|---|
-| 1 | `…Data.Abstractions` package home (new org folder vs sdk-beta sibling) | sdk-beta sibling, BCL-only | ✅ **DONE** — shipped as `WoW2.Sdk.Backend.Beta.Data.Abstractions` (`10.0.24-beta`) |
+| 1 | `…Data.Abstractions` package home (new org folder vs sdk-beta sibling) | sdk-beta sibling, BCL-only | ✅ **DONE** — shipped as `WoW2.Sdk.Beta.Be.Data.Abstractions` (`10.0.24-beta`) |
 | 13 | SQLite dialect (bonus — the 3 apps converged on **Postgres**, not SQLite) | ship `SqliteMigrationDialect` + tests | ✅ **DONE (2026-06-18)** — dialect + `SqliteConnectionFactory` + 14 tests + web-freedom arch test. The apps adopted the **Postgres** path; SQLite is an available extra (e.g. zero-infra single-file products). |
 | 2 | `migrations.json` location — repo root vs per-product | repo root, env-interpolated | parked |
 | 3 | `rebaseline` `information_schema` fallback fidelity (constraints/defaults it misses) | document gaps; warn loudly | **first-class** (§2.7) |

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.Cookies
+# WoW.Two.Sdk.Beta.Be.Identity.Cookies
 
 > Cookie auth with secure defaults: `HttpOnly`, `SameSite=Lax`, `SecurePolicy=Always`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Cookies
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Cookies
 ```
 
 ## Register

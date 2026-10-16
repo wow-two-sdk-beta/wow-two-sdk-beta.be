@@ -1,16 +1,16 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Auth
+# WoW.Two.Sdk.Beta.Be.Testing.Auth
 
 > Test-auth bypass for E2E (`TestAuthHandler` + `AddTestAuth`), cookie round-tripping (`CookieExtensions`), and a handler-level current-user stub (`TestCurrentUser`).
 
-Part of the `WoW.Two.Sdk.Backend.Beta.Testing` package. Lets tests authenticate without real OAuth and lift `Secure` cookies the test host's `http://` transport won't auto-attach.
+Part of the `WoW.Two.Sdk.Beta.Be.Testing` package. Lets tests authenticate without real OAuth and lift `Secure` cookies the test host's `http://` transport won't auto-attach.
 
 ## Test-auth bypass (E2E)
 
 Register the test scheme as the default inside a `WebApiTestHost<T>` so every request authenticates as a fixed identity:
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Testing;
-using WoW.Two.Sdk.Backend.Beta.Testing.Auth;
+using WoW.Two.Sdk.Beta.Be.Testing;
+using WoW.Two.Sdk.Beta.Be.Testing.Auth;
 
 var host = new WebApiTestHost<Program>
 {

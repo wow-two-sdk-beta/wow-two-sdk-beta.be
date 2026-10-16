@@ -1,6 +1,6 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Verify
+# WoW.Two.Sdk.Beta.Be.Testing.Verify
 
-> [Verify](https://github.com/VerifyTests/Verify) snapshot-testing defaults for the Wow Two backend SDK.
+> [Verify](https://github.com/VerifyTests/Verify) snapshot-testing defaults for the Wow Two be sdk.
 
 Brings:
 - `Verify.Xunit`
@@ -11,7 +11,7 @@ Brings:
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Verify
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Verify
 ```
 
 ## Usage

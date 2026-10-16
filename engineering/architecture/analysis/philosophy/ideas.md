@@ -6,7 +6,7 @@
 >
 > **Purpose**: enumerate the universe of .NET backend tech, libraries, runtime APIs, patterns, and conventions. **No verdicts.** Source of ideas, not a roadmap.
 >
-> **Distribution**: `WoW2.Sdk.Backend.Beta` is the production mono library; six companion outputs provide data abstractions, migrations and test helpers. The .NET 10 implementation checkpoint and current verdicts live in [`targets.md`](targets.md). This catalog is an inventory, not proof that a provider has been implemented or tested.
+> **Distribution**: `WoW2.Sdk.Beta.Be` is the production mono library; six companion outputs provide data abstractions, migrations and test helpers. The .NET 10 implementation checkpoint and current verdicts live in [`targets.md`](targets.md). This catalog is an inventory, not proof that a provider has been implemented or tested.
 >
 > **Scope today**: web/API backends (HTTP, gRPC, GraphQL, real-time), data access (relational, NoSQL, event store), cross-cutting concerns (DI, config, logging, validation, mapping, resilience, observability, security, caching, rate limiting, jobs, health, feature flags, multi-tenancy, i18n), messaging (in-process + distributed), search, storage, AI/LLM/vector, time, files, comms (email/sms/push), workflow/state machines, BCL/runtime APIs, testing surface, tooling. **Future scope**: client SDK generation, source-only deliverables, AOT-only branch — sketched in §10.
 
@@ -65,7 +65,7 @@ The schools dominating .NET backend design. Each has a mental model, a set of st
 
 | Variant | Description | Examples |
 |---|---|---|
-| **Single big package** | One NuGet, all features | `ServiceStack`, our `wow-two-sdk.backend.beta` |
+| **Single big package** | One NuGet, all features | `ServiceStack`, our `wow-two-sdk-beta.be` |
 | **Per-concern packages** | Many small NuGets per feature | `Microsoft.Extensions.*`, `Polly.*` |
 | **Meta-package** | Empty package depending on a curated set | `Microsoft.AspNetCore.App` (framework ref), `Polly.Extensions.Http` |
 | **Source-only** | Code shipped as `.cs` files compiled into consumer | Source generators, T4 templates, shadcn-style copy |
@@ -1524,7 +1524,7 @@ Not enumerated in depth yet — flag for later expansion.
 |---|---|
 | Client SDK generation | Refit-style + Kiota + NSwag generation patterns; TypeScript / Python / Go targets |
 | Native AOT branch | trim-friendly subset of the lib; source-gen-only mappers, validators, JSON |
-| Source-only deliverables | Companion `wow-two-sdk.backend.beta.source` or `.templates` |
+| Source-only deliverables | Companion `wow-two-sdk-beta.be.source` or `.templates` |
 | F# friendliness | Computation expressions, options, async workflows |
 | WASM backend | Wasi.NET, Spin, Fermyon Spin .NET — explore as deployment target |
 | Mobile / Maui backend integration | n/a yet — backend-side only |
@@ -1749,7 +1749,7 @@ CLI: `dotnet`; SDKs: `Microsoft.NET.Sdk` (+`.Web`, `.Worker`, `.BlazorWebAssembl
 
 | Bundle | Composition |
 |---|---|
-| `wow-two-sdk.backend.beta.web` | ASP.NET Core core + Routing + Endpoints + Auth/AuthZ + DataProtection + ProblemDetails + RateLimiting + RequestTimeouts + Response{Compression,Decompression} + OutputCaching + Cors + StaticFiles + HealthChecks + OpenAPI |
+| `wow-two-sdk-beta.be.web` | ASP.NET Core core + Routing + Endpoints + Auth/AuthZ + DataProtection + ProblemDetails + RateLimiting + RequestTimeouts + Response{Compression,Decompression} + OutputCaching + Cors + StaticFiles + HealthChecks + OpenAPI |
 | `…api` | Minimal API conventions + endpoint filters + FluentValidation interop + Asp.Versioning + JsonPatch + ProblemDetails enrichers |
 | `…realtime` | SignalR Server + Redis backplane + gRPC server + JsonTranscoding + WebPubSub + SSE |
 | `…data` | EF Core + relational + Sqlite + SqlServer + Postgres + Cosmos + Dapper + interceptors (audit, soft-delete, multitenancy, outbox) |

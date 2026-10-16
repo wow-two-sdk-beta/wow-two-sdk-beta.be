@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# BE SDK conventions sweep — mechanical checks against conventions/development/backend/dotnet/
+# be sdk conventions sweep — mechanical checks against conventions/development/backend/dotnet/
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd) || exit 1
 SRC="$SCRIPT_DIR/../codebase/wow-two-sdk-beta-be/src"
 cd "$SRC" || exit 1

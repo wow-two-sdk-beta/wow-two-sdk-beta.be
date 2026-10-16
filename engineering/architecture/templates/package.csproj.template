@@ -22,7 +22,7 @@
     For packages that depend on a sibling wrapper, prefer ProjectReference during dev:
 
     <ItemGroup>
-      <ProjectReference Include="..\..\foundation\time\WoW.Two.Sdk.Backend.Beta.Time.csproj" />
+      <ProjectReference Include="..\..\foundation\time\WoW.Two.Sdk.Beta.Be.Time.csproj" />
     </ItemGroup>
   -->
 

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Twitter
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitter
 
 > X (Twitter) OAuth 2.0 provider with PKCE via `AspNet.Security.OAuth.Twitter`. Scheme `Twitter`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Twitter
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitter
 ```
 
 ## Usage

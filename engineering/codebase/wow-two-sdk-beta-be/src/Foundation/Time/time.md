@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Time
+# WoW.Two.Sdk.Beta.Be.Time
 
 > Time abstractions — `TimeProvider` defaults, NodaTime adapter, time-zone resolution (Windows↔IANA), cron parsing.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Time
+dotnet add package WoW.Two.Sdk.Beta.Be.Time
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ var tz2 = TimeZoneMapper.ResolveTimeZone("Eastern Standard Time"); // works on L
 ### Cron expressions
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Foundation.Time.Parsers;
+using WoW.Two.Sdk.Beta.Be.Foundation.Time.Parsers;
 
 ICronExpressionParser parser = new CronExpressionParser();
 var expression = parser.Parse("0 0 8 * * *");

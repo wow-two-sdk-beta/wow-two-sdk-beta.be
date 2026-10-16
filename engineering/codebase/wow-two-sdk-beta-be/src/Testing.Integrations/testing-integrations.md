@@ -1,8 +1,8 @@
 # Testing.Integrations
 
-Integration-client test doubles for the backend SDK — the companion to the dependency-light `Testing` package, for the outbound-integrations tier.
+Integration-client test doubles for the be sdk — the companion to the dependency-light `Testing` package, for the outbound-integrations tier.
 
-Holds configurable fakes for the SDK's integration clients (`WoW.Two.Sdk.Backend.Beta.Integrations.*`), which implement contracts that live in the core mono-lib — so the base `Testing` package never takes that dependency (mirrors `Testing.Data` for the data tier). Reference `WoW2.Sdk.Backend.Beta.Testing.Integrations` from a test project only; it pulls core transitively.
+Holds configurable fakes for the SDK's integration clients (`WoW.Two.Sdk.Beta.Be.Integrations.*`), which implement contracts that live in the core mono-lib — so the base `Testing` package never takes that dependency (mirrors `Testing.Data` for the data tier). Reference `WoW2.Sdk.Beta.Be.Testing.Integrations` from a test project only; it pulls core transitively.
 
 Swap a fake in for the real client and every GitHub / GHCR probe is short-circuited — no live REST call, no OAuth token — so the not-found / unauthorized / failed branches are deterministic.
 

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Mediator.Logging
+# WoW.Two.Sdk.Beta.Be.Mediator.Logging
 
 > Request interceptor — opens a `WoW.Two.Mediator` span and logs request start + successful completion through source-generated log methods.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Mediator.Logging
+dotnet add package WoW.Two.Sdk.Beta.Be.Mediator.Logging
 ```
 
 ## Usage

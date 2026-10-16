@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.Kafka
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka
 
 > Kafka Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.Kafka
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka
 ```
 
 ## Usage

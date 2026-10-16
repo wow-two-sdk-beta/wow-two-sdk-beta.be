@@ -1,9 +1,9 @@
 # Meta — `AddApiDefaults` / `UseApiDefaults`
 
-> The one-import boot floor. Namespace `WoW.Two.Sdk.Backend.Beta` (root) — one `using` lights it up.
+> The one-import boot floor. Namespace `WoW.Two.Sdk.Beta.Be` (root) — one `using` lights it up.
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta;
+using WoW.Two.Sdk.Beta.Be;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddApiDefaults(o =>

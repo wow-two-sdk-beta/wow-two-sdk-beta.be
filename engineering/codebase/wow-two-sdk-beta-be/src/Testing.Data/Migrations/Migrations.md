@@ -1,6 +1,6 @@
 # Testing.Data — Migrations
 
-Test helpers for the SDK bespoke SQL migrator. Reference `WoW2.Sdk.Backend.Beta.Testing.Data` from a test project.
+Test helpers for the SDK bespoke SQL migrator. Reference `WoW2.Sdk.Beta.Be.Testing.Data` from a test project.
 
 - `MigratorHarness` — the DI-graph-under-test: `CreatePostgres` / `CreateSqlite` (filesystem root or embedded assembly) + `Runner`, `Options`, `ReadHistoryAsync`, `HasTableAsync`, `HasIndexAsync`, `OpenConnectionAsync`.
 - `MigratorPostgresFixture` — a Postgres container whose `ResetAsync` drops + recreates `public` (wiping `migration_history`) so each test applies from scratch — the opposite of base `PostgresFixture` (Respawn, preserves history). Serves directly as an `ICollectionFixture<>`.

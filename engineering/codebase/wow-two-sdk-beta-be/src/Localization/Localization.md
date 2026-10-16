@@ -2,7 +2,7 @@
 
 *Request-culture resolution, resx string localization, and human-friendly text/time phrasing.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Localization`. Built on the ASP.NET Core localization stack (shared framework) + Humanizer — no new dependencies.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Localization`. Built on the ASP.NET Core localization stack (shared framework) + Humanizer — no new dependencies.
 
 ## Surface
 

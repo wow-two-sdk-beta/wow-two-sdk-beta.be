@@ -5,7 +5,7 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta.Mediator
+WoW.Two.Sdk.Beta.Be.Mediator
 ```
 
 ## Public API
@@ -82,7 +82,7 @@ A closed discriminated union every handler/endpoint returns — typed success **
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator;
 
 builder.Services.AddMediator(typeof(Program).Assembly);
 ```

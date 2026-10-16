@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing
+# WoW.Two.Sdk.Beta.Be.Testing
 
 > Core test host (`WebApiTestHost<T>`), `WebApiTestBase<T>` xUnit base, and async fixture interfaces.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ dotnet add package WoW.Two.Sdk.Backend.Beta.Testing
 ### Inheriting `WebApiTestBase<TProgram>`
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Testing;
+using WoW.Two.Sdk.Beta.Be.Testing;
 
 public class GreetingsTests : WebApiTestBase<Program>
 {

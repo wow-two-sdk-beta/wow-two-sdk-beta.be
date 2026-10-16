@@ -6,7 +6,7 @@
 >
 > **This file**: verdict per item. Mirrors `ideas.md`'s structure. Read when deciding what to ship next.
 >
-> **Target package**: `wow-two-sdk.backend.beta` — single big NuGet bundling everything below. Dependency bloat is *intentional*; one-import is the win.
+> **Target package**: `wow-two-sdk-beta.be` — single big NuGet bundling everything below. Dependency bloat is *intentional*; one-import is the win.
 
 ---
 
@@ -37,7 +37,7 @@ guards and translation remain active completion work.
 
 | # | Decision | LOCKED rationale |
 |---|---|---|
-| 1.1 | **Single big package** — `wow-two-sdk.backend.beta` aggregates every concern; subpath imports per area | Dependency bloat is explicitly accepted. One install, batteries included. Mirrors UI lib's "one big package, subpath exports". |
+| 1.1 | **Single big package** — `wow-two-sdk-beta.be` aggregates every concern; subpath imports per area | Dependency bloat is explicitly accepted. One install, batteries included. Mirrors UI lib's "one big package, subpath exports". |
 | 1.2 | **.NET 10 baseline, multi-target later if needed** | Evaluated projects target `net10.0`; SDK `10.0.300` is pinned with patch roll-forward. |
 | 1.3 | **Current C# language features freely** | `LangVersion=latest` under the pinned .NET SDK; runtime and language changes follow evaluated build settings. |
 | 1.4 | **Built-in DI (`Microsoft.Extensions.DependencyInjection`) is the contract** | Don't ship Autofac/Lamar replacements. Consumers can swap if they want — we expose `IServiceCollection` extensions. |
@@ -52,7 +52,7 @@ guards and translation remain active completion work.
 | 1.13 | **Permissive licenses only in core**: MIT, Apache-2.0, BSD-3, BSD-2, MS-PL, Unlicense | LGPL only when it's truly transitive-and-isolated (e.g. linking decisions). AGPL never. |
 | 1.14 | **No PR gate; required release checks** | The developer publishes main; CI runs tests and package verification before publishing all seven outputs. |
 | 1.15 | **Standard + spec before code (per-component)** | Borrow the UI lib pattern — every public abstraction begins as `*.standard.md` (RFC 2119 contract) and `*.spec.md` (concrete API). |
-| 1.16 | **Subpath exports per top-level src/ folder** | Consumers can pull `wow-two-sdk.backend.beta.web` only, or pull the meta. Modeled on UI lib's `forms/`, `display/`, `nav/` subpaths. |
+| 1.16 | **Subpath exports per top-level src/ folder** | Consumers can pull `wow-two-sdk-beta.be.web` only, or pull the meta. Modeled on UI lib's `forms/`, `display/`, `nav/` subpaths. |
 | 1.17 | **Messaging runs on the SDK's own transport port and EF outbox** — CAP, MassTransit and Wolverine plug in only as adapters under the port (resolves the former 9.2) | CAP is a framework peer, not a transport: CAP-first would reduce the ports to thin CAP wrappers and limit pluggability to CAP's providers. |
 
 ---
@@ -420,7 +420,7 @@ Mirrors §5 of `ideas.md`. Each domain gets a verdict + the subpath path.
 
 ### 3.1 HTTP API surface — NOW (P1)
 
-Subpath: `wow-two-sdk.backend.beta.web` + `.api`.
+Subpath: `wow-two-sdk-beta.be.web` + `.api`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -441,7 +441,7 @@ Subpath: `wow-two-sdk.backend.beta.web` + `.api`.
 
 ### 3.2 HTTP client / outbound — NOW (P1)
 
-Subpath: `wow-two-sdk.backend.beta.http`.
+Subpath: `wow-two-sdk-beta.be.http`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -458,7 +458,7 @@ Subpath: `wow-two-sdk.backend.beta.http`.
 
 ### 3.3 Data persistence — relational — NEXT (P2)
 
-Subpath: `wow-two-sdk.backend.beta.data`.
+Subpath: `wow-two-sdk-beta.be.data`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -485,13 +485,13 @@ Subpath: `wow-two-sdk.backend.beta.data`.
 
 ### 3.4 Data persistence — NoSQL / specialty — LATER (P3)
 
-Subpath: `wow-two-sdk.backend.beta.data.nosql`.
+Subpath: `wow-two-sdk-beta.be.data.nosql`.
 
 MongoDB.Driver, RavenDB.Client, Cassandra, Cosmos, Marten, EventStore.Client (Kurrent), InfluxDB, ClickHouse, Pgvector, Redis Stack — all LATER. Add adapters as consumer demand surfaces.
 
 ### 3.5 Messaging / integration — NEXT (P2)
 
-Subpath: `wow-two-sdk.backend.beta.messaging`.
+Subpath: `wow-two-sdk-beta.be.messaging`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -511,7 +511,7 @@ Subpath: `wow-two-sdk.backend.beta.messaging`.
 
 ### 3.7 Storage / files / media — LATER (P3) *(except `Media.Captions`, shipped NOW)*
 
-Subpath: `wow-two-sdk.backend.beta.storage` + `.media`.
+Subpath: `wow-two-sdk-beta.be.storage` + `.media`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -544,7 +544,7 @@ Subpath: `wow-two-sdk.backend.beta.storage` + `.media`.
 
 ### 3.8 AI / ML / LLM / vector — NEXT (P2)
 
-Subpath: `wow-two-sdk.backend.beta.ai`.
+Subpath: `wow-two-sdk-beta.be.ai`.
 
 | Item | Verdict | Note |
 |---|---|---|
@@ -667,7 +667,7 @@ These shapes will be canonized and named consistently across the package. Lifted
 
 Mirrors §7 of `ideas.md`. For each leak point, define a typed `record TFooOptions(...)` with source-gen `[OptionsValidator]` validation. Group: hosting, auth, DB, cache, messaging, storage, email, SMS/push, search, vector, LLM provider, telemetry, logging sinks, health checks, rate limiting, jobs, feature flags, multi-tenancy, localization, CORS, compression, anti-forgery, DataProtection, HSTS, static files, OpenAPI, gRPC, GraphQL, SignalR, resilience, webhook delivery.
 
-Convention: each module exports `services.AddWowFoo(o => { ... })`. Each option type lives in `wow-two-sdk.backend.beta.{module}/Options/`.
+Convention: each module exports `services.AddWowFoo(o => { ... })`. Each option type lives in `wow-two-sdk-beta.be.{module}/Options/`.
 
 ---
 
@@ -700,24 +700,24 @@ Things deliberately **not** in the meta-package. Either license-incompatible, sc
 
 | Companion | Reason |
 |---|---|
-| `wow-two-sdk.backend.beta.testing` | Test-only; keep core lean |
-| `wow-two-sdk.backend.beta.aspire-azure` | Azure-only adapters |
-| `wow-two-sdk.backend.beta.aspire-aws` | AWS-only adapters |
-| `wow-two-sdk.backend.beta.identity-duende` | Commercial license |
-| `wow-two-sdk.backend.beta.identity-openiddict` | OSS alt to Duende |
-| `wow-two-sdk.backend.beta.messaging-masstransit` | Commercial (v9+) |
-| `wow-two-sdk.backend.beta.messaging-wolverine` | Modern OSS alt |
-| `wow-two-sdk.backend.beta.graphql-hotchocolate` | Heavy surface |
-| `wow-two-sdk.backend.beta.odata` | Niche |
-| `wow-two-sdk.backend.beta.event-sourcing-marten` | Postgres-specific ES |
-| `wow-two-sdk.backend.beta.event-sourcing-kurrent` | EventStoreDB |
-| `wow-two-sdk.backend.beta.workflow-elsa` / `.workflow-temporal` | Heavy workflow engines |
-| `wow-two-sdk.backend.beta.media-ffmpeg` | Native deps |
-| `wow-two-sdk.backend.beta.media-ocr` | Tesseract / OCR |
-| `wow-two-sdk.backend.beta.search-elastic` / `.search-opensearch` | Cluster-grade search |
-| `wow-two-sdk.backend.beta.payments-stripe` | Commerce-domain |
-| `wow-two-sdk.backend.beta.docs` | DocFX site generator |
-| `wow-two-sdk.backend.beta.cli` | Spectre.Console-based CLI scaffolding |
+| `wow-two-sdk-beta.be.testing` | Test-only; keep core lean |
+| `wow-two-sdk-beta.be.aspire-azure` | Azure-only adapters |
+| `wow-two-sdk-beta.be.aspire-aws` | AWS-only adapters |
+| `wow-two-sdk-beta.be.identity-duende` | Commercial license |
+| `wow-two-sdk-beta.be.identity-openiddict` | OSS alt to Duende |
+| `wow-two-sdk-beta.be.messaging-masstransit` | Commercial (v9+) |
+| `wow-two-sdk-beta.be.messaging-wolverine` | Modern OSS alt |
+| `wow-two-sdk-beta.be.graphql-hotchocolate` | Heavy surface |
+| `wow-two-sdk-beta.be.odata` | Niche |
+| `wow-two-sdk-beta.be.event-sourcing-marten` | Postgres-specific ES |
+| `wow-two-sdk-beta.be.event-sourcing-kurrent` | EventStoreDB |
+| `wow-two-sdk-beta.be.workflow-elsa` / `.workflow-temporal` | Heavy workflow engines |
+| `wow-two-sdk-beta.be.media-ffmpeg` | Native deps |
+| `wow-two-sdk-beta.be.media-ocr` | Tesseract / OCR |
+| `wow-two-sdk-beta.be.search-elastic` / `.search-opensearch` | Cluster-grade search |
+| `wow-two-sdk-beta.be.payments-stripe` | Commerce-domain |
+| `wow-two-sdk-beta.be.docs` | DocFX site generator |
+| `wow-two-sdk-beta.be.cli` | Spectre.Console-based CLI scaffolding |
 
 ---
 

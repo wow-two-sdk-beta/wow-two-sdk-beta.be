@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.Compression
+# WoW.Two.Sdk.Beta.Be.Web.Compression
 
 > Response compression — Brotli + Gzip with `Fastest` level.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.Compression
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.Compression
 ```
 
 ## Usage

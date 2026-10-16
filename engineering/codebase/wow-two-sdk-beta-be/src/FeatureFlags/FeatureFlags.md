@@ -2,7 +2,7 @@
 
 *Feature toggles via Microsoft.FeatureManagement (default) with an OpenFeature seam for vendor providers.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.FeatureFlags`.
+Namespace root: `WoW.Two.Sdk.Beta.Be.FeatureFlags`.
 
 ## Surface
 

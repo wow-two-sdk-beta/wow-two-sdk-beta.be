@@ -2,7 +2,7 @@
 
 *Per-request tenant resolution + ambient context, with per-row (shared-DB) isolation on the existing `IHasTenant<string>` contract.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Tenancy`. Builds on the Data vector's `IHasTenant<TTenantId>` contract; the SDK convention is string tenant ids (subdomain/header/claim are strings).
+Namespace root: `WoW.Two.Sdk.Beta.Be.Tenancy`. Builds on the Data vector's `IHasTenant<TTenantId>` contract; the SDK convention is string tenant ids (subdomain/header/claim are strings).
 
 ## Surface
 

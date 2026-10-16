@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Integrations
+# WoW.Two.Sdk.Beta.Be.Integrations
 
 > Typed HTTP clients for third-party services (GitHub REST, GHCR). Each authorizes its calls with a pluggable `IAccessTokenService` — the token source is yours to choose.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta
+dotnet add package WoW.Two.Sdk.Beta.Be
 ```
 
 ## Register

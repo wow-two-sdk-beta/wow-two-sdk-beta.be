@@ -7,12 +7,12 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta  (mono-lib; namespace WoW.Two.Sdk.Backend.Beta.Messaging[.*])
+WoW.Two.Sdk.Beta.Be  (mono-lib; namespace WoW.Two.Sdk.Beta.Be.Messaging[.*])
 ```
 
 ## Public API
 
-### Contracts (`WoW.Two.Sdk.Backend.Beta.Messaging`)
+### Contracts (`WoW.Two.Sdk.Beta.Be.Messaging`)
 
 | Type | Notes |
 |---|---|

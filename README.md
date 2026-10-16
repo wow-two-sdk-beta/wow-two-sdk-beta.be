@@ -1,6 +1,6 @@
-# wow-two-sdk.backend.beta
+# wow-two-sdk-beta.be
 
-> Beta-forever .NET 10 backend SDK — wraps the .NET ecosystem behind opinionated, descriptively-named registration extensions (`AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `AddPerIpSlidingWindowRateLimit`, …) so a `Program.cs` becomes 1–2 liners per concern instead of 100.
+> Beta-forever .NET 10 be sdk — wraps the .NET ecosystem behind opinionated, descriptively-named registration extensions (`AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `AddPerIpSlidingWindowRateLimit`, …) so a `Program.cs` becomes 1–2 liners per concern instead of 100.
 
 ## Status
 
@@ -33,7 +33,7 @@ In-progress patterns being designed/built — read these to know what's underway
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta;
+using WoW.Two.Sdk.Beta.Be;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,8 +79,8 @@ directly — the expansion is listed in [`src/Meta/Meta.md`](./engineering/codeb
 cd engineering/codebase/wow-two-sdk-beta-be/src
 ulimit -n 65535          # macOS — avoid EMFILE
 export MSBUILDDISABLENODEREUSE=1
-dotnet restore WoW.Two.Sdk.Backend.Beta.slnx -m:1
-dotnet build WoW.Two.Sdk.Backend.Beta.slnx --no-restore -m:1
+dotnet restore WoW.Two.Sdk.Beta.Be.slnx -m:1
+dotnet build WoW.Two.Sdk.Beta.Be.slnx --no-restore -m:1
 ```
 
 ## Release

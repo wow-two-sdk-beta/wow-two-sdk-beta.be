@@ -1,8 +1,8 @@
-# Backend SDK — Vector Analysis
+# be sdk — Vector Analysis
 
 *Last updated: 2026-07-13*
 
-> **Purpose.** A ground-truth map of every capability **vector** in `WoW.Two.Sdk.Backend.Beta`: what exists, how mature each component is, what to **improve** (existing but incomplete) vs **establish** (scaffold or entirely absent). Feeds the "choose and implement" decision that follows.
+> **Purpose.** A ground-truth map of every capability **vector** in `WoW.Two.Sdk.Beta.Be`: what exists, how mature each component is, what to **improve** (existing but incomplete) vs **establish** (scaffold or entirely absent). Feeds the "choose and implement" decision that follows.
 >
 > **Method.** Six parallel analysis passes read the **actual `src/` code** (not the docs) on 2026-07-13 at `10.0.50-beta`. Where the shipped docs (`targets.md`, `README.md`, `CLAUDE.md`, `package-registry.md`) disagree with the code, **the code wins** and the drift is logged in Appendix A. Maturity is 0–5: **0** Scaffold (folders, no `.cs`) · **1** Skeleton (interfaces/options only) · **2** Partial · **3** Functional (main path) · **4** Solid · **5** Complete/saturated.
 >

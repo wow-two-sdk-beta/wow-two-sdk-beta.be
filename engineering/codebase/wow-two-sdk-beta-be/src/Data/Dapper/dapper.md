@@ -2,7 +2,7 @@
 
 *Last updated: 2026-09-26*
 
-Included in `WoW2.Sdk.Backend.Beta`. `AddDapperConventions()` configures underscore matching,
+Included in `WoW2.Sdk.Beta.Be`. `AddDapperConventions()` configures underscore matching,
 `DateOnly` and list type handlers. `SqlNamingOptions` controls generated identifiers per repository.
 Register global type handlers before queries; do not change them per request.
 

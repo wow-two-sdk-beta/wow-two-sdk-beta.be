@@ -12,7 +12,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WoW.Two.Sdk.Backend.Beta.{AreaPath}.Tests;
+namespace WoW.Two.Sdk.Beta.Be.{AreaPath}.Tests;
 
 public class {ModuleName}ModuleTests
 {

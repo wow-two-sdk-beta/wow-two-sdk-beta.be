@@ -1,8 +1,8 @@
 # Testing.Messaging
 
-Messaging test harness for the backend SDK — the companion to the dependency-light `Testing` package.
+Messaging test harness for the be sdk — the companion to the dependency-light `Testing` package.
 
-Holds the helpers that need the core mono-lib (the observer seam, `EventEnvelopeModel`, `IEventBus`, `IBusControl`), so the base `Testing` package never takes that dependency. Reference `WoW2.Sdk.Backend.Beta.Testing.Messaging` from a test project only; it pulls core transitively.
+Holds the helpers that need the core mono-lib (the observer seam, `EventEnvelopeModel`, `IEventBus`, `IBusControl`), so the base `Testing` package never takes that dependency. Reference `WoW2.Sdk.Beta.Be.Testing.Messaging` from a test project only; it pulls core transitively.
 
 ## What it replaces
 
@@ -19,7 +19,7 @@ harness.Published.Count<OrderPlaced>(e => e.Id == "A-1").Should().Be(1);
 
 ## Surface
 
-Tracker types live in `WoW.Two.Sdk.Backend.Beta.Testing.Messaging.Trackers` under `Trackers/`. Import that namespace when explicitly naming `RecordedMessageTracker` or `RecordedTransitionTracker<TState>`.
+Tracker types live in `WoW.Two.Sdk.Beta.Be.Testing.Messaging.Trackers` under `Trackers/`. Import that namespace when explicitly naming `RecordedMessageTracker` or `RecordedTransitionTracker<TState>`.
 
 - `MessagingTestHarness.StartAsync(...)` — builds + starts an in-memory bus with the recorder attached. `await using` stops it.
 - `MessagingTestHarness.Attach(services)` — wraps a host the test built (`WebApplicationFactory`, broker-backed); register the observer with `services.AddMessagingRecorder()` first. Disposing does not stop that host.

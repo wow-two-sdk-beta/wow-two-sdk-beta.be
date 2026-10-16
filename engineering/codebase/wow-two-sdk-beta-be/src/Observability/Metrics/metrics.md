@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.Metrics
+# WoW.Two.Sdk.Beta.Be.Observability.Metrics
 
 > OpenTelemetry meter wiring with conventional auto-instrumentation.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Metrics
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Metrics
 ```
 
 ## Usage

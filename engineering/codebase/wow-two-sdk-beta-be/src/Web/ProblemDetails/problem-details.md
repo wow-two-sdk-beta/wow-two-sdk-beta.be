@@ -2,10 +2,10 @@
 
 *Last updated: 2026-10-02*
 
-> RFC 9457 HTTP errors and trace context from `WoW2.Sdk.Backend.Beta`.
+> RFC 9457 HTTP errors and trace context from `WoW2.Sdk.Beta.Be`.
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails;
+using WoW.Two.Sdk.Beta.Be.Web.ProblemDetails;
 builder.Services.AddHttpProblemDetails();
 var app = builder.Build();
 app.UseHttpProblemDetails();

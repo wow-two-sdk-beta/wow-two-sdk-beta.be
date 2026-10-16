@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.Otlp
+# WoW.Two.Sdk.Beta.Be.Observability.Otlp
 
 > OTLP exporter for OpenTelemetry traces + metrics. Pair with `Observability.Tracing` and `Observability.Metrics`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Otlp
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Otlp
 ```
 
 ## Usage

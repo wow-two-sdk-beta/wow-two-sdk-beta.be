@@ -7,13 +7,13 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta  (mono-lib; namespace WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks)
+WoW.Two.Sdk.Beta.Be  (mono-lib; namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks)
 ```
 
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
 var builder = WebApplication.CreateBuilder(args);
 

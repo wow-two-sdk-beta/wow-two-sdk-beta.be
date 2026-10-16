@@ -7,14 +7,14 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta.Identity.Authorization
+WoW.Two.Sdk.Beta.Be.Identity.Authorization
 ```
 
 ## Quick start
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.Cookies;
-using WoW.Two.Sdk.Backend.Beta.Identity.Authorization;
+using WoW.Two.Sdk.Beta.Be.Identity.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 

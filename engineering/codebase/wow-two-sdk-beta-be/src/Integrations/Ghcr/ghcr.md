@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Integrations.Ghcr
+# WoW.Two.Sdk.Beta.Be.Integrations.Ghcr
 
 > Typed `HttpClient` over the GitHub Container Registry (GHCR) v2 API — confirms a published image tag exists, public or private.
 

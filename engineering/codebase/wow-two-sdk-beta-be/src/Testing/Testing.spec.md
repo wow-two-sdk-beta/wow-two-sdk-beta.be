@@ -5,7 +5,7 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta.Testing
+WoW.Two.Sdk.Beta.Be.Testing
 ```
 
 ## Public API

@@ -1,14 +1,14 @@
-# WoW.Two.Sdk.Backend.Beta.Media.YouTube
+# WoW.Two.Sdk.Beta.Be.Media.YouTube
 
 > Pure YouTube link handling — every published URL form to video and playlist identifiers, canonical URLs back, and
 > links found in pasted text. No network, no external dependencies.
 
-Part of the `WoW2.Sdk.Backend.Beta` mono-lib (folder `src/Media/YouTube/`). Extracted from TranscriptForge v0.5.
+Part of the `WoW2.Sdk.Beta.Be` mono-lib (folder `src/Media/YouTube/`). Extracted from TranscriptForge v0.5.
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Media.YouTube;
+using WoW.Two.Sdk.Beta.Be.Media.YouTube;
 
 YouTubeUrlMapper.TryGetVideoId("https://youtu.be/dQw4w9WgXcQ?si=x", out var videoId);   // "dQw4w9WgXcQ"
 YouTubeUrlMapper.ToWatchUrl(videoId, TimeSpan.FromSeconds(65));  // "https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=65s"

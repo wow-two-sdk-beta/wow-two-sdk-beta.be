@@ -1,14 +1,14 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.Tracing
+# WoW.Two.Sdk.Beta.Be.Observability.Tracing
 
 > OpenTelemetry tracer wiring with conventional auto-instrumentation. Exporters live in sibling packages.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Tracing
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Tracing
 # Pair with one or more exporters:
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.Otlp
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.AzureMonitor
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.Otlp
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.AzureMonitor
 ```
 
 ## Usage

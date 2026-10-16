@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp
+# WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp
 
 > TOTP / HOTP via `Otp.NET`. Step, digit count and verification window come from `TotpOptions`;
 > the defaults are RFC 6238 — 6 digits, a 30-second step, ±1 step.
@@ -6,7 +6,7 @@
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp
 ```
 
 ## Usage

@@ -2,7 +2,7 @@
 
 *Last updated: 2026-07-08 · Status: **event-centric rename + first code shipped (green build)** — see Review log; broker/CAP adapters + outbox dispatcher pending*
 
-> Design of the SDK event-messaging layer (`WoW.Two.Sdk.Backend.Beta.Messaging`). Pairs with the in-process `Mediator` (same handler ergonomics, different delivery guarantee) and the `Jobs` layer (outbox-as-job). Mirrors the format of `engineering/research/errors/errors-architecture-investigation.md`.
+> Design of the SDK event-messaging layer (`WoW.Two.Sdk.Beta.Be.Messaging`). Pairs with the in-process `Mediator` (same handler ergonomics, different delivery guarantee) and the `Jobs` layer (outbox-as-job). Mirrors the format of `engineering/research/errors/errors-architecture-investigation.md`.
 >
 > **Scope:** `src/Messaging/` was empty; the platform `comms.infra` repo is a bare `.sln` — **no prior code, no app consumers yet** (greenfield, per the brief). 6 parallel agents deep-dived the .NET messaging ecosystem against primary sources (masstransit.io, docs.particular.net, wolverinefx.net, cap.dotnetcore.xyz, broker docs, OTel semconv, Polly/Aspire). `targets.md §3.5 / §2.23` already set the high-level verdicts (CAP=core, MassTransit=adapter-only, Stateless=saga lib, brokers=adapters); this doc turns those into a concrete clean-room **abstraction + ports + declarative saga API**, and records what was built.
 

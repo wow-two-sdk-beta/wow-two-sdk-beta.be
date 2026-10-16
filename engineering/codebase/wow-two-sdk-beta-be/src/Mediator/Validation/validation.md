@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Mediator.Validation
+# WoW.Two.Sdk.Beta.Be.Mediator.Validation
 
 > Request-validation interceptor — runs all registered SDK `IValidator<TRequest>` instances before the handler.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Mediator.Validation
+dotnet add package WoW.Two.Sdk.Beta.Be.Mediator.Validation
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ builder.Services.AddMediator(typeof(Program).Assembly);
 builder.Services.AddMediatorValidatingInterceptor();
 ```
 
-The interceptor runs every registered SDK validator, combines their field failures in registration order, and throws one `WoW.Two.Sdk.Backend.Beta.Foundation.Validation.ValidationException`. Register `AddValidationExceptionHandler` or `AddAppExceptionHandling` and [`Web.ProblemDetails`](../../Web/ProblemDetails/problem-details.md) to render the failure as an HTTP 400 ProblemDetails response.
+The interceptor runs every registered SDK validator, combines their field failures in registration order, and throws one `WoW.Two.Sdk.Beta.Be.Foundation.Validation.ValidationException`. Register `AddValidationExceptionHandler` or `AddAppExceptionHandling` and [`Web.ProblemDetails`](../../Web/ProblemDetails/problem-details.md) to render the failure as an HTTP 400 ProblemDetails response.
 
 ## Phase placement
 

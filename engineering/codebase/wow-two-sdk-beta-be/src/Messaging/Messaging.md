@@ -13,7 +13,7 @@ plug in behind the same ports — opt-in, never core deps. Design + provider ana
 | Folder | What |
 |---|---|
 | `MessagingContracts.cs` | `IEvent`, `IEventHandler<TEvent>`, `EventContext<TEvent>`, `EventEnvelopeModel`, `Publish/SendOptions` (with transport-abstract hints) |
-| `Buses/` | `IEventBus` and `TransportEventBus`; namespace `WoW.Two.Sdk.Backend.Beta.Messaging.Buses` |
+| `Buses/` | `IEventBus` and `TransportEventBus`; namespace `WoW.Two.Sdk.Beta.Be.Messaging.Buses` |
 | `Reliability/` | `IRetryPolicy`+`RetryConfig`, `IDeadLetterRepository` (+replay), `IInboxStore`, `IEventScheduler`, `IOutbox`/`IOutboxDispatcher`, `RetryPolicy` |
 | `Reliability/Ef/` | EF transactional outbox — `OutboxMessageEntity`, `EfOutbox<TContext>`, `AddEfOutbox<TContext>()`, migration ([`Ef.md`](./Reliability/Ef/Ef.md)) |
 | `InMemory/` | Channel-backed bus + `EventConsumerHostedService` (DI-scope-per-event, retry→DLQ) + in-mem stores |

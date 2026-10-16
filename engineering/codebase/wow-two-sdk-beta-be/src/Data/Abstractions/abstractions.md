@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Data.Abstractions
+# WoW.Two.Sdk.Beta.Be.Data.Abstractions
 
 > Entity contracts for persisted domain types. **Zero ORM deps** — reference from your Domain assembly without pulling EF Core.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Data.Abstractions
+dotnet add package WoW.Two.Sdk.Beta.Be.Data.Abstractions
 ```
 
 ## Contract layers
@@ -130,7 +130,7 @@ public sealed record Order : IKeyedEntity<OrderId>, IAuditable
 
 ## See also
 
-- `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore` — base DbContext + scanner
-- `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit` — wires the audit interfaces
-- `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete` — wires the soft-delete interfaces
+- `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore` — base DbContext + scanner
+- `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit` — wires the audit interfaces
+- `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete` — wires the soft-delete interfaces
 - `wow-two-ws/conventions/development/backend/persistence/entities.md` — entity-level documentation + trait usage rules

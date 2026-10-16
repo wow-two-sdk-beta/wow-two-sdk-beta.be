@@ -7,13 +7,13 @@
 ## NuGet
 
 ```
-WoW.Two.Sdk.Backend.Beta.{AreaPath}
+WoW.Two.Sdk.Beta.Be.{AreaPath}
 ```
 
 ## Quick start
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.{AreaPath};
+using WoW.Two.Sdk.Beta.Be.{AreaPath};
 
 var builder = WebApplication.CreateBuilder(args);
 

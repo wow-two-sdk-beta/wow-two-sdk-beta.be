@@ -2,8 +2,8 @@
 
 > Thin generic CRUD repository over a DbContext. Id-keyed. Verb convention: **Create / Update / Delete / Get** — uniform across providers.
 
-Namespace: `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Repositories`
-Contracts: `WoW.Two.Sdk.Backend.Beta.Data.Abstractions` (`IRepository<TEntity, TId>`, `IReadRepository<TEntity, TId>` — zero-dep).
+Namespace: `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Repositories`
+Contracts: `WoW.Two.Sdk.Beta.Be.Data.Abstractions` (`IRepository<TEntity, TId>`, `IReadRepository<TEntity, TId>` — zero-dep).
 
 ## Why these verbs
 

@@ -2,7 +2,7 @@
 
 *Last updated: 2026-09-28*
 
-Included in `WoW2.Sdk.Backend.Beta`. Opt in with `AddMediatorDeduplicatingInterceptor()`;
+Included in `WoW2.Sdk.Beta.Be`. Opt in with `AddMediatorDeduplicatingInterceptor()`;
 requests implement `IIdempotent`. The default repository is one singleton per service provider.
 
 ## Ownership and replay

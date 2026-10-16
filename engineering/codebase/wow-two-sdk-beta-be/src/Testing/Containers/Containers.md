@@ -1,21 +1,21 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers
+# WoW.Two.Sdk.Beta.Be.Testing.Containers
 
 > Base for Testcontainers-backed fixtures. Per-engine packages (Postgres, Redis, RabbitMq, etc.) extend `ContainerFixtureBase<TContainer>`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers
 ```
 
 You typically don't depend on this directly — use the engine-specific packages instead:
 
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres`
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Redis`
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.RabbitMq`
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Kafka`
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.MongoDb`
-- `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Azurite`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.Redis`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.RabbitMq`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb`
+- `WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite`
 
 ## Subclassing
 

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.IdentityApi
+# WoW.Two.Sdk.Beta.Be.Identity.IdentityApi
 
 > ASP.NET Core Identity API endpoints (`MapIdentityApi<TUser>`) preset.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.IdentityApi
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.IdentityApi
 ```
 
 ## Usage

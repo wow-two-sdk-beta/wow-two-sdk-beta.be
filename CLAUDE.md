@@ -1,12 +1,12 @@
-# wow-two-sdk.backend.beta
+# wow-two-sdk-beta.be
 
 ## What is this
 
-The `WoW.Two.Sdk.Backend.Beta.*` family — beta-forever .NET 10 backend SDK aggregating wrappers around the entire .NET ecosystem (~10K+ packages reachable via composition). Same beta-forever philosophy as the UI lib: no CHANGELOG or PR gate; required checks run in the release workflow, and main pushes publish the family.
+The `WoW.Two.Sdk.Beta.Be.*` family — beta-forever .NET 10 be sdk aggregating wrappers around the entire .NET ecosystem (~10K+ packages reachable via composition). Same beta-forever philosophy as the UI lib: no CHANGELOG or PR gate; required checks run in the release workflow, and main pushes publish the family.
 
 > **Beta-forever rules**: no CHANGELOG or PR gate; push directly to main and fix forward. CI tests, auto-bumps `10.y.z-beta`, verifies seven packages, publishes and records the release commit/tag.
 
-> **Structure (current): seven release projects.** `src/WoW.Two.Sdk.Backend.Beta.csproj` compiles all production concerns. Separate projects ship data abstractions, the migration CLI and four testing libraries. Seven test suites are non-packable. Per-area folders are PascalCase and match namespace segments. Rationale + migration log + backlog: [`engineering/architecture/analysis/mono-lib-migration.md`](./engineering/architecture/analysis/mono-lib-migration.md).
+> **Structure (current): seven release projects.** `src/WoW.Two.Sdk.Beta.Be.csproj` compiles all production concerns. Separate projects ship data abstractions, the migration CLI and four testing libraries. Seven test suites are non-packable. Per-area folders are PascalCase and match namespace segments. Rationale + migration log + backlog: [`engineering/architecture/analysis/mono-lib-migration.md`](./engineering/architecture/analysis/mono-lib-migration.md).
 
 ## Source-of-truth docs
 
@@ -40,7 +40,7 @@ See [`targets.md` §6](./engineering/architecture/analysis/philosophy/targets.md
 Shell shape per [`sdk-structure.md`](../../../conventions/development/repo/structure/sdk-structure.md) — `engineering/` bears the docs, `engineering/codebase/{slug}/` bears the one code dir.
 
 ```
-wow-two-sdk.backend.beta/
+wow-two-sdk-beta.be/
 ├── README.md · CLAUDE.md · .github/workflows/  ← entry docs + CI (root-pinned)
 └── engineering/
     ├── engineering.md
@@ -58,7 +58,7 @@ wow-two-sdk.backend.beta/
         ├── codebase.md
         └── wow-two-sdk-beta-be/        ← THE code dir — all `src/…` paths below are relative to here
             └── src/                    ← all csprojs + slnx + Directory.{Build,Packages}.props + .editorconfig
-                ├── Meta/                       ← WoW.Two.Sdk.Backend.Beta meta-package
+                ├── Meta/                       ← WoW.Two.Sdk.Beta.Be meta-package
                 ├── Foundation/                 ← P1 leaves (Time, Errors, Results, Validation, Naming, …)
                 ├── Observability/ Web/         ← P1
                 ├── Mediator/ Identity/         ← P2
@@ -86,7 +86,7 @@ src/<area>/<package>/
 └── <folder>.md                              ← folder lead doc (kebab folder name, e.g. `time.md`) — 1-screen quickstart + see-also. NOT `README.md` below the repo root
 ```
 
-**Naming**: package IDs use `WoW2.Sdk.Backend.Beta[.*]`; namespaces use `WoW.Two.Sdk.Backend.Beta.*`, but **method/class names do NOT have a `WowTwo` prefix** — they describe what they actually do (e.g. `AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `UseOwaspSecureHeaders`, `JsonOptionsPresets`, `WebApiTestBase<T>`). Mirrors the older `Backbone.Language.Features.Serialization` package convention. Symbol-level naming is centralized in `wow-two-ws/conventions/development/backend/dotnet/core/lla/notation/naming/naming.md` (§Registration and extension-method naming); package-id grammar lives in [`engineering/architecture/package-layout.md`](./engineering/architecture/package-layout.md).
+**Naming**: package IDs use `WoW2.Sdk.Beta.Be[.*]`; namespaces use `WoW.Two.Sdk.Beta.Be.*`, but **method/class names do NOT have a `WowTwo` prefix** — they describe what they actually do (e.g. `AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `UseOwaspSecureHeaders`, `JsonOptionsPresets`, `WebApiTestBase<T>`). Mirrors the older `Backbone.Language.Features.Serialization` package convention. Symbol-level naming is centralized in `wow-two-ws/conventions/development/backend/dotnet/core/lla/notation/naming/naming.md` (§Registration and extension-method naming); package-id grammar lives in [`engineering/architecture/package-layout.md`](./engineering/architecture/package-layout.md).
 
 Tiny adapter folders (e.g. each container engine) contain the implementation and folder lead doc `{folder}.md`. Standard/spec are reserved for packages where the API has non-trivial shape.
 
@@ -97,14 +97,14 @@ See [`engineering/architecture/package-layout.md`](./engineering/architecture/pa
 - `Directory.Packages.props` is the single source of truth for NuGet versions (Central Package Management).
 - Every csproj inherits `Directory.Build.props` — `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`, `Nullable enable`, `<GenerateDocumentationFile>true</GenerateDocumentationFile>`, `MIT`, source-link, deterministic builds.
 - Foundation can NOT import domain packages. Domain packages can import any sibling domain. (Future: enforce via Roslyn analyzer.)
-- Solution file is `engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Backend.Beta.slnx` (.NET 10 SDK XML solution format).
+- Solution file is `engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Beta.Be.slnx` (.NET 10 SDK XML solution format).
 
 ## Build & test
 
 ```bash
 cd engineering/codebase/wow-two-sdk-beta-be/src
 dotnet restore -m:1                                  # -m:1 avoids EMFILE on macOS
-dotnet build WoW.Two.Sdk.Backend.Beta.slnx --no-restore -m:1
+dotnet build WoW.Two.Sdk.Beta.Be.slnx --no-restore -m:1
 ```
 
 Use `-m:1` for `dotnet pack` as well, including `--no-build --no-restore` invocations: packing still evaluates project references.
@@ -114,8 +114,8 @@ Set `MSBUILDDISABLENODEREUSE=1` and `ulimit -n 65535` if you hit "too many open 
 
 ## Package naming
 
-Published IDs use the owned `WoW2.Sdk.Backend.Beta[.*]` prefix; namespaces use
-`WoW.Two.Sdk.Backend.Beta.*`. Package-id grammar lives in
+Published IDs use the owned `WoW2.Sdk.Beta.Be[.*]` prefix; namespaces use
+`WoW.Two.Sdk.Beta.Be.*`. Package-id grammar lives in
 [`engineering/architecture/package-layout.md`](./engineering/architecture/package-layout.md).
 
 Registration: descriptive method names without `WowTwo` prefix — `services.AddJwtBearerAuthentication(...)`, `services.AddPerIpSlidingWindowRateLimit()`, `services.AddOpenTelemetryTracing(...)`. The package name carries the brand; the method name carries the meaning. Full rule: `wow-two-ws/conventions/development/backend/dotnet/core/lla/notation/naming/naming.md` (§Registration and extension-method naming).

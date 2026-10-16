@@ -1,6 +1,6 @@
 # Package registry
 
-*Last updated: 2026-10-05*
+*Last updated: 2026-10-16*
 
 > The seven published NuGets and the capability areas compiled into them.
 
@@ -8,16 +8,19 @@
 
 | Package | Role |
 |---|---|
-| `WoW2.Sdk.Backend.Beta` | production mono library |
-| `WoW2.Sdk.Backend.Beta.Data.Abstractions` | web-free data contracts |
-| `WoW2.Sdk.Backend.Beta.Data.Migrations.Cli` | `wow-migrate` .NET tool |
-| `WoW2.Sdk.Backend.Beta.Testing` | base test helpers |
-| `WoW2.Sdk.Backend.Beta.Testing.Data` | data test helpers |
-| `WoW2.Sdk.Backend.Beta.Testing.Integrations` | integration-client test doubles |
-| `WoW2.Sdk.Backend.Beta.Testing.Messaging` | messaging test harness |
+| `WoW2.Sdk.Beta.Be` | production mono library |
+| `WoW2.Sdk.Beta.Be.Data.Abstractions` | web-free data contracts |
+| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool |
+| `WoW2.Sdk.Beta.Be.Testing` | base test helpers |
+| `WoW2.Sdk.Beta.Be.Testing.Data` | data test helpers |
+| `WoW2.Sdk.Beta.Be.Testing.Integrations` | integration-client test doubles |
+| `WoW2.Sdk.Beta.Be.Testing.Messaging` | messaging test harness |
 
 All seven share one evaluated version and publish in lockstep. The rows below track capability areas,
 not additional package outputs.
+
+The family shipped as `WoW2.Sdk.Backend.Beta[.*]` (namespace `WoW.Two.Sdk.Backend.Beta`) through
+`10.0.66-beta`; the version sequence continues under the `WoW2.Sdk.Beta.Be` IDs.
 
 ---
 
@@ -54,27 +57,27 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta` (root, `src/Meta/`) | `AddApiDefaults()` / `UseApiDefaults()` — one-import P1 boot floor (Serilog + OTel + health + proxy hosting + OpenAPI + problem details + rate limit + output cache + compression + optional CORS/validators). Auth/mediator/data stay explicit. | shipped |
+| `WoW.Two.Sdk.Beta.Be` (root, `src/Meta/`) | `AddApiDefaults()` / `UseApiDefaults()` — one-import P1 boot floor (Serilog + OTel + health + proxy hosting + OpenAPI + problem details + rate limit + output cache + compression + optional CORS/validators). Auth/mediator/data stay explicit. | shipped |
 
 ## P0 — Testing scaffold (parallel track)
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Testing` | Core test host (`WebApiTestHost<TProgram>`), `WebApiTestBase<TProgram>` xUnit base, async fixture interfaces | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Assertions` | Bundles AwesomeAssertions + Shouldly | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Bogus` | `BogusFakerFactory` deterministic-seed factory | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Verify` | `VerifyDefaults.Initialize()` + Verify.{Xunit, AspNetCore, Http} | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.WireMock` | `WireMockFixture` (WireMock.Net async fixture) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers` | `ContainerFixtureBase<TContainer>` for engine packages | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres` | `PostgresFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Redis` | `RedisFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.RabbitMq` | `RabbitMqFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Kafka` | `KafkaFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.MongoDb` | `MongoDbFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Azurite` | `AzuriteFixture` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite), `MigratorPostgresFixture` (drop-schema reset), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()`, `RemoveAllForDbContext`/`RepointDbContext` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Elasticsearch` | Elasticsearch Testcontainers fixture | planned |
-| `WoW.Two.Sdk.Backend.Beta.Testing.Containers.Localstack` | LocalStack (AWS emulator) fixture | planned |
+| `WoW.Two.Sdk.Beta.Be.Testing` | Core test host (`WebApiTestHost<TProgram>`), `WebApiTestBase<TProgram>` xUnit base, async fixture interfaces | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Assertions` | Bundles AwesomeAssertions + Shouldly | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Bogus` | `BogusFakerFactory` deterministic-seed factory | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Verify` | `VerifyDefaults.Initialize()` + Verify.{Xunit, AspNetCore, Http} | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.WireMock` | `WireMockFixture` (WireMock.Net async fixture) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers` | `ContainerFixtureBase<TContainer>` for engine packages | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres` | `PostgresFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Redis` | `RedisFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.RabbitMq` | `RabbitMqFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka` | `KafkaFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb` | `MongoDbFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite` | `AzuriteFixture` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite), `MigratorPostgresFixture` (drop-schema reset), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()`, `RemoveAllForDbContext`/`RepointDbContext` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Elasticsearch` | Elasticsearch Testcontainers fixture | planned |
+| `WoW.Two.Sdk.Beta.Be.Testing.Containers.Localstack` | LocalStack (AWS emulator) fixture | planned |
 
 ## P1 — Boot floor
 
@@ -82,98 +85,98 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Time` | `AddTimeProviders`, `TimeZoneHelpers`, `CronExpressionParser`; NodaTime + Cronos + TimeZoneConverter | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Errors` | `DomainError` record + category-to-HTTP-status mapping | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Results` | Re-exports ErrorOr + OneOf + Ardalis.Result | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Validation` | `AddFluentValidatorsFromAssemblies` (FluentValidation assembly scan) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Serialization` | `JsonOptionsPresets` (camelCase + NodaTime + lenient input) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Guards` | `IdentifierGuardExtensions` (`NotSlug`, `NotUlid`) on top of Ardalis.GuardClauses | shipped |
-| `WoW.Two.Sdk.Backend.Beta.ValueObjects` | Re-exports Vogen + StronglyTypedId source generators | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Naming` | **Casing authority** — `CaseStyle` enum (10 styles), `WordTokenizer` (acronym/digit-aware split), `CaseConverter` + string extensions, reversible `EnumNameConverter<TEnum>`. Zero deps. Source for column / enum-label / SQL-identifier casing. | shipped |
+| `WoW.Two.Sdk.Beta.Be.Time` | `AddTimeProviders`, `TimeZoneHelpers`, `CronExpressionParser`; NodaTime + Cronos + TimeZoneConverter | shipped |
+| `WoW.Two.Sdk.Beta.Be.Errors` | `DomainError` record + category-to-HTTP-status mapping | shipped |
+| `WoW.Two.Sdk.Beta.Be.Results` | Re-exports ErrorOr + OneOf + Ardalis.Result | shipped |
+| `WoW.Two.Sdk.Beta.Be.Validation` | `AddFluentValidatorsFromAssemblies` (FluentValidation assembly scan) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Serialization` | `JsonOptionsPresets` (camelCase + NodaTime + lenient input) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Guards` | `IdentifierGuardExtensions` (`NotSlug`, `NotUlid`) on top of Ardalis.GuardClauses | shipped |
+| `WoW.Two.Sdk.Beta.Be.ValueObjects` | Re-exports Vogen + StronglyTypedId source generators | shipped |
+| `WoW.Two.Sdk.Beta.Be.Naming` | **Casing authority** — `CaseStyle` enum (10 styles), `WordTokenizer` (acronym/digit-aware split), `CaseConverter` + string extensions, reversible `EnumNameConverter<TEnum>`. Zero deps. Source for column / enum-label / SQL-identifier casing. | shipped |
 
 ### Observability
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Observability` | Meta — wires logging + tracing + metrics + health | planned |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Logging` | `StartupFailureReportingService` + `UseSerilogConventional` — durable pre-host failures, then Serilog → `ILogger<T>` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Tracing` | `AddOpenTelemetryTracing` — OTel tracer + AspNetCore/HttpClient/Grpc/SqlClient/EFCore/Redis instrumentation | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Metrics` | `AddOpenTelemetryMetrics` — OTel meter + AspNetCore/HttpClient/Runtime/Process | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.HealthChecks` | `AddHealthChecksBuilder` — `IHealthChecksBuilder` + Xabaril provider deps (SqlServer/Postgres/MySql/Redis/RabbitMQ/Mongo/Kafka/Elastic/Network/Uris/AzureSB/AzureStorage/AwsS3/AwsSqs) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Otlp` | `AddOtlpExporters` — OTLP gRPC/HTTP for traces + metrics | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Prometheus` | `AddPrometheusMetricsExporter` — scrape endpoint | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.AzureMonitor` | `AddAzureMonitorExporter` — Azure Monitor distro | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Observability.Datadog` | `Datadog.Trace` re-export (use OTLP route by default) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability` | Meta — wires logging + tracing + metrics + health | planned |
+| `WoW.Two.Sdk.Beta.Be.Observability.Logging` | `StartupFailureReportingService` + `UseSerilogConventional` — durable pre-host failures, then Serilog → `ILogger<T>` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.Tracing` | `AddOpenTelemetryTracing` — OTel tracer + AspNetCore/HttpClient/Grpc/SqlClient/EFCore/Redis instrumentation | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.Metrics` | `AddOpenTelemetryMetrics` — OTel meter + AspNetCore/HttpClient/Runtime/Process | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.HealthChecks` | `AddHealthChecksBuilder` — `IHealthChecksBuilder` + Xabaril provider deps (SqlServer/Postgres/MySql/Redis/RabbitMQ/Mongo/Kafka/Elastic/Network/Uris/AzureSB/AzureStorage/AwsS3/AwsSqs) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.Otlp` | `AddOtlpExporters` — OTLP gRPC/HTTP for traces + metrics | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.Prometheus` | `AddPrometheusMetricsExporter` — scrape endpoint | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.AzureMonitor` | `AddAzureMonitorExporter` — Azure Monitor distro | shipped |
+| `WoW.Two.Sdk.Beta.Be.Observability.Datadog` | `Datadog.Trace` re-export (use OTLP route by default) | shipped |
 
 ### Web
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Web` | Meta — wires hosting + openapi + problem details + secure-headers + cors + ratelimit + outputcache | planned |
-| `WoW.Two.Sdk.Backend.Beta.Web.Hosting` | `AddProxyAwareHosting` / `UseProxyAwareHosting` — forwarded headers + host filtering (`AllowedHosts`) + bounded request limits + request decompression | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.RequestLimits` | `AddRequestLimits` — Kestrel body/header/request-line/headers-timeout caps (bounds the decompression input) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.OpenApi` | `AddOpenApiDefaults` / `MapOpenApiEndpoint` — `Microsoft.AspNetCore.OpenApi` (.NET 10) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.OpenApi.Swashbuckle` | Swashbuckle fallback adapter | planned |
-| `WoW.Two.Sdk.Backend.Beta.Web.ProblemDetails` | `AddTraceAwareProblemDetails` plus opt-in `AddHttpProblemDetails` / `UseHttpProblemDetails` — RFC 9457 errors, trace context and MVC normalization | implemented (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Http.Errors` | `HttpExceptionMappingRule` (in `AddApiDefaults`) + `ToAppErrorAsync` / `EnsureSuccessAsync` — outbound failures as `AppError` | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.Contracts.Paging` | `PageDto<T>` / `TokenPageDto<T>` (UI SDK `Page` / `TokenPage` shapes), `PageApiRequest` / `TokenPageApiRequest`, EF `ToPageAsync` + composite-key `ToTokenPageAsync` with opaque tokens | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.Idempotency` | `Idempotency-Key` execute-once + replay (422 on body reuse, 409 in flight) over `IIdempotencyRepository`; activated by the `HttpIdempotency` section | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.ConditionalRequests` | ETag + `304` for GET, `SetEntityTag` / `FailsIfMatch` for versioned writes; activated by the `ConditionalRequests` section, inert in `UseApiDefaults` | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.ErrorTranslation` | `IErrorTranslationService` behind the default error mappers; activated by `Validation:Translation` (validation module options); `ToApiFailure<T>` envelope helper | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.Captcha` | `AddCaptcha()` (`Web:Captcha`, off by default) + `.RequireCaptcha(action)` — Turnstile, hCaptcha, reCAPTCHA v2/v3 siteverify; hostname, action and score rules; fail-closed outages | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.Quotas` | `AddQuotas()` (`Quotas`, off by default) + `.RequireQuota(name)` + `MapQuotaUsageEndpoint()` — per-plan allowances in UTC windows, refunds on failure, in-memory or Redis counters | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Web.RateLimit` | `AddPerIpSlidingWindowRateLimit` — sliding window per-IP, 100 req/min default; `AddConfiguredRateLimits` — named/global policies from the `RateLimits` section, problem-details 429 (unreleased) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.OutputCache` | `AddDefaultOutputCache` — built-in middleware with default 60s policy | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.SecureHeaders` | `UseOwaspSecureHeaders` — OWASP-flavored preset (HSTS, CSP-friendly, COOP/COEP/CORP) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.Cors` | `AddDefaultCorsPolicy` — single-line CORS policy registration | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.Compression` | `AddBrotliGzipCompression` — Brotli + Gzip with `Fastest` level | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Web.Versioning` | `AddDefaultApiVersioning` — URL/header/query versioning with `1.0` default | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web` | Meta — wires hosting + openapi + problem details + secure-headers + cors + ratelimit + outputcache | planned |
+| `WoW.Two.Sdk.Beta.Be.Web.Hosting` | `AddProxyAwareHosting` / `UseProxyAwareHosting` — forwarded headers + host filtering (`AllowedHosts`) + bounded request limits + request decompression | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.RequestLimits` | `AddRequestLimits` — Kestrel body/header/request-line/headers-timeout caps (bounds the decompression input) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.OpenApi` | `AddOpenApiDefaults` / `MapOpenApiEndpoint` — `Microsoft.AspNetCore.OpenApi` (.NET 10) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.OpenApi.Swashbuckle` | Swashbuckle fallback adapter | planned |
+| `WoW.Two.Sdk.Beta.Be.Web.ProblemDetails` | `AddTraceAwareProblemDetails` plus opt-in `AddHttpProblemDetails` / `UseHttpProblemDetails` — RFC 9457 errors, trace context and MVC normalization | implemented (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Http.Errors` | `HttpExceptionMappingRule` (in `AddApiDefaults`) + `ToAppErrorAsync` / `EnsureSuccessAsync` — outbound failures as `AppError` | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging` | `PageDto<T>` / `TokenPageDto<T>` (UI SDK `Page` / `TokenPage` shapes), `PageApiRequest` / `TokenPageApiRequest`, EF `ToPageAsync` + composite-key `ToTokenPageAsync` with opaque tokens | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.Idempotency` | `Idempotency-Key` execute-once + replay (422 on body reuse, 409 in flight) over `IIdempotencyRepository`; activated by the `HttpIdempotency` section | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests` | ETag + `304` for GET, `SetEntityTag` / `FailsIfMatch` for versioned writes; activated by the `ConditionalRequests` section, inert in `UseApiDefaults` | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation` | `IErrorTranslationService` behind the default error mappers; activated by `Validation:Translation` (validation module options); `ToApiFailure<T>` envelope helper | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.Captcha` | `AddCaptcha()` (`Web:Captcha`, off by default) + `.RequireCaptcha(action)` — Turnstile, hCaptcha, reCAPTCHA v2/v3 siteverify; hostname, action and score rules; fail-closed outages | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.Quotas` | `AddQuotas()` (`Quotas`, off by default) + `.RequireQuota(name)` + `MapQuotaUsageEndpoint()` — per-plan allowances in UTC windows, refunds on failure, in-memory or Redis counters | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.RateLimit` | `AddPerIpSlidingWindowRateLimit` — sliding window per-IP, 100 req/min default; `AddConfiguredRateLimits` — named/global policies from the `RateLimits` section, problem-details 429 (unreleased) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.OutputCache` | `AddDefaultOutputCache` — built-in middleware with default 60s policy | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.SecureHeaders` | `UseOwaspSecureHeaders` — OWASP-flavored preset (HSTS, CSP-friendly, COOP/COEP/CORP) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.Cors` | `AddDefaultCorsPolicy` — single-line CORS policy registration | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.Compression` | `AddBrotliGzipCompression` — Brotli + Gzip with `Fastest` level | shipped |
+| `WoW.Two.Sdk.Beta.Be.Web.Versioning` | `AddDefaultApiVersioning` — URL/header/query versioning with `1.0` default | shipped |
 
 ## P2 — Request pipeline + auth
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Mediator` | `IMediator` + `IRequest<T>` + `IPipelineBehavior<,>` — MediatR-API-compatible facade (no MediatR dep, MIT) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Mediator.Validation` | `AddMediatorValidationBehavior()` — FluentValidation pipeline behavior | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Mediator.Logging` | `AddMediatorLoggingBehavior()` — source-gen `[LoggerMessage]` request/response logging | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Mediator.Authorization` | `AddMediatorAuthorizationBehavior()` + `IRequireAuthorization` marker | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Mediator.Idempotency` | `AddMediatorDeduplicatingInterceptor()` + `IIdempotent` + `IIdempotencyRepository`; ownership-token contract since `10.0.59-beta`; durable `AddSqlIdempotencyRepository()` (PostgreSQL/SQLite, leases) implemented, unreleased; durable `AddRedisIdempotencyRepository` (Lua-atomic, lease by expiry, 2026-09-28) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity` | Meta — JWT + cookies + Identity API endpoints | planned |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Core` | `AddUserAccounts<TUser>()` — own sliced-lego user model: 7 entities + `ApplyIdentitySchema` + `IUserRepository`/`EfUserRepository` + `UserAccountService` + `UserClaimsPrincipalFactory`; opt-in slices (implemented, unreleased): passwords + breach check, purpose tokens, email, lockout, security-stamp revocation, roles, user claims, external logins, two-factor, phone, sign-in, refresh tokens, account HTTP API (`MapUserAccountEndpoints`) ([track](../research/identity/identity-slices.md)) | shipped core; slices implemented |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Jwt` | `AddJwtBearerAuthentication()` — JWT bearer (symmetric or JWKS) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Cookies` | `AddCookieAuthentication()` — secure cookie defaults | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.ApiKeys` | `AddApiKeyAuthentication(keys, gate)` + `UseApiKeyAccessGate()` — marked secrets stored as SHA-256, the `ApiKey` scheme (marked Bearer or `X-Api-Key`), a local-or-key gate with open and local-only paths; product-owned `IApiKeyRepository` (TranscriptForge v0.7) | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Oidc` | `AddOpenIdConnectAuthentication()` — Authorization Code + PKCE | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google` | `AddGoogleAuthentication(clientId, clientSecret)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Microsoft` | `AddMicrosoftAuthentication(clientId, clientSecret)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitHub` | `AddGitHubAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Apple` | `AddAppleAuthentication(clientId, teamId, keyId, keyPath)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Facebook` | `AddFacebookAuthentication(appId, appSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.LinkedIn` | `AddLinkedInAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Discord` | `AddDiscordAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Slack` | `AddSlackAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitLab` | `AddGitLabAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Amazon` | `AddAmazonAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Twitch` | `AddTwitchAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Spotify` | `AddSpotifyAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Yandex` | `AddYandexAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Reddit` | `AddRedditAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Notion` | `AddNotionAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Vkontakte` | `AddVkontakteAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.IdentityApi` | `AddIdentityApiEndpoints<TContext>()` — bearer-token Identity endpoints with hardened defaults | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Mfa.Totp` | `TotpService` — secret gen + otpauth URI + verify with ±1 step tolerance | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Mfa.WebAuthn` | `AddFido2WebAuthn(domain, name, origins)` — Fido2.AspNet | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Core.PersonalData` | `.AddPersonalData()` — `manage/personal-data` export (identity sections + `IPersonalDataExporter<TUser>`) and `manage/delete-account` erasure (`IAccountDeletionHandler<TUser>` then identity rows) | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Core.EmailSignIn` | `.AddEmailSignIn()` (`Identity:EmailSignIn`) — single-use link or code sign-in over the OTP service, `email-sign-in` routes, `login/two-factor` ticket completion | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Core.Passkeys` | `.AddPasskeys(o => …)` (`Identity:Passkeys`) — `identity_passkeys`, `UserPasskeyService`, usernameless `PasskeySignInAsync`, single-use ceremonies, account routes | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2` | `UseArgon2PasswordHasher<TUser>()` — OWASP 2024 baseline | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Policies` | `AddRolePolicy()` — `IRolePolicy` + `DictionaryRolePolicy` default (scope → allowed roles) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Jwt.Issuance` | `AddJwtTokenIssuance()` — `ITokenIssuer` HMAC issuance (HS256/384/512), per-call lifetime/audience overrides; pure lib, no ASP.NET dependency | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Otp` | `AddOtpService()` (`Identity:Otp`) — `IOtpService` keyed by (subject, scope) with per-call `OtpCodeSpec` (numeric · alphanumeric · letters); `IOtpMessageFormatter` per-culture ICU templates (built-in en/ru/uz); `IOtpDeliveryHandlerFactory` keyed channels | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Otp.Telegram` | `AddTelegramOtpDelivery()` — chat-id delivery via consumer-registered `ITelegramBotClient` (Telegram.Bot, MIT) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Otp.WhatsApp` | `AddWhatsAppOtpDelivery()` — `whatsapp` channel: authentication template per culture, free-text fallback | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Otp.TelegramGateway` | `AddTelegramGatewayOtpDelivery()` — `telegram-gateway` channel: codes to a phone number via the Telegram Gateway API | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Identity.Otp.Email` | `AddEmailOtpDelivery()` — `email` channel over `IEmailBroker` | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Mediator` | `IMediator` + `IRequest<T>` + `IPipelineBehavior<,>` — MediatR-API-compatible facade (no MediatR dep, MIT) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Mediator.Validation` | `AddMediatorValidationBehavior()` — FluentValidation pipeline behavior | shipped |
+| `WoW.Two.Sdk.Beta.Be.Mediator.Logging` | `AddMediatorLoggingBehavior()` — source-gen `[LoggerMessage]` request/response logging | shipped |
+| `WoW.Two.Sdk.Beta.Be.Mediator.Authorization` | `AddMediatorAuthorizationBehavior()` + `IRequireAuthorization` marker | shipped |
+| `WoW.Two.Sdk.Beta.Be.Mediator.Idempotency` | `AddMediatorDeduplicatingInterceptor()` + `IIdempotent` + `IIdempotencyRepository`; ownership-token contract since `10.0.59-beta`; durable `AddSqlIdempotencyRepository()` (PostgreSQL/SQLite, leases) implemented, unreleased; durable `AddRedisIdempotencyRepository` (Lua-atomic, lease by expiry, 2026-09-28) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity` | Meta — JWT + cookies + Identity API endpoints | planned |
+| `WoW.Two.Sdk.Beta.Be.Identity.Core` | `AddUserAccounts<TUser>()` — own sliced-lego user model: 7 entities + `ApplyIdentitySchema` + `IUserRepository`/`EfUserRepository` + `UserAccountService` + `UserClaimsPrincipalFactory`; opt-in slices (implemented, unreleased): passwords + breach check, purpose tokens, email, lockout, security-stamp revocation, roles, user claims, external logins, two-factor, phone, sign-in, refresh tokens, account HTTP API (`MapUserAccountEndpoints`) ([track](../research/identity/identity-slices.md)) | shipped core; slices implemented |
+| `WoW.Two.Sdk.Beta.Be.Identity.Jwt` | `AddJwtBearerAuthentication()` — JWT bearer (symmetric or JWKS) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Cookies` | `AddCookieAuthentication()` — secure cookie defaults | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.ApiKeys` | `AddApiKeyAuthentication(keys, gate)` + `UseApiKeyAccessGate()` — marked secrets stored as SHA-256, the `ApiKey` scheme (marked Bearer or `X-Api-Key`), a local-or-key gate with open and local-only paths; product-owned `IApiKeyRepository` (TranscriptForge v0.7) | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Oidc` | `AddOpenIdConnectAuthentication()` — Authorization Code + PKCE | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google` | `AddGoogleAuthentication(clientId, clientSecret)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Microsoft` | `AddMicrosoftAuthentication(clientId, clientSecret)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitHub` | `AddGitHubAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Apple` | `AddAppleAuthentication(clientId, teamId, keyId, keyPath)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Facebook` | `AddFacebookAuthentication(appId, appSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.LinkedIn` | `AddLinkedInAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Discord` | `AddDiscordAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Slack` | `AddSlackAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitLab` | `AddGitLabAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Amazon` | `AddAmazonAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitch` | `AddTwitchAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Spotify` | `AddSpotifyAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Yandex` | `AddYandexAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Reddit` | `AddRedditAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Notion` | `AddNotionAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Vkontakte` | `AddVkontakteAuthentication(clientId, clientSecret, scopes)` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.IdentityApi` | `AddIdentityApiEndpoints<TContext>()` — bearer-token Identity endpoints with hardened defaults | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp` | `TotpService` — secret gen + otpauth URI + verify with ±1 step tolerance | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn` | `AddFido2WebAuthn(domain, name, origins)` — Fido2.AspNet | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData` | `.AddPersonalData()` — `manage/personal-data` export (identity sections + `IPersonalDataExporter<TUser>`) and `manage/delete-account` erasure (`IAccountDeletionHandler<TUser>` then identity rows) | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn` | `.AddEmailSignIn()` (`Identity:EmailSignIn`) — single-use link or code sign-in over the OTP service, `email-sign-in` routes, `login/two-factor` ticket completion | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys` | `.AddPasskeys(o => …)` (`Identity:Passkeys`) — `identity_passkeys`, `UserPasskeyService`, usernameless `PasskeySignInAsync`, single-use ceremonies, account routes | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2` | `UseArgon2PasswordHasher<TUser>()` — OWASP 2024 baseline | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Policies` | `AddRolePolicy()` — `IRolePolicy` + `DictionaryRolePolicy` default (scope → allowed roles) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance` | `AddJwtTokenIssuance()` — `ITokenIssuer` HMAC issuance (HS256/384/512), per-call lifetime/audience overrides; pure lib, no ASP.NET dependency | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Otp` | `AddOtpService()` (`Identity:Otp`) — `IOtpService` keyed by (subject, scope) with per-call `OtpCodeSpec` (numeric · alphanumeric · letters); `IOtpMessageFormatter` per-culture ICU templates (built-in en/ru/uz); `IOtpDeliveryHandlerFactory` keyed channels | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Otp.Telegram` | `AddTelegramOtpDelivery()` — chat-id delivery via consumer-registered `ITelegramBotClient` (Telegram.Bot, MIT) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp` | `AddWhatsAppOtpDelivery()` — `whatsapp` channel: authentication template per culture, free-text fallback | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Otp.TelegramGateway` | `AddTelegramGatewayOtpDelivery()` — `telegram-gateway` channel: codes to a phone number via the Telegram Gateway API | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Identity.Otp.Email` | `AddEmailOtpDelivery()` — `email` channel over `IEmailBroker` | implemented (mono-lib, unreleased) |
 
 ## P3 — Persistence + outbound
 
@@ -181,146 +184,146 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Data` | Meta — wires Abstractions + EF Core + Audit + SoftDelete + NamingConventions + Json + Ef Migrations runner | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.Abstractions` | Entity contracts — `IEntity`, `IKeyedEntity<TId>`, `IHasTableName` (static-abstract `TableName`), `IAuditable`/`ICreationAuditable`/`IModificationAuditable` (+ `…By<TUserId>` actor variants), `ISoftDeletable`/`ISoftDeletableBy<TUserId>`, `IHasTenant<TTenantId>`, `IRowVersioned`, `IHasXmin`, `IVersioned`; repository contracts `IReadRepository<TEntity,TId>` + `IRepository<TEntity,TId>` (Create/Update/Delete/Get verbs). Zero deps. | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore` | `AppDbContextBase` + `AddEntityFrameworkCore<TContext>` (pooling + config scanner) | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.Specs` | provider-neutral `EntitySpec` (table, key, columns, indexes, concurrency kinds, soft delete, tenant) + `IEntitySpecConfiguration<T>` + `EntitySpecRegistry`; `AddEntitySpecs`; `Data:Specs:Unsupported` Throw/Skip | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Specs` | `ApplyEntitySpecs` EF mapper; `AppDbContextBase` applies registered specs and rotates stamp tokens | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Data.Dapper.Repositories` (specs) | `DapperRepository` reads a registered `EntitySpec`: renamed table/columns, ignored and store-written properties, all four token kinds | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SqlServer` | `UseSqlServerConventional` — retry-on-failure (6×), 30s command timeout | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Postgres` | `UseNpgsqlConventional` — retry + NpgsqlDataSource overload for enum mapping; `AddNpgsqlDataSource`; `MapEnums(style, nsFilter, …, assemblies)` (reflection bulk enum registration via casing engine, kills double-registry) + `CaseStyleNameTranslator`; `ApplyNpgsqlConventions` (xmin token) | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.MySql` | `UseMySqlConventional` — Pomelo + AutoDetect server version | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Sqlite` | `UseSqliteConventional` — 30s command timeout | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Cosmos` | `UseCosmosConventional` — connection-string + endpoint+key overloads | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Audit` | `AuditInterceptor` (SaveChangesInterceptor) + `IAuditCurrentUserService` for `CreatedBy`/`UpdatedBy` | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.SoftDelete` | `SoftDeleteInterceptor` (DELETE→UPDATE) + `ApplySoftDeleteFilter` ModelBuilder ext | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.NamingConventions` | `UseSnakeCase/LowerCase/CamelCase/UpperSnakeCaseNamingConvention` | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Json` | `JsonValueConverter<T>` + `JsonValueComparer<T>` + `HasJsonConversion()` PropertyBuilder ext | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore` (Naming) | `EnumCaseConverter<TEnum>` (reversible string enum via `Naming`) + `HasEnumStringConversion()` PropertyBuilder ext | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore` (Repositories) | `EfRepository<TEntity,TId>` (thin CRUD) + `AddEfRepositories<TContext>` / `AddEfRepository<TRepo,TEntity,TId>` DI helpers | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Bulk` | EFCore.BulkExtensions re-export (BulkInsert/Update/Delete) | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Triggered` | `UseTriggersConventional` + `AddTriggersFromAssemblies` | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.EntityFrameworkCore.Projectables` | `UseProjectablesConventional` — `[Projectable]` computed properties | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data` | Meta — wires Abstractions + EF Core + Audit + SoftDelete + NamingConventions + Json + Ef Migrations runner | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Abstractions` | Entity contracts — `IEntity`, `IKeyedEntity<TId>`, `IHasTableName` (static-abstract `TableName`), `IAuditable`/`ICreationAuditable`/`IModificationAuditable` (+ `…By<TUserId>` actor variants), `ISoftDeletable`/`ISoftDeletableBy<TUserId>`, `IHasTenant<TTenantId>`, `IRowVersioned`, `IHasXmin`, `IVersioned`; repository contracts `IReadRepository<TEntity,TId>` + `IRepository<TEntity,TId>` (Create/Update/Delete/Get verbs). Zero deps. | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore` | `AppDbContextBase` + `AddEntityFrameworkCore<TContext>` (pooling + config scanner) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Specs` | provider-neutral `EntitySpec` (table, key, columns, indexes, concurrency kinds, soft delete, tenant) + `IEntitySpecConfiguration<T>` + `EntitySpecRegistry`; `AddEntitySpecs`; `Data:Specs:Unsupported` Throw/Skip | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Specs` | `ApplyEntitySpecs` EF mapper; `AppDbContextBase` applies registered specs and rotates stamp tokens | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.Dapper.Repositories` (specs) | `DapperRepository` reads a registered `EntitySpec`: renamed table/columns, ignored and store-written properties, all four token kinds | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SqlServer` | `UseSqlServerConventional` — retry-on-failure (6×), 30s command timeout | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Postgres` | `UseNpgsqlConventional` — retry + NpgsqlDataSource overload for enum mapping; `AddNpgsqlDataSource`; `MapEnums(style, nsFilter, …, assemblies)` (reflection bulk enum registration via casing engine, kills double-registry) + `CaseStyleNameTranslator`; `ApplyNpgsqlConventions` (xmin token) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.MySql` | `UseMySqlConventional` — Pomelo + AutoDetect server version | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite` | `UseSqliteConventional` — 30s command timeout | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Cosmos` | `UseCosmosConventional` — connection-string + endpoint+key overloads | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Audit` | `AuditInterceptor` (SaveChangesInterceptor) + `IAuditCurrentUserService` for `CreatedBy`/`UpdatedBy` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete` | `SoftDeleteInterceptor` (DELETE→UPDATE) + `ApplySoftDeleteFilter` ModelBuilder ext | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.NamingConventions` | `UseSnakeCase/LowerCase/CamelCase/UpperSnakeCaseNamingConvention` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Json` | `JsonValueConverter<T>` + `JsonValueComparer<T>` + `HasJsonConversion()` PropertyBuilder ext | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore` (Naming) | `EnumCaseConverter<TEnum>` (reversible string enum via `Naming`) + `HasEnumStringConversion()` PropertyBuilder ext | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore` (Repositories) | `EfRepository<TEntity,TId>` (thin CRUD) + `AddEfRepositories<TContext>` / `AddEfRepository<TRepo,TEntity,TId>` DI helpers | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Bulk` | EFCore.BulkExtensions re-export (BulkInsert/Update/Delete) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Triggered` | `UseTriggersConventional` + `AddTriggersFromAssemblies` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Projectables` | `UseProjectablesConventional` — `[Projectable]` computed properties | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
 
 ### Caching
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Caching` | Meta — HybridCache defaults | planned |
-| `WoW.Two.Sdk.Backend.Beta.Caching.Hybrid` | `AddHybridCaching`, `ICacheRepository`, cache key builder and HybridCache adapter | shipped (mono-lib; distributed invalidation remains) |
-| `WoW.Two.Sdk.Backend.Beta.Caching.Memory` | `AddInMemoryCaching` | shipped (mono-lib; distributed invalidation remains) |
-| `WoW.Two.Sdk.Backend.Beta.Caching.Redis` | `AddRedisDistributedCache` as the optional L2 backend | shipped (mono-lib; distributed invalidation remains) |
-| `WoW.Two.Sdk.Backend.Beta.Caching.SqlServer` | SQL Server as L2 backend | planned |
-| `WoW.Two.Sdk.Backend.Beta.Caching.Cosmos` | Cosmos as L2 backend | planned |
-| `WoW.Two.Sdk.Backend.Beta.Caching.FusionCache` | FusionCache as alt | planned |
+| `WoW.Two.Sdk.Beta.Be.Caching` | Meta — HybridCache defaults | planned |
+| `WoW.Two.Sdk.Beta.Be.Caching.Hybrid` | `AddHybridCaching`, `ICacheRepository`, cache key builder and HybridCache adapter | shipped (mono-lib; distributed invalidation remains) |
+| `WoW.Two.Sdk.Beta.Be.Caching.Memory` | `AddInMemoryCaching` | shipped (mono-lib; distributed invalidation remains) |
+| `WoW.Two.Sdk.Beta.Be.Caching.Redis` | `AddRedisDistributedCache` as the optional L2 backend | shipped (mono-lib; distributed invalidation remains) |
+| `WoW.Two.Sdk.Beta.Be.Caching.SqlServer` | SQL Server as L2 backend | planned |
+| `WoW.Two.Sdk.Beta.Be.Caching.Cosmos` | Cosmos as L2 backend | planned |
+| `WoW.Two.Sdk.Beta.Be.Caching.FusionCache` | FusionCache as alt | planned |
 
 ### Http / outbound
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Http` | Meta — Refit + resilience defaults | planned |
-| `WoW.Two.Sdk.Backend.Beta.Http.Refit` | `AddRefitApiClient<TApi>(baseAddr, …)` — Refit client + SDK JSON + resilience baked in; `CreateDefaultRefitSettings()` | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.Resilience` | `AddSdkResilience()` (`IHttpClientBuilder` ext) + tunable `HttpResilienceOptions` over `Microsoft.Extensions.Http.Resilience` (Polly v8) | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.Core` | `AddResilientClient<TClient>` / `AddResilientClient(name, …)` — plain typed/named HttpClient + SDK resilience | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.Hedging` | `AddSdkHedging()` — standard-hedging preset (parallel attempt racing) + tunable `HttpHedgingOptions`; for idempotent latency-sensitive calls | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.HeaderPropagation` | `AddConventionalHeaderPropagation(…)` + `AddPropagatedHeaders()` — X-Correlation-Id / X-Request-Id defaults over `Microsoft.AspNetCore.HeaderPropagation` | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.Auth.OAuth2ClientCredentials` | `AddOAuth2ClientCredentials()` — client_credentials bearer handler; per-client-name token cache, single-flight fetch, refresh skew | scaffold |
-| `WoW.Two.Sdk.Backend.Beta.Http.Auth.Mtls` | `AddMutualTls()` — client-certificate `SocketsHttpHandler` (loaded cert or PKCS#12 path) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http` | Meta — Refit + resilience defaults | planned |
+| `WoW.Two.Sdk.Beta.Be.Http.Refit` | `AddRefitApiClient<TApi>(baseAddr, …)` — Refit client + SDK JSON + resilience baked in; `CreateDefaultRefitSettings()` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.Resilience` | `AddSdkResilience()` (`IHttpClientBuilder` ext) + tunable `HttpResilienceOptions` over `Microsoft.Extensions.Http.Resilience` (Polly v8) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.Core` | `AddResilientClient<TClient>` / `AddResilientClient(name, …)` — plain typed/named HttpClient + SDK resilience | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.Hedging` | `AddSdkHedging()` — standard-hedging preset (parallel attempt racing) + tunable `HttpHedgingOptions`; for idempotent latency-sensitive calls | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.HeaderPropagation` | `AddConventionalHeaderPropagation(…)` + `AddPropagatedHeaders()` — X-Correlation-Id / X-Request-Id defaults over `Microsoft.AspNetCore.HeaderPropagation` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials` | `AddOAuth2ClientCredentials()` — client_credentials bearer handler; per-client-name token cache, single-flight fetch, refresh skew | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Http.Auth.Mtls` | `AddMutualTls()` — client-certificate `SocketsHttpHandler` (loaded cert or PKCS#12 path) | scaffold |
 
 ## P4 — Distributed essentials
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Messaging` | Meta — DotNetCore.CAP outbox defaults | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap` | DotNetCore.CAP wrapping | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.Postgres` | CAP storage on Postgres | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.SqlServer` | CAP storage on SQL Server | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.MongoDb` | CAP storage on MongoDB | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.RabbitMq` | CAP transport via RabbitMQ | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.Kafka` | CAP transport via Kafka | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Cap.AzureServiceBus` | CAP transport via ASB | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.RabbitMq` | `AddRabbitMqEventBus` — RabbitMQ transport behind the port (native DLX/DLQ) | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Kafka` | `AddKafkaEventBus` — Kafka transport (emulated DLQ) | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.AzureServiceBus` | `AddAzureServiceBusEventBus` — topic + subscription-per-endpoint with `Subject` correlation filters, native DLQ, sessions, scheduled enqueue | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.AzureEventHubs` | Azure.Messaging.EventHubs direct use | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.AwsSqs` | AWSSDK.SQS direct use | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Nats` | `AddNatsEventBus` — NATS JetStream transport (emulated DLQ, in-context settle) | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.RedisStreams` | `AddRedisStreamsEventBus` — consumer group + `XPENDING`/`XCLAIM` stale recovery, emulated DLQ, in-context settle | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Mqtt` | MQTTnet direct use | planned |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks` | `AddWebhooks` — outbound HMAC-signed delivery + SSRF guard + retry | shipped (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Persistence` | `AddWebhookEntityFrameworkStores<TContext>()` (`Webhooks:Persistence`) + `ApplyWebhookSchema()` — EF subscriptions (Data-Protection secrets), delivery log with bodies, `WebhookRedeliveryService`, purge | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Messaging.Webhooks.Inbound` | `AddInboundWebhooks()` (`Webhooks:Inbound`) + `.RequireWebhookSignature(name)` — wow2/Standard/Stripe/GitHub/Shopify/Slack/Paddle/Telegram validators, replay window, delivery-id dedupe | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Jobs` | Meta — Hangfire defaults | planned |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire` | `AddHangfireJobs(storage, opts)` (plus a provider-aware `(provider, config)` storage overload) + `AddInMemoryHangfireJobs()` (dev) + `UseHangfireJobsDashboard()` (local-only default). SDK serializer conventions, worker/queue/schedule-polling tuning. **Hangfire is LGPL-3.0 — sole exception to permissive-only, per targets.md P4** | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire.Postgres` | `AddPostgresHangfireJobs(connStr, opts, storage)` — PostgreSQL storage preset; `AddPostgresHangfireJobs(opts, storage)` / `UsePostgresPersistenceStorage(provider)` reuse the persistence floor's `DatabaseSettings` | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire.SqlServer` | Hangfire on SQL Server | planned |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Hangfire.Redis` | Hangfire on Redis | planned |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Batches` | `AddBatchPipeline<TItem, THandler>()` — bounded in-memory pipeline, scoped batch handler, shutdown drain, drop/processed/failed metrics | implemented |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.Coravel` | Coravel alt | planned |
-| `WoW.Two.Sdk.Backend.Beta.Jobs.NCronJob` | NCronJob alt | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms` | Meta — email + SMS + push abstractions | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email` | `IEmailBroker` + `EmailMessage`/`EmailSendResult` (result-typed) + `AddEmailDefaults()` (From/Reply-To defaults) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.Templates` | `AddEmailTemplates()` (`Comms:Email:Templates`) — Markdown templates per culture, ICU placeholders, branded inlined-style layout, text twin, buttons, `ITemplatedEmailService.SendAsync` | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.MailKit` | `AddMailKitEmailBroker()` — SMTP via MailKit (any relay; mailpit/mailhog dev) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.SendGrid` | `AddSendGridEmailBroker()` — SendGrid v3 API | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.Mailgun` | Mailgun impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.Postmark` | Postmark impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.Ses` | `AddSesEmailBroker()` — SES v2 simple send (no attachments; raw-MIME future) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.Acs` | Azure Communication Services email impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Email.FluentEmail` | FluentEmail templating | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms` | `ISmsBroker` + `SmsMessage` + `AddSmsDefaults`; brokers keyed by name, `ISmsBrokerFactory`, `AddSmsBrokers(configuration)`; OTP delivery via `AddSmsOtpDelivery` (`Identity/Otp/Sms`) | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms.Twilio` | `AddTwilioSmsBroker` — Messages API over HttpClient | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms.Vonage` | `AddVonageSmsBroker` — SMS API over HttpClient | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms.Eskiz` | `AddEskizSmsBroker` — Uzbekistan gateway, cached bearer token | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms.Plivo` | Plivo impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Sms.Acs` | Azure Comm Services SMS impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp` | `IWhatsAppBroker` + `WhatsAppTemplate` + `IWhatsAppBrokerFactory`; `AddWhatsAppBrokers(configuration)` registers each configured provider | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Meta` | `AddMetaWhatsAppBroker` — WhatsApp Cloud API over HttpClient | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.WhatsApp.Twilio` | `AddTwilioWhatsAppBroker` — Twilio WhatsApp sender, content-SID templates | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Push` | `IPushBroker` + `PushMessage` + `PushSendResult.TokenInvalid` | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Push.Fcm` | `AddFcmPushBroker` — HTTP v1, service-account RS256 assertion, cached OAuth token | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Push.Apns` | `AddApnsPushBroker` — HTTP/2, `.p8` ES256 provider token (no dotAPNS) | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Push.OneSignal` | OneSignal impl | planned |
-| `WoW.Two.Sdk.Backend.Beta.Comms.Push.WebPush` | `AddWebPushBroker` — VAPID (RFC 8292) + `aes128gcm` payload encryption (RFC 8291), no third-party library | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Messaging` | Meta — DotNetCore.CAP outbox defaults | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap` | DotNetCore.CAP wrapping | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.Postgres` | CAP storage on Postgres | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.SqlServer` | CAP storage on SQL Server | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.MongoDb` | CAP storage on MongoDB | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.RabbitMq` | CAP transport via RabbitMQ | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.Kafka` | CAP transport via Kafka | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Cap.AzureServiceBus` | CAP transport via ASB | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.RabbitMq` | `AddRabbitMqEventBus` — RabbitMQ transport behind the port (native DLX/DLQ) | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Kafka` | `AddKafkaEventBus` — Kafka transport (emulated DLQ) | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.AzureServiceBus` | `AddAzureServiceBusEventBus` — topic + subscription-per-endpoint with `Subject` correlation filters, native DLQ, sessions, scheduled enqueue | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.AzureEventHubs` | Azure.Messaging.EventHubs direct use | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.AwsSqs` | AWSSDK.SQS direct use | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Nats` | `AddNatsEventBus` — NATS JetStream transport (emulated DLQ, in-context settle) | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.RedisStreams` | `AddRedisStreamsEventBus` — consumer group + `XPENDING`/`XCLAIM` stale recovery, emulated DLQ, in-context settle | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Mqtt` | MQTTnet direct use | planned |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Webhooks` | `AddWebhooks` — outbound HMAC-signed delivery + SSRF guard + retry | shipped (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence` | `AddWebhookEntityFrameworkStores<TContext>()` (`Webhooks:Persistence`) + `ApplyWebhookSchema()` — EF subscriptions (Data-Protection secrets), delivery log with bodies, `WebhookRedeliveryService`, purge | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Inbound` | `AddInboundWebhooks()` (`Webhooks:Inbound`) + `.RequireWebhookSignature(name)` — wow2/Standard/Stripe/GitHub/Shopify/Slack/Paddle/Telegram validators, replay window, delivery-id dedupe | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Jobs` | Meta — Hangfire defaults | planned |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire` | `AddHangfireJobs(storage, opts)` (plus a provider-aware `(provider, config)` storage overload) + `AddInMemoryHangfireJobs()` (dev) + `UseHangfireJobsDashboard()` (local-only default). SDK serializer conventions, worker/queue/schedule-polling tuning. **Hangfire is LGPL-3.0 — sole exception to permissive-only, per targets.md P4** | shipped |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.Postgres` | `AddPostgresHangfireJobs(connStr, opts, storage)` — PostgreSQL storage preset; `AddPostgresHangfireJobs(opts, storage)` / `UsePostgresPersistenceStorage(provider)` reuse the persistence floor's `DatabaseSettings` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.SqlServer` | Hangfire on SQL Server | planned |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.Redis` | Hangfire on Redis | planned |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Batches` | `AddBatchPipeline<TItem, THandler>()` — bounded in-memory pipeline, scoped batch handler, shutdown drain, drop/processed/failed metrics | implemented |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Coravel` | Coravel alt | planned |
+| `WoW.Two.Sdk.Beta.Be.Jobs.NCronJob` | NCronJob alt | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms` | Meta — email + SMS + push abstractions | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email` | `IEmailBroker` + `EmailMessage`/`EmailSendResult` (result-typed) + `AddEmailDefaults()` (From/Reply-To defaults) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.Templates` | `AddEmailTemplates()` (`Comms:Email:Templates`) — Markdown templates per culture, ICU placeholders, branded inlined-style layout, text twin, buttons, `ITemplatedEmailService.SendAsync` | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.MailKit` | `AddMailKitEmailBroker()` — SMTP via MailKit (any relay; mailpit/mailhog dev) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.SendGrid` | `AddSendGridEmailBroker()` — SendGrid v3 API | shipped |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.Mailgun` | Mailgun impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.Postmark` | Postmark impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.Ses` | `AddSesEmailBroker()` — SES v2 simple send (no attachments; raw-MIME future) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.Acs` | Azure Communication Services email impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Email.FluentEmail` | FluentEmail templating | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms` | `ISmsBroker` + `SmsMessage` + `AddSmsDefaults`; brokers keyed by name, `ISmsBrokerFactory`, `AddSmsBrokers(configuration)`; OTP delivery via `AddSmsOtpDelivery` (`Identity/Otp/Sms`) | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms.Twilio` | `AddTwilioSmsBroker` — Messages API over HttpClient | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms.Vonage` | `AddVonageSmsBroker` — SMS API over HttpClient | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms.Eskiz` | `AddEskizSmsBroker` — Uzbekistan gateway, cached bearer token | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms.Plivo` | Plivo impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms.Acs` | Azure Comm Services SMS impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.WhatsApp` | `IWhatsAppBroker` + `WhatsAppTemplate` + `IWhatsAppBrokerFactory`; `AddWhatsAppBrokers(configuration)` registers each configured provider | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Meta` | `AddMetaWhatsAppBroker` — WhatsApp Cloud API over HttpClient | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.WhatsApp.Twilio` | `AddTwilioWhatsAppBroker` — Twilio WhatsApp sender, content-SID templates | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Push` | `IPushBroker` + `PushMessage` + `PushSendResult.TokenInvalid` | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Push.Fcm` | `AddFcmPushBroker` — HTTP v1, service-account RS256 assertion, cached OAuth token | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Push.Apns` | `AddApnsPushBroker` — HTTP/2, `.p8` ES256 provider token (no dotAPNS) | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Push.OneSignal` | OneSignal impl | planned |
+| `WoW.Two.Sdk.Beta.Be.Comms.Push.WebPush` | `AddWebPushBroker` — VAPID (RFC 8292) + `aes128gcm` payload encryption (RFC 8291), no third-party library | implemented (mono-lib, unreleased) |
 
 ## P5 — SaaS-shaped
 
 | Package | Niche | Status |
 |---|---|---|
-| `WoW.Two.Sdk.Backend.Beta.Tenancy` | Meta — Finbuckle defaults | planned |
-| `WoW.Two.Sdk.Backend.Beta.Tenancy.Finbuckle` | Finbuckle.MultiTenant wrapping | planned |
-| `WoW.Two.Sdk.Backend.Beta.Tenancy.PerRow` | EF Core query-filter strategy | planned |
-| `WoW.Two.Sdk.Backend.Beta.Tenancy.PerDb` | Per-tenant DbContext factory | planned |
-| `WoW.Two.Sdk.Backend.Beta.Tenancy.PerSchema` | Per-tenant schema strategy | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai` | `Microsoft.Extensions.AI` 10.x chat pipeline and provider abstractions | implemented (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Ai.SemanticKernel` | SK wrapping | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.KernelMemory` | KernelMemory wrapping | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.OpenAi` | OpenAI provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.AzureOpenAi` | Azure OpenAI provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Anthropic` | Anthropic Claude provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Bedrock` | AWS Bedrock provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Gemini` | Google Gemini provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Ollama` | `AddOllamaChatClient` / `AddOllamaEmbeddingGenerator` — OllamaSharp 5.5.0 | implemented (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Llama` | LLamaSharp local inference | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Pgvector` | pgvector + Npgsql vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Redis` | Redis Stack vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Qdrant` | Qdrant vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Pinecone` | Pinecone vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Milvus` | Milvus vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.Chroma` | Chroma vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Vector.AzureSearch` | Azure AI Search vector store | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Tokenizers` | Microsoft.ML.Tokenizers preset | planned |
-| `WoW.Two.Sdk.Backend.Beta.Ai.Mcp` | `AddStatelessMcpServer` / `MapAuthenticatedMcp` — stateless HTTP transport with host and operation authorization | implemented (mono-lib) |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags` | `AddFeatureFlags()` + `IFeatureFlags`; gates: `RequireFeatures(...)` endpoint filter and `AddMediatorFeatureGatingInterceptor()` (`IFeatureGated`, gates implemented, unreleased) | shipped |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.OpenFeature` | `AddOpenFeatureClient()` — OpenFeature seam | shipped |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.LaunchDarkly` | LaunchDarkly provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.ConfigCat` | ConfigCat provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.Unleash` | Unleash provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.GrowthBook` | GrowthBook provider | planned |
-| `WoW.Two.Sdk.Backend.Beta.FeatureFlags.Esquio` | Esquio provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Tenancy` | Meta — Finbuckle defaults | planned |
+| `WoW.Two.Sdk.Beta.Be.Tenancy.Finbuckle` | Finbuckle.MultiTenant wrapping | planned |
+| `WoW.Two.Sdk.Beta.Be.Tenancy.PerRow` | EF Core query-filter strategy | planned |
+| `WoW.Two.Sdk.Beta.Be.Tenancy.PerDb` | Per-tenant DbContext factory | planned |
+| `WoW.Two.Sdk.Beta.Be.Tenancy.PerSchema` | Per-tenant schema strategy | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai` | `Microsoft.Extensions.AI` 10.x chat pipeline and provider abstractions | implemented (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Ai.SemanticKernel` | SK wrapping | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.KernelMemory` | KernelMemory wrapping | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.OpenAi` | OpenAI provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.AzureOpenAi` | Azure OpenAI provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Anthropic` | Anthropic Claude provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Bedrock` | AWS Bedrock provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Gemini` | Google Gemini provider | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Ollama` | `AddOllamaChatClient` / `AddOllamaEmbeddingGenerator` — OllamaSharp 5.5.0 | implemented (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Ai.Llama` | LLamaSharp local inference | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Pgvector` | pgvector + Npgsql vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Redis` | Redis Stack vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Qdrant` | Qdrant vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Pinecone` | Pinecone vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Milvus` | Milvus vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.Chroma` | Chroma vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Vector.AzureSearch` | Azure AI Search vector store | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Tokenizers` | Microsoft.ML.Tokenizers preset | planned |
+| `WoW.Two.Sdk.Beta.Be.Ai.Mcp` | `AddStatelessMcpServer` / `MapAuthenticatedMcp` — stateless HTTP transport with host and operation authorization | implemented (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags` | `AddFeatureFlags()` + `IFeatureFlags`; gates: `RequireFeatures(...)` endpoint filter and `AddMediatorFeatureGatingInterceptor()` (`IFeatureGated`, gates implemented, unreleased) | shipped |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.OpenFeature` | `AddOpenFeatureClient()` — OpenFeature seam | shipped |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.LaunchDarkly` | LaunchDarkly provider | planned |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.ConfigCat` | ConfigCat provider | planned |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.Unleash` | Unleash provider | planned |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.GrowthBook` | GrowthBook provider | planned |
+| `WoW.Two.Sdk.Beta.Be.FeatureFlags.Esquio` | Esquio provider | planned |
 
 ## P6 — Heavy domain extensions
 

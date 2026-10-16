@@ -1,6 +1,6 @@
 # Backend convention sweep
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-16*
 
 ## Status
 
@@ -54,8 +54,9 @@ formatters exist; complete translation/i18n remains a later vector in `targets.m
 
 ### Release-dependent consumer adoption
 
-- [ ] When TranscriptForge is repinned from `WoW2.Sdk.Backend.Beta` `10.0.44-beta` to the published sweep version,
-  add the new caption parser namespace in its fetcher and VTT tests, and run its consumer checks.
+- [ ] When TranscriptForge is repinned from `WoW2.Sdk.Backend.Beta` `10.0.44-beta` to `WoW2.Sdk.Beta.Be`
+  at the published sweep version, add the new caption parser namespace in its fetcher and VTT tests, and run its
+  consumer checks.
   Exact files/imports: [parser verification](../../../system/sessions/backend-beta-build/parser-conformance-verification.md#reference-inventory-and-adoption).
   This adoption task is separate from the 27 SDK implementation rows; it depends on the published version.
 - [ ] Repin the other direct consumers to the published sweep version and repair only the APIs each uses:

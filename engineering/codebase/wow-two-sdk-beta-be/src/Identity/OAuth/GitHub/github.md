@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitHub
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitHub
 
 > GitHub OAuth provider via `AspNet.Security.OAuth.GitHub`. Scheme `GitHub`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.GitHub
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitHub
 ```
 
 ## Usage

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Mediator.Authorization
+# WoW.Two.Sdk.Beta.Be.Mediator.Authorization
 
 > Pipeline behavior — authorize requests marked with `IRequireAuthorization` via ASP.NET Core's `IAuthorizationService`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Mediator.Authorization
+dotnet add package WoW.Two.Sdk.Beta.Be.Mediator.Authorization
 ```
 
 ## Usage

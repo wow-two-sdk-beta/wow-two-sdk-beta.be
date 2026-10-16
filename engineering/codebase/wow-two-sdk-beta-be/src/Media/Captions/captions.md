@@ -1,14 +1,14 @@
-# WoW.Two.Sdk.Backend.Beta.Media.Captions
+# WoW.Two.Sdk.Beta.Be.Media.Captions
 
 > Pure caption parsing across four formats — WebVTT, SubRip, TTML/DFXP, YouTube json3 — into ordered, cleaned segments. No network, no external dependencies.
 
-Part of the `WoW2.Sdk.Backend.Beta` mono-lib (folder `src/Media/Captions/`).
+Part of the `WoW2.Sdk.Beta.Be` mono-lib (folder `src/Media/Captions/`).
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Media.Captions;
-using WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Captions;
+using WoW.Two.Sdk.Beta.Be.Media.Captions.Parsers;
 
 builder.Services.AddCaptionParsing();   // all parsers + facade + writers
 

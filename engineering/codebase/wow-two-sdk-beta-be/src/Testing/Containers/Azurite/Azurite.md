@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.Azurite
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite
 
 > Azurite (Azure Storage emulator) Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.Azurite
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite
 ```
 
 ## Usage

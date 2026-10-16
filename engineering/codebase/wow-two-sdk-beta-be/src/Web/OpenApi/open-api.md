@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.OpenApi
+# WoW.Two.Sdk.Beta.Be.Web.OpenApi
 
 > Microsoft.AspNetCore.OpenApi (.NET 9 first-party) wiring.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.OpenApi
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.OpenApi
 ```
 
 ## Usage

@@ -1,8 +1,8 @@
 # engineering
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-16*
 
-The doc-bearing shell for `WoW.Two.Sdk.Backend.Beta` — everything except the shipped NuGet mono-lib itself.
+The doc-bearing shell for `WoW.Two.Sdk.Beta.Be` — everything except the shipped NuGet mono-lib itself.
 
 | Dir | Holds |
 |---|---|

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Http
+# WoW.Two.Sdk.Beta.Be.Http
 
 > Outbound HTTP — declarative Refit clients and plain typed clients, both wrapped in the standard Polly v8 resilience pipeline.
 
 Namespaces:
-- `WoW.Two.Sdk.Backend.Beta.Http.Refit` — declarative API clients
-- `WoW.Two.Sdk.Backend.Beta.Http.Resilience` — the resilience handler + options
-- `WoW.Two.Sdk.Backend.Beta.Http.Core` — plain typed / named clients
+- `WoW.Two.Sdk.Beta.Be.Http.Refit` — declarative API clients
+- `WoW.Two.Sdk.Beta.Be.Http.Resilience` — the resilience handler + options
+- `WoW.Two.Sdk.Beta.Be.Http.Core` — plain typed / named clients
 
 ## Refit client (default)
 

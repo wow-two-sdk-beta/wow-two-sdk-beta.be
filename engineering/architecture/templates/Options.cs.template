@@ -8,7 +8,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace WoW.Two.Sdk.Backend.Beta.{AreaPath};
+namespace WoW.Two.Sdk.Beta.Be.{AreaPath};
 
 /// <summary>
 /// Options for the {AreaPath} wrapper.

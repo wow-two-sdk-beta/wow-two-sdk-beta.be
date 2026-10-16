@@ -2,7 +2,7 @@
 
 *Provider-neutral blob (file object) storage — one `IBlobRepository` surface over the local filesystem, an S3-compatible bucket or Azure Blob Storage; GCS later.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Storage`. The core + local impl are pure BCL; the cloud adapters use `AWSSDK.S3` and `Azure.Storage.Blobs`.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Storage`. The core + local impl are pure BCL; the cloud adapters use `AWSSDK.S3` and `Azure.Storage.Blobs`.
 
 ## Surface
 

@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Provide a low-friction integration-test scaffold for ASP.NET Core APIs that consume any other `WoW.Two.Sdk.Backend.Beta.*` wrapper, plus reusable async fixture interfaces for container-backed test infrastructure.
+Provide a low-friction integration-test scaffold for ASP.NET Core APIs that consume any other `WoW.Two.Sdk.Beta.Be.*` wrapper, plus reusable async fixture interfaces for container-backed test infrastructure.
 
 ## Behavior
 
@@ -52,7 +52,7 @@ Provide a low-friction integration-test scaffold for ASP.NET Core APIs that cons
 ## Non-goals
 
 - This package does NOT include xUnit `[Collection]` attributes — collections are the consumer's choice.
-- This package does NOT spin up containers itself — that's the job of `WoW.Two.Sdk.Backend.Beta.Testing.Containers.*`.
+- This package does NOT spin up containers itself — that's the job of `WoW.Two.Sdk.Beta.Be.Testing.Containers.*`.
 
 ## See also
 

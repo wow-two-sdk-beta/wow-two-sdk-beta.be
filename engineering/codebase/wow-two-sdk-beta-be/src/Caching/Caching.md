@@ -2,7 +2,7 @@
 
 *Two-tier caching over .NET HybridCache — L1 in-process + optional L2 Redis, with stampede protection and tag invalidation, behind a small `ICacheRepository` facade.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Caching`.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Caching`.
 
 ## Surface
 

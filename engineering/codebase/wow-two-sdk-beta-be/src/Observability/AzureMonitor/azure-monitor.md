@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Observability.AzureMonitor
+# WoW.Two.Sdk.Beta.Be.Observability.AzureMonitor
 
 > Azure Monitor (Application Insights) distro for OpenTelemetry.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Observability.AzureMonitor
+dotnet add package WoW.Two.Sdk.Beta.Be.Observability.AzureMonitor
 ```
 
 ## Usage

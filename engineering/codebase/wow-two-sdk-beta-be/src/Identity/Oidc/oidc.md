@@ -1,12 +1,12 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.Oidc
+# WoW.Two.Sdk.Beta.Be.Identity.Oidc
 
 > OpenID Connect authentication — Authorization Code + PKCE — paired with cookie auth.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Cookies
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Oidc
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Cookies
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Oidc
 ```
 
 ## Usage

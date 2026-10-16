@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Assertions
+# WoW.Two.Sdk.Beta.Be.Testing.Assertions
 
 > Bundles [AwesomeAssertions](https://github.com/AwesomeAssertions/AwesomeAssertions) (the OSS fork of FluentAssertions, post v8 commercial license) and [Shouldly](https://github.com/shouldly/shouldly).
 
@@ -9,7 +9,7 @@ FluentAssertions changed its license to Xceed in 2025 (commercial for v8+). Awes
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Assertions
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Assertions
 ```
 
 ## Usage

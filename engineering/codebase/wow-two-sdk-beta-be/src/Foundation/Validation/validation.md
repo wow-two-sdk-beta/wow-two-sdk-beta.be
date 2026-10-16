@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Validation
+# WoW.Two.Sdk.Beta.Be.Validation
 
 > FluentValidation registration helpers — assembly scanning by convention.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Validation
+dotnet add package WoW.Two.Sdk.Beta.Be.Validation
 ```
 
 ## Usage

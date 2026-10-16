@@ -1,7 +1,7 @@
 # Messaging.Serialization
 
 `IMessageSerializer` and its implementations live in `Serializers/`, namespace
-`WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers`; registration and options remain in the parent domain.
+`WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers`; registration and options remain in the parent domain.
 
 Two swappable seams the transports hang the wire format on: **`IMessageSerializer`** (body ↔ bytes) and
 **`IMessageTypeMapper`** (event type ↔ stable wire token). Extracting these from the adapters kills the
@@ -25,8 +25,8 @@ unparseable-message path.
 `MessageTypeMapper`. Nothing to do for the defaults.
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization;
-using WoW.Two.Sdk.Backend.Beta.Messaging.Serialization.Serializers;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization;
+using WoW.Two.Sdk.Beta.Be.Messaging.Serialization.Serializers;
 
 // swap the serializer everything is SENT with:
 services.AddMessageSerializer<MessagePackMessageSerializer>();

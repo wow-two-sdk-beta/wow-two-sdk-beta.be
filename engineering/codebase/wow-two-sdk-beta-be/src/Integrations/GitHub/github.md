@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Integrations.GitHub
+# WoW.Two.Sdk.Beta.Be.Integrations.GitHub
 
 > Typed `HttpClient` over the GitHub REST API. Each call carries a `Bearer` token from `IAccessTokenService`, so repo visibility (public + private) matches that token.
 

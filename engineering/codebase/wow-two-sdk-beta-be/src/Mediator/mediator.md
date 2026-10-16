@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Mediator
+# WoW.Two.Sdk.Beta.Be.Mediator
 
 > In-process MediatR-API-compatible mediator. No MediatR dependency — Wow Two implementation under MIT.
 
@@ -9,13 +9,13 @@ MediatR moved to a commercial license in 2025. This package preserves the same s
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Mediator
+dotnet add package WoW.Two.Sdk.Beta.Be.Mediator
 ```
 
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Mediator;
+using WoW.Two.Sdk.Beta.Be.Mediator;
 
 builder.Services.AddMediator(typeof(Program).Assembly);
 

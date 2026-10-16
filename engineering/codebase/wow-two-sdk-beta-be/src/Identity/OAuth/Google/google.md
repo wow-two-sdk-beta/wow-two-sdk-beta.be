@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google
 
 > Two Google sign-in flows: **redirect** (server-side challenge → `Google` scheme cookie) and **ID-token authentication** (SPA obtains a token client-side, backend validates it).
 
@@ -12,8 +12,8 @@
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Cookies
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Google
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Cookies
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google
 ```
 
 ## Usage

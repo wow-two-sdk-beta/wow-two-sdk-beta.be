@@ -1,8 +1,8 @@
-# WoW.Two.Sdk.Backend.Beta.Naming
+# WoW.Two.Sdk.Beta.Be.Naming
 
 > One casing authority for the whole SDK — DB columns, enum labels, JSON keys, SQL identifiers all derive from here. Zero dependencies.
 
-Namespace: `WoW.Two.Sdk.Backend.Beta.Naming`
+Namespace: `WoW.Two.Sdk.Beta.Be.Naming`
 
 ## Why
 
@@ -30,7 +30,7 @@ IOStream        → io stream
 ## Usage
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Naming;
+using WoW.Two.Sdk.Beta.Be.Naming;
 
 "OrderLineItem".ToSnakeCase();              // order_line_item
 CaseMapper.ToCase("user_id", CaseStyle.Pascal);   // UserId

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.Versioning
+# WoW.Two.Sdk.Beta.Be.Web.Versioning
 
 > API versioning via `Asp.Versioning.*` with conventional defaults.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.Versioning
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.Versioning
 ```
 
 ## Usage

@@ -2,7 +2,7 @@
 
 *Media & document processing — images, PDF, Word, Markdown, caption parsing, YouTube links and tabular (CSV/Excel) export. Own domain logic + thin wraps over permissive libs.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Media`.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Media`.
 
 Exporter types live under `Tabular/Exporters/`, `Csv/Exporters/` and `Excel/Exporters/`, with matching namespaces.
 Parser types live under `Captions/Parsers/` and `Csv/Parsers/`, with matching namespaces.
@@ -25,11 +25,11 @@ Parser types live under `Captions/Parsers/` and `Csv/Parsers/`, with matching na
 ## Tabular export — quickstart
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Media.Csv;
-using WoW.Two.Sdk.Backend.Beta.Media.Csv.Parsers;
-using WoW.Two.Sdk.Backend.Beta.Media.Excel;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular;
-using WoW.Two.Sdk.Backend.Beta.Media.Tabular.Exporters;
+using WoW.Two.Sdk.Beta.Be.Media.Csv;
+using WoW.Two.Sdk.Beta.Be.Media.Csv.Parsers;
+using WoW.Two.Sdk.Beta.Be.Media.Excel;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular;
+using WoW.Two.Sdk.Beta.Be.Media.Tabular.Exporters;
 
 builder.Services.AddCsvExport().AddExcelExport();
 

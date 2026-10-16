@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2
+# WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2
 
 > Argon2id password hasher — drops into ASP.NET Core Identity as `IPasswordHasher<TUser>`. Replaces PBKDF2.
 
@@ -7,7 +7,7 @@ OWASP 2024 baseline parameters: m=19MiB, t=4, p=1.
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.PasswordHashing.Argon2
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2
 ```
 
 ## Usage

@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres
+# WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres
 
 > PostgreSQL Testcontainers fixture.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.Containers.Postgres
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.Containers.Postgres
 ```
 
 ## Usage

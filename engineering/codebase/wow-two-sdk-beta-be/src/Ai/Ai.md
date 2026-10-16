@@ -2,7 +2,7 @@
 
 *LLM chat + embeddings on the `Microsoft.Extensions.AI` seam, one uniform pipeline across provider brokers, plus token counting for cost/budget.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Ai`. `IChatClient` / `IEmbeddingGenerator` are the M.E.AI abstractions; the SDK adds conventional middleware + per-provider registration.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Ai`. `IChatClient` / `IEmbeddingGenerator` are the M.E.AI abstractions; the SDK adds conventional middleware + per-provider registration.
 
 ## Surface (wave 1)
 

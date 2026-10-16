@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Web.Cors
+# WoW.Two.Sdk.Beta.Be.Web.Cors
 
 > CORS policy presets.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Web.Cors
+dotnet add package WoW.Two.Sdk.Beta.Be.Web.Cors
 ```
 
 ## Usage

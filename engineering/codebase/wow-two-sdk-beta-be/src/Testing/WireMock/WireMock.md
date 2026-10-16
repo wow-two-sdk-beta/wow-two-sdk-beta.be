@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Testing.WireMock
+# WoW.Two.Sdk.Beta.Be.Testing.WireMock
 
 > [WireMock.Net](https://github.com/WireMock-Net/WireMock.Net) async fixture (`WireMockFixture`).
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Testing.WireMock
+dotnet add package WoW.Two.Sdk.Beta.Be.Testing.WireMock
 ```
 
 ## Usage

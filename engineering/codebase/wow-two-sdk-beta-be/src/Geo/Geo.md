@@ -2,7 +2,7 @@
 
 *Geographic primitives — coordinates, great-circle distance/bearing, geohash indexing, and GeoJSON I/O. Pure C#, zero dependencies.*
 
-Namespace root: `WoW.Two.Sdk.Backend.Beta.Geo`. This is the dependency-free foundation of the Geo vector; heavier adapters (NetTopologySuite geometry ops, MaxMind IP→geo) plug in later without changing these types.
+Namespace root: `WoW.Two.Sdk.Beta.Be.Geo`. This is the dependency-free foundation of the Geo vector; heavier adapters (NetTopologySuite geometry ops, MaxMind IP→geo) plug in later without changing these types.
 
 ## Components
 

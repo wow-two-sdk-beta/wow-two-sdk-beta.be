@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.Mfa.WebAuthn
+# WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn
 
 > WebAuthn / FIDO2 / passkeys via `Fido2.AspNet`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.Mfa.WebAuthn
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn
 ```
 
 ## Usage

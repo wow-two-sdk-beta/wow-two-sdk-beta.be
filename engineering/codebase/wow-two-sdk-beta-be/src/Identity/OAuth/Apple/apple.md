@@ -1,11 +1,11 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Apple
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth.Apple
 
 > Sign in with Apple OAuth provider via `AspNet.Security.OAuth.Apple`. Scheme `Apple`.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Backend.Beta.Identity.OAuth.Apple
+dotnet add package WoW.Two.Sdk.Beta.Be.Identity.OAuth.Apple
 ```
 
 ## Usage

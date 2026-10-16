@@ -1,4 +1,4 @@
-# WoW.Two.Sdk.Backend.Beta.Identity.OAuth
+# WoW.Two.Sdk.Beta.Be.Identity.OAuth
 
 > Provider-baseline standard. Every OAuth provider wrapper conforms to one shape, applies one baseline, and stamps the originating scheme so downstream claim normalization is provider-agnostic.
 
