@@ -193,6 +193,8 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Keep providers out of small apps' restore graph | engineering | Sift: the mono-lib pulls AWS, Hangfire and every OAuth provider; re-check after the companion split |
 | MCP host checks `Origin` and caps the request body | fix | Wheelhouse: the spec requires the Origin 403; `MapAuthenticatedMcp` has neither, so `McpRequestGuard.cs` does both locally (64 KiB, 413) |
 | SPA hosting reserves path prefixes beyond the API prefix | feature | Wheelhouse: `/.well-known/*` must 404, not serve the shell; it adds its own fallback in `HostConfiguration.cs` |
+| GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
+| YAML reader beside the JSON presets | feature | Wheelhouse reads `catalog.yml` and `deploy.yml` with YamlDotNet 16.3.0 locally; the one-manifest work makes YAML a shared need |
 
 ---
 
