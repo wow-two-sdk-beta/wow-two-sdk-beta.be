@@ -195,6 +195,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | SPA hosting reserves path prefixes beyond the API prefix | feature | Wheelhouse: `/.well-known/*` must 404, not serve the shell; it adds its own fallback in `HostConfiguration.cs` |
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
 | YAML reader beside the JSON presets | feature | Wheelhouse reads `catalog.yml` and `deploy.yml` with YamlDotNet 16.3.0 locally; the one-manifest work makes YAML a shared need |
+| Opaque cursor helper for paged reads | feature | Wheelhouse deployment history encodes its own cursor |
 
 ---
 
