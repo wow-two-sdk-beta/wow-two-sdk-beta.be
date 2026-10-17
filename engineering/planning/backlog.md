@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-17*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -191,6 +191,8 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Publish granular entity abstractions | engineering | SecretsVault; slims the Domain dependency closure |
 | Drop vulnerable transitive packages | fix | Sift and PbnStudio on `10.0.21-beta`: Snappier 1.0.0, SSH.NET 2023.0.0, Datadog.Trace 3.7.0; check the current family first |
 | Keep providers out of small apps' restore graph | engineering | Sift: the mono-lib pulls AWS, Hangfire and every OAuth provider; re-check after the companion split |
+| MCP host checks `Origin` and caps the request body | fix | Wheelhouse: the spec requires the Origin 403; `MapAuthenticatedMcp` has neither, so `McpRequestGuard.cs` does both locally (64 KiB, 413) |
+| SPA hosting reserves path prefixes beyond the API prefix | feature | Wheelhouse: `/.well-known/*` must 404, not serve the shell; it adds its own fallback in `HostConfiguration.cs` |
 
 ---
 
