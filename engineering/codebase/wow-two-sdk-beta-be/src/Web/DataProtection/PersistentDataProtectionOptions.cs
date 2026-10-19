@@ -7,6 +7,6 @@ public sealed record PersistentDataProtectionOptions
     /// <remarks>Every host that must read another host's cookies or tokens uses the same name and key directory.</remarks>
     public string ApplicationName { get; set; } = string.Empty;
 
-    /// <summary>Gets or sets the directory that holds the key ring, such as a mounted volume; required outside Development.</summary>
+    /// <summary>Gets or sets the directory that holds the key ring, such as a mounted volume; required outside a local run, deployed dev included.</summary>
     public string? KeyDirectory { get; set; }
 }

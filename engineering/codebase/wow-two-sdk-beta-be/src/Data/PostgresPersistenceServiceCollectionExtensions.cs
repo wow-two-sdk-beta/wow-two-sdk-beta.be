@@ -21,7 +21,7 @@ public static class PostgresPersistenceServiceCollectionExtensions
     /// <typeparam name="TContext">The application <see cref="DbContext"/> to register.</typeparam>
     /// <param name="services">The service collection to configure.</param>
     /// <param name="configuration">The configuration the connection string is resolved from.</param>
-    /// <param name="configure">An optional hook to override <see cref="PostgresPersistenceOptions"/>.</param>
+    /// <param name="configure">An optional hook to override <see cref="PostgresPersistenceOptions"/>, including the EF Core context options.</param>
     /// <exception cref="InvalidOperationException">Neither the environment variable nor the configured key yields a non-blank connection string.</exception>
     public static IServiceCollection AddPostgresPersistence<TContext>(
         this IServiceCollection services,
@@ -53,9 +53,16 @@ public static class PostgresPersistenceServiceCollectionExtensions
         var registry = services.GetOrAddEfContextWiringRegistry();
         registry.Register(typeof(TContext));
 
-        var efCoreOptions = new EntityFrameworkCoreOptions();
+        var efCoreOptions = new EntityFrameworkCoreOptions
+        {
+            EnableSensitiveDataLogging = options.EnableSensitiveDataLogging,
+            EnableDetailedErrors = options.EnableDetailedErrors,
+            NoTrackingByDefault = options.NoTrackingByDefault,
+        };
+        var configureDbContext = options.ConfigureDbContext;
 
         services.AddDbContext<TContext>((serviceProvider, optionsBuilder) =>
+        {
             EfInterceptorExtensions.ApplySdkContextConfiguration(
                 serviceProvider,
                 optionsBuilder,
@@ -64,7 +71,11 @@ public static class PostgresPersistenceServiceCollectionExtensions
                     .UseNpgsql(provider.GetRequiredService<NpgsqlDataSource>())
                     .UseSnakeCaseNamingConvention(),
                 registry,
-                typeof(TContext)));
+                typeof(TContext));
+
+            // The product's hook runs last, so it overrides any SDK default.
+            configureDbContext?.Invoke(serviceProvider, optionsBuilder);
+        });
 
         // The bespoke SQL migrator owns the schema; EF is a pure mapper over it.
         services.AddDatabaseBespokeMigrations(typeof(TContext).Assembly, options.ConfigureMigrations);

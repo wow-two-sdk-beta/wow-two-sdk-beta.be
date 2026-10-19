@@ -17,7 +17,7 @@
 
 ```csharp
 builder.Services
-    .AddConventionalSignalR(o => o.EnableDetailedErrors = env.IsDevelopment())
+    .AddConventionalSignalR(o => o.EnableDetailedErrors = builder.IsLocalRun())   // never deployed dev
     .AddRedisBackplane(cfg.GetConnectionString("redis")!);   // multi-node only
 
 app.MapHub<ChatHub>("/hubs/chat");

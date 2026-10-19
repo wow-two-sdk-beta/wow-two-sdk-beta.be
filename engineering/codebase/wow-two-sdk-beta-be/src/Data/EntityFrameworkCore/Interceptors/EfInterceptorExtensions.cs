@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Interceptors;
 
@@ -86,12 +86,13 @@ public static class EfInterceptorExtensions
 
         configureProvider(serviceProvider, builder);
 
-        var isDevelopment = serviceProvider.GetService<IHostEnvironment>()?.IsDevelopment() ?? false;
+        // A local run only: deployed dev runs as Development, and parameter values must never reach its logs.
+        var isLocalRun = LocalRunExtensions.IsLocalRun(serviceProvider);
 
-        if (options.EnableSensitiveDataLogging ?? isDevelopment)
+        if (options.EnableSensitiveDataLogging ?? isLocalRun)
             builder.EnableSensitiveDataLogging();
 
-        if (options.EnableDetailedErrors ?? isDevelopment)
+        if (options.EnableDetailedErrors ?? isLocalRun)
             builder.EnableDetailedErrors();
 
         if (options.NoTrackingByDefault)

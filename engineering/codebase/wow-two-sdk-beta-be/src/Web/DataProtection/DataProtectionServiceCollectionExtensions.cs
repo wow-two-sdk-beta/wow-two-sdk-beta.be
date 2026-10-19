@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
 namespace WoW.Two.Sdk.Beta.Be.Web.DataProtection;
@@ -15,7 +15,7 @@ public static class DataProtectionServiceCollectionExtensions
     /// <param name="services">The service collection to configure.</param>
     /// <param name="configure">Sets the application name and key directory.</param>
     /// <remarks>
-    ///   - outside Development, startup fails without a key directory: ephemeral keys void every cookie on restart
+    ///   - outside a local run, deployed dev included, startup fails without a key directory: ephemeral keys void every cookie on restart
     ///   - authentication cookies, antiforgery tokens and guest capabilities stay valid across container replacement
     ///   - the key ring is stored unencrypted; restrict access to the volume
     /// </remarks>
@@ -30,9 +30,9 @@ public static class DataProtectionServiceCollectionExtensions
             configure,
             static builder => builder
                 .Validate(static options => !string.IsNullOrWhiteSpace(options.ApplicationName), "DataProtection: ApplicationName is required.")
-                .Validate<IHostEnvironment>(
-                    static (options, environment) => environment.IsDevelopment() || !string.IsNullOrWhiteSpace(options.KeyDirectory),
-                    "DataProtection: KeyDirectory is required outside Development."));
+                .Validate<IServiceProvider>(
+                    static (options, provider) => !string.IsNullOrWhiteSpace(options.KeyDirectory) || LocalRunExtensions.IsLocalRun(provider),
+                    "DataProtection: KeyDirectory is required outside a local run."));
         services.AddDataProtection();
         services.AddOptions<DataProtectionOptions>()
             .Configure<PersistentDataProtectionOptions>(static (protection, options) =>

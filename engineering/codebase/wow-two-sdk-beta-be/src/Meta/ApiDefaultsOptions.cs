@@ -26,7 +26,7 @@ public sealed record ApiDefaultsOptions
     /// <summary>Brotli and Gzip response compression. Default on.</summary>
     public bool EnableResponseCompression { get; set; } = true;
 
-    /// <summary>Map the OpenAPI document endpoint. <c>null</c> (default) = only in Development; set <c>true</c>/<c>false</c> to force. Exposing the schema in Production leaks API shape (OWASP API9).</summary>
+    /// <summary>Map the OpenAPI document endpoint. <c>null</c> (default) = only on a local run (<c>Development</c> without <c>DEPLOY_ENVIRONMENT</c>); set <c>true</c>/<c>false</c> to force. Exposing the schema on a deployed host, deployed dev included, leaks API shape (OWASP API9).</summary>
     public bool? ExposeOpenApi { get; set; }
 
     /// <summary>Redirect HTTP requests to HTTPS (honors <c>X-Forwarded-Proto</c> behind the proxy-aware forwarded-headers middleware). Default on.</summary>

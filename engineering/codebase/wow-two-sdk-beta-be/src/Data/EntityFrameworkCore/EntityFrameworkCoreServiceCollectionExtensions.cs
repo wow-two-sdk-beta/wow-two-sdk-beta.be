@@ -7,7 +7,7 @@ namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore;
 /// <summary>Registration helpers for EF Core DbContexts using the SDK conventions.</summary>
 public static class EntityFrameworkCoreServiceCollectionExtensions
 {
-    /// <summary>Registers a DbContext with SDK defaults (pooling on; dev logging auto by environment).</summary>
+    /// <summary>Registers a DbContext with SDK defaults (pooling on; sensitive-data logging and detailed errors only on a local run).</summary>
     /// <typeparam name="TContext">The concrete DbContext type. Must inherit <see cref="AppDbContextBase"/>.</typeparam>
     /// <param name="services">The service collection to configure.</param>
     /// <param name="configureProvider">The callback that configures the database provider.</param>

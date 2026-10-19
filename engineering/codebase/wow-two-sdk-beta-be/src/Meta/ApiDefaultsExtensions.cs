@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 using WoW.Two.Sdk.Beta.Be.Foundation.Time;
 using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 using WoW.Two.Sdk.Beta.Be.Observability.HealthChecks;
@@ -162,8 +162,9 @@ public static class ApiDefaultsExtensions
             app.UseOutputCache();
         }
 
-        // Default-safe: expose the OpenAPI schema only in Development unless explicitly forced — avoids leaking API shape in Production (API9).
-        if (options.ExposeOpenApi ?? app.Environment.IsDevelopment())
+        // Default-safe: expose the OpenAPI schema only on a local run unless explicitly forced — deployed dev runs as
+        // Development, and a reachable schema leaks API shape there as much as in Production (API9).
+        if (options.ExposeOpenApi ?? app.Environment.IsLocalRun(app.Configuration))
         {
             app.MapOpenApiEndpoint();
         }

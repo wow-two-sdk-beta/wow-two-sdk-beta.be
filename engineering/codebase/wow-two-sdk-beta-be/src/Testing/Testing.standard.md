@@ -1,6 +1,6 @@
 # Testing — standard
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-10-19*
 
 > Behavioral contract for the testing scaffold. RFC 2119.
 
@@ -20,6 +20,7 @@ Provide a low-friction integration-test scaffold for ASP.NET Core APIs that cons
 - The class **MUST** allow consumers to mutate `IServiceCollection` via `ConfigureServicesHook`.
 - The class **MUST** allow consumers to mutate `IHostBuilder` via `ConfigureHostHook`.
 - The class **MUST** default to `Development`, preserving host dependency-lifetime validation.
+- The default host **MUST** count as a local run; a test **MAY** simulate deployed dev by setting `DEPLOY_ENVIRONMENT` through `ConfigureConfigurationHook` ([local run](../Foundation/Configuration/LocalRun.standard.md)).
 - Consumers **MAY** select another environment through `ConfigureHostHook` for environment-specific tests.
 - Consumers **MUST** bind host settings lazily through DI or options so configuration hooks take effect.
 

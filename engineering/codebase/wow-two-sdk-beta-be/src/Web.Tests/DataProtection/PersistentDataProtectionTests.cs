@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
@@ -29,16 +30,21 @@ public sealed class PersistentDataProtectionTests : IDisposable
         Directory.GetFiles(_keys, "*.xml").Should().NotBeEmpty();
     }
 
-    [Fact]
-    public void KeyDirectory_IsRequiredOutsideDevelopment()
+    [Theory]
+    [InlineData("Development", null, true)]
+    [InlineData("Development", "dev", false)]
+    [InlineData("Production", "prod", false)]
+    [InlineData("Production", null, false)]
+    public void KeyDirectory_IsRequiredOutsideALocalRun(string environment, string? deployEnvironment, bool relaxed)
     {
-        using var production = Build(Environments.Production, keyDirectory: null);
-        using var development = Build(Environments.Development, keyDirectory: null);
+        using var provider = Build(environment, keyDirectory: null, deployEnvironment);
 
-        var resolveProduction = () => production.GetRequiredService<PersistentDataProtectionOptions>();
+        var resolve = () => provider.GetRequiredService<PersistentDataProtectionOptions>();
 
-        resolveProduction.Should().Throw<OptionsValidationException>();
-        development.GetRequiredService<PersistentDataProtectionOptions>().KeyDirectory.Should().BeNull();
+        if (relaxed)
+            resolve().KeyDirectory.Should().BeNull(); // a local run may use an ephemeral key ring
+        else
+            resolve.Should().Throw<OptionsValidationException>(); // deployed dev restarts too, and ephemeral keys void its cookies
     }
 
     public void Dispose()
@@ -53,10 +59,13 @@ public sealed class PersistentDataProtectionTests : IDisposable
         }
     }
 
-    private static ServiceProvider Build(string environment, string? keyDirectory)
+    private static ServiceProvider Build(string environment, string? keyDirectory, string? deployEnvironment = null)
     {
         var services = new ServiceCollection().AddLogging();
         services.AddSingleton<IHostEnvironment>(new TestEnvironment(environment));
+        services.AddSingleton<IConfiguration>(new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?> { ["DEPLOY_ENVIRONMENT"] = deployEnvironment })
+            .Build());
         services.AddPersistentDataProtection(options =>
         {
             options.ApplicationName = "WoW2.Tests";

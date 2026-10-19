@@ -52,3 +52,17 @@ builder.Configuration.UseEnvironmentAliases(new Dictionary<string, string>
 
 - Only set, non-empty variables override; `urls`, `http_ports` and `https_ports` keep their hosting values.
 - Sources added afterwards, such as test-host overrides, still win.
+
+## Local run
+
+Deployed dev runs as `Development`, so `IsDevelopment()` alone never means the developer's machine. `IsLocalRun` is
+`Development` without `DEPLOY_ENVIRONMENT`, read from configuration and the process environment.
+
+```csharp
+if (builder.IsLocalRun())                                   // or app.Environment.IsLocalRun(app.Configuration)
+    builder.Services.AddSingleton<ICodeSender, LogCodeSender>();
+```
+
+- `MACHINE_SETTINGS` plays no part; it only adds `appsettings.Machine.json` on a local run.
+- The SDK keys its own local-only defaults on it: EF Core sensitive-data logging and detailed errors, the OpenAPI
+  endpoint and Data Protection without a key directory. Contract: [`LocalRun.standard.md`](LocalRun.standard.md).

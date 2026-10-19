@@ -9,10 +9,10 @@ public sealed record EntityFrameworkCoreOptions
     /// <summary>Gets the DbContext pool size when <see cref="UsePooling"/> is enabled. Default 1024.</summary>
     public int PoolSize { get; set; } = 1024;
 
-    /// <summary>Gets whether sensitive parameter data is logged. <c>null</c> enables it only in Development.</summary>
+    /// <summary>Gets whether sensitive parameter data is logged. <c>null</c> enables it only on a local run (<c>Development</c> without <c>DEPLOY_ENVIRONMENT</c>).</summary>
     public bool? EnableSensitiveDataLogging { get; set; }
 
-    /// <summary>Gets whether detailed errors are enabled. <c>null</c> enables them only in Development.</summary>
+    /// <summary>Gets whether detailed errors are enabled. <c>null</c> enables them only on a local run (<c>Development</c> without <c>DEPLOY_ENVIRONMENT</c>).</summary>
     public bool? EnableDetailedErrors { get; set; }
 
     /// <summary>Gets a value indicating whether no-tracking is the default query behavior. Default <c>false</c>.</summary>

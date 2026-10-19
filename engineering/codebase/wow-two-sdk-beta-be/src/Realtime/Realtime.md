@@ -16,7 +16,7 @@ Namespace root: `WoW.Two.Sdk.Beta.Be.Realtime`. All three transports ship in the
 
 ```csharp
 builder.Services
-    .AddConventionalSignalR(o => o.EnableDetailedErrors = builder.Environment.IsDevelopment())
+    .AddConventionalSignalR(o => o.EnableDetailedErrors = builder.IsLocalRun())   // never deployed dev
     .AddRedisBackplane(builder.Configuration.GetConnectionString("redis")!); // omit for single-node
 
 app.MapHub<ChatHub>("/hubs/chat");
