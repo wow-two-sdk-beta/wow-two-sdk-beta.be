@@ -169,6 +169,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Roslyn analyzer: Foundation imports no domain package | engineering | Pending decision 9.14 in [targets](../architecture/analysis/philosophy/targets.md) |
 | Aspire playground end-to-end smoke | engineering | Nothing runs the wrappers end to end |
 | Cap decompressed request bodies | fix | Request limits bound only the compressed input |
+| Remove the legacy settings-file fallback in `AddSettingsFiles` | engineering | A deployed host without `appsettings.Target.json` still reads `appsettings.Local.json`, which bundles before pipelines v0.7.0 mount; drop it once every product publishes on v0.7.0 or later |
 
 ---
 

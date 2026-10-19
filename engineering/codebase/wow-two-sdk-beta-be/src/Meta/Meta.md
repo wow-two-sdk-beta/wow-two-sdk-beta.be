@@ -26,7 +26,7 @@ app.Run();
 
 | Side | Concerns |
 |---|---|
-| `AddApiDefaults` | Serilog (`UseSerilogConventional`) · TimeProvider · OTel tracing + metrics + OTLP · health checks · proxy-aware hosting · OpenAPI · trace-aware ProblemDetails · validation exception handler · per-IP rate limit · output cache · Brotli/Gzip compression · CORS (when origins given) · FluentValidation scan (when assemblies given) |
+| `AddApiDefaults` | settings files (`appsettings.Target.json`, a local run's `appsettings.Local.json`; [configuration](../Foundation/Configuration/configuration.md#settings-files)) · Serilog (`UseSerilogConventional`) · TimeProvider · OTel tracing + metrics + OTLP · health checks · proxy-aware hosting · OpenAPI · trace-aware ProblemDetails · validation exception handler · per-IP rate limit · output cache · Brotli/Gzip compression · CORS (when origins given) · FluentValidation scan (when assemblies given) |
 | `UseApiDefaults` | forwarded headers · OWASP secure headers · compression · routing · CORS · optional identity seam · rate limiter · output cache · OpenAPI endpoint · `/health` |
 
 Every concern has an off-flag on `ApiDefaultsOptions`; defaults are all-on.

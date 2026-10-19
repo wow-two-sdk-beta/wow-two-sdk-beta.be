@@ -26,7 +26,9 @@ namespace WoW.Two.Sdk.Beta.Be.Meta;
 /// <summary>Provides the one-import P1 boot floor (logging, tracing, metrics, health, proxy-aware hosting, OpenAPI, problem details, rate limit, output cache, compression); auth, mediator, and data stay explicit.</summary>
 public static class ApiDefaultsExtensions
 {
-    /// <summary>Registers the SDK service baseline; pair with <see cref="UseApiDefaults"/> after <c>Build()</c>.</summary>
+    /// <summary>Registers the SDK service baseline; pair with <see cref="UseApiDefaults"/> after <c>Build()</c>. Reads the
+    /// settings files first (<see cref="SettingsFileExtensions.AddSettingsFiles{TBuilder}"/>), so <paramref name="configure"/>
+    /// sees a target's and a local run's values.</summary>
     /// <param name="builder">The web application builder.</param>
     /// <param name="configure">Optional flags / service name / validator assemblies / CORS origins.</param>
     public static WebApplicationBuilder AddApiDefaults(
@@ -34,6 +36,8 @@ public static class ApiDefaultsExtensions
         Action<ApiDefaultsOptions>? configure = null)
     {
         ArgumentNullException.ThrowIfNull(builder);
+
+        builder.AddSettingsFiles();
 
         var options = new ApiDefaultsOptions();
         configure?.Invoke(options);

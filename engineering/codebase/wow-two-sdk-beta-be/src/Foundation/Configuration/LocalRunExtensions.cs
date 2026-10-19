@@ -12,7 +12,8 @@ namespace WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 ///   - gate every local-only convenience on <see cref="IsLocalRun(IHostEnvironment, IConfiguration)"/>, never on <c>IsDevelopment()</c> alone
 ///   - <c>DEPLOY_ENVIRONMENT</c> counts when either configuration or the process environment carries it, so removing the
 ///     ambient environment sources (<see cref="EnvironmentAliasExtensions.UseEnvironmentAliases"/>) cannot turn a deployed host local
-///   - <c>MACHINE_SETTINGS</c> plays no part: it only adds <c>appsettings.Machine.json</c> on a local run
+///   - <c>LOCAL_SETTINGS</c> plays no part: it only adds <c>appsettings.Local.json</c> on a local run
+///     (<see cref="SettingsFileExtensions.AddSettingsFiles{TBuilder}"/>)
 /// </remarks>
 public static class LocalRunExtensions
 {
@@ -54,8 +55,13 @@ public static class LocalRunExtensions
         => services.GetService<IHostEnvironment>() is { } environment
             && Evaluate(environment, services.GetService<IConfiguration>());
 
+    /// <summary>Reports whether the runner deployed the host: <c>DEPLOY_ENVIRONMENT</c> is set in configuration or the process.</summary>
+    /// <param name="configuration">The host configuration, read beside the process environment.</param>
+    /// <returns><see langword="true"/> on a deployed host, whatever its .NET environment.</returns>
+    internal static bool IsDeployed(IConfiguration? configuration)
+        => !string.IsNullOrWhiteSpace(configuration?[DeployEnvironmentVariable])
+            || !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(DeployEnvironmentVariable));
+
     private static bool Evaluate(IHostEnvironment environment, IConfiguration? configuration)
-        => environment.IsDevelopment()
-            && string.IsNullOrWhiteSpace(configuration?[DeployEnvironmentVariable])
-            && string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(DeployEnvironmentVariable));
+        => environment.IsDevelopment() && !IsDeployed(configuration);
 }

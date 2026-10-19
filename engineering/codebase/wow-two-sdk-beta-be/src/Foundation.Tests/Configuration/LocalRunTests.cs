@@ -9,7 +9,7 @@ namespace WoW.Two.Sdk.Beta.Be.Foundation.Tests.Configuration;
 
 /// <summary>
 /// Covers <see cref="LocalRunExtensions.IsLocalRun(IHostEnvironment, IConfiguration)"/>: only <c>Development</c> without
-/// <c>DEPLOY_ENVIRONMENT</c> is local; deployed dev and Production never are, and <c>MACHINE_SETTINGS</c> plays no part.
+/// <c>DEPLOY_ENVIRONMENT</c> is local; deployed dev and Production never are, and <c>LOCAL_SETTINGS</c> plays no part.
 /// </summary>
 public sealed class LocalRunTests
 {
@@ -26,9 +26,9 @@ public sealed class LocalRunTests
     [InlineData("Production", "prod", null, false)]
     [InlineData("Staging", null, null, false)]
     public void IsLocalRun_KeysOnDevelopmentWithoutDeployEnvironment(
-        string environment, string? deployEnvironment, string? machineSettings, bool expected)
+        string environment, string? deployEnvironment, string? localSettings, bool expected)
     {
-        var configuration = Configuration(deployEnvironment, machineSettings);
+        var configuration = Configuration(deployEnvironment, localSettings);
 
         new TestEnvironment(environment).IsLocalRun(configuration).Should().Be(expected);
     }
@@ -44,12 +44,12 @@ public sealed class LocalRunTests
         deployedDev.IsLocalRun().Should().BeFalse();
     }
 
-    private static IConfiguration Configuration(string? deployEnvironment, string? machineSettings)
+    private static IConfiguration Configuration(string? deployEnvironment, string? localSettings)
         => new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
                 [LocalRunExtensions.DeployEnvironmentVariable] = deployEnvironment,
-                ["MACHINE_SETTINGS"] = machineSettings,
+                [SettingsFileExtensions.LocalSettingsVariable] = localSettings,
             })
             .Build();
 

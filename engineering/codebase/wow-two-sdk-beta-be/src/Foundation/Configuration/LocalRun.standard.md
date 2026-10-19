@@ -7,7 +7,7 @@
 ## Purpose
 
 Tell the developer's machine from a deployed host. Deployed dev runs as .NET `Development`, so `IsDevelopment()` alone
-never means a local run. Source rule: `wow-two-ws` host configuration § *Machine settings*.
+never means a local run. Source rule: `wow-two-ws` host configuration § *Settings files*.
 
 ## Signal
 
@@ -15,7 +15,7 @@ never means a local run. Source rule: `wow-two-ws` host configuration § *Machin
 - `DEPLOY_ENVIRONMENT` **MUST** count as present when either the host configuration or the process environment carries a
   non-blank value, so removing the ambient environment sources never turns a deployed host local.
 - A blank or whitespace value **MUST** count as absent.
-- `MACHINE_SETTINGS` **MUST NOT** affect the result: it only adds `appsettings.Machine.json` on a local run.
+- `LOCAL_SETTINGS` **MUST NOT** affect the result: it only adds `appsettings.Local.json` on a local run.
 - Seams that resolve from DI **MUST** treat a provider without `IHostEnvironment` as not local.
 
 ## Defaults keyed on it

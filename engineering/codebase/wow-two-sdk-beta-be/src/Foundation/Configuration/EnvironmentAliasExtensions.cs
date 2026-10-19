@@ -22,7 +22,7 @@ public static class EnvironmentAliasExtensions
     /// <returns>The same <paramref name="configuration"/> for chaining.</returns>
     /// <example>
     /// <code>
-    /// builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true);
+    /// builder.AddSettingsFiles();
     /// builder.Configuration.UseEnvironmentAliases(new Dictionary&lt;string, string&gt;
     /// {
     ///     ["DB_CONNECTION"] = "DB_CONNECTION",
