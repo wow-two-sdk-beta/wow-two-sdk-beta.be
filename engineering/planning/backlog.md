@@ -196,6 +196,8 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
 | YAML reader beside the JSON presets | feature | Wheelhouse reads `catalog.yml` and `deploy.yml` with YamlDotNet 16.3.0 locally; the one-manifest work makes YAML a shared need |
 | Opaque cursor helper for paged reads | feature | Wheelhouse deployment history encodes its own cursor |
+| Key local-only behaviour on a local run, not `IsDevelopment()` | fix | Wheelhouse 2026-10-19: deployed dev now runs as Development, so EF sensitive-data logging and detailed errors, the OpenAPI default and the DataProtection relaxation leak into deployed dev; convention: host-configuration § Machine settings |
+| Expose the EF options in `AddPostgresPersistence` | feature | Wheelhouse can't turn sensitive-data logging off itself |
 
 ---
 
