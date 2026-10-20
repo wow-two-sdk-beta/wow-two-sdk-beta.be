@@ -151,7 +151,8 @@ public static class ApiDefaultsExtensions
 
         if (options.CorsOrigins.Count > 0)
         {
-            app.UseCors();
+            // AddDefaultCorsPolicy registers a named policy; a bare UseCors() would look for an unnamed one and send no headers.
+            app.UseCors(Web.Cors.CorsServiceCollectionExtensions.DefaultPolicyName);
         }
 
         useIdentity?.Invoke(app);
