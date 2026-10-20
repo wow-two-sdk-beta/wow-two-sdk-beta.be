@@ -39,6 +39,18 @@ Under the `AddApiDefaults` boot floor the same two flags sit on `ApiDefaultsOpti
 builder.AddApiDefaults(o => o.EnableCrossOriginEmbedderPolicy = false);
 ```
 
+## Cross-origin embedding
+
+Every response carries `Cross-Origin-Resource-Policy: same-origin`. An endpoint that another origin loads in place —
+media a native app's web view plays, a poster image, a download — opts in to `cross-origin`; the rest keep the preset.
+
+```csharp
+[AllowCrossOriginEmbedding]                               // a controller or an action
+public IActionResult Content(Guid id) => PhysicalFile(...);
+
+app.MapGet("/media/{id}", ...).AllowCrossOriginEmbedding();  // a minimal endpoint or group
+```
+
 ## See also
 
 - [NetEscapades.AspNetCore.SecurityHeaders](https://github.com/andrewlock/NetEscapades.AspNetCore.SecurityHeaders)

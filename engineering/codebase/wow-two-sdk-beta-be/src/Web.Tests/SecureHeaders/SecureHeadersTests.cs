@@ -32,17 +32,19 @@ public sealed class SecureHeadersTests
 
         app.UseOwaspSecureHeaders(configure);
         app.MapGet("/", () => "ok");
+        app.MapGet("/media", () => "bytes").AllowCrossOriginEmbedding();
+        app.MapGet("/poster", [AllowCrossOriginEmbedding] () => "image");
 
         await app.StartAsync();
 
         return app;
     }
 
-    private static async Task<HttpResponseMessage> GetRootAsync(WebApplication app)
+    private static async Task<HttpResponseMessage> GetRootAsync(WebApplication app, string path = "/")
     {
         using var client = app.GetTestClient();
 
-        return await client.GetAsync(new Uri("/", UriKind.Relative));
+        return await client.GetAsync(new Uri(path, UriKind.Relative));
     }
 
     [Fact]
@@ -103,6 +105,29 @@ public sealed class SecureHeadersTests
         response.Headers.Contains(OpenerPolicyHeader).Should().BeFalse();
         response.Headers.Contains(EmbedderPolicyHeader).Should().BeFalse();
         response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("same-origin");
+        response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
+    }
+
+    [Fact]
+    public async Task UseOwaspSecureHeaders_ShouldKeepTheSameOriginResourcePolicy_WhenTheEndpointIsUnmarked()
+    {
+        await using var app = await StartHeaderHostAsync();
+
+        using var response = await GetRootAsync(app);
+
+        response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("same-origin");
+    }
+
+    [Theory]
+    [InlineData("/media")]
+    [InlineData("/poster")]
+    public async Task UseOwaspSecureHeaders_ShouldAllowCrossOriginEmbedding_WhenTheEndpointIsMarked(string path)
+    {
+        await using var app = await StartHeaderHostAsync();
+
+        using var response = await GetRootAsync(app, path);
+
+        response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("cross-origin");
         response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
     }
 }
