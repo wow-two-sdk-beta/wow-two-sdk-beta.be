@@ -63,6 +63,19 @@ public sealed class ProxyAwareHostingTests
         (await app.GetTestClient().SendAsync(request)).StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
+    [Theory]
+    [InlineData("localhost", HttpStatusCode.OK)]
+    [InlineData("app.example.com", HttpStatusCode.OK)]
+    [InlineData("evil.example.net", HttpStatusCode.BadRequest)]
+    public async Task HostFiltering_AdmitsTheProbeHost_WhenTheAllowedHostsSettingOmitsIt(string host, HttpStatusCode expected)
+    {
+        await using var app = await StartAsync(_ => { }, allowedHostsSetting: "app.example.com");
+        using var request = new HttpRequestMessage(HttpMethod.Get, "/client");
+        request.Headers.Host = host;
+
+        (await app.GetTestClient().SendAsync(request)).StatusCode.Should().Be(expected);
+    }
+
     [Fact]
     public void AddProxyAwareHosting_RejectsAMalformedProxy()
     {
@@ -71,9 +84,11 @@ public sealed class ProxyAwareHostingTests
         register.Should().Throw<ArgumentException>();
     }
 
-    private static async Task<WebApplication> StartAsync(Action<ProxyAwareHostingOptions> configure)
+    private static async Task<WebApplication> StartAsync(Action<ProxyAwareHostingOptions> configure, string? allowedHostsSetting = null)
     {
         var builder = WebApplication.CreateSlimBuilder();
+        if (allowedHostsSetting is not null)
+            builder.Configuration["AllowedHosts"] = allowedHostsSetting;
         builder.WebHost.UseTestServer();
         builder.Services.AddProxyAwareHosting(configure);
         var app = builder.Build();

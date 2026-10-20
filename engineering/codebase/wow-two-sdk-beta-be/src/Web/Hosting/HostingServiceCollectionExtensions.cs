@@ -72,6 +72,10 @@ public static class HostingServiceCollectionExtensions
         return app;
     }
 
+    /// <remarks>
+    /// Replaces the allowlist instead of appending to it: ASP.NET Core binds the <c>AllowedHosts</c> setting into a
+    /// fixed-size array, so an in-place add would throw at startup.
+    /// </remarks>
     private static void AppendProbeHosts(HostFilteringOptions options, string[] probes)
     {
         if (options.AllowedHosts is not { Count: > 0 } hosts || hosts.Contains("*"))
@@ -79,11 +83,11 @@ public static class HostingServiceCollectionExtensions
             return;
         }
 
-        foreach (string probe in probes)
-        {
-            if (!hosts.Contains(probe, StringComparer.OrdinalIgnoreCase))
-                hosts.Add(probe);
-        }
+        string[] missing = [.. probes
+            .Where(probe => !hosts.Contains(probe, StringComparer.OrdinalIgnoreCase))
+            .Distinct(StringComparer.OrdinalIgnoreCase)];
+        if (missing.Length > 0)
+            options.AllowedHosts = [.. hosts, .. missing];
     }
 
     private static IPAddress ParseProxy(string value) =>
