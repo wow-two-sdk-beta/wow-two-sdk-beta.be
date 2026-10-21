@@ -7,7 +7,8 @@ public static class IdentitySchemaModelBuilderExtensions
 {
     /// <summary>
     /// Map the identity tables (<c>identity_users</c>, <c>identity_roles</c>, the user-role / claim / login / token
-    /// relations and <c>identity_refresh_tokens</c>) with normalized-name unique indexes. Call from the app context's <c>OnModelCreating</c> after
+    /// relations, <c>identity_refresh_tokens</c>, <c>identity_passkeys</c>, <c>identity_organizations</c> and
+    /// <c>identity_memberships</c>) with normalized-name unique indexes. Call from the app context's <c>OnModelCreating</c> after
     /// <c>base.OnModelCreating(modelBuilder)</c>. Column/table casing comes from <c>UseSnakeCaseNamingConvention()</c>.
     /// </summary>
     /// <typeparam name="TUser">The user entity (derives <see cref="IdentityUser{TKey}"/>).</typeparam>
@@ -101,6 +102,23 @@ public static class IdentitySchemaModelBuilderExtensions
             passkey.HasIndex(p => p.UserId);
             passkey.Property(p => p.CredentialId).HasMaxLength(1023);
             passkey.Property(p => p.Name).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<IdentityOrganization>(organization =>
+        {
+            organization.ToTable("identity_organizations");
+            organization.HasKey(o => o.Id);
+            organization.HasIndex(o => o.Slug).IsUnique();
+            organization.Property(o => o.Name).HasMaxLength(120);
+            organization.Property(o => o.Slug).HasMaxLength(64);
+        });
+
+        modelBuilder.Entity<IdentityMembership<TKey>>(membership =>
+        {
+            membership.ToTable("identity_memberships");
+            membership.HasKey(m => new { m.OrganizationId, m.UserId });
+            membership.HasIndex(m => m.UserId);
+            membership.Property(m => m.Role).HasMaxLength(64);
         });
 
         return modelBuilder;

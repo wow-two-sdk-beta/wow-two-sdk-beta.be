@@ -62,8 +62,8 @@ public sealed class UserPersonalDataService<TUser, TKey>(
     }
 
     /// <summary>
-    /// Deletes the account: the product's handlers, then roles, claims, logins, stored tokens, sessions, passkeys and the
-    /// user row. Sessions end with the refresh tokens; issued access tokens live until they expire.
+    /// Deletes the account: the product's handlers, then roles, claims, logins, stored tokens, sessions, passkeys,
+    /// organization memberships and the user row. Sessions end with the refresh tokens; issued access tokens live until they expire.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
@@ -82,6 +82,7 @@ public sealed class UserPersonalDataService<TUser, TKey>(
         await DeleteRowsAsync<IdentityUserToken<TKey>>(row => row.UserId.Equals(user.Id), cancellationToken);
         await DeleteRowsAsync<IdentityRefreshToken<TKey>>(row => row.UserId.Equals(user.Id), cancellationToken);
         await DeleteRowsAsync<IdentityPasskey<TKey>>(row => row.UserId.Equals(user.Id), cancellationToken);
+        await DeleteRowsAsync<IdentityMembership<TKey>>(row => row.UserId.Equals(user.Id), cancellationToken);
         await context.Set<TUser>().Where(row => row.Id.Equals(user.Id)).ExecuteDeleteAsync(cancellationToken);
         if (transaction is not null)
             await transaction.CommitAsync(cancellationToken);

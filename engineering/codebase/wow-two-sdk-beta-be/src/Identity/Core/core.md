@@ -16,7 +16,7 @@ public sealed class AppDbContext(DbContextOptions options) : AppDbContextBase(op
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyIdentitySchema<IdentityUser, IdentityRole, Guid>();   // 9 tables + normalized-name unique indexes
+        modelBuilder.ApplyIdentitySchema<IdentityUser, IdentityRole, Guid>();   // 11 tables + normalized-name unique indexes
     }
 }
 
@@ -47,12 +47,13 @@ var alice   = await service.FindByNameAsync("ALICE");   // case-insensitive via 
 | `AddPhoneNumbers()` | `UserPhoneService` | `Phones/` |
 | `AddRefreshTokens()` | `RefreshTokenService` | `RefreshTokens/` |
 | `AddPasskeys(o => …)` | `UserPasskeyService`, `SignInService.PasskeySignInAsync` | `Passkeys/` |
+| `AddOrganizations(o => …)` | `OrganizationService` (organizations, memberships, role and permission claims) | `Organizations/` |
 | `AddEmailSignIn(o => …)` | `UserEmailSignInService` (single-use link or code over OTP) | `EmailSignIn/` |
 | `AddPersonalData()` | `UserPersonalDataService` (export sections, account erasure hooks) | `PersonalData/` |
 | `AddAccountEndpoints()` + `MapUserAccountEndpoints<TUser>()` | account HTTP API | `Endpoints/` |
 | `AddSignIn()` | `SignInService` | `SignIn/` |
 
-Table-backed slices (`AddRoles`, `AddUserClaims`, `AddExternalLogins`, `AddTwoFactor`, `AddRefreshTokens`, `AddPasskeys`) register their EF repositories
+Table-backed slices (`AddRoles`, `AddUserClaims`, `AddExternalLogins`, `AddTwoFactor`, `AddRefreshTokens`, `AddPasskeys`, `AddOrganizations`) register their EF repositories
 only when called after `AddEntityFrameworkStores`; otherwise the host registers its own repositories.
 
 ## Notes

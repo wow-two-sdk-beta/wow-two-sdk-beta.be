@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Security.Claims;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Organizations;
 using WoW.Two.Sdk.Beta.Be.Identity.Core.Roles;
 using WoW.Two.Sdk.Beta.Be.Identity.Core.UserClaims;
 
@@ -7,7 +8,7 @@ namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
 /// <summary>
 /// Creates the <see cref="ClaimsPrincipal"/> a sign-in issues for a user: id, user name, email and security stamp, plus
-/// role names, role claims and user claims when those slices are registered. Claim types follow
+/// role names, role claims, user claims and organization claims when those slices are registered. Claim types follow
 /// <see cref="IdentityCoreOptions.Claims"/>, so a cookie and a JWT built from it read back the same way.
 /// </summary>
 /// <typeparam name="TUser">The user entity.</typeparam>
@@ -15,10 +16,12 @@ namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 /// <param name="options">Identity options carrying the claim types.</param>
 /// <param name="roles">The user-role repository; null without the roles slice.</param>
 /// <param name="userClaims">The user-claim repository; null without the user-claims slice.</param>
+/// <param name="organizations">The organization service; null without the organizations slice.</param>
 public sealed class UserClaimsPrincipalFactory<TUser, TKey>(
     IdentityCoreOptions options,
     IUserRoleRepository<TKey>? roles = null,
-    IUserClaimRepository<TKey>? userClaims = null)
+    IUserClaimRepository<TKey>? userClaims = null,
+    OrganizationService<TUser, TKey>? organizations = null)
     where TUser : IdentityUser<TKey>
     where TKey : notnull, IEquatable<TKey>
 {
@@ -53,6 +56,9 @@ public sealed class UserClaimsPrincipalFactory<TUser, TKey>(
 
         if (userClaims is not null)
             identity.AddClaims(await userClaims.GetAsync(user.Id, cancellationToken));
+
+        if (organizations is not null)
+            identity.AddClaims(await organizations.GetClaimsAsync(user, types, cancellationToken));
 
         return new ClaimsPrincipal(identity);
     }

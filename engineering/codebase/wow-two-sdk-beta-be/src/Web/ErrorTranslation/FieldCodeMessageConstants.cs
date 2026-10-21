@@ -47,6 +47,13 @@ internal static class FieldCodeMessageConstants
                 ["InvalidTwoFactorCode"] = "Код неверен или устарел.",
                 ["InvalidPasskey"] = "Ключ доступа не подтверждён. Попробуйте ещё раз.",
                 ["InvalidEmailSignIn"] = "Ссылка или код неверны или устарели.",
+                ["OrganizationNameRequired"] = "Название организации должно содержать от 1 до {MaxLength} символов.",
+                ["InvalidOrganizationSlug"] = "«{Slug}» не подходит: используйте до 64 строчных латинских букв, цифр и одиночных дефисов.",
+                ["DuplicateOrganizationSlug"] = "Адрес «{Slug}» уже занят.",
+                ["UnknownOrganizationRole"] = "Роль «{Role}» не настроена.",
+                ["UserAlreadyMember"] = "Пользователь уже состоит в «{OrganizationName}».",
+                ["UserNotMember"] = "Пользователь не состоит в «{OrganizationName}».",
+                ["LastOrganizationOwner"] = "У «{OrganizationName}» должен остаться хотя бы один владелец.",
             }.ToFrozenDictionary(StringComparer.Ordinal),
             ["uz"] = new Dictionary<string, string>(StringComparer.Ordinal)
             {
@@ -86,6 +93,13 @@ internal static class FieldCodeMessageConstants
                 ["InvalidTwoFactorCode"] = "Kod notoʻgʻri yoki muddati oʻtgan.",
                 ["InvalidPasskey"] = "Kirish kaliti tasdiqlanmadi. Qaytadan urinib koʻring.",
                 ["InvalidEmailSignIn"] = "Havola yoki kod notoʻgʻri yoki muddati oʻtgan.",
+                ["OrganizationNameRequired"] = "Tashkilot nomi 1 dan {MaxLength} tagacha belgidan iborat boʻlishi kerak.",
+                ["InvalidOrganizationSlug"] = "«{Slug}» yaroqsiz: 64 tagacha kichik lotin harfi, raqam va yakka chiziqchadan foydalaning.",
+                ["DuplicateOrganizationSlug"] = "«{Slug}» manzili band.",
+                ["UnknownOrganizationRole"] = "«{Role}» roli sozlanmagan.",
+                ["UserAlreadyMember"] = "Foydalanuvchi allaqachon «{OrganizationName}» aʼzosi.",
+                ["UserNotMember"] = "Foydalanuvchi «{OrganizationName}» aʼzosi emas.",
+                ["LastOrganizationOwner"] = "«{OrganizationName}» kamida bitta egaga ega boʻlishi kerak.",
             }.ToFrozenDictionary(StringComparer.Ordinal),
         }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 }
