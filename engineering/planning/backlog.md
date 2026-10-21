@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-21*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -134,7 +134,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 
 | Item | Type | Notes |
 |---|---|---|
-| Organizations and invitations | feature | Needs the owner's model — [SaaS essentials](../research/sdk-completion/saas-essentials.md) |
+| Identity provider slices I13–I22 | feature | Organizations first; model decided 2026-10-21 — [identity slices](../research/identity/identity-slices.md) |
 | Verify six best-effort OAuth claim profiles | engineering | X, Yandex, VK, Amazon, Slack, Notion against each library's `ClaimActions` — [identity](../research/identity/identity-architecture.md) |
 | Register the OAuth baseline vectors in `targets.md` | engineering | Claim normalizer, cookie mode, allowlist and default-deny |
 
