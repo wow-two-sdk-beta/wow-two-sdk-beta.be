@@ -1,6 +1,6 @@
 # Identity slices — build track
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-10-21*
 
 > Iterations completing the own-identity build order (steps 2–9 of
 > [identity-architecture.md](identity-architecture.md) §9) on top of the shipped `identity/core`.
@@ -17,6 +17,16 @@
 - Password rules follow NIST SP 800-63B: length first; composition rules exist but default off.
 - The breached-password check uses the Pwned Passwords k-anonymity range API with padding; it fails open by default.
 - Security-stamp validation compares the principal's stamp with the stored one at most once per interval per user.
+
+## Rulings — 2026-10-21
+
+- The SDK store becomes an OpenID Connect provider through OpenIddict (Apache-2.0); the WoW2 Identity service
+  hosts these slices — [Identity spec](../../../../../../ideas/identity-service-spec.md).
+- One person per instance, many organizations; a membership carries one role per person per organization.
+- Roles and their permissions are configured per instance; the owner role always exists and an organization keeps
+  at least one owner.
+- Principals carry `org_role` (`{organizationId}:{role}`) and `org_permission` (`{organizationId}:{permission}`).
+- Removing a member or changing a role rotates the member's stamp; an added membership appears at next sign-in.
 
 ## Status
 
@@ -36,6 +46,18 @@
   completion for two-factor accounts; end-to-end API test
 - [x] I10 — passkeys: `identity_passkeys`, `UserPasskeyService`, usernameless `PasskeySignInAsync`, account routes;
   software ES256 authenticator tests incl. replay, forgery, phishing origin and expiry
+- [x] I13 — organizations and memberships: `identity_organizations`, `identity_memberships`, roles with permissions,
+  principal claims, last-owner guard, personal-data export and deletion; 113 identity tests pass
+- [ ] I14 — invitations and admin-created members: by email or phone, single-use link, accepted on sign-in
+- [ ] I15 — durable OTP store: codes in the database so several instances share them
+- [ ] I16 — sessions and sign-in log: a session per device with revoke one or all; every sign-in attempt recorded
+- [ ] I17 — signing keys: asymmetric keys, JWKS, rotation with overlap
+- [ ] I18 — OIDC server: OpenIddict authorize, token, end-session and discovery endpoints over the store; PKCE;
+  back-channel logout
+- [ ] I19 — OIDC client module: one registration for apps, cookie session, organization claims, logout receiver
+- [ ] I20 — Telegram: link on first sign-in without a password; Log in with Telegram over OIDC with the `phone` scope
+- [ ] I21 — admin API: members, sessions, sign-in log and registered apps
+- [ ] I22 — password lifecycle: expiry, history, forced reset, temporary passwords, generator
 
 ---
 
@@ -94,3 +116,13 @@
 - Sign-in is usernameless (empty allow-list); the credential id finds the passkey, the user handle must match.
 - Acceptance: register → list → sign in; a replayed or older ceremony, a forged signature, a foreign origin, an
   unknown credential, another user's or an expired state all fail; lockout still applies; owners alone remove.
+
+## I13 — Organizations and memberships
+
+- `.AddOrganizations(o => …)` registers `OrganizationService` over `identity_organizations` and
+  `identity_memberships`; roles and permissions come from code, then `Identity:Organizations`.
+- The creator becomes owner in the same save; slugs are unique, lowercase and kebab-case.
+- Acceptance: create, rename, add, change role and remove; an unknown role, a duplicate member, a missing member and
+  the last owner's removal or demotion fail; removal and role change rotate the stamp; principals carry role and
+  permission claims per organization; export lists memberships and deletion removes them.
+
