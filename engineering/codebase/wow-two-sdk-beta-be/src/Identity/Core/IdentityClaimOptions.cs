@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using WoW.Two.Sdk.Beta.Be.Identity.Core.Organizations;
 
 namespace WoW.Two.Sdk.Beta.Be.Identity.Core;
 
@@ -19,4 +20,10 @@ public sealed record IdentityClaimOptions
 
     /// <summary>Claim carrying the security stamp. Default <c>AspNet.Identity.SecurityStamp</c>, as ASP.NET Identity writes it.</summary>
     public string SecurityStampClaimType { get; set; } = "AspNet.Identity.SecurityStamp";
+
+    /// <summary>Claim carrying each organization role as <c>{organizationId}:{role}</c>. Default <c>org_role</c>.</summary>
+    public string OrganizationRoleClaimType { get; set; } = OrganizationClaimTypeConstants.Role;
+
+    /// <summary>Claim carrying each organization permission as <c>{organizationId}:{permission}</c>. Default <c>org_permission</c>.</summary>
+    public string OrganizationPermissionClaimType { get; set; } = OrganizationClaimTypeConstants.Permission;
 }

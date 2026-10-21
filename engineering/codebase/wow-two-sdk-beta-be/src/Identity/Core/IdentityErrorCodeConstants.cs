@@ -110,4 +110,25 @@ public static class IdentityErrorCodeConstants
 
     /// <summary>The passkey ceremony failed: expired state, a foreign or reused credential, or a signature that does not verify.</summary>
     public const string InvalidPasskey = "InvalidPasskey";
+
+    /// <summary>An organization was given an empty or over-long name.</summary>
+    public const string OrganizationNameRequired = "OrganizationNameRequired";
+
+    /// <summary>An organization handle is empty, too long, or not lowercase kebab-case.</summary>
+    public const string InvalidOrganizationSlug = "InvalidOrganizationSlug";
+
+    /// <summary>Another organization holds the handle.</summary>
+    public const string DuplicateOrganizationSlug = "DuplicateOrganizationSlug";
+
+    /// <summary>The role is not one the organizations slice is configured with.</summary>
+    public const string UnknownOrganizationRole = "UnknownOrganizationRole";
+
+    /// <summary>The user is already a member of the organization.</summary>
+    public const string UserAlreadyMember = "UserAlreadyMember";
+
+    /// <summary>The user is not a member of the organization.</summary>
+    public const string UserNotMember = "UserNotMember";
+
+    /// <summary>The change would leave the organization without an owner.</summary>
+    public const string LastOrganizationOwner = "LastOrganizationOwner";
 }
