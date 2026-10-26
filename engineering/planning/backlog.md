@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-26*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -83,6 +83,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Search, PostgreSQL full-text first | feature | [targets](../architecture/analysis/philosophy/targets.md) §3.15 |
 | Workflow, Stateless first | feature | [targets](../architecture/analysis/philosophy/targets.md) §3.10 |
 | Google Cloud Storage adapter | feature | Local, S3 and Azure storage ship |
+| Usage-quota counters in SQL | feature | In-memory and Redis counters ship; a SQL store serves hosts without Redis |
 
 ---
 
@@ -94,6 +95,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Soft-delete, tenant and xmin fragments for hand-written Dapper SQL | feature | `SqlRead.Filters<T>()` and `Columns<T>()` over an EF-projected read profile; generated reads already filter |
 | Manual flush and EF savepoint hooks in data sessions | feature | Nested rollback clears the tracker and needs a reload |
 | Cache eviction from data-session commit hooks | feature | Verify HybridCache cross-node tag invalidation first — [research 02](../research/data-pipeline/research/02-transactional-cache-coherence.md) |
+| Paging for Dapper reads and whitelisted `?sort=` binding | feature | EF offset and keyset paging ship; Dapper reads and query-string sorting do not |
 | NHibernate mapper for entity specs | feature | EF Core and Dapper mappers ship — [entity specs](../research/data-pipeline/entity-specs.md) |
 | Partial updates and a second `DbContext` per session | feature | Deferred by the owner's fixed constraints |
 | Mine Marten for the session and hook design | engineering | [Verdict](../research/data-pipeline/data-pipeline-verdict.md): Marten and Wolverine cover most of it, on a document store |
@@ -135,6 +137,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Item | Type | Notes |
 |---|---|---|
 | Identity provider slices I13–I22 | feature | Organizations first; model decided 2026-10-21 — [identity slices](../research/identity/identity-slices.md) |
+| Account emails on the Markdown email templates | feature | `UserAccountMailService` still sends plain config texts without the branded layout |
 | Verify six best-effort OAuth claim profiles | engineering | X, Yandex, VK, Amazon, Slack, Notion against each library's `ClaimActions` — [identity](../research/identity/identity-architecture.md) |
 | Register the OAuth baseline vectors in `targets.md` | engineering | Claim normalizer, cookie mode, allowlist and default-deny |
 
