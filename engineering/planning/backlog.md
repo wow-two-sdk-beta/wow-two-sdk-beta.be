@@ -58,7 +58,10 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | GitHub and container-registry clients | shipped | — |
 | Per-row multi-tenancy | shipped | — |
 | AI chat and embeddings over Ollama | shipped | — |
-| Stateless HTTP MCP hosting with endpoint and tool authorization | implemented | [Mcp.spec.md](../codebase/wow-two-sdk-beta-be/src/Ai/Mcp/Mcp.spec.md) |
+| Stateless HTTP MCP hosting with endpoint and tool authorization, origin and size guard, agent-readable tool errors | implemented | [Mcp.spec.md](../codebase/wow-two-sdk-beta-be/src/Ai/Mcp/Mcp.spec.md) |
+| Periodic scoped jobs | implemented | [core.md](../codebase/wow-two-sdk-beta-be/src/Jobs/Core/core.md) |
+| Bounded child processes | implemented | [processes.md](../codebase/wow-two-sdk-beta-be/src/Integrations/Processes/processes.md) |
+| Atomic file writes and race-safe upserts | implemented | [uniqueness.md](../codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/Uniqueness/uniqueness.md) |
 | Payments | planned | — |
 | Search | planned | — |
 | Workflow | planned | — |
@@ -84,6 +87,9 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Workflow, Stateless first | feature | [targets](../architecture/analysis/philosophy/targets.md) §3.10 |
 | Google Cloud Storage adapter | feature | Local, S3 and Azure storage ship |
 | Usage-quota counters in SQL | feature | In-memory and Redis counters ship; a SQL store serves hosts without Redis |
+| Periodic jobs: one runner across replicas, last-success health, failure backoff | feature | Interval jobs ship — [W1](../research/wheelhouse-extractions/wheelhouse-extractions.md#w1--periodic-scoped-jobs); first trigger: a product on two replicas |
+| Child processes: output streaming, Windows job objects | feature | Bounded runs ship — [W2](../research/wheelhouse-extractions/wheelhouse-extractions.md#w2--bounded-child-processes); TranscriptForge download progress pulls streaming |
+| Atomic files and upserts: folder fsync, stale-partial sweep, native `ON CONFLICT` upserts | feature | [W4](../research/wheelhouse-extractions/wheelhouse-extractions.md#w4--atomic-file-writes-and-race-safe-upserts) |
 
 ---
 
@@ -195,7 +201,6 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Publish granular entity abstractions | engineering | SecretsVault; slims the Domain dependency closure |
 | Drop vulnerable transitive packages | fix | Sift and PbnStudio on `10.0.21-beta`: Snappier 1.0.0, SSH.NET 2023.0.0, Datadog.Trace 3.7.0; check the current family first |
 | Keep providers out of small apps' restore graph | engineering | Sift: the mono-lib pulls AWS, Hangfire and every OAuth provider; re-check after the companion split |
-| MCP host checks `Origin` and caps the request body | fix | Wheelhouse: the spec requires the Origin 403; `MapAuthenticatedMcp` has neither, so `McpRequestGuard.cs` does both locally (64 KiB, 413) |
 | SPA hosting reserves path prefixes beyond the API prefix | feature | Wheelhouse: `/.well-known/*` must 404, not serve the shell; it adds its own fallback in `HostConfiguration.cs` |
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
 | YAML reader beside the JSON presets | feature | Wheelhouse reads `catalog.yml` and `deploy.yml` with YamlDotNet 16.3.0 locally; the one-manifest work makes YAML a shared need |

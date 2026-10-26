@@ -1,6 +1,6 @@
 # research
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-26*
 
 Analyses and deep-dives behind the SDK's vectors. Open work they name has a row in the
 [backlog](../planning/backlog.md); a deep-dive keeps the reasoning.
@@ -16,4 +16,5 @@ Analyses and deep-dives behind the SDK's vectors. Open work they name has a row 
 | [`media/`](media/) | [Image and PDF](media/images-and-pdf.md) and [document](media/documents.md) tool rulings |
 | [`mediator-cqrs/`](mediator-cqrs/) | [Mediator wrapper and `AppResult` absorption](mediator-cqrs/mediator-cqrs-result-absorption.md) |
 | [`messaging/`](messaging/) | [Messaging architecture](messaging/messaging-architecture-investigation.md), [events maturity inventory](messaging/events-maturity-backlog.md), [webhooks](messaging/webhooks.md), [elastic pipeline steps](messaging/elastic-pipeline-steps.md) |
+| [`wheelhouse-extractions/`](wheelhouse-extractions/) | [W1, W2, W4, W5](wheelhouse-extractions/wheelhouse-extractions.md) vectors extracted from Wheelhouse for v0.6: periodic jobs, child processes, atomic files and upserts, MCP guard |
 | [`sdk-completion/`](sdk-completion/) | September sweeps [26](sdk-completion/sweep-2026-09-26.md) and [28](sdk-completion/sweep-2026-09-28.md); [SaaS essentials](sdk-completion/saas-essentials.md) rulings |

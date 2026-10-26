@@ -204,6 +204,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Bulk` | EFCore.BulkExtensions re-export (BulkInsert/Update/Delete) | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Triggered` | `UseTriggersConventional` + `AddTriggersFromAssemblies` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Projectables` | `UseProjectablesConventional` — `[Projectable]` computed properties | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Uniqueness` | `TrySaveChangesUniqueAsync`, `SaveWithGeneratedKeyAsync`; `UpsertAsync` / `AddIfAbsentAsync` — keyed upserts that re-read the winner after a lost insert race (savepoint inside a transaction) | implemented (mono-lib, unreleased upserts) |
 | `WoW.Two.Sdk.Beta.Be.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
@@ -232,6 +233,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Http.HeaderPropagation` | `AddConventionalHeaderPropagation(…)` + `AddPropagatedHeaders()` — X-Correlation-Id / X-Request-Id defaults over `Microsoft.AspNetCore.HeaderPropagation` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials` | `AddOAuth2ClientCredentials()` — client_credentials bearer handler; per-client-name token cache, single-flight fetch, refresh skew | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Http.Auth.Mtls` | `AddMutualTls()` — client-certificate `SocketsHttpHandler` (loaded cert or PKCS#12 path) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Integrations.Processes` | `AddProcessClient()` / keyed `AddProcessClient(name, …)` → `IProcessClient` (`RunAsync`, `RunJsonAsync`, `Start`) — argument list, environment allowlist, timeout that kills the tree, capped output, `JsonFailureLineParser`, failures marked by `ProcessFailureKind` | implemented (mono-lib, unreleased) |
 
 ## P4 — Distributed essentials
 
@@ -262,6 +264,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.SqlServer` | Hangfire on SQL Server | planned |
 | `WoW.Two.Sdk.Beta.Be.Jobs.Hangfire.Redis` | Hangfire on Redis | planned |
 | `WoW.Two.Sdk.Beta.Be.Jobs.Batches` | `AddBatchPipeline<TItem, THandler>()` — bounded in-memory pipeline, scoped batch handler, shutdown drain, drop/processed/failed metrics | implemented |
+| `WoW.Two.Sdk.Beta.Be.Jobs.Core` | `AddPeriodicJob<TService>(name, run, configure)` — interval loop (0 = off, read at start), fresh scope per pass, log and continue, pass timeout, fixed delay or rate, pass metrics | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Jobs.Coravel` | Coravel alt | planned |
 | `WoW.Two.Sdk.Beta.Be.Jobs.NCronJob` | NCronJob alt | planned |
 | `WoW.Two.Sdk.Beta.Be.Comms` | Meta — email + SMS + push abstractions | planned |
@@ -316,7 +319,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Ai.Vector.Chroma` | Chroma vector store | planned |
 | `WoW.Two.Sdk.Beta.Be.Ai.Vector.AzureSearch` | Azure AI Search vector store | planned |
 | `WoW.Two.Sdk.Beta.Be.Ai.Tokenizers` | Microsoft.ML.Tokenizers preset | planned |
-| `WoW.Two.Sdk.Beta.Be.Ai.Mcp` | `AddStatelessMcpServer` / `MapAuthenticatedMcp` — stateless HTTP transport with host and operation authorization | implemented (mono-lib) |
+| `WoW.Two.Sdk.Beta.Be.Ai.Mcp` | `AddStatelessMcpServer(guard)` / `MapAuthenticatedMcp` — stateless HTTP transport with host and operation authorization; request guard (foreign `Origin` 403, 64 KiB body 413) and `McpToolErrorFilter` (`AppError` → retryable `McpToolError`) on by default | implemented (mono-lib; guard and tool errors unreleased) |
 | `WoW.Two.Sdk.Beta.Be.FeatureFlags` | `AddFeatureFlags()` + `IFeatureFlags`; gates: `RequireFeatures(...)` endpoint filter and `AddMediatorFeatureGatingInterceptor()` (`IFeatureGated`, gates implemented, unreleased) | shipped |
 | `WoW.Two.Sdk.Beta.Be.FeatureFlags.OpenFeature` | `AddOpenFeatureClient()` — OpenFeature seam | shipped |
 | `WoW.Two.Sdk.Beta.Be.FeatureFlags.LaunchDarkly` | LaunchDarkly provider | planned |
@@ -332,7 +335,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | Group | Packages |
 |---|---|
 | Realtime | `…Realtime.SignalR`, `…Realtime.SignalR.Redis`, `…Realtime.SignalR.AzureSignalR`, `…Realtime.Sse`, `…Realtime.WebSockets`, `…Realtime.MagicOnion` |
-| Storage | **`…Storage` core + `…Storage.Local` — shipped** (`IBlobRepository`, `AddLocalBlobStorage`) · **`…Storage.S3` — implemented, unreleased** (`AddS3BlobStorage`; AWS, R2 and MinIO endpoints; S3Mock round-trip test) · **`…Storage.Azure` — implemented, unreleased** (`AddAzureBlobStorage`; Azurite round-trip test) · **`…Storage` signed URLs — implemented, unreleased** (`IBlobUrlIssuer`: S3 SigV4 presign, Azure SAS incl. user delegation, HMAC transfer routes `MapBlobTransferEndpoints`) · planned: `…Storage.Gcs`, `…Storage.FluentStorage` |
+| Storage | **`…Storage` core + `…Storage.Local` — shipped** (`IBlobRepository`, `AddLocalBlobStorage`) · **`…Storage.S3` — implemented, unreleased** (`AddS3BlobStorage`; AWS, R2 and MinIO endpoints; S3Mock round-trip test) · **`…Storage.Azure` — implemented, unreleased** (`AddAzureBlobStorage`; Azurite round-trip test) · **`…Storage` signed URLs — implemented, unreleased** (`IBlobUrlIssuer`: S3 SigV4 presign, Azure SAS incl. user delegation, HMAC transfer routes `MapBlobTransferEndpoints`) · **atomic file writes — implemented, unreleased** (`AtomicFileExtensions`; `LocalFileBlobRepository` saves atomically) · planned: `…Storage.Gcs`, `…Storage.FluentStorage` |
 | Media | **`…Media.Word` — implemented, unreleased** (`IWordService` over the Open XML SDK: info, text/Markdown extraction, split-run template fill with row repeats, Markdown → DOCX; `Media:Word`; `MapWordToolEndpoints`) · **`…Media.Markdown` — implemented, unreleased** (`IMarkdownService` over Markdig: safe HTML, plain text, headings, front matter, reading time) · **`…Media.Excel` import — implemented, unreleased** (`IExcelParser` + `ITabularParser` for CSV and XLSX; row-precise `TabularRowException`) · **`…Media.Endpoints` — implemented, unreleased** (`MapImageToolEndpoints`, `MapPdfToolEndpoints`: multipart tool APIs) · **`…Media.Pdf` — implemented, unreleased** (`IPdfService` over PDFsharp + PdfPig: info, merge, split, extract/reorder, remove, rotate, images → PDF, compression, forms, metadata, AES-256, text, watermark, page numbers; `Media:Pdf`) · **`…Media.Images` — implemented, unreleased** (`IImageService` over SkiaSharp: probe, edit — orient/crop/resize/compress/text/watermark — collage, BlurHash/colors/perceptual hash; `Media:Images`) · **`…Media.Captions` — shipped** (`VttCaptionParser` + `CaptionSegment`/`CaptionTrack` + `AddVttCaptionParser()`, `src/Media/Captions/`, extracted from the TranscriptForge POC; `ITimedText` slicing, `TimedTextRenderer` and `CaptionClockMapper` from TranscriptForge v0.5) · **`…Media.YouTube` — shipped** (`YouTubeUrlMapper`, `YouTubeLinkExtractor`, `src/Media/YouTube/`, TranscriptForge v0.5) · planned: `…Media.ImageSharp`, `…Media.Skia`, `…Media.Magick`, `…Media.FFmpeg`, `…Media.QuestPdf`, `…Media.ClosedXml`, `…Media.CsvHelper`, `…Media.Markdig` |
 | Search | `…Search.PostgresFts`, `…Search.Elasticsearch`, `…Search.OpenSearch`, `…Search.Meilisearch`, `…Search.Algolia`, `…Search.Typesense`, `…Search.Lucene` |
 | Workflow | `…Workflow.Stateless`, `…Workflow.Elsa`, `…Workflow.WorkflowCore`, `…Workflow.DurableTask`, `…Workflow.Temporal` |

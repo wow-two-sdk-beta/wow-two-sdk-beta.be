@@ -30,7 +30,7 @@ See [`targets.md` §6](./engineering/architecture/analysis/philosophy/targets.md
 | P1 | boot floor — foundation + observability + web basics | shipped within the mono library |
 | P2 | request pipeline + auth | ✅ shipped (mediator + identity, incl. otp/otp.telegram/jwt.issuance + 16 OAuth providers) |
 | P3 | persistence + outbound | data/HTTP/cache adapters ship; opt-in sessions and outbound safety since `10.0.59-beta` |
-| P4 | distributed essentials | comms/email, Hangfire, messaging and webhooks ship; scoped workers remain |
+| P4 | distributed essentials | comms/email, Hangfire, messaging and webhooks ship; periodic scoped jobs implemented |
 | meta | `AddApiDefaults()` / `UseApiDefaults()` one-import boot floor (`src/Meta/`) | ✅ shipped |
 | P5 | SaaS-shaped (tenancy + AI + flags) | planned |
 | P6 | heavy domain extensions | planned |
