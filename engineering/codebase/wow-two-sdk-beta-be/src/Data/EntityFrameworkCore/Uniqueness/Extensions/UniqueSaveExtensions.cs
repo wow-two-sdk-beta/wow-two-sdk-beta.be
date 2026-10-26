@@ -94,7 +94,7 @@ public static class UniqueSaveExtensions
         return null;
     }
 
-    private static bool IsUniqueViolation(Exception? cause, string? constraintName) => cause switch
+    internal static bool IsUniqueViolation(Exception? cause, string? constraintName) => cause switch
     {
         PostgresException { SqlState: PostgresErrorCodes.UniqueViolation } postgres =>
             constraintName is null || string.Equals(postgres.ConstraintName, constraintName, StringComparison.Ordinal),

@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using WoW.Two.Sdk.Beta.Be.Storage.Core;
+using WoW.Two.Sdk.Beta.Be.Storage.FileSystem.Extensions;
 
 namespace WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
 
@@ -7,6 +8,8 @@ namespace WoW.Two.Sdk.Beta.Be.Storage.FileSystem;
 /// Accesses blobs on the local filesystem under a configured root. Logical blob
 /// paths map to files under the root; all access is traversal-guarded so a path can never escape the root.
 /// Content types are not persisted (the local file store has nowhere to keep them). Thread-safe.
+/// A save writes a temporary file and swaps it in with one rename, so a crash or a cancelled upload never leaves
+/// a partial blob; listings skip the temporary files.
 /// </summary>
 public sealed class LocalFileBlobRepository : IBlobRepository
 {
@@ -27,10 +30,7 @@ public sealed class LocalFileBlobRepository : IBlobRepository
         ArgumentNullException.ThrowIfNull(content);
 
         var fullPath = BlobStoragePathMapper.ResolveUnderRoot(_root, path);
-        Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
-
-        await using var file = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None);
-        await content.CopyToAsync(file, cancellationToken);
+        await content.CopyToFileAsync(fullPath, cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -74,6 +74,9 @@ public sealed class LocalFileBlobRepository : IBlobRepository
             foreach (var file in Directory.EnumerateFiles(_root, "*", SearchOption.AllDirectories))
             {
                 cancellationToken.ThrowIfCancellationRequested();
+
+                if (AtomicFileExtensions.IsTemporaryFile(file))
+                    continue;
 
                 var info = ToBlobInfo(new FileInfo(file));
                 if (normalizedPrefix is null || info.Path.StartsWith(normalizedPrefix, StringComparison.Ordinal))

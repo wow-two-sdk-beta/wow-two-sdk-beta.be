@@ -9,7 +9,8 @@ Namespace root: `WoW.Two.Sdk.Beta.Be.Storage`. The core + local impl are pure BC
 | Folder | Surface | Role |
 |---|---|---|
 | `Core/` | `IBlobRepository`, `BlobInfo`, `BlobStoragePathMapper` | Save/read/exists/delete/info/list over forward-slash paths; traversal-guarded |
-| `FileSystem/` | `AddLocalBlobStorage(rootPath)`, `LocalFileBlobRepository` | Filesystem-backed store (dev / single-node) |
+| `FileSystem/` | `AddLocalBlobStorage(rootPath)`, `LocalFileBlobRepository` | Filesystem-backed store (dev / single-node); saves are atomic |
+| `FileSystem/Extensions/` | `AtomicFileExtensions`, `AtomicFileWriteOptions` | Whole-file replacement for any local file: snapshots, token files, exports |
 | `S3/` | `AddS3BlobStorage(o => …)`, `S3BlobRepository` | S3-compatible bucket (AWS, R2, MinIO, …) via `AWSSDK.S3` |
 | `Azure/` | `AddAzureBlobStorage(o => …)`, `AzureBlobRepository` | Azure Blob Storage container via `Azure.Storage.Blobs` |
 | `Core/` | `IBlobUrlIssuer`, `BlobUrlResult` | Signed read/write URLs for direct uploads and downloads (S3 presign, Azure SAS) |
@@ -46,6 +47,24 @@ var download = await urls.IssueReadUrlAsync($"uploads/{id}.pdf", TimeSpan.FromMi
 - The local store, or any store without native signing, uses `AddBlobTransferUrls` + `MapBlobTransferEndpoints()`:
   URLs signed with HMAC over method, path, expiry and file name or media type; 403 when altered or expired.
 - URLs live up to 7 days; an upload URL issued with a media type only accepts that type.
+
+## Atomic file writes
+
+```csharp
+// Readers see the old snapshot or the new one, never half of one; 0600 from the moment the file exists.
+await AtomicFileExtensions.WriteJsonAsync(Path.Combine(root, "inventory.json"), snapshot, json,
+    new AtomicFileWriteOptions { UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite }, ct);
+await AtomicFileExtensions.WriteAllTextAsync(path, text, cancellationToken: ct);
+await upload.CopyToFileAsync(path, cancellationToken: ct);
+```
+
+- The content goes to a hidden temporary file beside the target (`.{name}.{32 hex}.partial`), is flushed to disk,
+  then replaces the target in one rename.
+- A failed or cancelled write deletes its temporary file; the target stays as it was.
+- `UnixCreateMode` applies exactly (past the umask) before any byte lands; without it a replacement keeps the old
+  file's mode. A missing folder is created, with `DirectoryUnixCreateMode` when set.
+- Concurrent writers each finish a whole file and the last rename wins; serialize writers when order matters.
+- `IsTemporaryFile` lets a folder scan skip what a crash left behind; `LocalFileBlobRepository` listings do.
 
 ## Notes
 
