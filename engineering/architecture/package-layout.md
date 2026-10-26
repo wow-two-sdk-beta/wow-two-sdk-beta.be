@@ -170,6 +170,19 @@ We wrap the .NET ecosystem (~10K+ packages reachable via composition). We can't 
 Eight release projects produce NuGets. Seven test projects evaluate `IsPackable=false`.
 CI tests and verifies the release revision before publishing the family in lockstep.
 
+Adding a published package (first done for the kernel, `10.0.77-beta`), all in one commit; paths from the code dir:
+
+1. Create the project under `src/`, `PackageId` `WoW2.Sdk.Beta.Be.{Name}` (the reserved prefix), namespaces `WoW.Two.Sdk.Beta.Be.*`.
+2. Add it to `src/WoW.Two.Sdk.Beta.Be.slnx` under `/Libraries/`.
+3. Add its folder to the mono-lib's `DefaultItemExcludes` in on-disk casing; add a `ProjectReference` if core depends on it.
+4. Add its `dotnet pack` line to `.github/workflows/publish.yml` (repo root).
+5. Add the id to `scripts/verify-release-packages.sh`, `scripts/verify-published-packages.sh` and `scripts/test-verify-published-packages.py`.
+6. Add its row to [package-registry.md](package-registry.md) and update the count above.
+7. Check locally: a Release pack of every project, then `scripts/verify-release-packages.sh`.
+
+- No NuGet step: trusted publishing creates a new id under the reserved prefix on the first push.
+- Types moved out of core also get a `[TypeForwardedTo]` line in `src/Properties/KernelTypeForwarders.cs`.
+
 ## What does NOT live in src/
 
 - Product-specific tests; SDK contract and integration tests live in the seven `*.Tests` projects.
