@@ -10,11 +10,11 @@ using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.Parsers;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-/// <summary>Provides the migration apply, status, rollback, and repair operations behind every host.</summary>
+/// <summary>Provides the apply, status, level-check, rollback, and repair operations of one migration set behind every host.</summary>
 /// <remarks>
-///   - one host migrates at a time
-///   - checksum drift or orphaned history fails the apply before any script runs
-///   - apply flow, lock scope, and transaction handling: bespoke.md
+///   - one host migrates a set at a time
+///   - a schema claimed by another set or owner, checksum drift or orphaned history fails the apply before any script runs
+///   - apply flow, lock scope, transaction handling and migration sets: bespoke.md
 /// </remarks>
 public sealed partial class MigrationRunnerService(
     IMigrationBroker migrations,
@@ -24,10 +24,13 @@ public sealed partial class MigrationRunnerService(
     ILogger<MigrationRunnerService> logger,
     IMigrationChecksumHasher checksumHasher,
     ISqlStatementParser statementParser,
-    TimeProvider clock) : IMigrationRunnerService
+    TimeProvider clock,
+    IMigrationDialect dialect) : IMigrationRunnerService
 {
     /// <summary>The host stamp on the history rows a dry run inserts and rolls back.</summary>
     private const string DryRunAppliedBy = "dry-run";
+
+    private readonly MigrationSchemaOwnerStore _owners = new(dialect, options);
 
     /// <inheritdoc />
     /// <remarks>
@@ -49,6 +52,11 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
+            if (await GuardSchemaAsync(conn, null, appliedBy, ct) is { } claimed)
+            {
+                return Result<IReadOnlyList<string>>.Fail(claimed);
+            }
+
             await history.EnsureTableAsync(conn, null, ct);
             var applied = await history.GetAppliedAsync(conn, null, ct);
 
@@ -276,6 +284,11 @@ public sealed partial class MigrationRunnerService(
     private async Task<Result<MigrationDryRunReport>> RehearseAsync(
         DbConnection conn, DbTransaction tx, List<MigrationDescriptor> migrations, CancellationToken ct)
     {
+        if (await GuardSchemaAsync(conn, tx, DryRunAppliedBy, ct) is { } claimed)
+        {
+            return Result<MigrationDryRunReport>.Fail(claimed);
+        }
+
         await history.EnsureTableAsync(conn, tx, ct);
         var applied = await history.GetAppliedAsync(conn, tx, ct);
 
@@ -342,9 +355,12 @@ public sealed partial class MigrationRunnerService(
         var byOrdinal = migrations.ToDictionary(m => m.Ordinal);
 
         await using var conn = await connections.CreateOpenAsync(ct);
+        if (options.SchemaOwner is not null)
+            await dialect.EnsureSchemaAsync(conn, null, options.SchemaName, ct);
         await history.EnsureTableAsync(conn, null, ct);
         var applied = await history.GetAppliedAsync(conn, null, ct);
         var appliedOrdinals = applied.Select(a => a.Ordinal).ToHashSet();
+        var schemaOwner = await _owners.ReadAsync(conn, null, ct);
 
         // Diff source against applied to classify drift, orphans, and pending.
         var drifted = applied
@@ -354,8 +370,39 @@ public sealed partial class MigrationRunnerService(
         var orphaned = applied.Where(a => !byOrdinal.ContainsKey(a.Ordinal)).Select(a => a.Ordinal).ToList();
         var pending = migrations.Where(m => !appliedOrdinals.Contains(m.Ordinal)).ToList();
 
-        return Result<MigrationStatus>.Ok(
-            new MigrationStatus { Applied = applied, Pending = pending, Drifted = drifted, Orphaned = orphaned });
+        return Result<MigrationStatus>.Ok(new MigrationStatus
+        {
+            Applied = applied, Pending = pending, Drifted = drifted, Orphaned = orphaned, SchemaOwner = schemaOwner,
+        });
+    }
+
+    /// <inheritdoc />
+    /// <remarks>Reads the history and the owner marker only when their tables exist, so a fresh database stays untouched.</remarks>
+    public async Task<Result<MigrationLevelReport>> CheckLevelAsync(CancellationToken ct = default)
+    {
+        if (Scan().IsFailure(out var malformed, out var migrations))
+        {
+            return Result<MigrationLevelReport>.Fail(malformed);
+        }
+
+        await using var conn = await connections.CreateOpenAsync(ct);
+        IReadOnlyList<MigrationHistoryEntry> applied =
+            await dialect.TableExistsAsync(conn, null, options.SchemaName, options.TableName, ct)
+                ? await history.GetAppliedAsync(conn, null, ct)
+                : [];
+        var schemaOwner = await _owners.ReadAsync(conn, null, ct);
+
+        var byOrdinal = migrations.ToDictionary(m => m.Ordinal);
+        var appliedOrdinals = applied.Select(a => a.Ordinal).ToHashSet();
+        var drifted = applied
+            .Where(a => byOrdinal.TryGetValue(a.Ordinal, out var m) && m.Checksum != a.Checksum.Trim())
+            .Select(a => byOrdinal[a.Ordinal].Label)
+            .ToList();
+        var pending = migrations.Where(m => !appliedOrdinals.Contains(m.Ordinal)).Select(m => m.Label).ToList();
+
+        return Result<MigrationLevelReport>.Ok(MigrationLevelReport.Create(
+            options.SetName, byOrdinal.Keys, applied, pending, drifted, options.AllowOrphanedHistory,
+            schemaOwner, schemaOwner is null ? null : _owners.DescribeConflict(schemaOwner)));
     }
 
     /// <inheritdoc />
@@ -376,6 +423,11 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
+            if (await GuardSchemaAsync(conn, null, claimedBy: null, ct) is { } claimed)
+            {
+                return Result<IReadOnlyList<string>>.Fail(claimed);
+            }
+
             await history.EnsureTableAsync(conn, null, ct);
             var applied = (await history.GetAppliedAsync(conn, null, ct)).OrderByDescending(a => a.Ordinal).ToList();
 
@@ -437,6 +489,11 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
+            if (await GuardSchemaAsync(conn, null, claimedBy: null, ct) is { } claimed)
+            {
+                return Result<IReadOnlyList<string>>.Fail(claimed);
+            }
+
             await history.EnsureTableAsync(conn, null, ct);
             var applied = await history.GetAppliedAsync(conn, null, ct);
 
@@ -459,6 +516,33 @@ public sealed partial class MigrationRunnerService(
         }
     }
 
+    /// <summary>Creates an owned schema, refuses a schema another set or owner has claimed, and records this set's claim when asked.</summary>
+    /// <param name="conn">The open connection holding the advisory lock.</param>
+    /// <param name="tx">The enclosing transaction, such as a dry run's, or null to run bare.</param>
+    /// <param name="claimedBy">The host stamp to record a first claim under, or null to only verify the marker.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The conflict error, or <see langword="null"/> when this set may migrate the schema.</returns>
+    private async Task<AppError?> GuardSchemaAsync(DbConnection conn, DbTransaction? tx, string? claimedBy, CancellationToken ct)
+    {
+        if (options.SchemaOwner is not null)
+            await dialect.EnsureSchemaAsync(conn, tx, options.SchemaName, ct);
+
+        if (await _owners.ReadAsync(conn, tx, ct) is { } marker)
+            return _owners.DescribeConflict(marker) is { } conflict ? AppErrorFactory.Conflict(conflict) : null;
+
+        if (options.SchemaOwner is { } owner && claimedBy is not null)
+        {
+            await _owners.EnsureTableAsync(conn, tx, ct);
+            await _owners.ClaimAsync(conn, tx, clock.GetUtcNow(), claimedBy, ct);
+
+            // A dry run's claim rolls back with its transaction, so only a bare claim is reported.
+            if (tx is null)
+                LogSchemaClaimed(options.SchemaName, options.SetName, owner);
+        }
+
+        return null;
+    }
+
     /// <summary>Reads the source, parses <c>NNN-name</c>, computes checksums, and returns migrations ordered by ordinal.</summary>
     private Result<List<MigrationDescriptor>> Scan()
     {
@@ -479,12 +563,22 @@ public sealed partial class MigrationRunnerService(
                     $"Migration folder '{raw.Name}' must match NNN-name (e.g. 001-baseline)."));
             }
 
+            var usesSchema = raw.ApplySql.Contains(MigrationConstants.SchemaPlaceholder, StringComparison.Ordinal)
+                || raw.RollbackSql.Contains(MigrationConstants.SchemaPlaceholder, StringComparison.Ordinal);
+            if (usesSchema && !MigrationConstants.SchemaNamePattern().IsMatch(options.SchemaName))
+            {
+                return Result<List<MigrationDescriptor>>.Fail(AppErrorFactory.Validation(
+                    $"Migration '{raw.Name}' uses {MigrationConstants.SchemaPlaceholder}, but SchemaName '{options.SchemaName}' " +
+                    "is not a lowercase identifier (a-z, 0-9 and _, 63 characters at most)."));
+            }
+
             descriptors.Add(new MigrationDescriptor
             {
                 Ordinal = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture),
                 Name = match.Groups[2].Value,
-                ApplySql = raw.ApplySql,
-                RollbackSql = raw.RollbackSql,
+                ApplySql = usesSchema ? dialect.SubstituteSchema(raw.ApplySql, options.SchemaName) : raw.ApplySql,
+                RollbackSql = usesSchema ? dialect.SubstituteSchema(raw.RollbackSql, options.SchemaName) : raw.RollbackSql,
+                // The checksum covers the script as authored, so one source reads the same under every schema.
                 Checksum = checksumHasher.Hash(raw.ApplySql),
                 NoTransaction = HasNoTransactionDirective(raw.ApplySql),
             });
@@ -610,4 +704,7 @@ public sealed partial class MigrationRunnerService(
 
     [LoggerMessage(EventId = 3009, Level = LogLevel.Warning, Message = "Dry run failed at {Migration}: {Error}. Succeeded before it: {Succeeded}. The rehearsal was rolled back.")]
     private partial void LogDryRunFailed(string migration, string error, string succeeded);
+
+    [LoggerMessage(EventId = 3010, Level = LogLevel.Information, Message = "Schema {Schema} claimed by set {Set} as {Owner}.")]
+    private partial void LogSchemaClaimed(string schema, string set, string owner);
 }

@@ -11,7 +11,7 @@
 | `WoW2.Sdk.Beta.Be` | production mono library |
 | `WoW2.Sdk.Beta.Be.Abstractions` | BCL-only kernel: `Result` family, `AppError` family, `IEvent`, `ICurrentUserService` / `UserKind`; core depends on it (unreleased, first ships with the next core release) |
 | `WoW2.Sdk.Beta.Be.Data.Abstractions` | web-free data contracts |
-| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool |
+| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool: `status` · `apply` (`--dry-run`) · `check` · `rollback` · `verify` · `new` · `promote`, over one set or a `--sets` manifest |
 | `WoW2.Sdk.Beta.Be.Testing` | base test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Data` | data test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Integrations` | integration-client test doubles |
@@ -208,6 +208,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke` | `AddDatabaseBespokeMigrations` (the host's set) + `AddDatabaseBespokeMigrationSet` (a module's named set: own history, lock, schema, `{{schema}}` placeholder, owner marker); `IMigrationSetRegistry`; `ApplyMigrationSetsAsync` deploy step, `VerifyMigrationLevelsOnStartupAsync` read-only boot check; PostgreSQL + SQLite | named sets implemented (mono-lib, unreleased) |
 
 ### Caching
 

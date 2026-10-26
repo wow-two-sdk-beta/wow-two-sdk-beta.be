@@ -42,4 +42,28 @@ public interface IMigrationRunnerService
     /// <param name="ct">Token to cancel the operation.</param>
     /// <exception cref="InvalidOperationException">Repair is disabled (<see cref="MigrationOptions.AllowRollback"/> is false) — configuration, so it throws.</exception>
     Task<Result<IReadOnlyList<string>>> RepairAsync(CancellationToken ct = default);
+
+    /// <summary>Compares the database's applied level with the source without writing anything — the production startup check.</summary>
+    /// <remarks>
+    ///   - never creates the schema, the history table or an owner marker, and takes no lock
+    ///   - the default body derives the report from <see cref="GetStatusAsync"/>, which may create the history table
+    /// </remarks>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The level report, or a <c>Validation</c> failure on a malformed source.</returns>
+    async Task<Result<MigrationLevelReport>> CheckLevelAsync(CancellationToken ct = default)
+    {
+        if ((await GetStatusAsync(ct).ConfigureAwait(false)).IsFailure(out var error, out var status))
+            return Result<MigrationLevelReport>.Fail(error);
+
+        var orphaned = status.Orphaned.ToHashSet();
+        var sourceOrdinals = status.Pending.Select(migration => migration.Ordinal)
+            .Concat(status.Applied.Select(row => row.Ordinal).Where(ordinal => !orphaned.Contains(ordinal)))
+            .ToList();
+
+        return Result<MigrationLevelReport>.Ok(MigrationLevelReport.Create(
+            MigrationConstants.DefaultSetName, sourceOrdinals, status.Applied,
+            status.Pending.Select(migration => migration.Label).ToList(),
+            status.Drifted.Select(migration => migration.Label).ToList(),
+            allowOrphanedHistory: false, status.SchemaOwner, ownerConflict: null));
+    }
 }

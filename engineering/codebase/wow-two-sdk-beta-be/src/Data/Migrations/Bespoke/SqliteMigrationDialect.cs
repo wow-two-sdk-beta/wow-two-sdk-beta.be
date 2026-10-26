@@ -66,6 +66,26 @@ public sealed class SqliteMigrationDialect : IMigrationDialect
     /// <inheritdoc />
     public string QualifyHistoryTable(string schemaName, string tableName) => $"\"{tableName}\"";
 
+    /// <inheritdoc />
+    /// <remarks>SQLite has no schemas, so there is nothing to create.</remarks>
+    public Task EnsureSchemaAsync(DbConnection connection, DbTransaction? transaction, string schemaName, CancellationToken ct = default) =>
+        Task.CompletedTask;
+
+    /// <inheritdoc />
+    public async Task<bool> TableExistsAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default) =>
+        await connection.ExecuteScalarAsync<long>(new CommandDefinition(
+            "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name = @tableName",
+            new { tableName }, transaction, cancellationToken: ct)) > 0;
+
+    /// <inheritdoc />
+    /// <remarks>
+    ///   - <c>{{schema}}.</c> becomes nothing, so <c>{{schema}}.identity_users</c> reads <c>identity_users</c>; table prefixes keep sets apart
+    ///   - a bare <c>{{schema}}</c> becomes <c>main</c>, SQLite's name for the database's own schema
+    /// </remarks>
+    public string SubstituteSchema(string sql, string schemaName) =>
+        sql.Replace(MigrationConstants.SchemaPlaceholder + ".", "", StringComparison.Ordinal)
+            .Replace(MigrationConstants.SchemaPlaceholder, "main", StringComparison.Ordinal);
+
     /// <summary>Round-trips <see cref="DateTimeOffset"/> through SQLite TEXT as ISO 8601.</summary>
     private sealed class DateTimeOffsetTextHandler : SqlMapper.TypeHandler<DateTimeOffset>
     {

@@ -4,7 +4,7 @@ using Npgsql;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-/// <summary>Provides the PostgreSQL migration dialect for maintenance-database create, advisory locking, and history-table DDL.</summary>
+/// <summary>Provides the PostgreSQL migration dialect for maintenance-database and schema create, advisory locking, and history-table DDL.</summary>
 public sealed class PostgresMigrationDialect : IMigrationDialect
 {
     private const string MaintenanceDatabase = "postgres";
@@ -67,4 +67,30 @@ public sealed class PostgresMigrationDialect : IMigrationDialect
 
     /// <inheritdoc />
     public string QualifyHistoryTable(string schemaName, string tableName) => $"\"{schemaName}\".\"{tableName}\"";
+
+    /// <inheritdoc />
+    /// <remarks>Checks the catalog first, so an existing schema needs no <c>CREATE</c> privilege on the database.</remarks>
+    public async Task EnsureSchemaAsync(DbConnection connection, DbTransaction? transaction, string schemaName, CancellationToken ct = default)
+    {
+        var exists = await connection.ExecuteScalarAsync<bool>(new CommandDefinition(
+            "SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_namespace WHERE nspname = @schemaName)",
+            new { schemaName }, transaction, cancellationToken: ct));
+        if (exists)
+            return;
+
+        // CREATE SCHEMA cannot be parameterized; the name comes from configuration, not user input.
+        await connection.ExecuteAsync(new CommandDefinition(
+            $"CREATE SCHEMA IF NOT EXISTS \"{schemaName}\"", transaction: transaction, cancellationToken: ct));
+    }
+
+    /// <inheritdoc />
+    public Task<bool> TableExistsAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default) =>
+        connection.ExecuteScalarAsync<bool>(new CommandDefinition(
+            "SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_tables WHERE schemaname = @schemaName AND tablename = @tableName)",
+            new { schemaName, tableName }, transaction, cancellationToken: ct));
+
+    /// <inheritdoc />
+    /// <remarks>Writes the bare name, so the placeholder works as an identifier and inside a string literal alike.</remarks>
+    public string SubstituteSchema(string sql, string schemaName) =>
+        sql.Replace(MigrationConstants.SchemaPlaceholder, schemaName, StringComparison.Ordinal);
 }

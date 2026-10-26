@@ -1,8 +1,8 @@
 # WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke
 
-> Bespoke, host-agnostic SQL migrator — raw `.sql` pairs, normalized-checksum tracking, PostgreSQL and SQLite dialects. Roll-forward in prod, rollback in dev/test only.
+> Bespoke, host-agnostic SQL migrator — raw `.sql` pairs, normalized-checksum tracking, PostgreSQL and SQLite dialects, several named sets per host. Roll-forward in prod, rollback in dev/test only.
 
-*Last updated: 2026-10-15*
+*Last updated: 2026-10-26*
 
 ## Current guarantees
 
@@ -17,6 +17,7 @@
 - SQLite constraint changes use table rebuilds that recreate indexes, triggers and foreign keys explicitly.
 - Native PostgreSQL enums require matching driver registration on `NpgsqlDataSourceBuilder` and EF registration on `NpgsqlDbContextOptionsBuilder`; the shared case translator keeps multi-word labels aligned.
 - `wow-migrate` exits `0` on success, `1` on input/domain failure and `2` on execution or destructive-target guard failure. `apply --dry-run` exits `2` when a rehearsed file fails.
+- A host runs several **migration sets** — its own plus one per domain module — each with its own history table and advisory lock. A set may own a PostgreSQL schema, fill `{{schema}}` in its scripts and claim the schema with a marker row; `CheckLevelAsync` compares levels read-only for the production boot. See [Migration sets](#migration-sets).
 
 ## Batch atomicity and dry run
 
@@ -71,6 +72,107 @@ wow-migrate apply --dry-run --connection "$DB" --sql-dir ./Migrations   # 0 pass
 |---|---|---|
 | PostgreSQL | yes | `CREATE INDEX CONCURRENTLY`, `VACUUM`, `CREATE DATABASE` need `-- @no-transaction`. A new enum label is unusable until it commits (`55P04`). Locks taken early in the batch are held until it commits, so a long data file extends every earlier lock. A file that writes rows under deferred constraints, followed by `ALTER TABLE` on that table in the same batch, fails with `55006`. `SET LOCAL` lasts until the batch ends. |
 | SQLite | yes | The batch runs inside `BEGIN IMMEDIATE` and holds the write lock until it commits. `VACUUM` and `PRAGMA journal_mode` changes need `-- @no-transaction`. `PRAGMA foreign_keys` is a no-op inside any transaction; table rebuilds use `PRAGMA defer_foreign_keys = ON`, which resets at commit. One applicant per deployment remains required. |
+
+## Migration sets
+
+*Added 2026-10-26* (Identity analysis Q47, Q48, Q57). A host applies several sets side by side — its own and one per domain module — so a module's history never mixes with the product's.
+
+### Register
+
+```csharp
+// The product's own set, unchanged: history in public.migration_history.
+services.AddDatabaseBespokeMigrations(typeof(AppDbContext).Assembly);
+
+// A module's set: history in identity.identity_migration_history, under its own advisory lock.
+services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assembly, options =>
+{
+    options.SchemaName = "identity";   // holds the history and fills {{schema}}
+    options.SchemaOwner = "module";    // creates the schema and claims it with a marker row
+});
+```
+
+| Setting | Default set | Named set |
+|---|---|---|
+| name | `default` | lowercase identifier, 40 characters at most |
+| `TableName` | `migration_history` | `{name}_migration_history` |
+| `AdvisoryLockId` | `4855178001` | derived from the name (64-bit FNV-1a) |
+| `SchemaName` | `public` | `public` |
+| connection | the host's `IDbConnectionFactory` | an `IDbConnectionFactory` keyed by the set name when one is registered, else the host's |
+
+- `IMigrationSetRegistry` lists the sets in registration order; a named set's services are keyed by its name.
+- Resolving the registry fails when two sets share one history table or both claim one schema.
+- `AddDatabaseBespokeMigrationSet(name, Func<IServiceProvider, IMigrationBroker>, …)` takes any source, such as `new EmbeddedResourceMigrationBroker(assembly, "Migrations/Postgres/")` for per-dialect folders.
+- A host with one set, no schema and no placeholder runs as before; the only addition is one catalog read for an owner marker per run.
+
+### Schema placeholder
+
+| Dialect | `{{schema}}.identity_users` | bare `{{schema}}` |
+|---|---|---|
+| PostgreSQL | `identity.identity_users` | `identity` |
+| SQLite | `identity_users` | `main` |
+
+- The checksum covers the script as authored, before substitution, so one source records one checksum under every schema.
+- The name is written unquoted, so the placeholder works in identifiers and string literals alike; a script that uses it fails `Validation` unless `SchemaName` is a lowercase identifier (63 characters at most).
+- SQLite has no schemas: the `identity_` table prefix keeps sets apart.
+
+### Schema owner
+
+- With `SchemaOwner` set, PostgreSQL creates `SchemaName` when it is missing; the catalog is checked first, so an existing schema needs no `CREATE` privilege.
+- The first apply writes one row into `{schema}.migration_schema_owner` (SQLite: `migration_schema_owner`, keyed by schema name): schema, set, owner, time and host.
+- Every apply, dry run, rollback and repair then refuses, with a `Conflict` failure before any script runs, a schema whose marker names another set or owner. A set without `SchemaOwner` is refused on a claimed schema too.
+- Two instances on one identity schema therefore fail when each declares its own owner; replicas of one instance share an owner.
+- A dry run's claim rolls back with its transaction. No `claim` command moves ownership yet (T10's takeover).
+
+### Level check
+
+`IMigrationRunnerService.CheckLevelAsync` compares the database with the source without writing: no schema, history table, marker or lock.
+
+| `MigrationLevelState` | Meaning |
+|---|---|
+| `Current` | every source migration applied, nothing else recorded |
+| `Behind` | migrations pending: the migrate step has not run |
+| `Ahead` | history holds an ordinal above the code's highest: the database is newer than this build |
+| `Orphaned` | history holds ordinals absent from the source below that level, and `AllowOrphanedHistory` is off |
+| `Drifted` | an applied script changed since it ran |
+| `OwnerConflict` | the marker names another set or owner |
+
+- `VerifyMigrationLevelsOnStartupAsync()` checks every set and throws unless each is current; a set with `LevelMismatch = Warn` logs instead (event `3012`). An owner conflict always throws.
+- The interface's default body derives the report from `GetStatusAsync`, so other `IMigrationRunnerService` implementations keep compiling.
+
+### Who applies
+
+| When | Step | Call |
+|---|---|---|
+| production deploy | explicit migrate step, before the new image serves | `wow-migrate apply --sets migration-sets.json`, or the image's own migrate command calling `ApplyMigrationSetsAsync("deploy")` |
+| production boot | read-only check | `VerifyMigrationLevelsOnStartupAsync()` |
+| development boot | apply | `ApplyMigrationSetsAsync("startup")` behind the host's environment check |
+
+- The engine stays Hosting-free, so the environment gate belongs to the host: `if (env.IsDevelopment()) … else …`.
+- Neither helper creates the database; `wow-migrate apply` and `MigrateBespokeOnStartupAsync` do.
+- `MigrateBespokeOnStartupAsync` (`Data/`) still applies only the default set, at every boot.
+
+### CLI
+
+```bash
+wow-migrate apply --sets migration-sets.json                 # every set, in manifest order
+wow-migrate apply --sets migration-sets.json --set identity  # one set
+wow-migrate check --sets migration-sets.json                 # 0 all current · 1 otherwise
+wow-migrate apply --sql-dir ./Migrations --set identity --schema identity --schema-owner service
+```
+
+```json
+{
+  "sets": [
+    { "name": "default", "sqlDir": "Migrations" },
+    { "name": "identity", "assembly": "bin/Identity.Module.dll", "resourcePrefix": "Migrations/", "schema": "identity", "schemaOwner": "module" }
+  ]
+}
+```
+
+- Paths resolve against the manifest's folder; an `assembly` set reads embedded resources in an isolated load context and never runs the assembly's code.
+- `--sets` (or `WOW_MIGRATE_SETS`) excludes `--sql-dir`, `--schema` and `--schema-owner`; `rollback`, `verify --repair`, `new` and `promote` need exactly one set.
+- Without `--sets` or `--set`, every verb runs the default set and prints as before; other runs print a `[set]` header per set.
+- The CLI connects through Npgsql only, so a SQLite host applies its sets in process.
 
 > **Living design doc.** Status lifecycle: **DESIGN → PROVEN (smart-qr) → SHIPPING → STABLE**. Current: **STABLE** (2026-06-18) — adopted + verified green by all three apps (smart-qr · secrets-vault · wheelhouse) on Postgres. The engine **lives in this folder** (`src/Data/Migrations/Bespoke/`, 22 `.cs` files), extracted from `smart-qr` on 2026-06-13 and building green in the mono-lib. It was first **PROVEN (smart-qr · 2026-06-11)** — built greenfield + verified end-to-end against real Postgres in the `smart-qr` product (see §0.0). `smart-qr` stays untouched and becomes a consumer of this package post-publish.
 > The engine was **built greenfield in `smart-qr`** and proven against the real product (see §0.0), then **extracted here** (see §6 — a *build-then-extract*, not a file move). The one real code change at extraction was the connection seam (below). This doc is **updated each iteration** as the engine, CLI, and conventions firm up.
@@ -543,6 +645,7 @@ Highest precedence wins. Fail fast with the full searched-list on miss. **The re
 | `new <name>` | `--description`, `--no-transaction` | created **flat** `Dev/<utc-ts>_<name>.sql` (branch-safe; see §4.6) | no | — (writes dev template) |
 | `apply` | `--dry-run` (shipped 2026-10-15), `--up-to <NNN>` (not built) | applied labels; with `--dry-run`, per-file `✓ succeeded / ~ not rehearsed / ✗ failed / · not reached` | no | `ApplyPendingAsync` · `DryRunPendingAsync` |
 | `status` | — | table: ordinal · name · applied/pending/drift/**orphaned** · checksum · applied_at · applied_by + `Dev/` in-flight list | no | `GetStatusAsync` |
+| `check` | `--sets`, `--set` (shipped 2026-10-26) | one line per set: current, or how the database differs; exit `1` unless all are current | no | `CheckLevelAsync` |
 | `rollback` | `--count <N>`, `--force` | per-file rolled-back rows; **target-gated** (§ guard) | **yes** | `RollbackAsync(count)` |
 | `rebaseline` | `--backup-file`, `--output-sql`, `--force` | dumped `001-baseline/Apply.sql` path + history marks | **yes** | `BaselineAsync` |
 | `promote` | `[--all]`, `--dev-file <f>`, `--keep-dev`, `--check-only` | promoted `Dev/x.sql → NNN-x/{Apply,Rollback}.sql`; warns on stub Rollback | no | — (allocates ordinal, splits + writes) |

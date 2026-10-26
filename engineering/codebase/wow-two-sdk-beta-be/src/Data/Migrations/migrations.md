@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Beta.Be.Data.Migrations
 
-*Last updated: 2026-10-15*
+*Last updated: 2026-10-26*
 
 > Strategy index for the three database-migration runners shipped side-by-side in this package — `Ef/`, `DbUp/`, `Bespoke/`. This doc **routes**; engine internals live in each sub-folder's own lead doc. `Bespoke/` is the intended default for wow-two products.
 
@@ -28,7 +28,8 @@ All three register a startup runner via a descriptive `Add*` extension (no `WowT
 | **Multi-provider** | Any EF provider (PG/SQL Server/SQLite/…) | PG · SQL Server · MySQL via `DbUpProviderFactory` (SQLite needs custom factory) | Postgres + SQLite; Postgres owns a whole-loop advisory lock, SQLite requires one deployment applicant |
 | **Drift / checksum** | EF model-snapshot diff | Script journal (raw-byte hash) | Normalized SHA-256 over `Apply.sql` — no CRLF/whitespace false drift |
 | **Concurrency (multi-instance)** | EF internal | None | Postgres: `pg_advisory_lock`; SQLite: deployment-owned single applicant (`busy_timeout` is not a mutex) |
-| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`rollback`/`new`/`promote`/`verify --repair`) |
+| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`check`/`rollback`/`new`/`promote`/`verify --repair`), one set or a `--sets` manifest |
+| **Several schemas per host** | one context per schema | one journal | named sets: own history, lock, schema and owner marker per module (`AddDatabaseBespokeMigrationSet`) |
 | **When to pick** | Code-first shop already invested in EF migrations | Existing DbUp script library being carried forward | **Default for new wow-two products** — SQL-owned schema, host-agnostic, rebaseline/squash |
 
 ---
@@ -48,7 +49,7 @@ Carrying a legacy embedded-.sql DbUp script library forward?
 
 - Greenfield → start at `Bespoke/`. It is host-agnostic and has normalized-checksum drift detection. Postgres is safe for competing runners; SQLite deployments must nominate one applicant.
 - `Ef/` and `DbUp/` are kept for consumers already invested in those models; they are **not** the recommended path for new products.
-- One product picks **one** runner — they are mutually exclusive (each owns the schema differently). Do not register two.
+- One product picks **one** runner — they are mutually exclusive (each owns the schema differently). Do not register two. Several `Bespoke/` sets — the product's plus each module's — are one runner.
 
 ### Provider note
 
@@ -77,7 +78,16 @@ services.AddDatabaseBespokeMigrations(typeof(Program).Assembly, options =>
 {
     options.Provider = DatabaseProvider.Postgres;
 });
+
+// Bespoke/ — a domain module's set beside the product's, in its own schema
+services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assembly, options =>
+{
+    options.SchemaName = "identity";
+    options.SchemaOwner = "module";
+});
 ```
+
+- Production applies migrations in an explicit deploy step (`wow-migrate apply`, or `ApplyMigrationSetsAsync`) and boots with the read-only `VerifyMigrationLevelsOnStartupAsync()`; applying at boot is a development option. Details: `Bespoke/bespoke.md` § *Migration sets*.
 
 ---
 
@@ -85,7 +95,7 @@ services.AddDatabaseBespokeMigrations(typeof(Program).Assembly, options =>
 
 - `Ef/` — `EfMigrationsServiceCollectionExtensions` (`AddEfMigrationsRunner<TContext>`), `EfMigrationsBackgroundService<TContext>` (calls `Database.MigrateAsync`), `EfMigrationsOptions`.
 - `DbUp/` — `DbUpServiceCollectionExtensions` (`AddDbUpRunner`), `DbUpBackgroundService`, `DbUpOptions`, `DbUpProviderFactory` (`Postgres`/`SqlServer`/`MySql`).
-- `Bespoke/` — `IMigrationRunnerService`/`MigrationRunnerService`, `MigrationDescriptor`, `AddDatabaseBespokeMigrations`, `MigrationOptions`, and `Migrations/NNN-name/{Apply,Rollback}.sql`.
+- `Bespoke/` — `IMigrationRunnerService`/`MigrationRunnerService`, `MigrationDescriptor`, `AddDatabaseBespokeMigrations` + `AddDatabaseBespokeMigrationSet`, `IMigrationSetRegistry`, `MigrationOptions`, and `Migrations/NNN-name/{Apply,Rollback}.sql`.
 
 ---
 

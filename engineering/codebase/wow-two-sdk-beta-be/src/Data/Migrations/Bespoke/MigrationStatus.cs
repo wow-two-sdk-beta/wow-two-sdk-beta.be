@@ -14,4 +14,7 @@ public sealed record MigrationStatus
 
     /// <summary>Gets the ordinals recorded in the database with no matching migration in the source.</summary>
     public required IReadOnlyList<int> Orphaned { get; init; }
+
+    /// <summary>Gets the schema's recorded owner marker, or null when no set has claimed the schema.</summary>
+    public MigrationSchemaOwner? SchemaOwner { get; init; }
 }

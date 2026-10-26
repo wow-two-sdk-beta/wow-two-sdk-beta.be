@@ -52,6 +52,10 @@
     <EmbeddedResource Include="TestData/Embedded/Migrations/002-missing/Apply.sql">
       <LogicalName>Migrations/002-missing/Apply.sql</LogicalName>
     </EmbeddedResource>
+    <!-- A module-style set embedded under its own prefix, read by the CLI from this assembly. -->
+    <EmbeddedResource Include="TestData/SetMigrations/identity/**/*.sql">
+      <LogicalName>SetMigrations/identity/%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
