@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Beta.Be.Integrations
 
-> Typed HTTP clients for third-party services (GitHub REST, GHCR). Each authorizes its calls with a pluggable `IAccessTokenService` — the token source is yours to choose.
+> Typed clients for third-party services (GitHub REST, GHCR) and for child processes. The HTTP clients authorize their calls with a pluggable `IAccessTokenService` — the token source is yours to choose.
 
 ## Install
 
@@ -36,6 +36,7 @@ public interface IAccessTokenService
 |---|---|---|---|
 | GitHub REST | `IGitHubClient` | `AddGitHubIntegration()` | per-call `Bearer` from the provider |
 | GHCR | `IContainerRegistryClient` | `AddGhcrIntegration()` | anon pull token → `Basic`-authed pull token (private) |
+| Child processes | `IProcessClient` | `AddProcessClient()` / `AddProcessClient(name, …)` | none: an argument list and an allowlisted environment |
 
 Every method returns a categorized outcome enum (`RepoCheck`, `FileCheck`, `ImageCheck`, …) — resilient, never throws on transport/HTTP errors; failures are logged and folded into a `Failed`/`ProbeFailed` value.
 
@@ -43,4 +44,6 @@ Every method returns a categorized outcome enum (`RepoCheck`, `FileCheck`, `Imag
 
 - `GitHub/github.md` — GitHub REST client surface.
 - `Ghcr/ghcr.md` — GHCR client + the two-token pull flow.
+- `Processes/processes.md` — bounded child processes: timeout that kills the tree, scrubbed environment, JSON output,
+  failure-line parsing. Returns `Result`s rather than outcome enums.
 - `Identity/OAuth` — provider sign-in that saves the `access_token` the default provider reads.
