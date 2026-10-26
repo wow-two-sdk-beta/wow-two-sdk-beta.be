@@ -11,18 +11,19 @@
 | P1 — observability | `logging`, `tracing`, `metrics`, `healthchecks`, `otlp`, `prometheus`, `azure-monitor`, `datadog` | ✅ 8 packages shipped |
 | P1 — web | `hosting`, `openapi`, `problemdetails`, `ratelimit`, `outputcache`, `secureheaders`, `cors`, `compression`, `versioning` | ✅ 9 packages shipped |
 | P2 — mediator | `mediator`, `mediator.{validation, logging, authorization, idempotency}` | ✅ 5 packages shipped |
-| P2 — identity | `identity.{jwt, cookies, oidc, identity-api}`, `oauth.{16 providers}`, `mfa.{totp, webauthn}`, `password-hashing.argon2`, `otp` + `otp.telegram`, `jwt.issuance`, `policies` | ✅ shipped |
+| P2 — identity | `identity.{jwt, cookies, oidc}`, `oauth.{16 providers}`, `mfa.{totp, webauthn}`, `password-hashing.argon2`, `otp` + `otp.telegram`, `jwt.issuance` | ✅ shipped |
 | P3 | persistence + outbound | 🚧 `data` ✅ · `http` ✅ · `caching` deferred |
 | P4 | distributed essentials | 🚧 `comms/email` ✅ · `jobs/hangfire(+postgres)` ✅ · messaging + webhooks planned |
 | meta | `AddApiDefaults()` / `UseApiDefaults()` one-import boot floor | ✅ |
 | P5 | SaaS-shaped (tenancy + AI + flags) | planned |
 | P6 | heavy domain extensions | planned |
 
-Ships seven lockstep NuGets: the production mono library, web-free data abstractions, the `wow-migrate`
-tool and four testing libraries. Area-by-area status and package IDs:
+Ships eight lockstep NuGets: the production mono library, the BCL-only kernel `WoW2.Sdk.Beta.Be.Abstractions`
+(Result, AppError, IEvent, ICurrentUserService), web-free data abstractions, the `wow-migrate` tool and four testing
+libraries. Area-by-area status and package IDs:
 [`engineering/architecture/package-registry.md`](./engineering/architecture/package-registry.md).
 
-OAuth sign-in providers (16): Google, Microsoft, GitHub, Apple, Facebook, LinkedIn, Discord, Slack, GitLab, Amazon, Twitch, Spotify, Yandex, Reddit, Notion, VK. Passwordless: `AddOtpService` + `AddTelegramOtpDelivery` + `AddJwtTokenIssuance` + `AddRolePolicy`.
+OAuth sign-in providers (16): Google, Microsoft, GitHub, Apple, Facebook, LinkedIn, Discord, Slack, GitLab, Amazon, Twitch, Spotify, Yandex, Reddit, Notion, VK. Passwordless: `AddOtpService` + `AddTelegramOtpDelivery` + `AddJwtTokenIssuance`.
 
 ## Active design work
 
@@ -87,7 +88,7 @@ dotnet build WoW.Two.Sdk.Beta.Be.slnx --no-restore -m:1
 
 `src/Directory.Build.props` owns the shared `10.y.z-beta` version. Each main push runs
 `.github/workflows/publish.yml`: bump once, create the release commit/tag, restore, build, test,
-pack and verify all seven NuGets, publish them, push the commit/tag, then verify NuGet and the tag.
+pack and verify all eight NuGets, publish them, push the commit/tag, then verify NuGet and the tag.
 The workflow retains the packages and `release-manifest.txt` as one Actions artifact.
 
 ## License

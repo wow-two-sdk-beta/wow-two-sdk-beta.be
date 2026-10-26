@@ -15,13 +15,16 @@ namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 /// <summary>
 /// Provides error-message translation per <see cref="ValidationOptions.Translation"/>, re-read on every call so a
 /// configuration reload switches it live. Culture comes from the request-localization feature when that middleware ran,
-/// otherwise from <c>Accept-Language</c>. Field errors try the host catalog, the built-in identity texts, then
-/// FluentValidation's language pack;
-/// top-level errors try their <c>messageKey</c>, then their error type in the catalog and the built-in texts.
+/// otherwise from <c>Accept-Language</c>. Field errors try the host catalog, the package texts contributed through
+/// <see cref="ErrorTranslationServiceCollectionExtensions.AddErrorTexts"/> (seeded with the built-in identity texts
+/// while Identity ships in core), then FluentValidation's language pack;
+/// top-level errors try their <c>messageKey</c> in the catalog and the package texts, then their error type in the
+/// catalog and the built-in texts.
 /// A template whose placeholder has no argument yields the authored message instead.
 /// </summary>
 /// <param name="options">The live validation options carrying the translation settings.</param>
-public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> options) : IErrorTranslationService
+/// <param name="texts">The registered package texts, in registration order; a later spec wins for the same culture and code.</param>
+public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> options, IEnumerable<ErrorTextSpec> texts) : IErrorTranslationService
 {
     /// <summary>The <see cref="AppError.Metadata"/> entry naming a catalog key for a top-level message.</summary>
     public const string MessageKeyMetadata = "messageKey";
@@ -29,6 +32,14 @@ public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> o
     private static readonly object CultureItemKey = new();
     private static readonly CultureInfo English = CultureInfo.GetCultureInfo("en");
     private readonly ConcurrentDictionary<string, CultureInfo[]> _validatorCultures = new(StringComparer.OrdinalIgnoreCase);
+    private readonly FrozenDictionary<string, FrozenDictionary<string, string>> _codeTexts = MergeCodeTexts(texts);
+
+    /// <summary>Initializes the translation with no package texts beyond the built-in ones.</summary>
+    /// <param name="options">The live validation options carrying the translation settings.</param>
+    public ErrorTranslationService(IOptionsMonitor<ValidationOptions> options)
+        : this(options, [])
+    {
+    }
 
     /// <inheritdoc />
     public CultureInfo? ResolveCulture(HttpContext context)
@@ -80,7 +91,7 @@ public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> o
         var current = options.CurrentValue.Translation;
         if (error.Metadata?.TryGetValue(MessageKeyMetadata, out var key) == true
             && key is string messageKey
-            && (TryCatalog(current, culture, messageKey, out var keyed) || TryBuiltIn(FieldCodeMessageConstants.Messages, culture, messageKey, out keyed))
+            && (TryCatalog(current, culture, messageKey, out var keyed) || TryBuiltIn(_codeTexts, culture, messageKey, out keyed))
             && MessageTemplateMapper.TryFormat(keyed, error.Metadata, culture, out var keyedMessage))
             return keyedMessage;
 
@@ -103,7 +114,7 @@ public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> o
         var current = options.CurrentValue.Translation;
         var arguments = error.Params?.ToDictionary(pair => pair.Key, pair => (object?)pair.Value, StringComparer.Ordinal);
         return (TryCatalog(current, culture, error.Code, out var template)
-                || TryBuiltIn(FieldCodeMessageConstants.Messages, culture, error.Code, out template)
+                || TryBuiltIn(_codeTexts, culture, error.Code, out template)
                 || (current.UseValidatorTranslations && TryValidatorPack(culture, error.Code, out template)))
             && MessageTemplateMapper.TryFormat(template, arguments, culture, out var message)
                 ? message
@@ -208,6 +219,43 @@ public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> o
 
         template = null;
         return false;
+    }
+
+    /// <summary>Merges the built-in identity texts and the package specs into culture → code → template; later specs win.</summary>
+    private static FrozenDictionary<string, FrozenDictionary<string, string>> MergeCodeTexts(IEnumerable<ErrorTextSpec> texts)
+    {
+        ArgumentNullException.ThrowIfNull(texts);
+
+        // The identity texts seed the merge while Identity ships in core; they leave with it, and Identity then
+        // contributes them through AddErrorTexts like any other package.
+        var merged = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var (culture, messages) in FieldCodeMessageConstants.Messages)
+            Contribute(merged, culture, messages);
+
+        foreach (var spec in texts)
+        {
+            ArgumentNullException.ThrowIfNull(spec);
+            ArgumentException.ThrowIfNullOrWhiteSpace(spec.Culture);
+            ArgumentNullException.ThrowIfNull(spec.Messages);
+            Contribute(merged, spec.Culture, spec.Messages);
+        }
+
+        return merged.ToFrozenDictionary(
+            entry => entry.Key,
+            entry => entry.Value.ToFrozenDictionary(StringComparer.Ordinal),
+            StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static void Contribute(Dictionary<string, Dictionary<string, string>> merged, string culture, IReadOnlyDictionary<string, string> messages)
+    {
+        if (!merged.TryGetValue(culture, out var codes))
+        {
+            codes = new Dictionary<string, string>(StringComparer.Ordinal);
+            merged[culture] = codes;
+        }
+
+        foreach (var (code, template) in messages)
+            codes[code] = template;
     }
 
     /// <summary>FluentValidation's text for a validator code in the culture, or a specific sub-culture (Latin script first).</summary>

@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Beta.Be.Foundation.Errors
 
-> The transport-agnostic failure model: `AppError` (value) + `AppErrorType` (kind) + `AppException` (throw form), the `AppErrorFactory` catalog, descriptive `ErrorNature`, and the extensible exception→`AppError` mapping seam. Consumed by results, the mediator behaviors, and the ProblemDetails handlers. Part of the core mono-lib (`WoW2.Sdk.Beta.Be`) — no separate package.
+> The transport-agnostic failure model: `AppError` (value) + `AppErrorType` (kind) + `AppException` (throw form), the `AppErrorFactory` catalog, descriptive `ErrorNature`, and the extensible exception→`AppError` mapping seam. Consumed by results, the mediator behaviors, and the ProblemDetails handlers. The value types (`AppError` … `ErrorOrigin`, `ExceptionChainMapper`) ship in the BCL-only kernel `WoW2.Sdk.Beta.Be.Abstractions` ([`src/Abstractions/Foundation/Errors/`](../../Abstractions/abstractions.md)), same namespace; the mapping seam below stays in core.
 
 ## Model
 
@@ -11,7 +11,7 @@
 ## Returning vs throwing
 
 ```csharp
-// return (expected failure) — see ../Results/results.md
+// return (expected failure) — see Abstractions/Foundation/Results/results.md
 public Result<User> GetUser(Guid id)
     => _repo.Find(id) is { } user ? user : AppErrorFactory.NotFound("User not found");
 
@@ -36,7 +36,7 @@ builder.Services.AddExceptionMappingRule<PaymentDeclinedRule>();
 
 ## See also
 
-- [Foundation.Results](../Results/) — `Result` / `Result<T>` wrappers
+- [Foundation.Results](../../Abstractions/Foundation/Results/results.md) — `Result` / `Result<T>` wrappers (kernel)
 - [Web.ErrorMapping / Web.ExceptionHandling](../../Web/ExceptionHandling/) — `IErrorHttpStatusCodeMapper`,
   `IAppErrorProblemDetailsFactory` and the exception handlers
 - [`engineering/research/errors/errors-architecture-investigation.md`](../../../../../research/errors/errors-architecture-investigation.md) — full design record

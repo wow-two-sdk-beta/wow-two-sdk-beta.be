@@ -35,7 +35,7 @@ Provider-agnostic authorization primitives for self-hosted APIs: a claim-keyed *
 
 ## Non-goals
 
-- Does **not** define roles, scopes, or permissions — that is `Identity/Policies` (`IRolePolicy`).
+- Does **not** define roles, scopes, or permissions — role claims come from `Identity/Core/Roles`; gate them with ASP.NET policies.
 - Does **not** authenticate, issue cookies, or normalize claims — those are `Identity/Cookies`, the provider packages, and `Identity/Claims`.
 - Does **not** register authorization middleware (`UseAuthorization`) — the host owns the pipeline.
 

@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Libraries/">
     <Project Path="WoW.Two.Sdk.Beta.Be.csproj" />
+    <Project Path="Abstractions/WoW.Two.Sdk.Beta.Be.Abstractions.csproj" />
     <Project Path="Data/Abstractions/WoW.Two.Sdk.Beta.Be.Data.Abstractions.csproj" />
     <Project Path="Data/Migrations/cli/WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli.csproj" />
     <Project Path="Testing/WoW.Two.Sdk.Beta.Be.Testing.csproj" />

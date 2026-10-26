@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    KERNEL (beta-forever) — the BCL-only seam core and every domain contract share.
+
+    Core (WoW.Two.Sdk.Beta.Be.csproj) references this project and nothing from a domain repo; a domain's
+    `{Domain}.Abstractions` contract references this project only. Holds the value types every contract
+    returns (Result family, AppError family), the IEvent marker, and the ICurrentUserService seam that core's
+    Audit, SoftDelete and Idempotency code reads.
+
+    Moved types KEEP their namespaces (folders below mirror them under RootNamespace), and core forwards each
+    one with [assembly: TypeForwardedTo] (src/Properties/KernelTypeForwarders.cs), so binaries compiled against
+    an older core keep binding.
+
+    Admission (conventions/development/repo/structure/domain-structure.md § Kernel): BCL-only, and read by
+    core's own code or used by the contracts of two repos. NO FrameworkReference, NO PackageReference.
+    Versions in lockstep with core.
+  -->
+
+  <PropertyGroup>
+    <!-- Published ID uses the OWNED WoW2.* reserved prefix. Assembly + namespaces remain WoW.Two.*. -->
+    <PackageId>WoW2.Sdk.Beta.Be.Abstractions</PackageId>
+    <RootNamespace>WoW.Two.Sdk.Beta.Be</RootNamespace>
+    <Description>WoW Two be sdk kernel (beta-forever) — BCL-only Result and AppError value types, the IEvent marker and the ICurrentUserService seam, shared by the core mono-lib and every domain contract.</Description>
+    <PackageTags>wow-two; backend; beta; sdk; abstractions; kernel; results; errors</PackageTags>
+
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/obj/**;**/bin/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+</Project>

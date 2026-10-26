@@ -10,6 +10,8 @@ Granular packages return once the surface is mature and saturated. Cost accepted
 
 Test helpers ship separately as **`WoW.Two.Sdk.Beta.Be.Testing`** so xUnit / Testcontainers never enter a production reference.
 
+Two BCL-only packages arrive with this one, on the same version: **`WoW2.Sdk.Beta.Be.Abstractions`** (the kernel — `Result`, `AppError`, `IEvent`, `ICurrentUserService`, namespaces unchanged) and **`WoW2.Sdk.Beta.Be.Data.Abstractions`**. A domain contract references the kernel alone.
+
 ## Layout
 
 ```

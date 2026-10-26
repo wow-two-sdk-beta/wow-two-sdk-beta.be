@@ -1,6 +1,6 @@
 # Package layout
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-26*
 
 > SDK-internal architecture — the repo/package shape, layering rule, package-id grammar, and the three-layer doc strategy for this mono-lib.
 > Code-style conventions (naming, documentation) are **centralized** in `wow-two-ws/conventions/` and apply to this repo too; only layout/registry live here.
@@ -35,6 +35,10 @@ Paths below are code-dir-relative; `src/` moved here verbatim, so every MSBuild 
 src/
 ├── WoW.Two.Sdk.Beta.Be.slnx           ← solution at src/ root (.slnx — canonical)
 ├── WoW.Two.Sdk.Beta.Be.csproj         ← core lib (globs every shipping folder)
+├── Abstractions/                      ← kernel WoW2.Sdk.Beta.Be.Abstractions — BCL-only, own csproj
+│   ├── Foundation/Results/ · Foundation/Errors/ · Messaging/ · Identity/CurrentUser/   ← moved types, namespaces kept
+│   └── abstractions.md
+├── Properties/KernelTypeForwarders.cs ← core's [TypeForwardedTo] per type moved to the kernel
 ├── Directory.Build.props              ← shared MSBuild properties
 ├── Directory.Packages.props           ← centralized package versions
 ├── .editorconfig                      ← rules for entire src/
@@ -44,8 +48,7 @@ src/
 │
 ├── Foundation/                        ← P1 — leaf-level deps
 │   ├── Time/         → WoW.Two.Sdk.Beta.Be.Foundation.Time
-│   ├── Errors/       → WoW.Two.Sdk.Beta.Be.Foundation.Errors
-│   ├── Results/      → WoW.Two.Sdk.Beta.Be.Foundation.Results
+│   ├── Errors/       → WoW.Two.Sdk.Beta.Be.Foundation.Errors (exception mapping; value types in the kernel)
 │   ├── Validation/   → WoW.Two.Sdk.Beta.Be.Foundation.Validation
 │   └── Serialization/ → WoW.Two.Sdk.Beta.Be.Foundation.Serialization
 │
@@ -112,7 +115,7 @@ src/<area>/<package>/
 
 The package-id / folder / namespace shape is SDK-architecture and lives here. **Symbol-level naming** (extension-class / registration-method / options / predicates / data-verbs / acronyms / banned symbols) is centralized in `wow-two-ws/conventions/development/backend/code-style/naming.md` and applies to this repo.
 
-- **NuGet package id**: `WoW2.Sdk.Beta.Be[.<Role>]` — the seven IDs are listed in the [package registry](package-registry.md#published-package-family)
+- **NuGet package id**: `WoW2.Sdk.Beta.Be[.<Role>]` — the eight IDs are listed in the [package registry](package-registry.md#published-package-family)
 - **Folder name**: `PascalCase`, matching the package-id / namespace segment 1:1 (`Time/`, `OutputCache/`, `FeatureFlags/`). Provider leaves nest under their concept parent — `Comms/Email/MailKit/` → `…Comms.Email.MailKit`, not a flat `Comms/EmailMailKit/`
 - **Namespace**: follows the folder tree under `WoW.Two.Sdk.Beta.Be`, file-scoped (`namespace WoW.Two.Sdk.Beta.Be.Time;`)
 - **Linux CI is case-sensitive** — build-file path globs (`DefaultItemExcludes`, `.slnx` paths, workflow `dotnet pack` paths) must match the on-disk PascalCase exactly; a lowercased path silently no-ops on `ubuntu-latest`
@@ -124,6 +127,12 @@ Examples: `WoW.Two.Sdk.Beta.Be` (meta) · `…Be.Caching.Redis` · `…Be.Identi
 **Foundation can not import domain packages.** Foundation = `time`, `errors`, `results`, `validation`, `serialization`. Domain = everything else.
 
 Domain packages can reference any sibling domain. Convention: keep dependencies one-way where natural; cycles never.
+
+**Kernel.** `WoW2.Sdk.Beta.Be.Abstractions` (`src/Abstractions/`) sits below core and references nothing — no
+`FrameworkReference`, no `PackageReference`. Core references it and never a package from a domain repo; a domain's
+`{Domain}.Abstractions` contract references the kernel only. A type enters the kernel only when it is BCL-only and
+core's own code reads it or the contracts of two repos use it; it keeps its namespace and core forwards it
+(`src/Properties/KernelTypeForwarders.cs`). Rule: `wow-two-ws/conventions/development/repo/structure/domain-structure.md` § Kernel.
 
 This mirrors the UI lib's foundation/domain rule. Future: enforce via custom Roslyn analyzer.
 
@@ -143,7 +152,7 @@ Single `WoW.Two.Sdk.Beta.Be.slnx` at `src/` root, split into `Libraries` and `Te
 ## Versioning
 
 - All packages ship as `10.y.z-beta`.
-- Single version across all seven packages — bumped together by CI on push to `main`.
+- Single version across all eight packages — bumped together by CI on push to `main`; the kernel versions in lockstep with core.
 - Consumers should pin exact versions for stability
 
 ## Doc strategy (three layers)
@@ -158,7 +167,7 @@ We wrap the .NET ecosystem (~10K+ packages reachable via composition). We can't 
 
 ## Build / pack
 
-Seven release projects produce NuGets. Seven test projects evaluate `IsPackable=false`.
+Eight release projects produce NuGets. Seven test projects evaluate `IsPackable=false`.
 CI tests and verifies the release revision before publishing the family in lockstep.
 
 ## What does NOT live in src/

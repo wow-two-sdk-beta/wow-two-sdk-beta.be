@@ -8,6 +8,7 @@ using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
 using WoW.Two.Sdk.Beta.Be.Identity.Core;
 using WoW.Two.Sdk.Beta.Be.Web.Contracts;
 using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
+using WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 using WoW.Two.Sdk.Beta.Be.Web.ExceptionHandling.Factories;
 using Xunit;
 
@@ -143,6 +144,36 @@ public sealed class ErrorTranslationTests
     }
 
     [Fact]
+    public void PackageTexts_TranslateTheirCodes_ALaterPackageWins_AndTheHostCatalogHasTheLastWord()
+    {
+        var settings = Enabled("en", "ru");
+        settings["Validation:Translation:Messages:ru:QuotaExceeded"] = "Квота исчерпана: {Used} из {Limit}.";
+        var first = new Dictionary<string, string> { ["FileTooLarge"] = "Слишком большой файл.", ["QuotaExceeded"] = "Лимит {Limit}." };
+        var second = new Dictionary<string, string>
+        {
+            ["FileTooLarge"] = "Файл больше {MaxSize} МБ.",
+            ["StorageMissing"] = "Хранилище «{Name}» не найдено.",
+        };
+        using var provider = Build(settings, register: services => services
+            .AddErrorTexts("ru", first)
+            .AddErrorTexts("ru", second)
+            .AddErrorTexts("ru", second));
+
+        provider.GetServices<ErrorTextSpec>().Should().HaveCount(2);
+        var tooLarge = new FieldError { Property = "file", Code = "FileTooLarge", Message = "File is over 5 MB.", Params = new Dictionary<string, object> { ["MaxSize"] = 5 } };
+        var quota = new FieldError { Property = "file", Code = "QuotaExceeded", Message = "Quota exceeded.", Params = new Dictionary<string, object> { ["Used"] = 3, ["Limit"] = 2 } };
+        var mismatch = new FieldError { Property = "password", Code = IdentityErrorCodeConstants.PasswordMismatch, Message = "Incorrect password.", Params = new Dictionary<string, object>() };
+        Errors(Render(provider, ValidationError.From([tooLarge, quota, mismatch]), "ru")).Select(e => e.Message).Should().Equal(
+            "Файл больше 5 МБ.",
+            "Квота исчерпана: 3 из 2.",
+            "Текущий пароль указан неверно.");
+        Errors(Render(provider, ValidationError.From([tooLarge]), "en")).Single().Message.Should().Be("File is over 5 MB.");
+
+        var keyed = AppError.Of(AppErrorType.NotFound, "Storage docs was not found.", new Dictionary<string, object?> { ["messageKey"] = "StorageMissing", ["Name"] = "docs" });
+        Render(provider, keyed, "ru-RU").Detail.Should().Be("Хранилище «docs» не найдено.");
+    }
+
+    [Fact]
     public void ToApiFailure_CarriesTheMappedStatusAndTheTranslatedMessage()
     {
         using var provider = Build(Enabled("en", "ru"));
@@ -170,16 +201,17 @@ public sealed class ErrorTranslationTests
         return settings;
     }
 
-    private static ServiceProvider Build(Dictionary<string, string?> settings, Action<ValidationOptions>? configure = null)
-        => Build(new ConfigurationBuilder().AddInMemoryCollection(settings).Build(), configure);
+    private static ServiceProvider Build(Dictionary<string, string?> settings, Action<ValidationOptions>? configure = null, Action<IServiceCollection>? register = null)
+        => Build(new ConfigurationBuilder().AddInMemoryCollection(settings).Build(), configure, register);
 
-    private static ServiceProvider Build(IConfigurationRoot configuration, Action<ValidationOptions>? configure = null)
+    private static ServiceProvider Build(IConfigurationRoot configuration, Action<ValidationOptions>? configure = null, Action<IServiceCollection>? register = null)
     {
         var services = new ServiceCollection();
         services.AddSingleton<IConfiguration>(configuration);
         services.ConfigureValidation(configure);
         services.AddErrorHttpStatusMapping();
         services.AddSingleton<IAppErrorProblemDetailsFactory, AppErrorProblemDetailsFactory>();
+        register?.Invoke(services);
         return services.BuildServiceProvider();
     }
 

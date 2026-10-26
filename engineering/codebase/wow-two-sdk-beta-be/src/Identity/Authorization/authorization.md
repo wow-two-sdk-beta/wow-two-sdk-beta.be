@@ -30,4 +30,4 @@ builder.Services
 
 `AddClaimNormalization` is the planned `Identity/Claims` seam emitting the `wt:username` claim the allowlist keys on.
 
-See also: `Identity/Cookies` (named scheme + `AuthChallengeMode.Api`), `Identity/Policies` (role-in-scope gating — orthogonal), `Authorization.spec.md`, `Authorization.standard.md`.
+See also: `Identity/Cookies` (named scheme + `AuthChallengeMode.Api`), `Authorization.spec.md`, `Authorization.standard.md`.

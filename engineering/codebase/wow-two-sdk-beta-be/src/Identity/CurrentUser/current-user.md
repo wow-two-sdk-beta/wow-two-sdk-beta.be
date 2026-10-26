@@ -30,3 +30,4 @@ switch (_currentUser.Kind)
 - Singleton and request-safe: it retains no principal between requests.
 - Outside an HTTP request it reports anonymous with a null id, so background saves remain unstamped.
 - Audit and soft-delete interceptors read this same service on every save.
+- `ICurrentUserService` and `UserKind` ship in the BCL-only kernel `WoW2.Sdk.Beta.Be.Abstractions` ([`../../Abstractions/abstractions.md`](../../Abstractions/abstractions.md)), same namespace; core's Audit, SoftDelete and Idempotency code reads them there.

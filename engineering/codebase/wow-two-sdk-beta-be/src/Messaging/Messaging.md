@@ -12,7 +12,7 @@ plug in behind the same ports — opt-in, never core deps. Design + provider ana
 
 | Folder | What |
 |---|---|
-| `MessagingContracts.cs` | `IEvent`, `IEventHandler<TEvent>`, `EventContext<TEvent>`, `EventEnvelopeModel`, `Publish/SendOptions` (with transport-abstract hints) |
+| `MessagingContracts.cs` | `IEventHandler<TEvent>`, `EventContext<TEvent>`, `EventEnvelopeModel`, `Publish/SendOptions` (with transport-abstract hints); `IEvent` ships in the BCL-only kernel ([`../Abstractions/abstractions.md`](../Abstractions/abstractions.md)), same namespace |
 | `Buses/` | `IEventBus` and `TransportEventBus`; namespace `WoW.Two.Sdk.Beta.Be.Messaging.Buses` |
 | `Reliability/` | `IRetryPolicy`+`RetryConfig`, `IDeadLetterRepository` (+replay), `IInboxStore`, `IEventScheduler`, `IOutbox`/`IOutboxDispatcher`, `RetryPolicy` |
 | `Reliability/Ef/` | EF transactional outbox — `OutboxMessageEntity`, `EfOutbox<TContext>`, `AddEfOutbox<TContext>()`, migration ([`Ef.md`](./Reliability/Ef/Ef.md)) |

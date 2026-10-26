@@ -2,7 +2,9 @@ using System.Collections.Frozen;
 
 namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 
-/// <summary>Holds the SDK's built-in texts for the field-error codes its own slices emit (identity), by neutral culture.</summary>
+/// <summary>Holds the SDK's built-in texts for the field-error codes its identity slices emit, by neutral culture; they seed the
+/// package texts of <see cref="ErrorTranslationService"/> until Identity leaves core and contributes them through
+/// <see cref="ErrorTranslationServiceCollectionExtensions.AddErrorTexts"/>.</summary>
 internal static class FieldCodeMessageConstants
 {
     /// <summary>Culture → code → template.</summary>

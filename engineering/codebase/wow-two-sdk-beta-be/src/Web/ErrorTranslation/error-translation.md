@@ -36,8 +36,8 @@ builder.AddApiDefaults(o => o.Validation = v => v.Translation.SupportedCultures.
 
 | Message | Order |
 |---|---|
-| top-level (`AppError`) | catalog `messageKey` → catalog error type → built-in type text (`ru`, `uz`) → authored |
-| field (`FieldError`) | catalog code → built-in identity code text (`ru`, `uz`) → FluentValidation language pack → authored |
+| top-level (`AppError`) | catalog `messageKey` → package text for `messageKey` → catalog error type → built-in type text (`ru`, `uz`) → authored |
+| field (`FieldError`) | catalog code → package text for the code → FluentValidation language pack → authored |
 
 - Culture: the request-localization feature when that middleware ran, else `Accept-Language`, else the default culture.
 - `SupportedCultures` empty accepts any culture a translation exists for; `uz` picks FluentValidation's Latin pack.
@@ -49,6 +49,21 @@ builder.AddApiDefaults(o => o.Validation = v => v.Translation.SupportedCultures.
 - `TranslateByErrorType: false` keeps specific authored messages unless a `messageKey` matches.
 - The `Validation:Translation` section reloads live with the configuration.
 - Products translate their own strings with `IErrorTranslationService.TryTranslate(context, key, arguments, out message)`.
+
+## Package texts
+
+A package ships the texts for the error codes it emits; core holds no other domain's texts.
+
+```csharp
+// in the package's registration — safe to call from each entry point; the same dictionary registers once
+services.AddErrorTexts("ru", FileStorageErrorTextConstants.Ru)
+        .AddErrorTexts("uz", FileStorageErrorTextConstants.Uz);   // IReadOnlyDictionary<string, string>: code → template
+```
+
+- Each call registers an `ErrorTextSpec` (culture + code → template); a neutral culture serves its sub-cultures.
+- The host catalog wins over every package; a later package wins over an earlier one for the same code.
+- The identity texts (`ru`, `uz`) seed the package texts while Identity ships in core; they move to Identity's own
+  contract with it and register through `AddErrorTexts`.
 
 ## Response models
 

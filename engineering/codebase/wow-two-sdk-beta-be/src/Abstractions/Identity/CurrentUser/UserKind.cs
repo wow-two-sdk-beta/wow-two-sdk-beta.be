@@ -6,7 +6,7 @@ public enum UserKind
     /// <summary>No identity — neither an authenticated principal nor a guest cookie is present.</summary>
     Anonymous,
 
-    /// <summary>A cookie-provisioned guest — identified but not registered (see <see cref="Guest.Services.IGuestSessionService"/>).</summary>
+    /// <summary>A cookie-provisioned guest — identified but not registered (see <c>IGuestSessionService</c> in the be sdk).</summary>
     Guest,
 
     /// <summary>A registered, authenticated account.</summary>

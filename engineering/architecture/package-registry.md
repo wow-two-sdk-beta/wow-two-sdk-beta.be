@@ -1,14 +1,15 @@
 # Package registry
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-26*
 
-> The seven published NuGets and the capability areas compiled into them.
+> The eight published NuGets and the capability areas compiled into them.
 
 ## Published package family
 
 | Package | Role |
 |---|---|
 | `WoW2.Sdk.Beta.Be` | production mono library |
+| `WoW2.Sdk.Beta.Be.Abstractions` | BCL-only kernel: `Result` family, `AppError` family, `IEvent`, `ICurrentUserService` / `UserKind`; core depends on it (unreleased, first ships with the next core release) |
 | `WoW2.Sdk.Beta.Be.Data.Abstractions` | web-free data contracts |
 | `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool |
 | `WoW2.Sdk.Beta.Be.Testing` | base test helpers |
@@ -16,7 +17,7 @@
 | `WoW2.Sdk.Beta.Be.Testing.Integrations` | integration-client test doubles |
 | `WoW2.Sdk.Beta.Be.Testing.Messaging` | messaging test harness |
 
-All seven share one evaluated version and publish in lockstep. The rows below track capability areas,
+All eight share one evaluated version and publish in lockstep. The rows below track capability areas,
 not additional package outputs.
 
 The family shipped as `WoW2.Sdk.Backend.Beta[.*]` (namespace `WoW.Two.Sdk.Backend.Beta`) through
@@ -86,8 +87,8 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | Package | Niche | Status |
 |---|---|---|
 | `WoW.Two.Sdk.Beta.Be.Time` | `AddTimeProviders`, `TimeZoneHelpers`, `CronExpressionParser`; NodaTime + Cronos + TimeZoneConverter | shipped |
-| `WoW.Two.Sdk.Beta.Be.Errors` | `DomainError` record + category-to-HTTP-status mapping | shipped |
-| `WoW.Two.Sdk.Beta.Be.Results` | Re-exports ErrorOr + OneOf + Ardalis.Result | shipped |
+| `WoW.Two.Sdk.Beta.Be.Foundation.Errors` | `AppError` / `AppErrorType` / `AppException` / `AppErrorFactory` value model (kernel `…Be.Abstractions`, namespace kept); `IExceptionMapper`, mapping rules and `IErrorNatureMapper` stay in core | shipped |
+| `WoW.Two.Sdk.Beta.Be.Foundation.Results` | `Result`, `Result<T>`, `Result<TSuccess, TFailure>` + `Bind` / `Tap` / `Ensure` / `Combine` / `Attempt` (kernel `…Be.Abstractions`, namespace kept) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Validation` | `AddFluentValidatorsFromAssemblies` (FluentValidation assembly scan) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Serialization` | `JsonOptionsPresets` (camelCase + NodaTime + lenient input) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Guards` | `IdentifierGuardExtensions` (`NotSlug`, `NotUlid`) on top of Ardalis.GuardClauses | shipped |
@@ -122,7 +123,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging` | `PageDto<T>` / `TokenPageDto<T>` (UI SDK `Page` / `TokenPage` shapes), `PageApiRequest` / `TokenPageApiRequest`, EF `ToPageAsync` + composite-key `ToTokenPageAsync` with opaque tokens | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Web.Idempotency` | `Idempotency-Key` execute-once + replay (422 on body reuse, 409 in flight) over `IIdempotencyRepository`; activated by the `HttpIdempotency` section | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Web.ConditionalRequests` | ETag + `304` for GET, `SetEntityTag` / `FailsIfMatch` for versioned writes; activated by the `ConditionalRequests` section, inert in `UseApiDefaults` | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation` | `IErrorTranslationService` behind the default error mappers; activated by `Validation:Translation` (validation module options); `ToApiFailure<T>` envelope helper | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation` | `IErrorTranslationService` behind the default error mappers; activated by `Validation:Translation` (validation module options); `ToApiFailure<T>` envelope helper; `AddErrorTexts(culture, texts)` lets a package contribute the texts for its own error codes (`ErrorTextSpec`, unreleased) | implemented (mono-lib) |
 | `WoW.Two.Sdk.Beta.Be.Web.Captcha` | `AddCaptcha()` (`Web:Captcha`, off by default) + `.RequireCaptcha(action)` — Turnstile, hCaptcha, reCAPTCHA v2/v3 siteverify; hostname, action and score rules; fail-closed outages | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Web.Quotas` | `AddQuotas()` (`Quotas`, off by default) + `.RequireQuota(name)` + `MapQuotaUsageEndpoint()` — per-plan allowances in UTC windows, refunds on failure, in-memory or Redis counters | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Web.RateLimit` | `AddPerIpSlidingWindowRateLimit` — sliding window per-IP, 100 req/min default; `AddConfiguredRateLimits` — named/global policies from the `RateLimits` section, problem-details 429 (unreleased) | shipped |
@@ -163,7 +164,6 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Reddit` | `AddRedditAuthentication(clientId, clientSecret, scopes)` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Notion` | `AddNotionAuthentication(clientId, clientSecret, scopes)` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Vkontakte` | `AddVkontakteAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.IdentityApi` | `AddIdentityApiEndpoints<TContext>()` — bearer-token Identity endpoints with hardened defaults | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp` | `TotpService` — secret gen + otpauth URI + verify with ±1 step tolerance | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn` | `AddFido2WebAuthn(domain, name, origins)` — Fido2.AspNet | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData` | `.AddPersonalData()` — `manage/personal-data` export (identity sections + `IPersonalDataExporter<TUser>`) and `manage/delete-account` erasure (`IAccountDeletionHandler<TUser>` then identity rows) | implemented (mono-lib, unreleased) |
@@ -171,7 +171,6 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys` | `.AddPasskeys(o => …)` (`Identity:Passkeys`) — `identity_passkeys`, `UserPasskeyService`, usernameless `PasskeySignInAsync`, single-use ceremonies, account routes | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Identity.Core.Organizations` | `.AddOrganizations(o => …)` (`Identity:Organizations`) — `identity_organizations` + `identity_memberships`, `OrganizationService`, configured roles with permissions, `org_role` / `org_permission` claims, last-owner guard | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2` | `UseArgon2PasswordHasher<TUser>()` — OWASP 2024 baseline | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Policies` | `AddRolePolicy()` — `IRolePolicy` + `DictionaryRolePolicy` default (scope → allowed roles) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance` | `AddJwtTokenIssuance()` — `ITokenIssuer` HMAC issuance (HS256/384/512), per-call lifetime/audience overrides; pure lib, no ASP.NET dependency | shipped |
 | `WoW.Two.Sdk.Beta.Be.Identity.Otp` | `AddOtpService()` (`Identity:Otp`) — `IOtpService` keyed by (subject, scope) with per-call `OtpCodeSpec` (numeric · alphanumeric · letters); `IOtpMessageFormatter` per-culture ICU templates (built-in en/ru/uz); `IOtpDeliveryHandlerFactory` keyed channels | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Identity.Otp.Telegram` | `AddTelegramOtpDelivery()` — chat-id delivery via consumer-registered `ITelegramBotClient` (Telegram.Bot, MIT) | shipped |

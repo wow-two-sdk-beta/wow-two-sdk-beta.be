@@ -14,6 +14,7 @@ fi
 
 PENDING=(
   wow2.sdk.beta.be
+  wow2.sdk.beta.be.abstractions
   wow2.sdk.beta.be.data.abstractions
   wow2.sdk.beta.be.data.migrations.cli
   wow2.sdk.beta.be.testing
@@ -48,7 +49,7 @@ while ((${#PENDING[@]} > 0 && SECONDS < DEADLINE)); do
 
   # Bash 3 treats an empty array expansion as unset with nounset enabled.
   if ((${#MISSING[@]} == 0)); then
-    printf 'Verified all seven published packages at %s.\n' "$VERSION"
+    printf 'Verified all eight published packages at %s.\n' "$VERSION"
     exit 0
   fi
   PENDING=("${MISSING[@]}")

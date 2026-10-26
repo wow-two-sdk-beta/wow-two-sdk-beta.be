@@ -12,6 +12,7 @@ SCRIPT = Path(__file__).with_name("verify-published-packages.sh")
 VERSION = "10.0.56-beta"
 IDS = [
     "wow2.sdk.beta.be",
+    "wow2.sdk.beta.be.abstractions",
     "wow2.sdk.beta.be.data.abstractions",
     "wow2.sdk.beta.be.data.migrations.cli",
     "wow2.sdk.beta.be.testing",
@@ -19,6 +20,8 @@ IDS = [
     "wow2.sdk.beta.be.testing.integrations",
     "wow2.sdk.beta.be.testing.messaging",
 ]
+# The probe's "delayed" mode answers 404 once for these ids.
+DELAYED = [package for package in IDS if package.endswith(("abstractions", "messaging"))]
 
 
 class PublicationVerifierTests(unittest.TestCase):
@@ -65,8 +68,8 @@ print('404' if mode == 'missing' or (mode == 'delayed' and delayed) else '200', 
     def test_only_missing_packages_are_polled_again(self):
         result, requests, _ = self.run_probe("delayed", timeout="5")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(requests, IDS + [IDS[1], IDS[-1]])
-        self.assertIn("Pending packages: " + IDS[1] + " " + IDS[-1], result.stdout)
+        self.assertEqual(requests, IDS + DELAYED)
+        self.assertIn("Pending packages: " + " ".join(DELAYED), result.stdout)
 
     def test_transport_errors_can_recover(self):
         result, requests, _ = self.run_probe("transport", timeout="5")

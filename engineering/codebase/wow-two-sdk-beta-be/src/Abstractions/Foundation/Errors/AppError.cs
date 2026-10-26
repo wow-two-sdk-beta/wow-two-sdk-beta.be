@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using Ardalis.GuardClauses;
 
 namespace WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 
@@ -33,7 +32,7 @@ public record AppError
         [CallerFilePath] string file = "",
         [CallerLineNumber] int line = 0)
     {
-        Guard.Against.NullOrWhiteSpace(message);
+        ArgumentException.ThrowIfNullOrWhiteSpace(message);
 
         var origin = new ErrorOrigin { Member = member, File = file, Line = line };
 
@@ -46,7 +45,7 @@ public record AppError
     /// <param name="exception">The caught exception whose stack and type are folded in.</param>
     public static AppError FromException(AppErrorType type, string message, Exception exception)
     {
-        Guard.Against.NullOrWhiteSpace(message);
+        ArgumentException.ThrowIfNullOrWhiteSpace(message);
         ArgumentNullException.ThrowIfNull(exception);
 
         var metadata = new Dictionary<string, object?>

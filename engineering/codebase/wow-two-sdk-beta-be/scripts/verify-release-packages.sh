@@ -8,6 +8,7 @@ revision=${3:?Pass the release revision}
 
 packages=(
   "WoW2.Sdk.Beta.Be|lib/net10.0/WoW.Two.Sdk.Beta.Be.dll"
+  "WoW2.Sdk.Beta.Be.Abstractions|lib/net10.0/WoW.Two.Sdk.Beta.Be.Abstractions.dll"
   "WoW2.Sdk.Beta.Be.Data.Abstractions|lib/net10.0/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll"
   "WoW2.Sdk.Beta.Be.Data.Migrations.Cli|tools/net10.0/any/wow-migrate.dll"
   "WoW2.Sdk.Beta.Be.Testing|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.dll"
@@ -41,11 +42,13 @@ for package in "${packages[@]}"; do
 done
 
 grep -Fq 'README.md' <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.$version.nupkg")"
-grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll' \
-  <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.Data.Migrations.Cli.$version.nupkg")"
+cli_assets=$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.Data.Migrations.Cli.$version.nupkg")
+grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll' <<< "$cli_assets"
+grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Abstractions.dll' <<< "$cli_assets"
 
 production_ids=(
   "WoW2.Sdk.Beta.Be"
+  "WoW2.Sdk.Beta.Be.Abstractions"
   "WoW2.Sdk.Beta.Be.Data.Abstractions"
   "WoW2.Sdk.Beta.Be.Data.Migrations.Cli"
 )
@@ -65,11 +68,19 @@ require_family_dependency() {
   grep -Fq "dependency id=\"$dependency\" version=\"$version\"" <<< "$nuspec"
 }
 
+require_family_dependency "WoW2.Sdk.Beta.Be" "WoW2.Sdk.Beta.Be.Abstractions"
 require_family_dependency "WoW2.Sdk.Beta.Be" "WoW2.Sdk.Beta.Be.Data.Abstractions"
 require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Data" "WoW2.Sdk.Beta.Be.Testing"
 require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Data" "WoW2.Sdk.Beta.Be"
 require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Integrations" "WoW2.Sdk.Beta.Be"
 require_family_dependency "WoW2.Sdk.Beta.Be.Testing.Messaging" "WoW2.Sdk.Beta.Be"
+
+# The kernel is BCL-only: no package dependency and no framework reference may enter it.
+kernel_nuspec=$(unzip -p "$artifact_dir/WoW2.Sdk.Beta.Be.Abstractions.$version.nupkg" '*.nuspec')
+if grep -Eq '<dependency |<frameworkReference ' <<< "$kernel_nuspec"; then
+  echo "The kernel package must stay BCL-only" >&2
+  exit 1
+fi
 
 testing_nuspec=$(unzip -p "$artifact_dir/WoW2.Sdk.Beta.Be.Testing.$version.nupkg" '*.nuspec')
 if grep -Fq 'dependency id="WoW2.Sdk.Beta.Be"' <<< "$testing_nuspec"; then

@@ -22,3 +22,4 @@ var receipt = await LoadOrder(id)                                  // Result<Ord
 | `ToResult` | drop the value |
 
 - Every combinator passes an existing failure through unchanged and never catches exceptions; use `Attempt` for that.
+- Ships in the BCL-only kernel `WoW2.Sdk.Beta.Be.Abstractions` ([`../../abstractions.md`](../../abstractions.md)); core depends on it and forwards the types.
