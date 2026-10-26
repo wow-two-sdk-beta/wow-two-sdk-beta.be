@@ -53,28 +53,41 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         var setsFile = target.SetsFile ?? Environment.GetEnvironmentVariable("WOW_MIGRATE_SETS");
         if (setsFile is null)
         {
-            return Result<IReadOnlyList<CliMigrationSet>>.Ok([new CliMigrationSet(
+            return RequireOwnerInstances([new CliMigrationSet(
                 target.Set ?? MigrationConstants.DefaultSetName, ResolveSqlDir(target.SqlDir), null,
-                CliMigrationSet.DefaultResourcePrefix, target.Schema, target.SchemaOwner, null)]);
+                CliMigrationSet.DefaultResourcePrefix, target.Schema, target.SchemaOwner, null, target.OwnerInstance)]);
         }
 
-        if (target.SqlDir is not null || target.Schema is not null || target.SchemaOwner is not null)
+        if (target.SqlDir is not null || target.Schema is not null || target.SchemaOwner is not null || target.OwnerInstance is not null)
         {
             return Result<IReadOnlyList<CliMigrationSet>>.Fail(AppErrorFactory.Validation(
-                "--sets defines every set; drop --sql-dir, --schema and --schema-owner, or drop --sets."));
+                "--sets defines every set; drop --sql-dir, --schema, --schema-owner and --owner-instance, or drop --sets."));
         }
 
         if (CliMigrationSetManifest.Read(setsFile).IsFailure(out var manifestError, out var sets))
             return Result<IReadOnlyList<CliMigrationSet>>.Fail(manifestError);
 
         if (target.Set is null)
-            return Result<IReadOnlyList<CliMigrationSet>>.Ok(sets);
+            return RequireOwnerInstances(sets);
 
         var selected = sets.Where(set => set.Name == target.Set).ToList();
         return selected.Count > 0
-            ? Result<IReadOnlyList<CliMigrationSet>>.Ok(selected)
+            ? RequireOwnerInstances(selected)
             : Result<IReadOnlyList<CliMigrationSet>>.Fail(AppErrorFactory.NotFound(
                 $"The manifest has no set '{target.Set}'; it lists {string.Join(", ", sets.Select(set => set.Name))}."));
+    }
+
+    /// <summary>Fails when a set claims its schema without naming the instance: the CLI is not the instance, so it cannot derive the host's value.</summary>
+    /// <param name="sets">The resolved sets.</param>
+    private static Result<IReadOnlyList<CliMigrationSet>> RequireOwnerInstances(IReadOnlyList<CliMigrationSet> sets)
+    {
+        var unnamed = sets.FirstOrDefault(set => set.SchemaOwner is not null && string.IsNullOrWhiteSpace(set.OwnerInstance));
+        return unnamed is null
+            ? Result<IReadOnlyList<CliMigrationSet>>.Ok(sets)
+            : Result<IReadOnlyList<CliMigrationSet>>.Fail(AppErrorFactory.Validation(
+                $"Set '{unnamed.Name}' claims its schema as '{unnamed.SchemaOwner}' but names no instance; pass --owner-instance " +
+                "(manifest: \"ownerInstance\") with the value the instance's own host claims under: its Migrations:OwnerInstance, " +
+                "else {applicationName}@{DEPLOY_ENVIRONMENT}."));
     }
 
     /// <summary>Prints the applied, pending, drifted, and orphaned migrations of each set.</summary>
@@ -100,7 +113,7 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
             }
 
             if (status.SchemaOwner is { } owner)
-                Console.WriteLine($"Owner: schema {owner.SchemaName} held by set {owner.SetName} as {owner.Owner} [{owner.ClaimedBy} @ {owner.ClaimedAt}]");
+                Console.WriteLine($"Owner: schema {owner.SchemaName} held by set {owner.SetName} as {owner.Owner} of {owner.Instance} [{owner.ClaimedBy} @ {owner.ClaimedAt}]");
 
             Console.WriteLine($"Applied ({status.Applied.Count}):");
             foreach (var row in status.Applied)
@@ -282,6 +295,35 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         }
 
         return exitCode;
+    }
+
+    /// <summary>Marks one set's source migrations as applied without running them, after the target guard passes — an existing database adopts the set.</summary>
+    /// <param name="target">The global options; they must resolve to one set.</param>
+    /// <param name="throughOrdinal">The last ordinal to mark, or null for every source migration.</param>
+    /// <param name="confirmDb">The operator's claimed target database name, from <c>--i-understand-this-is</c>.</param>
+    /// <param name="force">Whether to skip the interactive confirmation prompt.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    public async Task<int> BaselineAsync(CliTarget target, int? throughOrdinal, string? confirmDb, bool force, CancellationToken ct)
+    {
+        if (!TryResolveSingleSet(target, "baseline", out var set))
+            return 1;
+
+        // A wrong baseline hides missing schema behind recorded history, so the operator names the database.
+        if (!ConfirmDestructiveTarget(target.Connection, confirmDb, force))
+            return 2;
+
+        await using var provider = BuildProvider(target.Connection, [set]);
+        var runner = provider.GetRequiredService<IMigrationSetRegistry>().GetRunner(set.Name);
+        if ((await runner.BaselineAsync(throughOrdinal, ct)).IsFailure(out var baselineError, out var baselined))
+        {
+            Console.Error.WriteLine($"✗ {baselineError.Message}");
+            return 1;
+        }
+
+        Console.WriteLine(baselined.Count == 0
+            ? "✓ Nothing to baseline — the source is empty."
+            : $"✓ Marked as applied without running {baselined.Count}: {string.Join(", ", baselined)}");
+        return 0;
     }
 
     /// <summary>Scaffolds a new <c>Dev/&lt;name&gt;.sql</c> draft under the selected set's migrations directory.</summary>
@@ -502,6 +544,8 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
                     options.SchemaName = schema;
                 if (set.SchemaOwner is { } owner)
                     options.SchemaOwner = owner;
+                if (set.OwnerInstance is { } instance)
+                    options.OwnerInstance = instance;
                 if (set.HistoryTable is { } table)
                     options.TableName = table;
             }

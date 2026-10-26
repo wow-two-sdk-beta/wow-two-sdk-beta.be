@@ -19,7 +19,7 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
         _identity.Write("001-users", "create table {{schema}}.identity_users(id uuid primary key);", "drop table {{schema}}.identity_users;");
         var manifest = WriteManifest(
             new { name = "default", sqlDir = Workspace.Root },
-            new { name = "identity", sqlDir = _identity.Root, schema = _schema, schemaOwner = "service" });
+            new { name = "identity", sqlDir = _identity.Root, schema = _schema, schemaOwner = "service", ownerInstance = "identity-test@local" });
 
         var result = await CliProcess.RunAsync("apply", "--connection", Fixture.ConnectionString, "--sets", manifest);
 
@@ -37,7 +37,7 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
         _identity.Write("001-users", "create table {{schema}}.identity_users(id uuid primary key);", "drop table {{schema}}.identity_users;");
         var manifest = WriteManifest(
             new { name = "default", sqlDir = Workspace.Root },
-            new { name = "identity", sqlDir = _identity.Root, schema = _schema, schemaOwner = "service" });
+            new { name = "identity", sqlDir = _identity.Root, schema = _schema, schemaOwner = "service", ownerInstance = "identity-test@local" });
 
         var result = await CliProcess.RunAsync(
             "apply", "--connection", Fixture.ConnectionString, "--sets", manifest, "--set", "identity");
@@ -52,7 +52,7 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
     public async Task Check_ShouldExitOneWhileASetIsBehind_AndZeroOnceApplied()
     {
         _identity.Write("001-users", "create table {{schema}}.identity_users(id uuid primary key);", "drop table {{schema}}.identity_users;");
-        string[] set = ["--connection", Fixture.ConnectionString, "--sql-dir", _identity.Root, "--set", "identity", "--schema", _schema, "--schema-owner", "service"];
+        string[] set = ["--connection", Fixture.ConnectionString, "--sql-dir", _identity.Root, "--set", "identity", "--schema", _schema, "--schema-owner", "service", "--owner-instance", "identity-test@local"];
 
         var behind = await CliProcess.RunAsync(["check", .. set]);
         behind.ExitCode.Should().Be(1, behind.StandardOutput + behind.StandardError);
@@ -75,6 +75,7 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
             resourcePrefix = "SetMigrations/identity/",
             schema = _schema,
             schemaOwner = "service",
+            ownerInstance = "identity-test@local",
         });
 
         var result = await CliProcess.RunAsync("apply", "--connection", Fixture.ConnectionString, "--sets", manifest);

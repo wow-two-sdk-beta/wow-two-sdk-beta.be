@@ -17,7 +17,9 @@
 - SQLite constraint changes use table rebuilds that recreate indexes, triggers and foreign keys explicitly.
 - Native PostgreSQL enums require matching driver registration on `NpgsqlDataSourceBuilder` and EF registration on `NpgsqlDbContextOptionsBuilder`; the shared case translator keeps multi-word labels aligned.
 - `wow-migrate` exits `0` on success, `1` on input/domain failure and `2` on execution or destructive-target guard failure. `apply --dry-run` exits `2` when a rehearsed file fails.
-- A host runs several **migration sets** — its own plus one per domain module — each with its own history table and advisory lock. A set may own a PostgreSQL schema, fill `{{schema}}` in its scripts and claim the schema with a marker row; `CheckLevelAsync` compares levels read-only for the production boot. See [Migration sets](#migration-sets).
+- A host runs several **migration sets** — its own plus one per domain module — each with its own history table and advisory lock. A set may own a PostgreSQL schema, fill `{{schema}}` in its scripts and claim the schema with a marker row naming its owner and instance; `CheckLevelAsync` compares levels read-only for the production boot. See [Migration sets](#migration-sets).
+- Applying at boot is for a local run only: `MigrateBespokeOnStartupAsync` verifies levels read-only on every deployed host unless the host opts in, and production applies in its deploy step. See [Who applies](#who-applies).
+- `BaselineAsync` / `wow-migrate baseline` marks a set's migrations as applied without running them, so an existing database adopts the set. See [Baseline](#baseline).
 
 ## Batch atomicity and dry run
 
@@ -88,6 +90,7 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 {
     options.SchemaName = "identity";   // holds the history and fills {{schema}}
     options.SchemaOwner = "module";    // creates the schema and claims it with a marker row
+    // options.OwnerInstance defaults to Migrations:OwnerInstance, else {applicationName}@{DEPLOY_ENVIRONMENT}
 });
 ```
 
@@ -117,11 +120,23 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 
 ### Schema owner
 
+*Instance added 2026-10-26* (Q53): the marker names the instance, so two instances never both claim one schema.
+
 - With `SchemaOwner` set, PostgreSQL creates `SchemaName` when it is missing; the catalog is checked first, so an existing schema needs no `CREATE` privilege.
-- The first apply writes one row into `{schema}.migration_schema_owner` (SQLite: `migration_schema_owner`, keyed by schema name): schema, set, owner, time and host.
-- Every apply, dry run, rollback and repair then refuses, with a `Conflict` failure before any script runs, a schema whose marker names another set or owner. A set without `SchemaOwner` is refused on a claimed schema too.
-- Two instances on one identity schema therefore fail when each declares its own owner; replicas of one instance share an owner.
+- The first apply writes one row into `{schema}.migration_schema_owner` (SQLite: `migration_schema_owner`, keyed by schema name): schema, set, owner, instance, time and host.
+- `SchemaOwner` is the kind of owner (`module`, `service`); `OwnerInstance` is which instance:
+
+| Source of `OwnerInstance` | Example |
+|---|---|
+| `options.OwnerInstance` in code | `identity-haven@prod` |
+| configuration `Migrations:OwnerInstance` (env `Migrations__OwnerInstance`) | `identity-haven` |
+| default: `{applicationName}@{DEPLOY_ENVIRONMENT}`, `@local` when not deployed | `Identity.Api@prod` |
+
+- Every apply, dry run, rollback, repair and baseline then refuses, with a `Conflict` failure before any script runs, a schema whose marker names another set, owner or instance. A set without `SchemaOwner` is refused on a claimed schema too.
+- Replicas of one image and configuration derive one instance and share the schema; two instances of one image must set `Migrations:OwnerInstance` each, or the default cannot tell them apart.
+- A deploy step that migrates for a host claims under the host's instance: `MigrateBespokeForDeployAsync` in the image derives it the same way; `wow-migrate` needs `--owner-instance`.
 - A dry run's claim rolls back with its transaction. No `claim` command moves ownership yet (T10's takeover).
+- *Breaking (2026-10-26):* the marker table gained an `instance` column; a marker table created by `10.0.81-beta` must be dropped before the next run.
 
 ### Level check
 
@@ -141,15 +156,37 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 
 ### Who applies
 
+*Gated 2026-10-26* (Q57): production migrates through an explicit deploy step; applying at boot is for a local run.
+
 | When | Step | Call |
 |---|---|---|
-| production deploy | explicit migrate step, before the new image serves | `wow-migrate apply --sets migration-sets.json`, or the image's own migrate command calling `ApplyMigrationSetsAsync("deploy")` |
-| production boot | read-only check | `VerifyMigrationLevelsOnStartupAsync()` |
-| development boot | apply | `ApplyMigrationSetsAsync("startup")` behind the host's environment check |
+| deploy (dev and prod) | explicit migrate step, before the new image serves | `wow-migrate apply --sets migration-sets.json`, or the image's own migrate command calling `MigrateBespokeForDeployAsync()` |
+| deployed boot | read-only check | `MigrateBespokeOnStartupAsync()` → `VerifyMigrationLevelsOnStartupAsync()` |
+| local boot | apply every set | `MigrateBespokeOnStartupAsync()` → creates the database, applies every set stamped `startup` |
 
-- The engine stays Hosting-free, so the environment gate belongs to the host: `if (env.IsDevelopment()) … else …`.
-- Neither helper creates the database; `wow-migrate apply` and `MigrateBespokeOnStartupAsync` do.
-- `MigrateBespokeOnStartupAsync` (`Data/`) still applies only the default set, at every boot.
+- A local run is `Development` without `DEPLOY_ENVIRONMENT` (`LocalRunExtensions`), so deployed dev verifies like prod and rehearses the prod path. A host with no `IHostEnvironment` registered verifies.
+- `MigrateBespokeOnStartupAsync(o => o.ApplyWhenDeployed = true)` applies on a deployed host too, and logs event `3014` as a warning at every such boot: a stopgap until the deploy runs its migrate step.
+- `MigrateBespokeForDeployAsync(appliedBy = "deploy")` (`Data/`) creates the database, then applies every set; it returns the `Result` so a migrate command maps it to an exit code.
+- The engine helpers (`ApplyMigrationSetsAsync`, `VerifyMigrationLevelsOnStartupAsync`) create no database; the `Data/` helpers and `wow-migrate apply` do.
+- *Breaking (2026-10-26):* `MigrateBespokeOnStartupAsync` used to apply the default set at every boot. A deployed host now fails to boot while a set is behind, and a local boot applies named sets too.
+
+### Baseline
+
+*Added 2026-10-26* (T10 § 4): the mark-as-applied step of § 2.7, so a database whose schema already matches adopts a set without running its scripts.
+
+```csharp
+var adopted = await registry.GetRunner("identity").BaselineAsync(throughOrdinal: 14);   // null: every source migration
+```
+
+```bash
+wow-migrate baseline --sql-dir ./Migrations --to 14 --i-understand-this-is shop_prod
+```
+
+- Records every source migration up to the ordinal with its checksum, `applied_by = baseline` and zero duration; runs no script.
+- Refuses with `Conflict` a set that already records history, so it never hides a pending migration of a migrated set; refuses with `Validation` an ordinal the source lacks.
+- Claims an owned schema under this host's owner and instance; the claim, the history table and the rows commit in one transaction under the set's lock.
+- Not gated by `AllowRollback`: adopting a live database is a production step. The CLI demands `--i-understand-this-is <db>` and `[y/N]` (or `--force`) and runs one set.
+- The engine cannot check the schema matches the scripts; compare first, for example with `pg_dump --schema-only` against a database built by `apply`.
 
 ### CLI
 
@@ -157,20 +194,22 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 wow-migrate apply --sets migration-sets.json                 # every set, in manifest order
 wow-migrate apply --sets migration-sets.json --set identity  # one set
 wow-migrate check --sets migration-sets.json                 # 0 all current · 1 otherwise
-wow-migrate apply --sql-dir ./Migrations --set identity --schema identity --schema-owner service
+wow-migrate apply --sql-dir ./Migrations --set identity --schema identity --schema-owner service --owner-instance identity-haven@prod
+wow-migrate baseline --sets migration-sets.json --set identity --i-understand-this-is shop_prod
 ```
 
 ```json
 {
   "sets": [
     { "name": "default", "sqlDir": "Migrations" },
-    { "name": "identity", "assembly": "bin/Identity.Module.dll", "resourcePrefix": "Migrations/", "schema": "identity", "schemaOwner": "module" }
+    { "name": "identity", "assembly": "bin/Identity.Module.dll", "resourcePrefix": "Migrations/", "schema": "identity", "schemaOwner": "module", "ownerInstance": "shop@prod" }
   ]
 }
 ```
 
 - Paths resolve against the manifest's folder; an `assembly` set reads embedded resources in an isolated load context and never runs the assembly's code.
-- `--sets` (or `WOW_MIGRATE_SETS`) excludes `--sql-dir`, `--schema` and `--schema-owner`; `rollback`, `verify --repair`, `new` and `promote` need exactly one set.
+- A set with a schema owner must name its instance (`--owner-instance`, manifest `ownerInstance`), the value its own host claims under; the CLI is not the instance, so it never derives one.
+- `--sets` (or `WOW_MIGRATE_SETS`) excludes `--sql-dir`, `--schema`, `--schema-owner` and `--owner-instance`; `rollback`, `verify --repair`, `baseline`, `new` and `promote` need exactly one set.
 - Without `--sets` or `--set`, every verb runs the default set and prints as before; other runs print a `[set]` header per set.
 - The CLI connects through Npgsql only, so a SQLite host applies its sets in process.
 
@@ -458,7 +497,7 @@ Computed: (a) on **scan** for every `Apply.sql`; (b) on **apply** before `Record
 
 1. `pg_dump --schema-only` of a migrated DB → new `Migrations/001-baseline/Apply.sql`. **`pg_dump` is an external runtime dependency** (§4.1) — when absent, fall back to `information_schema` introspection (**first-class**, not parked, since the tool can't bundle `pg_dump`), with a warning that introspection is lower-fidelity (misses some constraints/defaults).
 2. Archive old `Migrations/NNN-*` folders.
-3. **Mark-as-applied for already-live DBs:** insert the `001-baseline` row into `migration_history` with the dumped-schema checksum **without running** the SQL (schema already exists). Fresh DBs run it normally.
+3. **Mark-as-applied for already-live DBs:** insert the `001-baseline` row into `migration_history` with the dumped-schema checksum **without running** the SQL (schema already exists). Fresh DBs run it normally. *Shipped 2026-10-26 as `BaselineAsync` / `wow-migrate baseline`, on the runner itself rather than a dev-only interface — see [Baseline](#baseline). The `pg_dump` squash (steps 1–2) is not built.*
 
 Rollback is a **dev/test affordance only.** Prod rolls forward; `RollbackAsync`/`BaselineAsync` live on `IMigrationDevRunner`, are registered only when `AllowRollback` is true, and **also** hard-check `AllowRollback` and throw when false. Nothing destructive is ever wired into the HTTP or hosted-service hosts.
 
@@ -647,7 +686,8 @@ Highest precedence wins. Fail fast with the full searched-list on miss. **The re
 | `status` | — | table: ordinal · name · applied/pending/drift/**orphaned** · checksum · applied_at · applied_by + `Dev/` in-flight list | no | `GetStatusAsync` |
 | `check` | `--sets`, `--set` (shipped 2026-10-26) | one line per set: current, or how the database differs; exit `1` unless all are current | no | `CheckLevelAsync` |
 | `rollback` | `--count <N>`, `--force` | per-file rolled-back rows; **target-gated** (§ guard) | **yes** | `RollbackAsync(count)` |
-| `rebaseline` | `--backup-file`, `--output-sql`, `--force` | dumped `001-baseline/Apply.sql` path + history marks | **yes** | `BaselineAsync` |
+| `baseline` | `--to <NNN>`, `--i-understand-this-is <db>`, `--force` (shipped 2026-10-26) | the labels marked as applied without running | no — target-gated | `BaselineAsync` |
+| `rebaseline` | `--backup-file`, `--output-sql`, `--force` (not built) | dumped `001-baseline/Apply.sql` path + history marks | **yes** | `BaselineAsync` |
 | `promote` | `[--all]`, `--dev-file <f>`, `--keep-dev`, `--check-only` | promoted `Dev/x.sql → NNN-x/{Apply,Rollback}.sql`; warns on stub Rollback | no | — (allocates ordinal, splits + writes) |
 | `repair` | `--ordinal <NNN>`, `--force` | rewrites recorded `migration_history.checksum` to the current disk checksum (accept an intentional edit) | **yes** | dev-only tracker write |
 | `verify` | `--up-to <NNN>`, `--image <postgres:tag>` | Testcontainers apply→rollback→re-apply→checksum-match report | **yes** | `ApplyPendingAsync` + `RollbackAsync` (throwaway container) |

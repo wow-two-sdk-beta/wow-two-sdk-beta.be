@@ -2,12 +2,13 @@ using System.CommandLine;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
-/// <summary>Builds the <c>wow-migrate</c> command tree — the global options and the status, apply, check, rollback, verify, new, and promote verbs.</summary>
+/// <summary>Builds the <c>wow-migrate</c> command tree — the global options and the status, apply, check, rollback, verify, baseline, new, and promote verbs.</summary>
 /// <remarks>
 ///   - the global options are recursive — every verb accepts them
 ///   - <c>--sets</c> names a manifest of every set; <c>--set</c> picks one; without either the verb runs the default set as before
 ///   - <c>apply --dry-run</c> rehearses and rolls back, for a deploy runner to gate a release; <c>check</c> compares levels read-only
-///   - <c>rollback</c> and <c>verify --repair</c> demand <c>--i-understand-this-is &lt;db&gt;</c> and run one set
+///   - <c>rollback</c>, <c>verify --repair</c> and <c>baseline</c> demand <c>--i-understand-this-is &lt;db&gt;</c> and run one set
+///   - a set that claims its schema names the instance it claims as: <c>--owner-instance</c>, or the manifest's <c>ownerInstance</c>
 /// </remarks>
 internal sealed class CliCommandBuilder
 {
@@ -46,6 +47,11 @@ internal sealed class CliCommandBuilder
             {
                 Description = "Claim the single set's schema under this owner; creates the schema and refuses one claimed by another owner.",
                 Recursive = true,
+            },
+            new Option<string?>("--owner-instance")
+            {
+                Description = "The instance the single set's schema is claimed as (required with --schema-owner): the host's Migrations:OwnerInstance, else {applicationName}@{DEPLOY_ENVIRONMENT}.",
+                Recursive = true,
             });
 
         var root = new RootCommand("wow-migrate — web-free SQL migrator CLI.");
@@ -57,6 +63,7 @@ internal sealed class CliCommandBuilder
         root.Subcommands.Add(BuildCheck(runner, options));
         root.Subcommands.Add(BuildRollback(runner, options));
         root.Subcommands.Add(BuildVerify(runner, options));
+        root.Subcommands.Add(BuildBaseline(runner, options));
         root.Subcommands.Add(BuildNew(runner, options));
         root.Subcommands.Add(BuildPromote(runner, options));
 
@@ -169,6 +176,39 @@ internal sealed class CliCommandBuilder
         return command;
     }
 
+    /// <summary>Builds the <c>baseline</c> verb — mark one set's migrations as applied without running them, so an existing database adopts the set.</summary>
+    /// <param name="runner">The runner carrying every command body.</param>
+    /// <param name="options">The global options to read in the action.</param>
+    private static Command BuildBaseline(CliRunnerService runner, GlobalOptions options)
+    {
+        var toOption = new Option<int?>("--to")
+        {
+            Description = "Mark migrations up to and including this ordinal (else every source migration).",
+        };
+
+        var confirmOption = new Option<string?>("--i-understand-this-is")
+        {
+            Description = "Confirm the target database name (must match the connection's database).",
+        };
+
+        var forceOption = new Option<bool>("--force")
+        {
+            Description = "Skip the interactive [y/N] confirmation prompt.",
+        };
+
+        var command = new Command("baseline", "Mark one set's migrations as applied without running them; refuses a set that records history.")
+        {
+            toOption,
+            confirmOption,
+            forceOption,
+        };
+        command.SetAction((parseResult, ct) =>
+            runner.BaselineAsync(
+                options.Read(parseResult), parseResult.GetValue(toOption),
+                parseResult.GetValue(confirmOption), parseResult.GetValue(forceOption), ct));
+        return command;
+    }
+
     /// <summary>Builds the <c>new</c> verb — scaffold a <c>Dev/&lt;name&gt;.sql</c> draft.</summary>
     /// <param name="runner">The runner carrying every command body.</param>
     /// <param name="options">The global options to read in the action.</param>
@@ -206,17 +246,18 @@ internal sealed class CliCommandBuilder
     /// <param name="Set">The <c>--set</c> option.</param>
     /// <param name="Schema">The <c>--schema</c> option.</param>
     /// <param name="SchemaOwner">The <c>--schema-owner</c> option.</param>
+    /// <param name="OwnerInstance">The <c>--owner-instance</c> option.</param>
     private sealed record GlobalOptions(
         Option<string?> Connection, Option<string?> SqlDir, Option<string?> SetsFile,
-        Option<string?> Set, Option<string?> Schema, Option<string?> SchemaOwner)
+        Option<string?> Set, Option<string?> Schema, Option<string?> SchemaOwner, Option<string?> OwnerInstance)
     {
         /// <summary>Gets every global option, in help order.</summary>
-        public IEnumerable<Option> All => [Connection, SqlDir, SetsFile, Set, Schema, SchemaOwner];
+        public IEnumerable<Option> All => [Connection, SqlDir, SetsFile, Set, Schema, SchemaOwner, OwnerInstance];
 
         /// <summary>Reads the global options a verb was invoked with.</summary>
         /// <param name="parseResult">The parse result of the invocation.</param>
         public CliTarget Read(ParseResult parseResult) => new(
             parseResult.GetValue(Connection), parseResult.GetValue(SqlDir), parseResult.GetValue(SetsFile),
-            parseResult.GetValue(Set), parseResult.GetValue(Schema), parseResult.GetValue(SchemaOwner));
+            parseResult.GetValue(Set), parseResult.GetValue(Schema), parseResult.GetValue(SchemaOwner), parseResult.GetValue(OwnerInstance));
     }
 }

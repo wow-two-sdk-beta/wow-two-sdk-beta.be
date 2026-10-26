@@ -31,4 +31,8 @@ internal sealed class NoOpMigrationRunnerService : IMigrationRunnerService
     /// <inheritdoc />
     public Task<Result<IReadOnlyList<string>>> RepairAsync(CancellationToken ct = default) =>
         Task.FromResult(Result<IReadOnlyList<string>>.Ok([]));
+
+    /// <inheritdoc />
+    public Task<Result<IReadOnlyList<string>>> BaselineAsync(int? throughOrdinal = null, CancellationToken ct = default) =>
+        Task.FromResult(Result<IReadOnlyList<string>>.Ok([]));
 }

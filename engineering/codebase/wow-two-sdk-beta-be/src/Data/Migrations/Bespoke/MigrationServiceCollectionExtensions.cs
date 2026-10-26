@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,12 @@ namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 /// <summary>Provides registration extensions for the SQL migrator — the host's default set and each module's named set, from embedded resources or the filesystem.</summary>
 public static class MigrationServiceCollectionExtensions
 {
+    /// <summary>Holds the host-configuration key of the application name (the generic host's <c>HostDefaults.ApplicationKey</c>).</summary>
+    private const string ApplicationNameKey = "applicationName";
+
+    /// <summary>Holds the variable the deploy runner sets on every deployed container.</summary>
+    private const string DeployEnvironmentKey = "DEPLOY_ENVIRONMENT";
+
     /// <summary>Adds the embedded-resource SQL migrator (the runtime default — schema ships in the binary).</summary>
     /// <remarks>The host passes the assembly that embeds the <c>Migrations/NNN-name/*.sql</c> resources; requires an <see cref="IDbConnectionFactory"/> registered alongside.</remarks>
     /// <param name="services">The service collection to configure.</param>
@@ -54,7 +61,7 @@ public static class MigrationServiceCollectionExtensions
     /// <summary>Adds a named migration set over a caller-supplied source, such as an <see cref="EmbeddedResourceMigrationBroker"/> with a per-dialect prefix.</summary>
     /// <remarks>
     ///   - the set keeps its own history (<c>{setName}_migration_history</c> by default) and advisory lock (derived from the name)
-    ///   - set <see cref="MigrationOptions.SchemaName"/> and <see cref="MigrationOptions.SchemaOwner"/> for a set that owns its schema
+    ///   - set <see cref="MigrationOptions.SchemaName"/> and <see cref="MigrationOptions.SchemaOwner"/> for a set that owns its schema; <see cref="MigrationOptions.OwnerInstance"/> defaults from configuration
     ///   - the set uses a keyed <see cref="IDbConnectionFactory"/> registered under <paramref name="setName"/> when one exists, else the host's
     ///   - each service registers keyed by <paramref name="setName"/>; <see cref="IMigrationSetRegistry"/> lists every set
     /// </remarks>
@@ -95,6 +102,7 @@ public static class MigrationServiceCollectionExtensions
         });
         if (configure is not null)
             builder.Configure(configure);
+        ApplyDefaults(builder);
         ApplyRules(builder);
         builder.ValidateOnStart();
 
@@ -127,7 +135,11 @@ public static class MigrationServiceCollectionExtensions
     internal static IServiceCollection AddDatabaseBespokeMigrations(
         this IServiceCollection services, Func<IServiceProvider, IMigrationBroker> brokerFactory, Action<MigrationOptions>? configure)
     {
-        services.AddValidatedOptions(configure, ApplyRules);
+        services.AddValidatedOptions(configure, builder =>
+        {
+            ApplyDefaults(builder);
+            ApplyRules(builder);
+        });
 
         services.AddSingleton(brokerFactory);
         // Resolved rather than captured, so the dialect reads the provider AFTER Configure has run.
@@ -152,6 +164,33 @@ public static class MigrationServiceCollectionExtensions
         services.TryAddSingleton<IMigrationSetRegistry, MigrationSetRegistry>();
     }
 
+    /// <summary>Fills what the caller left unset from the host: the owner instance, after every configure hook has run.</summary>
+    /// <param name="builder">The options builder of one set.</param>
+    private static void ApplyDefaults(OptionsBuilder<MigrationOptions> builder) =>
+        builder.PostConfigure<IServiceProvider>((options, provider) =>
+            options.OwnerInstance ??= DeriveOwnerInstance(provider.GetService<IConfiguration>()));
+
+    /// <summary>Derives the instance a host claims owned schemas as: its configured value, else <c>{application}@{deploy environment}</c>.</summary>
+    /// <remarks>
+    ///   - the application is configuration <c>applicationName</c> (the host's), else the entry assembly's name
+    ///   - the environment is <c>DEPLOY_ENVIRONMENT</c> from configuration or the process, else <c>local</c>
+    ///   - replicas of one image and configuration derive one value; two instances of one image must configure their own
+    /// </remarks>
+    /// <param name="configuration">The host configuration, or null when the host registers none.</param>
+    internal static string DeriveOwnerInstance(IConfiguration? configuration)
+    {
+        if (NonBlank(configuration?[MigrationConstants.OwnerInstanceConfigurationKey]) is { } configured)
+            return configured;
+
+        var application = NonBlank(configuration?[ApplicationNameKey]) ?? Assembly.GetEntryAssembly()?.GetName().Name ?? "host";
+        var environment = NonBlank(configuration?[DeployEnvironmentKey])
+            ?? NonBlank(Environment.GetEnvironmentVariable(DeployEnvironmentKey))
+            ?? "local";
+        return $"{application}@{environment}";
+    }
+
+    private static string? NonBlank(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+
     /// <summary>States the rules every set's options must satisfy.</summary>
     /// <param name="builder">The options builder of one set.</param>
     private static void ApplyRules(OptionsBuilder<MigrationOptions> builder) => builder
@@ -164,6 +203,9 @@ public static class MigrationServiceCollectionExtensions
         .Validate(
             options => options.SchemaOwner is null || (!string.IsNullOrWhiteSpace(options.SchemaOwner) && options.SchemaOwner.Length <= 120),
             "MigrationOptions.SchemaOwner must be null or 1 to 120 characters.")
+        .Validate(
+            options => options.OwnerInstance is null || (!string.IsNullOrWhiteSpace(options.OwnerInstance) && options.OwnerInstance.Length <= 200),
+            "MigrationOptions.OwnerInstance must be null or 1 to 200 characters.")
         .Validate(
             options => options.SchemaOwner is null || MigrationConstants.SchemaNamePattern().IsMatch(options.SchemaName),
             "A set with a SchemaOwner needs a SchemaName that is a lowercase identifier (a-z, 0-9 and _, 63 characters at most).");

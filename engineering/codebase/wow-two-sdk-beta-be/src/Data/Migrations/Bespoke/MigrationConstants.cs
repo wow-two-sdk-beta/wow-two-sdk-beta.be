@@ -27,8 +27,15 @@ public static partial class MigrationConstants
     /// <remarks>PostgreSQL writes the schema name; SQLite drops <c>{{schema}}.</c> and writes <c>main</c> for a bare placeholder.</remarks>
     public const string SchemaPlaceholder = "{{schema}}";
 
-    /// <summary>Holds the table, inside an owned schema, whose one row names the set and owner that claimed the schema.</summary>
+    /// <summary>Holds the table, inside an owned schema, whose one row names the set, owner and instance that claimed the schema.</summary>
     public const string SchemaOwnerTableName = "migration_schema_owner";
+
+    /// <summary>Holds the configuration key a host sets to name the instance it claims owned schemas as (environment variable <c>Migrations__OwnerInstance</c>).</summary>
+    /// <remarks>Without it, the instance defaults to <c>{applicationName}@{DEPLOY_ENVIRONMENT}</c>, or <c>@local</c> when the runner did not deploy the host.</remarks>
+    public const string OwnerInstanceConfigurationKey = "Migrations:OwnerInstance";
+
+    /// <summary>Holds the stamp a baseline records on the history rows it marks as applied and on the schema claim it makes.</summary>
+    public const string BaselineAppliedBy = "baseline";
 
     /// <summary>Matches a migration folder name of the form <c>NNN-name</c> (three-digit ordinal, then text).</summary>
     [GeneratedRegex(@"^(\d{3})-(.+)$")]

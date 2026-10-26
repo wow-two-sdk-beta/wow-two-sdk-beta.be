@@ -94,13 +94,22 @@ public sealed class MigrationSetHost : IAsyncDisposable
         return rows.Select(row => $"{row.Ordinal:D3}-{row.Name}").ToList();
     }
 
-    /// <summary>Reads every owner marker row.</summary>
-    /// <param name="qualifiedTable">The marker table reference.</param>
-    public async Task<IReadOnlyList<(string SchemaName, string SetName, string Owner, string ClaimedBy)>> ReadOwnersAsync(string qualifiedTable)
+    /// <summary>Reads the host stamp of every row in a history table, by ordinal.</summary>
+    /// <param name="qualifiedTable">The table reference.</param>
+    public async Task<IReadOnlyList<string>> ReadAppliedByAsync(string qualifiedTable)
     {
         await using var connection = await OpenConnectionAsync();
-        var rows = await connection.QueryAsync<(string, string, string, string)>(
-            $"select schema_name, set_name, owner, claimed_by from {qualifiedTable} order by schema_name");
+        var rows = await connection.QueryAsync<string>($"select applied_by from {qualifiedTable} order by ordinal");
+        return rows.ToList();
+    }
+
+    /// <summary>Reads every owner marker row.</summary>
+    /// <param name="qualifiedTable">The marker table reference.</param>
+    public async Task<IReadOnlyList<(string SchemaName, string SetName, string Owner, string Instance, string ClaimedBy)>> ReadOwnersAsync(string qualifiedTable)
+    {
+        await using var connection = await OpenConnectionAsync();
+        var rows = await connection.QueryAsync<(string, string, string, string, string)>(
+            $"select schema_name, set_name, owner, instance, claimed_by from {qualifiedTable} order by schema_name");
         return rows.ToList();
     }
 

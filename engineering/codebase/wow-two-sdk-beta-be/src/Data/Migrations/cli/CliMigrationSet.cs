@@ -12,9 +12,11 @@ namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 /// <param name="Set">The <c>--set</c> name, or null.</param>
 /// <param name="Schema">The <c>--schema</c> value, or null.</param>
 /// <param name="SchemaOwner">The <c>--schema-owner</c> value, or null.</param>
-internal sealed record CliTarget(string? Connection, string? SqlDir, string? SetsFile, string? Set, string? Schema, string? SchemaOwner);
+/// <param name="OwnerInstance">The <c>--owner-instance</c> value, or null.</param>
+internal sealed record CliTarget(
+    string? Connection, string? SqlDir, string? SetsFile, string? Set, string? Schema, string? SchemaOwner, string? OwnerInstance = null);
 
-/// <summary>Describes one migration set the CLI registers: its source, schema and owner.</summary>
+/// <summary>Describes one migration set the CLI registers: its source, schema, owner and owner instance.</summary>
 /// <param name="Name">The set name; <see cref="MigrationConstants.DefaultSetName"/> is the product's own set.</param>
 /// <param name="SqlDir">The on-disk migrations root, or null when the set reads an assembly.</param>
 /// <param name="AssemblyPath">The assembly embedding the set's scripts, or null when the set reads a directory.</param>
@@ -22,8 +24,10 @@ internal sealed record CliTarget(string? Connection, string? SqlDir, string? Set
 /// <param name="Schema">The set's schema, or null for the default.</param>
 /// <param name="SchemaOwner">The owner the set claims its schema under, or null.</param>
 /// <param name="HistoryTable">The history table, or null for the set's default.</param>
+/// <param name="OwnerInstance">The instance the set claims its schema as, or null; an owned set needs one.</param>
 internal sealed record CliMigrationSet(
-    string Name, string? SqlDir, string? AssemblyPath, string ResourcePrefix, string? Schema, string? SchemaOwner, string? HistoryTable)
+    string Name, string? SqlDir, string? AssemblyPath, string ResourcePrefix, string? Schema, string? SchemaOwner, string? HistoryTable,
+    string? OwnerInstance = null)
 {
     /// <summary>The embedded-resource prefix a set reads when the manifest names none.</summary>
     public const string DefaultResourcePrefix = "Migrations/";
@@ -36,7 +40,7 @@ internal sealed record CliMigrationSet(
 
 /// <summary>Reads a migration-sets manifest: the JSON file that lists every set a deploy step runs.</summary>
 /// <remarks>
-///   - shape: <c>{ "sets": [ { "name", "sqlDir" | "assembly", "resourcePrefix", "schema", "schemaOwner", "historyTable" } ] }</c>
+///   - shape: <c>{ "sets": [ { "name", "sqlDir" | "assembly", "resourcePrefix", "schema", "schemaOwner", "ownerInstance", "historyTable" } ] }</c>
 ///   - relative paths resolve against the manifest's directory
 /// </remarks>
 internal static class CliMigrationSetManifest
@@ -100,7 +104,8 @@ internal static class CliMigrationSetManifest
             Text(element, "resourcePrefix") ?? CliMigrationSet.DefaultResourcePrefix,
             Text(element, "schema"),
             Text(element, "schemaOwner"),
-            Text(element, "historyTable")));
+            Text(element, "historyTable"),
+            Text(element, "ownerInstance")));
     }
 
     private static string? Text(JsonElement element, string property) =>

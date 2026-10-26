@@ -19,7 +19,7 @@ public sealed class SchemaOwnerTests : SqliteMigratorTestBase
 
         await using var host = MigrationSetHost.Sqlite(ConnectionString, _ => { });
         (await host.ReadOwnersAsync(MigrationConstants.SchemaOwnerTableName))
-            .Should().Equal(("identity", MigrationConstants.DefaultSetName, "module", "deploy"));
+            .Should().Equal(("identity", MigrationConstants.DefaultSetName, "module", migrator.Options.OwnerInstance!, "deploy"));
         var status = (await migrator.Runner.GetStatusAsync()).ValueOrThrow();
         status.SchemaOwner!.Owner.Should().Be("module");
     }

@@ -43,6 +43,18 @@ public interface IMigrationRunnerService
     /// <exception cref="InvalidOperationException">Repair is disabled (<see cref="MigrationOptions.AllowRollback"/> is false) — configuration, so it throws.</exception>
     Task<Result<IReadOnlyList<string>>> RepairAsync(CancellationToken ct = default);
 
+    /// <summary>Records source migrations as applied without running them, so an existing database whose schema already matches adopts the set.</summary>
+    /// <remarks>
+    ///   - runs no script: each row is stamped <see cref="MigrationConstants.BaselineAppliedBy"/> with zero duration
+    ///   - refuses a set that already records history, so it never hides a pending migration of a migrated set
+    ///   - claims an owned schema under this host's owner and instance; the claim and the rows commit in one transaction
+    ///   - not gated by <see cref="MigrationOptions.AllowRollback"/>: adopting a live database is a production step; the CLI confirms the target
+    /// </remarks>
+    /// <param name="throughOrdinal">The last source ordinal to mark as applied, or null for every source migration.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The labels marked as applied, or a <c>Validation</c> failure when the ordinal is not in the source, or a <c>Conflict</c> failure when the set records history or another owner holds the schema.</returns>
+    Task<Result<IReadOnlyList<string>>> BaselineAsync(int? throughOrdinal = null, CancellationToken ct = default);
+
     /// <summary>Compares the database's applied level with the source without writing anything — the production startup check.</summary>
     /// <remarks>
     ///   - never creates the schema, the history table or an owner marker, and takes no lock

@@ -28,8 +28,8 @@ All three register a startup runner via a descriptive `Add*` extension (no `WowT
 | **Multi-provider** | Any EF provider (PG/SQL Server/SQLite/…) | PG · SQL Server · MySQL via `DbUpProviderFactory` (SQLite needs custom factory) | Postgres + SQLite; Postgres owns a whole-loop advisory lock, SQLite requires one deployment applicant |
 | **Drift / checksum** | EF model-snapshot diff | Script journal (raw-byte hash) | Normalized SHA-256 over `Apply.sql` — no CRLF/whitespace false drift |
 | **Concurrency (multi-instance)** | EF internal | None | Postgres: `pg_advisory_lock`; SQLite: deployment-owned single applicant (`busy_timeout` is not a mutex) |
-| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`check`/`rollback`/`new`/`promote`/`verify --repair`), one set or a `--sets` manifest |
-| **Several schemas per host** | one context per schema | one journal | named sets: own history, lock, schema and owner marker per module (`AddDatabaseBespokeMigrationSet`) |
+| **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`check`/`baseline`/`rollback`/`new`/`promote`/`verify --repair`), one set or a `--sets` manifest |
+| **Several schemas per host** | one context per schema | one journal | named sets: own history, lock, schema and owner-and-instance marker per module (`AddDatabaseBespokeMigrationSet`) |
 | **When to pick** | Code-first shop already invested in EF migrations | Existing DbUp script library being carried forward | **Default for new wow-two products** — SQL-owned schema, host-agnostic, rebaseline/squash |
 
 ---
@@ -87,7 +87,8 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 });
 ```
 
-- Production applies migrations in an explicit deploy step (`wow-migrate apply`, or `ApplyMigrationSetsAsync`) and boots with the read-only `VerifyMigrationLevelsOnStartupAsync()`; applying at boot is a development option. Details: `Bespoke/bespoke.md` § *Migration sets*.
+- Production applies migrations in an explicit deploy step (`wow-migrate apply`, or the image's migrate command calling `MigrateBespokeForDeployAsync()`). `MigrateBespokeOnStartupAsync()` applies every set only on a local run and verifies levels read-only on any deployed host, unless `ApplyWhenDeployed` opts in. Details: `Bespoke/bespoke.md` § *Who applies*.
+- An existing database adopts a set without running its scripts through `BaselineAsync` / `wow-migrate baseline`. Details: `Bespoke/bespoke.md` § *Baseline*.
 
 ---
 

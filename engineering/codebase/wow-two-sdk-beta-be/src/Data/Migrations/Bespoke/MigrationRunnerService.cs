@@ -52,10 +52,14 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            if (await GuardSchemaAsync(conn, null, appliedBy, ct) is { } claimed)
+            var guard = await GuardSchemaAsync(conn, null, appliedBy, ct);
+            if (guard.Conflict is { } claimed)
             {
                 return Result<IReadOnlyList<string>>.Fail(claimed);
             }
+
+            if (guard.Claimed)
+                LogSchemaClaimed(options.SchemaName, options.SetName, options.SchemaOwner!, options.OwnerInstance!);
 
             await history.EnsureTableAsync(conn, null, ct);
             var applied = await history.GetAppliedAsync(conn, null, ct);
@@ -284,7 +288,8 @@ public sealed partial class MigrationRunnerService(
     private async Task<Result<MigrationDryRunReport>> RehearseAsync(
         DbConnection conn, DbTransaction tx, List<MigrationDescriptor> migrations, CancellationToken ct)
     {
-        if (await GuardSchemaAsync(conn, tx, DryRunAppliedBy, ct) is { } claimed)
+        // A dry run's claim rolls back with its transaction, so it is never reported.
+        if ((await GuardSchemaAsync(conn, tx, DryRunAppliedBy, ct)).Conflict is { } claimed)
         {
             return Result<MigrationDryRunReport>.Fail(claimed);
         }
@@ -423,7 +428,7 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            if (await GuardSchemaAsync(conn, null, claimedBy: null, ct) is { } claimed)
+            if ((await GuardSchemaAsync(conn, null, claimedBy: null, ct)).Conflict is { } claimed)
             {
                 return Result<IReadOnlyList<string>>.Fail(claimed);
             }
@@ -489,7 +494,7 @@ public sealed partial class MigrationRunnerService(
         await history.AcquireLockAsync(conn, ct);
         try
         {
-            if (await GuardSchemaAsync(conn, null, claimedBy: null, ct) is { } claimed)
+            if ((await GuardSchemaAsync(conn, null, claimedBy: null, ct)).Conflict is { } claimed)
             {
                 return Result<IReadOnlyList<string>>.Fail(claimed);
             }
@@ -516,31 +521,103 @@ public sealed partial class MigrationRunnerService(
         }
     }
 
-    /// <summary>Creates an owned schema, refuses a schema another set or owner has claimed, and records this set's claim when asked.</summary>
+    /// <inheritdoc />
+    public async Task<Result<IReadOnlyList<string>>> BaselineAsync(int? throughOrdinal = null, CancellationToken ct = default)
+    {
+        if (Scan().IsFailure(out var malformed, out var migrations))
+        {
+            return Result<IReadOnlyList<string>>.Fail(malformed);
+        }
+
+        if (throughOrdinal is { } through && migrations.All(m => m.Ordinal != through))
+        {
+            return Result<IReadOnlyList<string>>.Fail(AppErrorFactory.Validation(
+                $"Set '{options.SetName}' has no migration {through:D3} in its source; a baseline stops at a source migration."));
+        }
+
+        var adopted = migrations.Where(m => throughOrdinal is not { } last || m.Ordinal <= last).ToList();
+
+        await using var conn = await connections.CreateOpenAsync(ct);
+        await history.AcquireLockAsync(conn, ct);
+        try
+        {
+            // The claim, the history table and every row commit together, so a refused or failed baseline records nothing.
+            await using var tx = await conn.BeginTransactionAsync(ct);
+            var outcome = await RecordBaselineAsync(conn, tx, adopted, ct);
+            if (outcome.Error is { } error)
+            {
+                await RollBackTransactionAsync(tx);
+                return Result<IReadOnlyList<string>>.Fail(error);
+            }
+
+            await tx.CommitAsync(ct);
+            if (outcome.Claimed)
+                LogSchemaClaimed(options.SchemaName, options.SetName, options.SchemaOwner!, options.OwnerInstance!);
+            LogBaselined(options.SetName, adopted.Count, JoinOrNone(adopted.Select(m => m.Label)));
+            return Result<IReadOnlyList<string>>.Ok(adopted.Select(m => m.Label).ToList());
+        }
+        finally
+        {
+            await history.ReleaseLockAsync(conn, ct);
+        }
+    }
+
+    /// <summary>Claims an owned schema and records the adopted migrations inside the baseline's transaction, refusing a set that already records history.</summary>
+    /// <param name="conn">The open connection holding the advisory lock.</param>
+    /// <param name="tx">The baseline transaction.</param>
+    /// <param name="adopted">The source migrations to mark as applied.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The refusal, or none with whether the schema was claimed.</returns>
+    private async Task<(AppError? Error, bool Claimed)> RecordBaselineAsync(
+        DbConnection conn, DbTransaction tx, List<MigrationDescriptor> adopted, CancellationToken ct)
+    {
+        try
+        {
+            var guard = await GuardSchemaAsync(conn, tx, MigrationConstants.BaselineAppliedBy, ct);
+            if (guard.Conflict is { } claimed)
+                return (claimed, false);
+
+            await history.EnsureTableAsync(conn, tx, ct);
+            var applied = await history.GetAppliedAsync(conn, tx, ct);
+            if (applied.Count > 0)
+            {
+                return (AppErrorFactory.Conflict(
+                    $"Set '{options.SetName}' already records {applied.Count} applied migrations; a baseline adopts only a set with no history. " +
+                    "Apply the pending migrations instead."), false);
+            }
+
+            foreach (var migration in adopted)
+                await history.RecordAsync(conn, tx, BuildEntry(migration, MigrationConstants.BaselineAppliedBy, elapsedMs: 0), ct);
+
+            return (null, guard.Claimed);
+        }
+        catch
+        {
+            await RollBackTransactionAsync(tx);
+            throw;
+        }
+    }
+
+    /// <summary>Creates an owned schema, refuses a schema another set, owner or instance has claimed, and records this set's claim when asked.</summary>
     /// <param name="conn">The open connection holding the advisory lock.</param>
     /// <param name="tx">The enclosing transaction, such as a dry run's, or null to run bare.</param>
     /// <param name="claimedBy">The host stamp to record a first claim under, or null to only verify the marker.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    /// <returns>The conflict error, or <see langword="null"/> when this set may migrate the schema.</returns>
-    private async Task<AppError?> GuardSchemaAsync(DbConnection conn, DbTransaction? tx, string? claimedBy, CancellationToken ct)
+    /// <returns>The conflict error, or none when this set may migrate the schema, and whether this call recorded the claim.</returns>
+    private async Task<(AppError? Conflict, bool Claimed)> GuardSchemaAsync(DbConnection conn, DbTransaction? tx, string? claimedBy, CancellationToken ct)
     {
         if (options.SchemaOwner is not null)
             await dialect.EnsureSchemaAsync(conn, tx, options.SchemaName, ct);
 
         if (await _owners.ReadAsync(conn, tx, ct) is { } marker)
-            return _owners.DescribeConflict(marker) is { } conflict ? AppErrorFactory.Conflict(conflict) : null;
+            return (_owners.DescribeConflict(marker) is { } conflict ? AppErrorFactory.Conflict(conflict) : null, false);
 
-        if (options.SchemaOwner is { } owner && claimedBy is not null)
-        {
-            await _owners.EnsureTableAsync(conn, tx, ct);
-            await _owners.ClaimAsync(conn, tx, clock.GetUtcNow(), claimedBy, ct);
+        if (options.SchemaOwner is null || claimedBy is null)
+            return (null, false);
 
-            // A dry run's claim rolls back with its transaction, so only a bare claim is reported.
-            if (tx is null)
-                LogSchemaClaimed(options.SchemaName, options.SetName, owner);
-        }
-
-        return null;
+        await _owners.EnsureTableAsync(conn, tx, ct);
+        await _owners.ClaimAsync(conn, tx, clock.GetUtcNow(), claimedBy, ct);
+        return (null, true);
     }
 
     /// <summary>Reads the source, parses <c>NNN-name</c>, computes checksums, and returns migrations ordered by ordinal.</summary>
@@ -705,6 +782,9 @@ public sealed partial class MigrationRunnerService(
     [LoggerMessage(EventId = 3009, Level = LogLevel.Warning, Message = "Dry run failed at {Migration}: {Error}. Succeeded before it: {Succeeded}. The rehearsal was rolled back.")]
     private partial void LogDryRunFailed(string migration, string error, string succeeded);
 
-    [LoggerMessage(EventId = 3010, Level = LogLevel.Information, Message = "Schema {Schema} claimed by set {Set} as {Owner}.")]
-    private partial void LogSchemaClaimed(string schema, string set, string owner);
+    [LoggerMessage(EventId = 3010, Level = LogLevel.Information, Message = "Schema {Schema} claimed by set {Set} as {Owner} of instance {Instance}.")]
+    private partial void LogSchemaClaimed(string schema, string set, string owner, string instance);
+
+    [LoggerMessage(EventId = 3013, Level = LogLevel.Warning, Message = "Baselined set {Set}: marked {Count} migrations as applied without running them: {Migrations}.")]
+    private partial void LogBaselined(string set, int count, string migrations);
 }

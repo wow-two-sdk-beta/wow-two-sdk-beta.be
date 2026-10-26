@@ -34,7 +34,7 @@ public sealed class PostgresMigrationSetTests(MigratorPostgresFixture fixture) :
         (await host.ReadHistoryAsync($"\"{_schema}\".\"identity_migration_history\"")).Should().Equal("001-users");
         (await host.ReadHistoryAsync("public.migration_history")).Should().Equal("001-orders");
         (await host.ReadOwnersAsync($"\"{_schema}\".\"{MigrationConstants.SchemaOwnerTableName}\""))
-            .Should().Equal((_schema, "identity", "module", "deploy"));
+            .Should().Equal((_schema, "identity", "module", host.Sets.GetOptions("identity").OwnerInstance!, "deploy"));
     }
 
     [Fact]

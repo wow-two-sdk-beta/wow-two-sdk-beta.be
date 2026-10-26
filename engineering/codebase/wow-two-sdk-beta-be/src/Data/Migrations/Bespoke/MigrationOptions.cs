@@ -34,13 +34,21 @@ public sealed record MigrationOptions
     /// <remarks>A named set defaults to an id derived from its name, so sets never wait on each other.</remarks>
     public long AdvisoryLockId { get; set; } = 4_855_178_001L;
 
-    /// <summary>Gets or sets the owner this host claims <see cref="SchemaName"/> under, such as <c>module</c> or <c>service</c>; null claims nothing.</summary>
+    /// <summary>Gets or sets the kind of owner this host claims <see cref="SchemaName"/> as, such as <c>module</c> or <c>service</c>; null claims nothing.</summary>
     /// <remarks>
-    ///   - when set, the set creates its schema on PostgreSQL if missing, and its first apply records a marker row naming the set and owner
-    ///   - every run then refuses, before any script, a schema whose marker names another set or owner
+    ///   - when set, the set creates its schema on PostgreSQL if missing, and its first apply records a marker row naming the set, owner and <see cref="OwnerInstance"/>
+    ///   - every run then refuses, before any script, a schema whose marker names another set, owner or instance
     ///   - a set without an owner still refuses a schema another set has claimed
     /// </remarks>
     public string? SchemaOwner { get; set; }
+
+    /// <summary>Gets or sets the instance this host claims <see cref="SchemaName"/> as, such as <c>identity-haven@prod</c>, so two instances never share one schema.</summary>
+    /// <remarks>
+    ///   - null at registration derives it: configuration <see cref="MigrationConstants.OwnerInstanceConfigurationKey"/>, else <c>{applicationName}@{DEPLOY_ENVIRONMENT}</c> (<c>@local</c> when not deployed)
+    ///   - replicas of one instance share the value; a deploy step that migrates for a host must claim under the host's value
+    ///   - matters only with <see cref="SchemaOwner"/>
+    /// </remarks>
+    public string? OwnerInstance { get; set; }
 
     /// <summary>Gets or sets how the startup level check treats this set when the database is behind, ahead of or drifted from the code.</summary>
     /// <remarks>An owner conflict always fails, whatever the policy.</remarks>

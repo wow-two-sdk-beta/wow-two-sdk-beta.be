@@ -3,11 +3,28 @@
 Test helpers for the SDK bespoke SQL migrator. Reference `WoW2.Sdk.Beta.Be.Testing.Data` from a test project.
 
 - `MigratorHarness` — the DI-graph-under-test: `CreatePostgres` / `CreateSqlite` (filesystem root or embedded assembly) + `Runner`, `Options`, `ReadHistoryAsync`, `HasTableAsync`, `HasIndexAsync`, `OpenConnectionAsync`.
-- `MigratorPostgresFixture` — a Postgres container whose `ResetAsync` drops + recreates `public` (wiping `migration_history`) so each test applies from scratch — the opposite of base `PostgresFixture` (Respawn, preserves history). Serves directly as an `ICollectionFixture<>`.
+  - several sets: `CreatePostgres` / `CreateSqlite` with a `MigratorSetsBuilder` callback — `AddDefault(root | assembly)` and `Add(name, root | assembly | broker factory, configure)`, in apply order; every set gets the harness's dialect.
+  - per set: `ApplyAllAsync`, `RunnerFor(name)`, `OptionsFor(name)`, `ReadHistoryAsync(name)`, `HasTableAsync(schema, table)`, `Sets`, `Services` for the multi-set helpers.
+- `MigratorPostgresFixture` — a Postgres container whose `ResetAsync` drops every user schema (a module set's included) and recreates `public`, so each test applies from scratch — the opposite of base `PostgresFixture` (Respawn, preserves history). Serves directly as an `ICollectionFixture<>`.
 - `MigratorTestBase` — drop-per-test convenience: resets the shared fixture + owns a fresh `MigrationsWorkspace`.
 - `MigrationsWorkspace` — throwaway on-disk `{root}/NNN-name/{Apply,Rollback}.sql` root.
 - `MigrationHistoryRow` — projected `migration_history` row for assertions.
-- `DisableBespokeMigrator()` — replaces the dialect + runner with no-ops so a startup migrate hook touches nothing (unit tiers whose schema comes from EF `EnsureCreated`).
+- `DisableBespokeMigrator()` — replaces the dialect + runner of every set registered before it, named sets included, with no-ops so a startup migrate hook touches nothing (unit tiers whose schema comes from EF `EnsureCreated`).
+
+## A module's set beside the host's
+
+```csharp
+await using var migrator = MigratorHarness.CreatePostgres(fixture.ConnectionString, sets => sets
+    .AddDefault(workspace.Root)
+    .Add("identity", typeof(IdentityModule).Assembly, options =>
+    {
+        options.SchemaName = "identity";
+        options.SchemaOwner = "module";
+    }));
+
+(await migrator.ApplyAllAsync()).ValueOrThrow();
+(await migrator.ReadHistoryAsync("identity")).Should().NotBeEmpty();
+```
 
 ## Which Postgres fixture
 
