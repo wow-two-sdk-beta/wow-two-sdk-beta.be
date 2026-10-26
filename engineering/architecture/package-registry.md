@@ -11,7 +11,7 @@
 | `WoW2.Sdk.Beta.Be` | production mono library |
 | `WoW2.Sdk.Beta.Be.Abstractions` | BCL-only kernel: `Result` family, `AppError` family, `IEvent`, `ICurrentUserService` / `UserKind`; core depends on it (unreleased, first ships with the next core release) |
 | `WoW2.Sdk.Beta.Be.Data.Abstractions` | web-free data contracts |
-| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool: `status` · `apply` (`--dry-run`) · `check` · `rollback` · `verify` · `new` · `promote`, over one set or a `--sets` manifest |
+| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool: `status` · `apply` (`--dry-run`) · `check` · `baseline` · `rollback` · `verify` · `new` · `promote`, over one set or a `--sets` manifest; an owned set names its `--owner-instance` |
 | `WoW2.Sdk.Beta.Be.Testing` | base test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Data` | data test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Integrations` | integration-client test doubles |
@@ -76,7 +76,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka` | `KafkaFixture` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb` | `MongoDbFixture` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite` | `AzuriteFixture` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite), `MigratorPostgresFixture` (drop-schema reset), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()`, `RemoveAllForDbContext`/`RepointDbContext` | shipped |
+| `WoW.Two.Sdk.Beta.Be.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite; several named sets via `MigratorSetsBuilder`), `MigratorPostgresFixture` (drops every user schema), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()` (every set), `RemoveAllForDbContext`/`RepointDbContext` | shipped; multi-set harness implemented (unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Elasticsearch` | Elasticsearch Testcontainers fixture | planned |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Localstack` | LocalStack (AWS emulator) fixture | planned |
 
@@ -142,41 +142,8 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Mediator.Logging` | `AddMediatorLoggingBehavior()` — source-gen `[LoggerMessage]` request/response logging | shipped |
 | `WoW.Two.Sdk.Beta.Be.Mediator.Authorization` | `AddMediatorAuthorizationBehavior()` + `IRequireAuthorization` marker | shipped |
 | `WoW.Two.Sdk.Beta.Be.Mediator.Idempotency` | `AddMediatorDeduplicatingInterceptor()` + `IIdempotent` + `IIdempotencyRepository`; ownership-token contract since `10.0.59-beta`; durable `AddSqlIdempotencyRepository()` (PostgreSQL/SQLite, leases) implemented, unreleased; durable `AddRedisIdempotencyRepository` (Lua-atomic, lease by expiry, 2026-09-28) | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity` | Meta — JWT + cookies + Identity API endpoints | planned |
-| `WoW.Two.Sdk.Beta.Be.Identity.Core` | `AddUserAccounts<TUser>()` — own sliced-lego user model: 7 entities + `ApplyIdentitySchema` + `IUserRepository`/`EfUserRepository` + `UserAccountService` + `UserClaimsPrincipalFactory`; opt-in slices (implemented, unreleased): passwords + breach check, purpose tokens, email, lockout, security-stamp revocation, roles, user claims, external logins, two-factor, phone, sign-in, refresh tokens, account HTTP API (`MapUserAccountEndpoints`) ([track](../research/identity/identity-slices.md)) | shipped core; slices implemented |
-| `WoW.Two.Sdk.Beta.Be.Identity.Jwt` | `AddJwtBearerAuthentication()` — JWT bearer (symmetric or JWKS) | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Cookies` | `AddCookieAuthentication()` — secure cookie defaults | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.ApiKeys` | `AddApiKeyAuthentication(keys, gate)` + `UseApiKeyAccessGate()` — marked secrets stored as SHA-256, the `ApiKey` scheme (marked Bearer or `X-Api-Key`), a local-or-key gate with open and local-only paths; product-owned `IApiKeyRepository` (TranscriptForge v0.7) | shipped (mono-lib) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Oidc` | `AddOpenIdConnectAuthentication()` — Authorization Code + PKCE | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Google` | `AddGoogleAuthentication(clientId, clientSecret)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Microsoft` | `AddMicrosoftAuthentication(clientId, clientSecret)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitHub` | `AddGitHubAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Apple` | `AddAppleAuthentication(clientId, teamId, keyId, keyPath)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Facebook` | `AddFacebookAuthentication(appId, appSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.LinkedIn` | `AddLinkedInAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Discord` | `AddDiscordAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Slack` | `AddSlackAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.GitLab` | `AddGitLabAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Amazon` | `AddAmazonAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Twitch` | `AddTwitchAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Spotify` | `AddSpotifyAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Yandex` | `AddYandexAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Reddit` | `AddRedditAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Notion` | `AddNotionAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.OAuth.Vkontakte` | `AddVkontakteAuthentication(clientId, clientSecret, scopes)` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Mfa.Totp` | `TotpService` — secret gen + otpauth URI + verify with ±1 step tolerance | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Mfa.WebAuthn` | `AddFido2WebAuthn(domain, name, origins)` — Fido2.AspNet | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Core.PersonalData` | `.AddPersonalData()` — `manage/personal-data` export (identity sections + `IPersonalDataExporter<TUser>`) and `manage/delete-account` erasure (`IAccountDeletionHandler<TUser>` then identity rows) | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Core.EmailSignIn` | `.AddEmailSignIn()` (`Identity:EmailSignIn`) — single-use link or code sign-in over the OTP service, `email-sign-in` routes, `login/two-factor` ticket completion | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Core.Passkeys` | `.AddPasskeys(o => …)` (`Identity:Passkeys`) — `identity_passkeys`, `UserPasskeyService`, usernameless `PasskeySignInAsync`, single-use ceremonies, account routes | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Core.Organizations` | `.AddOrganizations(o => …)` (`Identity:Organizations`) — `identity_organizations` + `identity_memberships`, `OrganizationService`, configured roles with permissions, `org_role` / `org_permission` claims, last-owner guard | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.PasswordHashing.Argon2` | `UseArgon2PasswordHasher<TUser>()` — OWASP 2024 baseline | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Jwt.Issuance` | `AddJwtTokenIssuance()` — `ITokenIssuer` HMAC issuance (HS256/384/512), per-call lifetime/audience overrides; pure lib, no ASP.NET dependency | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Otp` | `AddOtpService()` (`Identity:Otp`) — `IOtpService` keyed by (subject, scope) with per-call `OtpCodeSpec` (numeric · alphanumeric · letters); `IOtpMessageFormatter` per-culture ICU templates (built-in en/ru/uz); `IOtpDeliveryHandlerFactory` keyed channels | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Otp.Telegram` | `AddTelegramOtpDelivery()` — chat-id delivery via consumer-registered `ITelegramBotClient` (Telegram.Bot, MIT) | shipped |
-| `WoW.Two.Sdk.Beta.Be.Identity.Otp.WhatsApp` | `AddWhatsAppOtpDelivery()` — `whatsapp` channel: authentication template per culture, free-text fallback | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Otp.TelegramGateway` | `AddTelegramGatewayOtpDelivery()` — `telegram-gateway` channel: codes to a phone number via the Telegram Gateway API | implemented (mono-lib, unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Identity.Otp.Email` | `AddEmailOtpDelivery()` — `email` channel over `IEmailBroker` | implemented (mono-lib, unreleased) |
+
+- Identity (accounts, sign-in, OTP, OAuth, API keys, current user, guest sessions) left core on 2026-10-27; it ships as `WoW2.Sdk.Beta.Be.Identity.*` from [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity).
 
 ## P3 — Persistence + outbound
 
@@ -208,7 +175,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
-| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke` | `AddDatabaseBespokeMigrations` (the host's set) + `AddDatabaseBespokeMigrationSet` (a module's named set: own history, lock, schema, `{{schema}}` placeholder, owner marker); `IMigrationSetRegistry`; `ApplyMigrationSetsAsync` deploy step, `VerifyMigrationLevelsOnStartupAsync` read-only boot check; PostgreSQL + SQLite | named sets implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke` | `AddDatabaseBespokeMigrations` (the host's set) + `AddDatabaseBespokeMigrationSet` (a module's named set: own history, lock, schema, `{{schema}}` placeholder, owner marker naming owner and `OwnerInstance`); `IMigrationSetRegistry`; `ApplyMigrationSetsAsync` deploy step, `VerifyMigrationLevelsOnStartupAsync` read-only boot check; `BaselineAsync` mark-as-applied adoption; `Data/` `MigrateBespokeOnStartupAsync` (applies on a local run only, `ApplyWhenDeployed` opt-in) + `MigrateBespokeForDeployAsync`; PostgreSQL + SQLite | named sets shipped `10.0.81-beta`; boot gate, owner instance and baseline implemented (unreleased) |
 
 ### Caching
 
@@ -278,7 +245,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Comms.Email.Ses` | `AddSesEmailBroker()` — SES v2 simple send (no attachments; raw-MIME future) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Comms.Email.Acs` | Azure Communication Services email impl | planned |
 | `WoW.Two.Sdk.Beta.Be.Comms.Email.FluentEmail` | FluentEmail templating | planned |
-| `WoW.Two.Sdk.Beta.Be.Comms.Sms` | `ISmsBroker` + `SmsMessage` + `AddSmsDefaults`; brokers keyed by name, `ISmsBrokerFactory`, `AddSmsBrokers(configuration)`; OTP delivery via `AddSmsOtpDelivery` (`Identity/Otp/Sms`) | implemented (mono-lib, unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Comms.Sms` | `ISmsBroker` + `SmsMessage` + `AddSmsDefaults`; brokers keyed by name, `ISmsBrokerFactory`, `AddSmsBrokers(configuration)`; OTP delivery by SMS ships in the Identity Module package | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Comms.Sms.Twilio` | `AddTwilioSmsBroker` — Messages API over HttpClient | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Comms.Sms.Vonage` | `AddVonageSmsBroker` — SMS API over HttpClient | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Comms.Sms.Eskiz` | `AddEskizSmsBroker` — Uzbekistan gateway, cached bearer token | implemented (mono-lib, unreleased) |

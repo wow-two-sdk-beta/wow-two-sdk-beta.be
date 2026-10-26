@@ -32,6 +32,6 @@ using WoW.Two.Sdk.Beta.Be.Messaging;
 // Messaging
 [assembly: TypeForwardedTo(typeof(IEvent))]
 
-// Identity/CurrentUser — the seam only; CookieCurrentUserService and its registration stay in core
+// Identity/CurrentUser — the seam only; CookieCurrentUserService and its registration ship in WoW2.Sdk.Beta.Be.Identity.Auth
 [assembly: TypeForwardedTo(typeof(ICurrentUserService))]
 [assembly: TypeForwardedTo(typeof(UserKind))]

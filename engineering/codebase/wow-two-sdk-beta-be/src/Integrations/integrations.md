@@ -46,4 +46,4 @@ Every method returns a categorized outcome enum (`RepoCheck`, `FileCheck`, `Imag
 - `Ghcr/ghcr.md` — GHCR client + the two-token pull flow.
 - `Processes/processes.md` — bounded child processes: timeout that kills the tree, scrubbed environment, JSON output,
   failure-line parsing. Returns `Result`s rather than outcome enums.
-- `Identity/OAuth` — provider sign-in that saves the `access_token` the default provider reads.
+- Identity's OAuth providers (`wow-two-sdk-beta.identity`) — sign-in that saves the `access_token` the default provider reads.

@@ -16,8 +16,7 @@ namespace WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
 /// Provides error-message translation per <see cref="ValidationOptions.Translation"/>, re-read on every call so a
 /// configuration reload switches it live. Culture comes from the request-localization feature when that middleware ran,
 /// otherwise from <c>Accept-Language</c>. Field errors try the host catalog, the package texts contributed through
-/// <see cref="ErrorTranslationServiceCollectionExtensions.AddErrorTexts"/> (seeded with the built-in identity texts
-/// while Identity ships in core), then FluentValidation's language pack;
+/// <see cref="ErrorTranslationServiceCollectionExtensions.AddErrorTexts"/>, then FluentValidation's language pack;
 /// top-level errors try their <c>messageKey</c> in the catalog and the package texts, then their error type in the
 /// catalog and the built-in texts.
 /// A template whose placeholder has no argument yields the authored message instead.
@@ -221,17 +220,12 @@ public sealed class ErrorTranslationService(IOptionsMonitor<ValidationOptions> o
         return false;
     }
 
-    /// <summary>Merges the built-in identity texts and the package specs into culture → code → template; later specs win.</summary>
+    /// <summary>Merges the package specs into culture → code → template; later specs win.</summary>
     private static FrozenDictionary<string, FrozenDictionary<string, string>> MergeCodeTexts(IEnumerable<ErrorTextSpec> texts)
     {
         ArgumentNullException.ThrowIfNull(texts);
 
-        // The identity texts seed the merge while Identity ships in core; they leave with it, and Identity then
-        // contributes them through AddErrorTexts like any other package.
         var merged = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
-        foreach (var (culture, messages) in FieldCodeMessageConstants.Messages)
-            Contribute(merged, culture, messages);
-
         foreach (var spec in texts)
         {
             ArgumentNullException.ThrowIfNull(spec);

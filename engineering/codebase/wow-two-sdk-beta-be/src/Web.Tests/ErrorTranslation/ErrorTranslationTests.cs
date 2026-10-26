@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 using WoW.Two.Sdk.Beta.Be.Foundation.Validation;
-using WoW.Two.Sdk.Beta.Be.Identity.Core;
 using WoW.Two.Sdk.Beta.Be.Web.Contracts;
 using WoW.Two.Sdk.Beta.Be.Web.ErrorMapping;
 using WoW.Two.Sdk.Beta.Be.Web.ErrorTranslation;
@@ -127,23 +126,6 @@ public sealed class ErrorTranslationTests
     }
 
     [Fact]
-    public void IdentityFailures_TranslateThroughBuiltInTextsWithTheirValues()
-    {
-        using var provider = Build(Enabled("en", "ru"));
-        var result = IdentityResult.Failed(
-            new IdentityError { Code = IdentityErrorCodeConstants.PasswordTooShort, Description = "Passwords must be at least 12 characters.", Params = new Dictionary<string, object> { ["MinLength"] = 12 } },
-            new IdentityError { Code = IdentityErrorCodeConstants.DuplicateEmail, Description = "Email 'a@b.uz' is already taken.", Params = new Dictionary<string, object> { ["Email"] = "a@b.uz" } });
-
-        var errors = Errors(Render(provider, result.ToValidationError(), "ru"));
-
-        errors.Select(e => (e.Property, e.Message)).Should().Equal(
-            ("password", "Пароль должен содержать не менее 12 символов."),
-            ("email", "Email a@b.uz уже используется."));
-        Errors(Render(provider, result.ToValidationError(), "en")).Select(e => e.Message)
-            .Should().Equal("Passwords must be at least 12 characters.", "Email 'a@b.uz' is already taken.");
-    }
-
-    [Fact]
     public void PackageTexts_TranslateTheirCodes_ALaterPackageWins_AndTheHostCatalogHasTheLastWord()
     {
         var settings = Enabled("en", "ru");
@@ -162,11 +144,9 @@ public sealed class ErrorTranslationTests
         provider.GetServices<ErrorTextSpec>().Should().HaveCount(2);
         var tooLarge = new FieldError { Property = "file", Code = "FileTooLarge", Message = "File is over 5 MB.", Params = new Dictionary<string, object> { ["MaxSize"] = 5 } };
         var quota = new FieldError { Property = "file", Code = "QuotaExceeded", Message = "Quota exceeded.", Params = new Dictionary<string, object> { ["Used"] = 3, ["Limit"] = 2 } };
-        var mismatch = new FieldError { Property = "password", Code = IdentityErrorCodeConstants.PasswordMismatch, Message = "Incorrect password.", Params = new Dictionary<string, object>() };
-        Errors(Render(provider, ValidationError.From([tooLarge, quota, mismatch]), "ru")).Select(e => e.Message).Should().Equal(
+        Errors(Render(provider, ValidationError.From([tooLarge, quota]), "ru")).Select(e => e.Message).Should().Equal(
             "Файл больше 5 МБ.",
-            "Квота исчерпана: 3 из 2.",
-            "Текущий пароль указан неверно.");
+            "Квота исчерпана: 3 из 2.");
         Errors(Render(provider, ValidationError.From([tooLarge]), "en")).Single().Message.Should().Be("File is over 5 MB.");
 
         var keyed = AppError.Of(AppErrorType.NotFound, "Storage docs was not found.", new Dictionary<string, object?> { ["messageKey"] = "StorageMissing", ["Name"] = "docs" });

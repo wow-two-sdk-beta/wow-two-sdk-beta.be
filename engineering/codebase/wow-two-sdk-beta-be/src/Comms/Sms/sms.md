@@ -23,4 +23,4 @@ var eskiz  = factory.Create("eskiz");                          // ISmsBrokerFact
 - `From` resolution: message → `SmsOptions.DefaultFrom` → provider default (Eskiz `4546`); Twilio and Vonage fail with `no_from_address`.
 - Each registration returns the `IHttpClientBuilder`, so hosts add resilience or a test handler to it.
 - Eskiz sends only moderated templates; OTP wording must match an approved template.
-- OTP codes by SMS: `AddSmsOtpDelivery()` in `Identity/Otp/Sms`.
+- OTP codes by SMS: `AddSmsOtpDelivery()` in the Identity Module package (`wow-two-sdk-beta.identity`).

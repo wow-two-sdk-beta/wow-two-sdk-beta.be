@@ -63,14 +63,14 @@ wow-two-sdk-beta.be/
                 ├── Meta/                       ← WoW.Two.Sdk.Beta.Be meta-package
                 ├── Foundation/                 ← P1 leaves (Time, Errors, Results, Validation, Naming, …)
                 ├── Observability/ Web/         ← P1
-                ├── Mediator/ Identity/         ← P2
+                ├── Mediator/                   ← P2 (Identity lives in wow-two-sdk-beta.identity)
                 ├── Data/ Caching/ Http/        ← P3
                 ├── Messaging/ Jobs/ Comms/     ← P4
                 ├── Tenancy/ Ai/ FeatureFlags/  ← P5
                 ├── Realtime/ Storage/          ← P6
                 ├── Codes/ Geo/ Localization/ Media/ Integrations/
                 ├── Testing/ Testing.Data/ Testing.Integrations/ Testing.Messaging/   ← P0 (parallel track)
-                └── *.Tests/                    ← Data · Foundation · Identity · Mediator · Messaging · Migrations · Web
+                └── *.Tests/                    ← Data · Foundation · Mediator · Messaging · Migrations · Web
 ```
 
 > **Path convention**: a bare `src/…` in any doc is **code-dir-relative** (`engineering/codebase/wow-two-sdk-beta-be/src/…`), matching the frontend SDK.

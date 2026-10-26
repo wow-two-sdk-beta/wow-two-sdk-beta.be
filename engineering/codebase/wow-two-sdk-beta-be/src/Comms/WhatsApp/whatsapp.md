@@ -22,4 +22,4 @@ await meta!.SendAsync(new WhatsAppMessage
 - Business-initiated messages need an approved template; free `Text` reaches only a recipient inside the 24-hour window.
 - `Comms:WhatsApp:DefaultBroker` picks the default; otherwise the first registered broker is.
 - Each registration returns the `IHttpClientBuilder`, so hosts add resilience or a test handler to it.
-- OTP codes by WhatsApp: `AddWhatsAppOtpDelivery()` in `Identity/Otp/WhatsApp`.
+- OTP codes by WhatsApp: `AddWhatsAppOtpDelivery()` in the Identity Module package (`wow-two-sdk-beta.identity`).

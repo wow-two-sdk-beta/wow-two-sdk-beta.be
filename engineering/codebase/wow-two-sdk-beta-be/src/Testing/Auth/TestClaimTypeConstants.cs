@@ -5,8 +5,8 @@ namespace WoW.Two.Sdk.Beta.Be.Testing.Auth;
 /// Testing package referencing the core lib (it is deliberately self-contained).
 /// </summary>
 /// <remarks>
-/// Keep these string values in lock-step with <c>WoW.Two.Sdk.Beta.Be.Identity.Claims.NormalizedClaimTypeConstants</c> —
-/// they are the contract the SDK's <c>ClaimsPrincipalExtensions</c> read by. If the core constants change, change these.
+/// Keep these string values in lock-step with <c>WoW.Two.Sdk.Beta.Be.Identity.Claims.NormalizedClaimTypeConstants</c> (package <c>WoW2.Sdk.Beta.Be.Identity.Providers</c>) —
+/// they are the contract the SDK's <c>ClaimsPrincipalExtensions</c> read by. If those constants change, change these.
 /// </remarks>
 public static class TestClaimTypeConstants
 {

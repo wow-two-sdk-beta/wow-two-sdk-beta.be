@@ -68,7 +68,6 @@ src/
 │   └── Cors/
 │
 ├── Mediator/                          ← P2
-├── Identity/                          ← P2
 ├── Data/                              ← P3
 ├── Caching/                           ← P3
 ├── Http/                              ← P3

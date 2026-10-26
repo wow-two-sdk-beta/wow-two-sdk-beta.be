@@ -28,14 +28,14 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Mediator with CQRS markers and behaviors | shipped | [Mediator.spec.md](../codebase/wow-two-sdk-beta-be/src/Mediator/Mediator.spec.md) |
 | Transactional mediator requests | shipped | [data-units.spec.md](../codebase/wow-two-sdk-beta-be/src/Mediator/DataUnits/data-units.spec.md) |
 | Feature flags and gates | shipped | — |
-| JWT, cookie and OIDC authentication | shipped | — |
-| OAuth sign-in with claim normalization | shipped | [ClaimNormalization.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Claims/ClaimNormalization.spec.md) |
-| Authorization policies and allowlists | shipped | [Authorization.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Authorization/Authorization.spec.md) |
-| User accounts: passwords, email, lockout, roles, 2FA, phone, passkeys | shipped | — |
-| Account HTTP API and passwordless email sign-in | shipped | — |
-| OTP delivery over Telegram, SMS, WhatsApp and email | shipped | — |
-| API keys | shipped | [ApiKeys.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/ApiKeys/ApiKeys.spec.md) |
-| Guest sessions | shipped | [GuestSession.spec.md](../codebase/wow-two-sdk-beta-be/src/Identity/Guest/GuestSession.spec.md) |
+| JWT, cookie and OIDC authentication | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| OAuth sign-in with claim normalization | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| Authorization policies and allowlists | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| User accounts: passwords, email, lockout, roles, 2FA, phone, passkeys | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| Account HTTP API and passwordless email sign-in | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| OTP delivery over Telegram, SMS, WhatsApp and email | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| API keys | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
+| Guest sessions | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
 | EF Core and Dapper persistence | shipped | — |
 | SQL migrator and `wow-migrate` CLI | shipped | — |
 | Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md) |

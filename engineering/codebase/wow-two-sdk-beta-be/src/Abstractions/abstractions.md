@@ -17,5 +17,6 @@
   so binaries built against an older core keep binding.
 - Versions in lockstep with core and publishes with the family.
 - Stays in core: the exception mapper, mapping rules, nature mapper and their DI ([`Foundation/Errors`](../Foundation/Errors/errors.md));
-  `CookieCurrentUserService` and `AddCurrentUser` ([`Identity/CurrentUser`](../Identity/CurrentUser/current-user.md)); the bus ([`Messaging`](../Messaging/Messaging.md)).
+  the bus ([`Messaging`](../Messaging/Messaging.md)). `CookieCurrentUserService` and `AddCurrentUser` ship in the
+  Identity Auth package ([wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity)).
 - A domain's `{Domain}.Abstractions` contract references this package only.

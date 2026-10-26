@@ -12,7 +12,6 @@
   <Folder Name="/Tests/">
     <Project Path="Data.Tests/WoW.Two.Sdk.Beta.Be.Data.Tests.csproj" />
     <Project Path="Foundation.Tests/WoW.Two.Sdk.Beta.Be.Foundation.Tests.csproj" />
-    <Project Path="Identity.Tests/WoW.Two.Sdk.Beta.Be.Identity.Tests.csproj" />
     <Project Path="Mediator.Tests/WoW.Two.Sdk.Beta.Be.Mediator.Tests.csproj" />
     <Project Path="Messaging.Tests/WoW.Two.Sdk.Beta.Be.Messaging.Tests.csproj" />
     <Project Path="Migrations.Tests/WoW.Two.Sdk.Beta.Be.Migrations.Tests.csproj" />
