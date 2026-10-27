@@ -20,13 +20,24 @@ public static class SecureHeadersExtensions
         configure?.Invoke(options);
 
         // The preset writes its headers as the response starts. A callback registered ahead of it runs after it, so an
-        // endpoint marked AllowCrossOriginEmbedding has the last word on its resource policy.
+        // endpoint marked AllowCrossOriginEmbedding or SecureHeaderOverride has the last word on those headers.
         app.Use((context, next) =>
         {
             context.Response.OnStarting(() =>
             {
-                if (context.GetEndpoint()?.Metadata.GetMetadata<AllowCrossOriginEmbeddingAttribute>() is not null)
+                if (context.GetEndpoint()?.Metadata is not { } metadata)
+                    return Task.CompletedTask;
+
+                if (metadata.GetMetadata<AllowCrossOriginEmbeddingAttribute>() is not null)
                     context.Response.Headers[ResourcePolicyHeader] = "cross-origin";
+                foreach (var header in metadata.GetOrderedMetadata<SecureHeaderOverrideAttribute>())
+                {
+                    if (header.Value is null)
+                        context.Response.Headers.Remove(header.Name);
+                    else
+                        context.Response.Headers[header.Name] = header.Value;
+                }
+
                 return Task.CompletedTask;
             });
             return next(context);

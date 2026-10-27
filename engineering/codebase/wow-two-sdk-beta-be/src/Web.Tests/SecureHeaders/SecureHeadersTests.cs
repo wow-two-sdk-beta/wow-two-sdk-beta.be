@@ -21,6 +21,8 @@ public sealed class SecureHeadersTests
 
     private const string ResourcePolicyHeader = "Cross-Origin-Resource-Policy";
 
+    private const string Sandbox = "default-src 'none'; sandbox";
+
     /// <summary>Boots an in-memory TestServer host whose only middleware is the preset under <paramref name="configure"/>.</summary>
     private static async Task<WebApplication> StartHeaderHostAsync(Action<SecureHeadersOptions>? configure = null)
     {
@@ -34,6 +36,10 @@ public sealed class SecureHeadersTests
         app.MapGet("/", () => "ok");
         app.MapGet("/media", () => "bytes").AllowCrossOriginEmbedding();
         app.MapGet("/poster", [AllowCrossOriginEmbedding] () => "image");
+        app.MapGet("/user-content", () => "<p>upload</p>")
+            .OverrideSecureHeader("Content-Security-Policy", Sandbox)
+            .OverrideSecureHeader(EmbedderPolicyHeader, null);
+        app.MapGet("/legacy", [SecureHeaderOverride("X-Frame-Options", "SAMEORIGIN")] () => "framed");
 
         await app.StartAsync();
 
@@ -129,5 +135,28 @@ public sealed class SecureHeadersTests
 
         response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("cross-origin");
         response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
+    }
+
+    [Fact]
+    public async Task UseOwaspSecureHeaders_ShouldAnswerTheEndpointsOwnHeaders_WhenTheEndpointOverridesThem()
+    {
+        await using var app = await StartHeaderHostAsync();
+
+        using var response = await GetRootAsync(app, "/user-content");
+
+        response.Headers.GetValues("Content-Security-Policy").Should().ContainSingle().Which.Should().Be(Sandbox);
+        response.Headers.Contains(EmbedderPolicyHeader).Should().BeFalse();
+        response.Headers.GetValues(OpenerPolicyHeader).Should().ContainSingle().Which.Should().Be("same-origin");
+        response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
+    }
+
+    [Fact]
+    public async Task UseOwaspSecureHeaders_ShouldAnswerTheAttributesHeader_WhenTheEndpointCarriesTheAttribute()
+    {
+        await using var app = await StartHeaderHostAsync();
+
+        using var response = await GetRootAsync(app, "/legacy");
+
+        response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("SAMEORIGIN");
     }
 }

@@ -14,4 +14,18 @@ public static class SecureHeadersEndpointExtensions
 
         return builder.WithMetadata(new AllowCrossOriginEmbeddingAttribute());
     }
+
+    /// <summary>Answers one secure header this endpoint's own way: sets it to <paramref name="value"/> after the preset,
+    /// or removes it when the value is null.</summary>
+    /// <param name="builder">The endpoint or group to mark.</param>
+    /// <param name="name">The header to answer.</param>
+    /// <param name="value">The value to send; null removes the header.</param>
+    public static TBuilder OverrideSecureHeader<TBuilder>(this TBuilder builder, string name, string? value)
+        where TBuilder : IEndpointConventionBuilder
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
+        return builder.WithMetadata(new SecureHeaderOverrideAttribute(name, value));
+    }
 }

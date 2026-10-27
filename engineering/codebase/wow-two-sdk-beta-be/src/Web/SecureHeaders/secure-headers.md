@@ -51,6 +51,18 @@ public IActionResult Content(Guid id) => PhysicalFile(...);
 app.MapGet("/media/{id}", ...).AllowCrossOriginEmbedding();  // a minimal endpoint or group
 ```
 
+## Endpoint overrides
+
+An endpoint whose content needs its own value for a preset header answers it after the preset; a null value removes
+the header. The Files content host, for one, sandboxes user content and drops the embedder policy:
+
+```csharp
+group.OverrideSecureHeader("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; sandbox")
+     .OverrideSecureHeader("Cross-Origin-Embedder-Policy", null);
+
+[SecureHeaderOverride("X-Frame-Options", "SAMEORIGIN")]   // a controller or an action
+```
+
 ## See also
 
 - [NetEscapades.AspNetCore.SecurityHeaders](https://github.com/andrewlock/NetEscapades.AspNetCore.SecurityHeaders)
