@@ -9,7 +9,8 @@ name: publish
 #
 # Version is the source of truth in src/Directory.Build.props — format 10.{y}.{z}-beta:
 #   x = 10     → .NET line (fixed)
-#   z          → bumps each release; rolls to 0 (and y += 1) when it passes 99
+#   y          → moves only by the owner's decision; no ceiling
+#   z          → bumps each release; no ceiling (10.0.99 → 10.0.100)
 #   -beta      → prerelease label (the mono-lib pulls prerelease deps → NU5104 on a stable id)
 #
 # The bump commit carries [skip ci] so it never re-triggers this workflow (no publish loop).
@@ -53,7 +54,6 @@ jobs:
           CORE=${CUR%-beta}
           IFS=. read -r _ Y Z <<< "$CORE"
           Z=$((10#$Z + 1))
-          if [ "$Z" -ge 100 ]; then Z=0; Y=$((10#$Y + 1)); fi
           VERSION="10.$Y.$Z-beta"
           FILEVERSION="10.$Y.$Z"
           sed -i "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|" "$PROPS"
