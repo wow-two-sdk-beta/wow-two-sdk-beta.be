@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -33,6 +34,14 @@ public sealed class SecureHeadersTests
         var app = builder.Build();
 
         app.UseOwaspSecureHeaders(configure);
+        // Stands in for the static-file middleware: it answers before routing, so the response has no endpoint.
+        app.Use(async (context, next) =>
+        {
+            if (context.Request.Path.StartsWithSegments("/icons"))
+                await context.Response.WriteAsync("<svg/>");
+            else
+                await next(context);
+        });
         app.MapGet("/", () => "ok");
         app.MapGet("/media", () => "bytes").AllowCrossOriginEmbedding();
         app.MapGet("/poster", [AllowCrossOriginEmbedding] () => "image");
@@ -135,6 +144,31 @@ public sealed class SecureHeadersTests
 
         response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("cross-origin");
         response.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
+    }
+
+    [Theory]
+    [InlineData("icons")]
+    [InlineData("/icons/")]
+    public async Task UseOwaspSecureHeaders_ShouldAllowCrossOriginEmbedding_WhenTheStaticFileSitsUnderAnEmbeddablePath(string prefix)
+    {
+        await using var app = await StartHeaderHostAsync(options => options.CrossOriginEmbeddingPaths.Add(prefix));
+
+        using var icon = await GetRootAsync(app, "/icons/pdf.svg");
+        using var page = await GetRootAsync(app);
+
+        icon.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("cross-origin");
+        icon.Headers.GetValues("X-Frame-Options").Should().ContainSingle().Which.Should().Be("DENY");
+        page.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("same-origin");
+    }
+
+    [Fact]
+    public async Task UseOwaspSecureHeaders_ShouldKeepTheSameOriginResourcePolicy_WhenThePathOnlySharesAPrefix()
+    {
+        await using var app = await StartHeaderHostAsync(options => options.CrossOriginEmbeddingPaths.Add("/ico"));
+
+        using var response = await GetRootAsync(app, "/icons/pdf.svg");
+
+        response.Headers.GetValues(ResourcePolicyHeader).Should().ContainSingle().Which.Should().Be("same-origin");
     }
 
     [Fact]

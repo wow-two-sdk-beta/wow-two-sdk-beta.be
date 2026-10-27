@@ -20,11 +20,14 @@ public static class SecureHeadersExtensions
         configure?.Invoke(options);
 
         // The preset writes its headers as the response starts. A callback registered ahead of it runs after it, so an
-        // endpoint marked AllowCrossOriginEmbedding or SecureHeaderOverride has the last word on those headers.
+        // embeddable path or an endpoint marked AllowCrossOriginEmbedding or SecureHeaderOverride has the last word.
+        var embeddablePaths = options.CrossOriginEmbeddingPaths.Select(path => new PathString($"/{path.Trim('/')}")).ToArray();
         app.Use((context, next) =>
         {
             context.Response.OnStarting(() =>
             {
+                if (embeddablePaths.Any(path => context.Request.Path.StartsWithSegments(path)))
+                    context.Response.Headers[ResourcePolicyHeader] = "cross-origin";
                 if (context.GetEndpoint()?.Metadata is not { } metadata)
                     return Task.CompletedTask;
 

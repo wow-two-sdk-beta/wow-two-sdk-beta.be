@@ -51,6 +51,14 @@ public IActionResult Content(Guid id) => PhysicalFile(...);
 app.MapGet("/media/{id}", ...).AllowCrossOriginEmbedding();  // a minimal endpoint or group
 ```
 
+Static files answer before routing, so they carry no endpoint to mark. A folder of them that other origins embed — a
+file-icon set, say — is opted in by path prefix, segment by segment (`/icons` covers `/icons/pdf.svg`, not `/iconset`):
+
+```csharp
+app.UseOwaspSecureHeaders(headers => headers.CrossOriginEmbeddingPaths.Add("/icons"));
+builder.AddApiDefaults(o => o.CrossOriginEmbeddingPaths.Add("/icons"));   // the boot-floor equivalent
+```
+
 ## Endpoint overrides
 
 An endpoint whose content needs its own value for a preset header answers it after the preset; a null value removes

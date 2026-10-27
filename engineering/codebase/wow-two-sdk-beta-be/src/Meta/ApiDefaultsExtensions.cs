@@ -131,6 +131,8 @@ public static class ApiDefaultsExtensions
             headers.EnableCrossOriginOpenerPolicy = options.EnableCrossOriginOpenerPolicy;
             headers.AllowOpenerPopups = options.AllowCrossOriginOpenerPopups;
             headers.EnableCrossOriginEmbedderPolicy = options.EnableCrossOriginEmbedderPolicy;
+            foreach (var path in options.CrossOriginEmbeddingPaths)
+                headers.CrossOriginEmbeddingPaths.Add(path);
         });
 
         if (options.EnableResponseCompression)

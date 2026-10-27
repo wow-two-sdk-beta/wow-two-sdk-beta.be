@@ -14,4 +14,10 @@ public sealed record SecureHeadersOptions
 
     /// <summary>Gets or sets whether a response carries <c>Cross-Origin-Embedder-Policy: require-corp</c>, which blocks a cross-origin subresource that ships no CORP opt-in.</summary>
     public bool EnableCrossOriginEmbedderPolicy { get; set; } = true;
+
+    /// <summary>
+    /// Gets the path prefixes whose responses carry <c>Cross-Origin-Resource-Policy: cross-origin</c>, for static files
+    /// another origin embeds — static files short-circuit before routing, so they carry no endpoint to mark.
+    /// </summary>
+    public IList<string> CrossOriginEmbeddingPaths { get; } = [];
 }

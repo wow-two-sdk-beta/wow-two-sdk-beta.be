@@ -50,6 +50,9 @@ public sealed record ApiDefaultsOptions
     /// <summary>Gets or sets whether a response carries <c>Cross-Origin-Embedder-Policy: require-corp</c>, which blocks a cross-origin subresource that ships no CORP opt-in. Default on.</summary>
     public bool EnableCrossOriginEmbedderPolicy { get; set; } = true;
 
+    /// <summary>Gets the path prefixes whose responses, static files included, other origins may embed (<c>Cross-Origin-Resource-Policy: cross-origin</c>).</summary>
+    public IList<string> CrossOriginEmbeddingPaths { get; } = [];
+
     /// <summary>Liveness endpoint path. Default <c>/health</c>.</summary>
     public string HealthEndpointPath { get; set; } = "/health";
 
