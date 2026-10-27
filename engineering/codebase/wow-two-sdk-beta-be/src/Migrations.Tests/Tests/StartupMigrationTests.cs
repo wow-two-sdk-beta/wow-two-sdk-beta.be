@@ -99,6 +99,32 @@ public sealed class StartupMigrationTests : SqliteMigratorTestBase, IDisposable
         (await host.HasTableAsync("public", "identity_users")).Should().BeFalse();
     }
 
+    [Fact]
+    public async Task MigrateForDeploy_ShouldCreateAndApply_WhenTheHostHasNamedSetsOnly()
+    {
+        _identity.Write("001-users", "create table identity_users(id integer primary key);", "drop table identity_users;");
+        var databasePath = Path.Combine(Path.GetTempPath(), $"named-only-{Guid.NewGuid():N}.db");
+        var connectionString = $"Data Source={databasePath}";
+        try
+        {
+            await using var host = MigrationSetHost.Sqlite(connectionString, services =>
+            {
+                services.AddKeyedSingleton("identity", new DatabaseSettings { ConnectionString = connectionString });
+                services.AddDatabaseBespokeMigrationSet("identity", _identity.Root, options => options.Provider = DatabaseProvider.Sqlite);
+            });
+
+            var deployed = (await host.Services.MigrateBespokeForDeployAsync()).ValueOrThrow();
+
+            deployed.Select(set => set.Set).Should().Equal("identity");
+            File.Exists(databasePath).Should().BeTrue();
+            (await host.ReadHistoryAsync("identity_migration_history")).Should().Equal("001-users");
+        }
+        finally
+        {
+            File.Delete(databasePath);
+        }
+    }
+
     /// <inheritdoc />
     public void Dispose() => _identity.Dispose();
 

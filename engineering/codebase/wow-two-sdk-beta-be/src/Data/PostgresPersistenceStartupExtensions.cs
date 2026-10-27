@@ -100,19 +100,39 @@ public static partial class PostgresPersistenceStartupExtensions
         return services.ApplyBespokeSetsAsync(appliedBy, cancellationToken);
     }
 
-    /// <summary>Creates the host's database if missing, then applies every registered set.</summary>
+    /// <summary>Creates each set's database if missing, then applies every registered set.</summary>
     /// <param name="services">The root service provider.</param>
     /// <param name="appliedBy">The host stamp recorded on each applied row.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     private static async Task<Result<IReadOnlyList<MigrationSetApplied>>> ApplyBespokeSetsAsync(
         this IServiceProvider services, string appliedBy, CancellationToken cancellationToken)
     {
-        var connectionString = services.GetRequiredService<DatabaseSettings>().ConnectionString;
-
-        // Create the target database via the maintenance DB before any migration runs.
-        await services.GetRequiredService<IMigrationDialect>().EnsureDatabaseExistsAsync(connectionString, cancellationToken).ConfigureAwait(false);
-
+        await services.EnsureSetDatabasesExistAsync(cancellationToken).ConfigureAwait(false);
         return await services.ApplyMigrationSetsAsync(appliedBy, setNames: null, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>Creates each set's database via its maintenance database before any migration runs, once per connection string.</summary>
+    /// <remarks>
+    ///   - a set's database is the <see cref="DatabaseSettings"/> keyed by its name, else the host's
+    ///   - a set with neither creates nothing; its first connection then reaches the database as registered
+    ///   - each set creates through its own dialect, so a host with named sets only needs no default-set dialect
+    /// </remarks>
+    /// <param name="services">The root service provider.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    private static async Task EnsureSetDatabasesExistAsync(this IServiceProvider services, CancellationToken cancellationToken)
+    {
+        var sets = services.GetRequiredService<IMigrationSetRegistry>();
+        var hostSettings = services.GetService<DatabaseSettings>();
+        var ensured = new HashSet<string>(StringComparer.Ordinal);
+
+        foreach (var set in sets.Names)
+        {
+            var settings = services.GetKeyedService<DatabaseSettings>(set) ?? hostSettings;
+            if (settings is null || !ensured.Add(settings.ConnectionString))
+                continue;
+
+            await sets.GetDialect(set).EnsureDatabaseExistsAsync(settings.ConnectionString, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     /// <summary>Names the boot for a log line: the .NET environment and the deploy environment.</summary>

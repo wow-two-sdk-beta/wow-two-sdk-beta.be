@@ -167,6 +167,7 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 - A local run is `Development` without `DEPLOY_ENVIRONMENT` (`LocalRunExtensions`), so deployed dev verifies like prod and rehearses the prod path. A host with no `IHostEnvironment` registered verifies.
 - `MigrateBespokeOnStartupAsync(o => o.ApplyWhenDeployed = true)` applies on a deployed host too, and logs event `3014` as a warning at every such boot: a stopgap until the deploy runs its migrate step.
 - `MigrateBespokeForDeployAsync(appliedBy = "deploy")` (`Data/`) creates the database, then applies every set; it returns the `Result` so a migrate command maps it to an exit code.
+- Each set's database is the `DatabaseSettings` keyed by its name, else the host's, created once per connection string through the set's own dialect; a host with named sets only (a module's own service) needs no default set. A set with neither connects as registered and creates nothing.
 - The engine helpers (`ApplyMigrationSetsAsync`, `VerifyMigrationLevelsOnStartupAsync`) create no database; the `Data/` helpers and `wow-migrate apply` do.
 - *Breaking (2026-10-26):* `MigrateBespokeOnStartupAsync` used to apply the default set at every boot. A deployed host now fails to boot while a set is behind, and a local boot applies named sets too.
 
