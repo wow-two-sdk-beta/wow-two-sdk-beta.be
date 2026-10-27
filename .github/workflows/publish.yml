@@ -14,11 +14,17 @@ name: publish
 #   -beta      → prerelease label (the mono-lib pulls prerelease deps → NU5104 on a stable id)
 #
 # The bump commit carries [skip ci] so it never re-triggers this workflow (no publish loop).
+# A manual dispatch with `unlist` releases nothing: job unlist hides those versions on nuget.org (scripts/unlist-packages.sh).
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      unlist:
+        description: 'Unlist instead of releasing: a family version (10.0.85-beta) or space-separated <id>@<version> pairs'
+        required: false
+        default: ''
 
 permissions:
   contents: write          # commit the version bump back to main
@@ -30,6 +36,7 @@ concurrency:
 
 jobs:
   publish:
+    if: ${{ !inputs.unlist }}
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.bump.outputs.version }}
@@ -131,3 +138,31 @@ jobs:
             exit 1
           fi
           bash scripts/verify-published-packages.sh "$VERSION"
+
+  # Unlisting hides versions from search and new restores; existing restores keep working, relisting is the web UI's.
+  unlist:
+    if: ${{ inputs.unlist }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: engineering/codebase/wow-two-sdk-beta-be
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: engineering/codebase/wow-two-sdk-beta-be/global.json
+
+      - name: Authenticate to NuGet (Trusted Publishing)   # the policy carries the unlist scope
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: MaxDev
+
+      - name: Unlist
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+          SELECTION: ${{ inputs.unlist }}
+        # Word splitting is intended: the script validates every token before it touches nuget.org.
+        run: bash scripts/unlist-packages.sh $SELECTION

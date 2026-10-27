@@ -1,6 +1,6 @@
 # Package layout
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > SDK-internal architecture — the repo/package shape, layering rule, package-id grammar, and the three-layer doc strategy for this mono-lib.
 > Code-style conventions (naming, documentation) are **centralized** in `wow-two-ws/conventions/` and apply to this repo too; only layout/registry live here.
@@ -175,11 +175,14 @@ Adding a published package (first done for the kernel, `10.0.77-beta`), all in o
 2. Add it to `src/WoW.Two.Sdk.Beta.Be.slnx` under `/Libraries/`.
 3. Add its folder to the mono-lib's `DefaultItemExcludes` in on-disk casing; add a `ProjectReference` if core depends on it.
 4. Add its `dotnet pack` line to `.github/workflows/publish.yml` (repo root).
-5. Add the id to `scripts/verify-release-packages.sh`, `scripts/verify-published-packages.sh` and `scripts/test-verify-published-packages.py`.
+5. Add the id to `scripts/verify-release-packages.sh`, `scripts/verify-published-packages.sh`, `scripts/test-verify-published-packages.py` and `scripts/unlist-packages.sh`.
 6. Add its row to [package-registry.md](package-registry.md) and update the count above.
 7. Check locally: a Release pack of every project, then `scripts/verify-release-packages.sh`.
 
 - No NuGet step: trusted publishing creates a new id under the reserved prefix on the first push.
+- Unlisting: `gh workflow run publish.yml -f unlist=10.0.85-beta` (the family) or `-f unlist='<id>@<version> …'` releases
+  nothing and unlists those versions through `scripts/unlist-packages.sh`; the policy carries the unlist scope, and
+  relisting stays in nuget.org's web UI.
 - Types moved out of core also get a `[TypeForwardedTo]` line in `src/Properties/KernelTypeForwarders.cs`.
 
 ## What does NOT live in src/
