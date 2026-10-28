@@ -20,4 +20,11 @@ public sealed record DbUpOptions
 
     /// <summary>Gets the connection string for the target database.</summary>
     public required string ConnectionString { get; set; }
+
+    /// <summary>Gets the name the journal's set answers to in the migrate tree (<c>--set</c>, the result line). Default <c>default</c>, the product's own set.</summary>
+    /// <remarks>Rename it when the host also registers a bespoke default set: two sets never share a name.</remarks>
+    public string SetName { get; set; } = "default";
+
+    /// <summary>Gets the schema the journal lives in, as the migrate tree reports it. Default <c>public</c>.</summary>
+    public string SchemaName { get; set; } = "public";
 }

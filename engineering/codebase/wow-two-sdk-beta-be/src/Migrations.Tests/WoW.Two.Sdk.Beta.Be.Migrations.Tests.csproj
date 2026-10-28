@@ -56,6 +56,10 @@
     <EmbeddedResource Include="TestData/SetMigrations/identity/**/*.sql">
       <LogicalName>SetMigrations/identity/%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
+    <!-- DbUp scripts the strategy-set tests run through the migrate tree; DbUp names a script by its resource name. -->
+    <EmbeddedResource Include="TestData/DbUp/*.sql">
+      <LogicalName>DbUpScripts.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

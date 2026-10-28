@@ -11,4 +11,8 @@ public sealed record EfMigrationsOptions
 
     /// <summary>Gets the delay between connect attempts. Default 2s.</summary>
     public TimeSpan ConnectRetryDelay { get; set; } = TimeSpan.FromSeconds(2);
+
+    /// <summary>Gets the name the context's set answers to in the migrate tree (<c>--set</c>, the result line). Default <c>default</c>, the product's own set.</summary>
+    /// <remarks>Rename it when the host also registers a bespoke default set: two sets never share a name.</remarks>
+    public string SetName { get; set; } = "default";
 }
