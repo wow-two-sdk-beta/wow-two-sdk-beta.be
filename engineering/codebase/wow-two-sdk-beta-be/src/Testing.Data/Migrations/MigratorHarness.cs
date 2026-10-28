@@ -7,6 +7,7 @@ using Npgsql;
 using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 using WoW.Two.Sdk.Beta.Be.Data.Dapper;
 using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.Parsers;
 using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
@@ -141,6 +142,39 @@ public sealed class MigratorHarness : IAsyncDisposable
     /// <returns>Each set's applied labels, or the first set's failure.</returns>
     public Task<Result<IReadOnlyList<MigrationSetApplied>>> ApplyAllAsync(string appliedBy = "test", CancellationToken cancellationToken = default) =>
         _provider.ApplyMigrationSetsAsync(appliedBy, setNames: null, cancellationToken);
+
+    /// <summary>Proves a set's scripts idempotent with history bypassed: Apply → Apply, Rollback → Rollback, Apply → Rollback → Apply (M59).</summary>
+    /// <remarks>
+    ///   - runs every <c>Apply.sql</c> and <c>Rollback.sql</c> directly, twice each, and compares the database after each pair; touches no history
+    ///   - run it on an empty database, such as a fresh <see cref="MigratorPostgresFixture"/> reset; it leaves the set applied
+    /// </remarks>
+    /// <param name="setName">The set; <see cref="MigrationConstants.DefaultSetName"/> is the host's own.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>The migrations proven, or the first failed step.</returns>
+    public Task<MigrationIdempotencyReport> CheckIdempotencyAsync(string setName = MigrationConstants.DefaultSetName, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(setName);
+
+        var proof = new MigrationIdempotencyProof(Sets, _provider.GetRequiredService<ISqlStatementParser>(), OpenConnectionAsync);
+        return proof.RunAsync(setName, cancellationToken);
+    }
+
+    /// <summary>Proves a set's scripts idempotent like <see cref="CheckIdempotencyAsync"/>, in one call a migrations tier makes.</summary>
+    /// <param name="setName">The set; <see cref="MigrationConstants.DefaultSetName"/> is the host's own.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <exception cref="MigrationIdempotencyException">A script failed or changed the database when it ran again.</exception>
+    /// <example>
+    /// <code>
+    /// await using var migrator = MigratorHarness.CreatePostgres(fixture.ConnectionString, typeof(AppDbContext).Assembly);
+    /// await migrator.AssertIdempotentAsync();
+    /// </code>
+    /// </example>
+    public async Task AssertIdempotentAsync(string setName = MigrationConstants.DefaultSetName, CancellationToken cancellationToken = default)
+    {
+        var report = await CheckIdempotencyAsync(setName, cancellationToken).ConfigureAwait(false);
+        if (!report.Passed)
+            throw new MigrationIdempotencyException(report.ToString());
+    }
 
     /// <summary>Opens a connection via the SDK factory the runner uses, for direct database assertions.</summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
