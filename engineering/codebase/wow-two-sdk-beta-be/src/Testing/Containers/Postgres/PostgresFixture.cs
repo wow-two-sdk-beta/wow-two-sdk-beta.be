@@ -19,8 +19,11 @@ public sealed class PostgresFixture : ContainerFixtureBase<PostgreSqlContainer>
     private DbConnection? _connection;
     private Respawner? _respawner;
 
-    /// <summary>Default constructor — uses the default Testcontainers Postgres image.</summary>
-    public PostgresFixture() : this(new PostgreSqlBuilder().Build()) { }
+    /// <summary>The PostgreSQL image the default constructor runs — the newest stable major.</summary>
+    public const string DefaultImage = "postgres:18-alpine";
+
+    /// <summary>Default constructor — runs <see cref="DefaultImage"/>.</summary>
+    public PostgresFixture() : this(new PostgreSqlBuilder().WithImage(DefaultImage).Build()) { }
 
     /// <summary>Constructor accepting a pre-configured <see cref="PostgreSqlContainer"/>.</summary>
     public PostgresFixture(PostgreSqlContainer container) : base(container) { }

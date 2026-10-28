@@ -111,7 +111,7 @@ public abstract class RelationalTestDb<TContext> : IAsyncLifetime
         }
         else
         {
-            _postgres ??= new PostgresFixture(new PostgreSqlBuilder().WithImage("postgres:16-alpine").Build());
+            _postgres ??= new PostgresFixture(new PostgreSqlBuilder().WithImage("postgres:18-alpine").Build());
             await _postgres.StartAsync().ConfigureAwait(false);
             await CreateSchemaAsync().ConfigureAwait(false);
             await _postgres.InitializeRespawnerAsync().ConfigureAwait(false);

@@ -92,6 +92,12 @@ public sealed class PostgresMigrationGuaranteeTests(MigratorPostgresFixture fixt
             create type delivery_state AS enum ('queued');
             create table delivery_item(id integer primary key, state delivery_state not null);
             """, "drop table delivery_item; drop type delivery_state;");
+
+        // The type commits first: PostgreSQL 18 lets a transaction use a label added to a type it created itself.
+        await using var migrator = CreateMigrator();
+        (await migrator.Runner.ApplyPendingAsync("type", CancellationToken.None))
+            .ValueOrThrow().Should().Equal("001-enum");
+
         Workspace.Write("002-label", "alter type delivery_state add value 'waiting_for_review';",
             "-- PostgreSQL enum labels cannot be removed safely.");
         Workspace.Write("003-use-label",
@@ -99,11 +105,10 @@ public sealed class PostgresMigrationGuaranteeTests(MigratorPostgresFixture fixt
             "delete from delivery_item where id = 1;");
 
         // A transactional add shares the batch with its use, so the label is not committed yet.
-        await using var migrator = CreateMigrator();
         var unsafeUse = await Assert.ThrowsAsync<PostgresException>(
             () => migrator.Runner.ApplyPendingAsync("combined", CancellationToken.None));
         unsafeUse.SqlState.Should().Be("55P04"); // unsafe_new_enum_value_usage
-        (await migrator.ReadHistoryAsync()).Should().BeEmpty();
+        (await migrator.ReadHistoryAsync()).Select(row => row.Ordinal).Should().Equal(1);
 
         // A no-transaction add commits the batch before it and the label itself before the next batch.
         Workspace.OverwriteApply("002-label", """
@@ -112,7 +117,7 @@ public sealed class PostgresMigrationGuaranteeTests(MigratorPostgresFixture fixt
             """);
 
         (await migrator.Runner.ApplyPendingAsync("split", CancellationToken.None))
-            .ValueOrThrow().Should().Equal("001-enum", "002-label", "003-use-label");
+            .ValueOrThrow().Should().Equal("002-label", "003-use-label");
 
         await using var connection = await migrator.OpenConnectionAsync();
         (await connection.ExecuteScalarAsync<string>(

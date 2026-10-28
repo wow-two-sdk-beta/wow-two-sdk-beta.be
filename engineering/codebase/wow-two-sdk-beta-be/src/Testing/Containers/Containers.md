@@ -22,7 +22,7 @@ You typically don't depend on this directly — use the engine-specific packages
 ```csharp
 public sealed class PostgresFixture : ContainerFixtureBase<PostgreSqlContainer>
 {
-    public PostgresFixture() : base(new PostgreSqlBuilder().Build()) { }
+    public PostgresFixture() : base(new PostgreSqlBuilder().WithImage("postgres:18-alpine").Build()) { }
     public override string Name => "postgres";
     public string ConnectionString => Container.GetConnectionString();
 }

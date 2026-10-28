@@ -136,7 +136,7 @@ public sealed class PagingTests : IClassFixture<PagingTests.PostgresFixture>
 
     public sealed class PostgresFixture : IAsyncLifetime
     {
-        private readonly PostgreSqlContainer _container = new PostgreSqlBuilder().WithImage("postgres:16-alpine").Build();
+        private readonly PostgreSqlContainer _container = new PostgreSqlBuilder().WithImage("postgres:18-alpine").Build();
         private int _databases;
 
         public async Task<string> FreshDatabaseAsync()

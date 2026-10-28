@@ -13,7 +13,7 @@
 - A failed run logs the failed file, the files it rolled back, the files committed earlier in the run and the files not attempted (event `3005`; `3006` for a no-transaction file). The provider's exception is rethrown unchanged.
 - `DryRunPendingAsync` / `wow-migrate apply --dry-run` rehearse every pending transactional file under the same lock in one transaction that always rolls back. See [Batch atomicity and dry run](#batch-atomicity-and-dry-run).
 - Interrupted concurrent-index migrations recover when their SQL is idempotent, for example `DROP INDEX CONCURRENTLY IF EXISTS` followed by `CREATE INDEX CONCURRENTLY`.
-- PostgreSQL enum values must commit before a later migration uses them. Under batch scope, mark the add `-- @no-transaction` with `ADD VALUE IF NOT EXISTS`; a transactional add and its use in the same batch fail with `55P04`. Rollback may remove the history row but cannot remove an enum label safely.
+- PostgreSQL enum values must commit before a later migration uses them. Under batch scope, mark the add `-- @no-transaction` with `ADD VALUE IF NOT EXISTS`; a transactional add and its use in the same batch fail with `55P04`, unless that batch also created the type. Rollback may remove the history row but cannot remove an enum label safely.
 - SQLite constraint changes use table rebuilds that recreate indexes, triggers and foreign keys explicitly.
 - Native PostgreSQL enums require matching driver registration on `NpgsqlDataSourceBuilder` and EF registration on `NpgsqlDbContextOptionsBuilder`; the shared case translator keeps multi-word labels aligned.
 - `wow-migrate` exits `0` on success, `1` on input/domain failure and `2` on execution or destructive-target guard failure. `apply --dry-run` exits `2` when a rehearsed file fails.

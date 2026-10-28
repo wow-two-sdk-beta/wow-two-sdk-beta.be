@@ -11,7 +11,7 @@ public sealed class MigratorPostgresFixture : ContainerFixtureBase<PostgreSqlCon
 {
     // A single public constructor — xUnit collection fixtures require exactly one, and the image is pinned so a suite never floats across engine versions.
     /// <summary>Creates a fixture over a pinned Postgres image.</summary>
-    public MigratorPostgresFixture() : base(new PostgreSqlBuilder().WithImage("postgres:16-alpine").Build())
+    public MigratorPostgresFixture() : base(new PostgreSqlBuilder().WithImage("postgres:18-alpine").Build())
     {
     }
 

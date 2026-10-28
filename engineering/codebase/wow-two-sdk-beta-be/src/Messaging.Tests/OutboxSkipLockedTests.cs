@@ -17,7 +17,7 @@ public sealed class OutboxSkipLockedTests : IAsyncLifetime
     private const int BatchSize = 7;
 
     private readonly PostgreSqlContainer _container =
-        new PostgreSqlBuilder().WithImage("postgres:16-alpine").Build();
+        new PostgreSqlBuilder().WithImage("postgres:18-alpine").Build();
 
     public async Task InitializeAsync()
     {
