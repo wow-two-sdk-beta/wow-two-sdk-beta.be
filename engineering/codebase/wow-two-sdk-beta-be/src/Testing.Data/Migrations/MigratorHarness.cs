@@ -147,20 +147,25 @@ public sealed class MigratorHarness : IAsyncDisposable
     /// <remarks>
     ///   - runs every <c>Apply.sql</c> and <c>Rollback.sql</c> directly, twice each, and compares the database after each pair; touches no history
     ///   - run it on an empty database, such as a fresh <see cref="MigratorPostgresFixture"/> reset; it leaves the set applied
+    ///   - <paramref name="after"/> grandfathers files applied before the rule: they apply once as setup and are not proven, like the lint's cutoff
     /// </remarks>
     /// <param name="setName">The set; <see cref="MigrationConstants.DefaultSetName"/> is the host's own.</param>
+    /// <param name="after">The cutoff ordinal; files at or below it are not proven. <c>0</c> proves every file.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The migrations proven, or the first failed step.</returns>
-    public Task<MigrationIdempotencyReport> CheckIdempotencyAsync(string setName = MigrationConstants.DefaultSetName, CancellationToken cancellationToken = default)
+    public Task<MigrationIdempotencyReport> CheckIdempotencyAsync(
+        string setName = MigrationConstants.DefaultSetName, int after = 0, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(setName);
+        ArgumentOutOfRangeException.ThrowIfNegative(after);
 
         var proof = new MigrationIdempotencyProof(Sets, _provider.GetRequiredService<ISqlStatementParser>(), OpenConnectionAsync);
-        return proof.RunAsync(setName, cancellationToken);
+        return proof.RunAsync(setName, after, cancellationToken);
     }
 
     /// <summary>Proves a set's scripts idempotent like <see cref="CheckIdempotencyAsync"/>, in one call a migrations tier makes.</summary>
     /// <param name="setName">The set; <see cref="MigrationConstants.DefaultSetName"/> is the host's own.</param>
+    /// <param name="after">The cutoff ordinal; files at or below it are not proven. <c>0</c> proves every file.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <exception cref="MigrationIdempotencyException">A script failed or changed the database when it ran again.</exception>
     /// <example>
@@ -169,9 +174,10 @@ public sealed class MigratorHarness : IAsyncDisposable
     /// await migrator.AssertIdempotentAsync();
     /// </code>
     /// </example>
-    public async Task AssertIdempotentAsync(string setName = MigrationConstants.DefaultSetName, CancellationToken cancellationToken = default)
+    public async Task AssertIdempotentAsync(
+        string setName = MigrationConstants.DefaultSetName, int after = 0, CancellationToken cancellationToken = default)
     {
-        var report = await CheckIdempotencyAsync(setName, cancellationToken).ConfigureAwait(false);
+        var report = await CheckIdempotencyAsync(setName, after, cancellationToken).ConfigureAwait(false);
         if (!report.Passed)
             throw new MigrationIdempotencyException(report.ToString());
     }

@@ -78,4 +78,20 @@ public sealed class MigratorIdempotencyTests(MigratorPostgresFixture fixture) : 
 
         report.Failure!.Should().Match<MigrationIdempotencyFailure>(failure => failure.Migration == "002-name" && failure.Step == "rollback → rollback");
     }
+
+    [Fact]
+    public async Task Cutoff_ShouldApplyGrandfatheredFilesOnce_AndProveOnlyTheFilesAboveIt()
+    {
+        Workspace.Write("001-plans", "create table plans(code text primary key);", "drop table plans;");
+        Workspace.Write("002-name", "alter table plans add column if not exists name text;", "alter table plans drop column if exists name;");
+        await using var migrator = CreateMigrator();
+
+        var report = await migrator.CheckIdempotencyAsync(after: 1);
+
+        report.Passed.Should().BeTrue(report.ToString());
+        report.Proven.Should().Equal("002-name");
+        (await migrator.HasTableAsync("plans")).Should().BeTrue("the grandfathered file stays applied");
+        await Fixture.ResetAsync();
+        (await migrator.CheckIdempotencyAsync()).Failure!.Migration.Should().Be("001-plans", "without the cutoff the old file is proven too");
+    }
 }

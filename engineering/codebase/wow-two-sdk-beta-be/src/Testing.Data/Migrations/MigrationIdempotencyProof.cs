@@ -15,6 +15,7 @@ namespace WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 ///   - then every <c>Apply.sql</c> runs again, and the schema must match the first forward pass; rows may differ, such as fresh ids
 ///   - a transactional script runs in a transaction; a <c>-- @no-transaction</c> one runs statement by statement
 ///   - substitutes <c>{{schema}}</c> and the <c>{{schema:set}}</c> of a registered set, and creates the set's schema; touches no history, lock or marker
+///   - a cutoff grandfathers the scripts at or below it: each applies once as setup and is never rerun or rolled back, since an applied file cannot change
 /// </remarks>
 /// <param name="registry">The registered sets.</param>
 /// <param name="parser">Splits a no-transaction script into statements.</param>
@@ -30,29 +31,39 @@ internal sealed class MigrationIdempotencyProof(
 
     /// <summary>Proves one set, stopping at the first failed step.</summary>
     /// <param name="set">The set name.</param>
+    /// <param name="after">The cutoff ordinal: scripts at or below it apply once as setup and are not proven.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<MigrationIdempotencyReport> RunAsync(string set, CancellationToken ct)
+    public async Task<MigrationIdempotencyReport> RunAsync(string set, int after, CancellationToken ct)
     {
         var options = registry.GetOptions(set);
         var dialect = registry.GetDialect(set);
         if (registry.GetBroker(set).Read().IsFailure(out var error, out var raw))
             return new MigrationIdempotencyReport(set, [], new MigrationIdempotencyFailure("*", "read", error.Message));
 
-        var migrations = raw
+        var scripts = raw
             .Select(migration => (Migration: migration, Match: MigrationConstants.FolderPattern().Match(migration.Name)))
             .Where(item => item.Match.Success)
             .OrderBy(item => int.Parse(item.Match.Groups[1].Value, CultureInfo.InvariantCulture))
             .Select(item => new Script(
+                int.Parse(item.Match.Groups[1].Value, CultureInfo.InvariantCulture),
                 $"{int.Parse(item.Match.Groups[1].Value, CultureInfo.InvariantCulture):D3}-{item.Match.Groups[2].Value}",
                 Resolve(dialect, options, item.Migration.ApplySql),
                 Resolve(dialect, options, item.Migration.RollbackSql),
                 IsNoTransaction(item.Migration.ApplySql)))
             .ToList();
+        var grandfathered = scripts.Where(script => script.Ordinal <= after).ToList();
+        var migrations = scripts.Where(script => script.Ordinal > after).ToList();
 
         var connection = await connect(ct).ConfigureAwait(false);
         await using (connection.ConfigureAwait(false))
         {
             await dialect.EnsureSchemaAsync(connection, null, options.SchemaName, ct).ConfigureAwait(false);
+
+            foreach (var script in grandfathered)
+            {
+                if (await TryRunAsync(connection, script.Apply, script.NoTransaction, ct).ConfigureAwait(false) is { } setupError)
+                    return new MigrationIdempotencyReport(set, [], new MigrationIdempotencyFailure(script.Label, ApplyStep, setupError));
+            }
 
             foreach (var script in migrations)
             {
@@ -155,9 +166,10 @@ internal sealed class MigrationIdempotencyProof(
     }
 
     /// <summary>Holds one migration's scripts, placeholders resolved.</summary>
+    /// <param name="Ordinal">The migration's ordinal.</param>
     /// <param name="Label">The <c>NNN-name</c> label.</param>
     /// <param name="Apply">The Apply script.</param>
     /// <param name="Rollback">The Rollback script.</param>
     /// <param name="NoTransaction">Whether the Apply script runs outside a transaction.</param>
-    private sealed record Script(string Label, string Apply, string Rollback, bool NoTransaction);
+    private sealed record Script(int Ordinal, string Label, string Apply, string Rollback, bool NoTransaction);
 }

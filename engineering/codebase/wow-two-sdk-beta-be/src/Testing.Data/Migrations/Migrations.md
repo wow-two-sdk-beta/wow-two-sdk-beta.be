@@ -47,6 +47,8 @@ public sealed class AppMigrationsTests(MigratorPostgresFixture fixture) : Migrat
 - Runs a `-- @no-transaction` file statement by statement, any other in a transaction; substitutes `{{schema}}` and a
   registered set's `{{schema:set}}`, and creates the set's schema.
 - Needs an empty database and leaves the set applied; the report names the first failed migration and step.
+- `after: n` grandfathers files at or below ordinal `n` — applied before the rule and unchangeable — like the lint's
+  `ExpandOnlyAfter`: each applies once as setup and is never rerun or rolled back; the report lists only files above `n`.
 
 ### Lint (M22, M79)
 
