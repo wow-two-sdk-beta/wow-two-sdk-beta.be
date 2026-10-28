@@ -266,6 +266,27 @@ public sealed class MigrateTreeTests(MigratorPostgresFixture fixture) : EngineTe
     }
 
     [Fact]
+    public async Task MigrateKey_ShouldNotBuildASetsKeyedConnection_ThatNeedsTheHostsSettings()
+    {
+        Workspace.Write("001-users", "create table users(id integer primary key);", "drop table users;");
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?> { [MigrationConstants.ConnectionStringConfigurationKey] = Fixture.ConnectionString })
+            .Build();
+        var services = new ServiceCollection()
+            .AddLogging()
+            .AddSingleton<IConfiguration>(configuration)
+            .AddDatabaseBespokeMigrationSet("catalog", Workspace.Root, options => options.LocalRun = false);
+        services.AddKeyedSingleton<IDbConnectionFactory>("catalog", (_, _) =>
+            throw new InvalidOperationException("the module's connection needs the host's connection string"));
+        await using var provider = services.BuildServiceProvider();
+
+        var apply = await MigrateTree.RunAsync(provider, "apply");
+
+        apply.Exit.Should().Be(0, apply.ToString());
+        (await TableExistsAsync("public", "users")).Should().BeTrue();
+    }
+
+    [Fact]
     public void MigrateKey_ShouldStayOff_OutsideAMigrateCommand()
     {
         var configuration = new ConfigurationBuilder()

@@ -125,7 +125,7 @@ public static class MigrationServiceCollectionExtensions
             provider.GetRequiredKeyedService<IMigrationHistoryRepository>(setName),
             provider.GetRequiredKeyedService<MigrationOptions>(setName),
             provider.GetRequiredKeyedService<IMigrationDialect>(setName),
-            provider.GetKeyedService<IDbConnectionFactory>(setName)));
+            () => provider.GetKeyedService<IDbConnectionFactory>(setName)));
         AddShared(services);
 
         return services;
@@ -155,7 +155,7 @@ public static class MigrationServiceCollectionExtensions
             provider.GetRequiredService<IMigrationHistoryRepository>(),
             provider.GetRequiredService<MigrationOptions>(),
             provider.GetRequiredService<IMigrationDialect>(),
-            keyedConnections: null));
+            keyedConnections: static () => null));
         if (!IsRegistered(services, MigrationConstants.DefaultSetName))
             services.AddSingleton(new MigrationSetRegistration(MigrationConstants.DefaultSetName));
         AddShared(services);
@@ -219,14 +219,15 @@ public static class MigrationServiceCollectionExtensions
     }
 
     /// <summary>Builds one set's runner, connecting through the migrate key when a migrate run turned it on, else the set's keyed connection, else the host's.</summary>
+    /// <remarks>The keyed connection resolves only without the migrate key, so a migrate run needs none of the host's own connection settings.</remarks>
     private static MigrationRunnerService CreateRunner(
         IServiceProvider provider, IMigrationBroker broker, IMigrationHistoryRepository history, MigrationOptions options,
-        IMigrationDialect dialect, IDbConnectionFactory? keyedConnections) => new(
+        IMigrationDialect dialect, Func<IDbConnectionFactory?> keyedConnections) => new(
         broker,
         history,
         provider.GetService<MigrationConnectionOverride>() is { IsActive: true } migrateKey
             ? migrateKey.GetFactory(options.Provider)
-            : keyedConnections ?? provider.GetRequiredService<IDbConnectionFactory>(),
+            : keyedConnections() ?? provider.GetRequiredService<IDbConnectionFactory>(),
         options,
         provider.GetRequiredService<ILogger<MigrationRunnerService>>(),
         provider.GetRequiredService<IMigrationChecksumHasher>(),
