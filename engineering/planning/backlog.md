@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -38,6 +38,7 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Guest sessions | moved to Identity | [wow-two-sdk-beta.identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity) |
 | EF Core and Dapper persistence | shipped | — |
 | SQL migrator and `wow-migrate` CLI | shipped | — |
+| Migrate verb engine: kinds, compatible boot, bounded locks, events, dependencies, extensions, seed files | implemented | [bespoke.md](../codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/bespoke.md) § Verb engine; migrations spec lane A, engine half |
 | Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md) |
 | Entity specs, concurrency tokens and transaction locks | shipped | — |
 | Caching with commit-aware invalidation | shipped | — |
@@ -106,6 +107,24 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | Partial updates and a second `DbContext` per session | feature | Deferred by the owner's fixed constraints |
 | Mine Marten for the session and hook design | engineering | [Verdict](../research/data-pipeline/data-pipeline-verdict.md): Marten and Wolverine cover most of it, on a document store |
 | Benchmark attach, savepoints and HybridCache reads | engineering | The attach win is unmeasured; no BenchmarkDotNet yet |
+
+---
+
+## Migrations
+
+Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.md` § 3.1); the engine half of lane A is implemented.
+
+| Item | Type | Notes |
+|---|---|---|
+| `app migrate <verb>` command tree, host helper and `sets --json` over `IMigrationEngine` | feature | Lane A, tree half; `--confirm <db>`, the `migrate-result` line, exits `0`–`3`; replaces Identity's `HostConfiguration.MigrateAsync` |
+| `wow-migrate` runs the same tree over a manifest | feature | Its `check` still exits `1` on a compatible ahead and reads no kinds |
+| EF and DbUp sets answer the same verbs | feature | M11 |
+| `Testing.Data` lint: expand-only from a cutoff, lock-risk rules, published-table check | feature | Lane B; reads `-- @contract` and `MigrationOptions.ReferenceableTables` |
+| `MigratorHarness` idempotency mode and a verb harness for image E2E tiers | feature | Lane B (M57, M59) |
+| Background migrations: journal, `Jobs/` worker, `@requires` check, `bg` verbs | feature | Lane C; until it ships, a file with `-- @requires` always refuses |
+| Schema fingerprint per set, recorded by writing verbs and compared by `check` | feature | Lane D (M58) |
+| Drop the legacy advisory key (`TakeLegacyAdvisoryLock`) | engineering | Once no applicant below the reserved key class remains |
+| uuid v7 function for rows SQL inserts | feature | Open: a package set or each set (spec § 6 item 12) |
 
 ---
 
