@@ -77,7 +77,7 @@ SDK vectors without a group of their own below; each row is the vector's next co
 | AI providers, SSE streaming and pgvector | feature | TranscriptForge pulls it forward; the coupled `Microsoft.Extensions.AI` 10.8.3 / OllamaSharp 5.5.0 adapter update is implemented |
 | MCP capability completion | feature | Dedicated pass after Wheelhouse adopts the essential stateless HTTP host; inventory client adapters, resources, prompts, transports and lifecycle coverage before extending the slice |
 | Payments, Stripe first | feature | ForeverPin billing and TranscriptForge wait on it — [D04](../research/foreverpin-adoption/foreverpin-adoption.md) |
-| Tenancy strategies: Finbuckle, per-database, per-schema | feature | Per-row isolation ships |
+| Tenancy strategies: Finbuckle | feature | Per-row isolation ships; per-database and per-schema are ruled out (migrations M55) |
 | Feature-flag providers: LaunchDarkly, ConfigCat, Unleash, GrowthBook | feature | Flags, gates and the OpenFeature seam ship |
 | FusionCache adapter | feature | Hybrid, memory and Redis caches ship with commit-aware invalidation |
 | Code output: barcode and per-eye styling, logos, PDF and print | feature | ForeverPin deferral [D09](../research/foreverpin-adoption/foreverpin-adoption.md) |

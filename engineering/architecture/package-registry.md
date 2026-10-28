@@ -267,8 +267,6 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Tenancy` | Meta — Finbuckle defaults | planned |
 | `WoW.Two.Sdk.Beta.Be.Tenancy.Finbuckle` | Finbuckle.MultiTenant wrapping | planned |
 | `WoW.Two.Sdk.Beta.Be.Tenancy.PerRow` | EF Core query-filter strategy | planned |
-| `WoW.Two.Sdk.Beta.Be.Tenancy.PerDb` | Per-tenant DbContext factory | planned |
-| `WoW.Two.Sdk.Beta.Be.Tenancy.PerSchema` | Per-tenant schema strategy | planned |
 | `WoW.Two.Sdk.Beta.Be.Ai` | `Microsoft.Extensions.AI` 10.x chat pipeline and provider abstractions | implemented (mono-lib) |
 | `WoW.Two.Sdk.Beta.Be.Ai.SemanticKernel` | SK wrapping | planned |
 | `WoW.Two.Sdk.Beta.Be.Ai.KernelMemory` | KernelMemory wrapping | planned |

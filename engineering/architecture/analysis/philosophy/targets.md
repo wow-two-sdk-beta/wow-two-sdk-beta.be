@@ -233,11 +233,11 @@ Mirrors §4 of `ideas.md`. Each subsection states the verdict + concrete chosen 
 | **Finbuckle.MultiTenant** wrapped | NEXT | Default tenancy lib |
 | Resolution strategies: subdomain / header / route / JWT claim / default | NEXT | Convention helpers |
 | Per-row tenancy via EF Core query filters | NEXT | Default isolation strategy |
-| Per-DB tenancy via connection-string-per-tenant | NEXT | Premium tenants |
-| Per-schema tenancy | LATER | Edge case |
+| Per-DB tenancy via connection-string-per-tenant | SKIP | Ruled out (migrations M55): tenants are rows of the owner's set |
+| Per-schema tenancy | SKIP | Ruled out (migrations M55): tenants are rows of the owner's set |
 | Per-tenant cache key prefix | NEXT | Built-in helper |
 | Per-tenant config overlay | NEXT | Stack tenant `IConfiguration` provider |
-| Per-tenant migrations | LATER | Background job runner |
+| Per-tenant migrations | SKIP | One set per owner; tenants are rows (migrations M55) |
 | ABP / OrchardCore tenants | SKIP | Don't take the framework dep |
 
 ### 2.15 Localization / i18n — LATER (P4)
@@ -687,7 +687,7 @@ Decoupled from UI lib's P1–P6. Reasoning:
 | **P2 — request pipeline + auth** | `mediator` + `validation` + `errors` + `identity` | In-proc mediator (our facade, MediatR-API-compat) / FluentValidation pipeline behavior / `IExceptionHandler` global / **Identity API endpoints + JWT bearer + OIDC** / Vogen + Ardalis.GuardClauses / ErrorOr Result type / OneOf / Idempotency middleware | Stateless API (microservice doing HTTP + JWT + downstream calls) — no DB needed |
 | **P3 — persistence + outbound** | `data` + `caching` + `http` | EF Core (SqlServer/Npgsql/Pomelo/Sqlite) + audit interceptor + soft-delete filter / Dapper / EFCore.BulkExtensions / EFCore.NamingConventions / EFCore.Projectables / HybridCache + Redis L2 / Refit + `Microsoft.Extensions.Http.Resilience` / DbUp + EF Migrations runners | Single-instance API with persistence — no horizontal scale |
 | **P4 — distributed essentials** | `messaging` + `jobs` + `comms` | DotNetCore.CAP outbox + inbox / Hangfire (Postgres/Redis storage) / Comms abstractions (`IEmailBroker` MailKit, `ISmsSender` Twilio, `IPushSender` FCM/dotAPNS) / Webhook delivery infra (HMAC + retry + DLQ) | Multi-instance reliable distributed services |
-| **P5 — multi-tenant + AI + flags** | `tenancy` + `ai` + `feature-flags` | Finbuckle multi-tenancy (per-row default, per-DB option) / `Microsoft.Extensions.AI` + Semantic Kernel + provider adapters / vector store adapters (Pgvector, Redis, Qdrant, Pinecone, Milvus, Chroma) / `Microsoft.FeatureManagement` + OpenFeature seam | SaaS-shaped products with AI features |
+| **P5 — multi-tenant + AI + flags** | `tenancy` + `ai` + `feature-flags` | Finbuckle multi-tenancy (per-row only) / `Microsoft.Extensions.AI` + Semantic Kernel + provider adapters / vector store adapters (Pgvector, Redis, Qdrant, Pinecone, Milvus, Chroma) / `Microsoft.FeatureManagement` + OpenFeature seam | SaaS-shaped products with AI features |
 | **P6 — heavy domain extensions** | `realtime` + `storage` + `search` + `workflow` + extras | SignalR + Redis backplane + SSE / FluentStorage + ImageSharp + QuestPDF + ClosedXML + CsvHelper + Markdig / Postgres tsvector + OpenSearch adapter / Stateless workflow / Aspire integrations / OpenIddict OIDC server adapter / GraphQL (HotChocolate) / OData / AsyncAPI / Kiota client gen / Native AOT certification / Payment adapters (Stripe.net) / Geo (NetTopologySuite + MaxMind) / Email templating (FluentEmail) / OCR (Tesseract) / Documents (DocFX site) | Domain-complete platform |
 
 **Sequencing principle**: each phase is shippable on its own. Drop out at any phase if your app doesn't need the next layer. P0 grows continuously alongside P1–P6.
@@ -756,7 +756,7 @@ Things we deliberately won't build, with rationale.
 | 9.4 | Default cache: HybridCache vs FusionCache | FusionCache richer; HybridCache first-party |
 | 9.5 | OutputCache adapter: `Microsoft.AspNetCore.OutputCaching.StackExchangeRedis` vs custom HybridCache adapter | Redundancy if HybridCache covers it |
 | 9.6 | OpenAPI: `Microsoft.AspNetCore.OpenApi` only vs Swashbuckle fallback | OpenAPI 3.1 gaps in MS impl? Verify |
-| 9.7 | Multi-tenancy default: per-row vs per-DB | Pick one as default; offer both |
+| 9.7 | Multi-tenancy default: per-row vs per-DB | Settled: per-row only; per-DB and per-schema ruled out (migrations M55) |
 | 9.8 | Identity API endpoints (.NET 8+ minimal) vs full ASP.NET Core Identity scaffolding | Likely both, with the minimal API endpoints as the bundled default |
 | 9.9 | Real-time default: SignalR alone vs SignalR + SSE side-by-side | Both — SignalR for bidi, SSE for LLM streams |
 | 9.10 | gRPC: ship as core or as companion | Bundle adds ~medium cost; might be companion |

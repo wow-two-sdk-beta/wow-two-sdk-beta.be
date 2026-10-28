@@ -52,4 +52,5 @@ Entities opt in by implementing `IHasTenant<string>` (from `Data.Abstractions`).
 
 ## Roadmap (not yet built)
 
-- Per-DB tenancy (connection-string-per-tenant `DbContext` factory) · per-schema · Finbuckle adapter · per-tenant cache-key prefix (pairs with Caching) · per-tenant config overlay.
+- Finbuckle adapter · per-tenant cache-key prefix (pairs with Caching) · per-tenant config overlay.
+- Per-database and per-schema tenancy are ruled out: tenants are rows of the owner's set (migrations spec M55).
