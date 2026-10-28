@@ -27,7 +27,7 @@
     <ToolCommandName>wow-migrate</ToolCommandName>
     <PackageId>WoW2.Sdk.Beta.Be.Data.Migrations.Cli</PackageId>
     <CreateRidSpecificToolPackages>false</CreateRidSpecificToolPackages>
-    <Description>Web-free SQL migrator CLI (`wow-migrate`) over the WoW Two be sdk bespoke migrator — status, apply (+--dry-run), check, new, promote, rollback, verify (+--repair) against a Postgres database, for one migration set or every set in a --sets manifest.</Description>
+    <Description>Web-free SQL migrator CLI (`wow-migrate`) over the WoW Two be sdk bespoke migrator — the image's migrate verb tree (check, plan, apply, seed, sets, rollback, forget, repair, baseline, claim, locks, unlock) plus new and promote, against a Postgres database, for one migration set or every set in a --sets manifest.</Description>
     <PackageTags>wow-two; backend; beta; sdk; data; migrations; cli; dotnet-tool; postgres</PackageTags>
     <!-- README packaging from Directory.Build.props is conditional on a sibling README; none here, so disable the pack hint. -->
     <PackageReadmeFile></PackageReadmeFile>
@@ -43,6 +43,8 @@
   <!-- Link (do NOT reference) the SQL migrator engine — compiles it web-free into this tool. -->
   <ItemGroup>
     <Compile Include="../../Migrations/Bespoke/**/*.cs" />
+    <!-- The migrate verb tree an image answers as `app migrate <verb>`: one tree, compiled into the tool as well. -->
+    <Compile Include="../../Migrations/Commands/**/*.cs" />
     <Compile Include="../../../Foundation/Options/**/*.cs" />
   </ItemGroup>
 

@@ -201,6 +201,8 @@
     <PackageReference Include="dbup-postgresql" />
     <PackageReference Include="dbup-sqlite" />
     <PackageReference Include="dbup-sqlserver" />
+    <!-- The migrate verb tree (Data/Migrations/Commands/) an image answers as `app migrate <verb>`; wow-migrate compiles the same tree. -->
+    <PackageReference Include="System.CommandLine" />
   </ItemGroup>
 
   <ItemGroup Label="Observability — OpenTelemetry / Serilog / Datadog / Azure Monitor">

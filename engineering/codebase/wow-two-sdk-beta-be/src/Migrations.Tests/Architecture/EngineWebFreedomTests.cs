@@ -27,4 +27,21 @@ public sealed class EngineWebFreedomTests
             "the migrator engine must stay host-agnostic; offending types: "
             + string.Join(", ", result.FailingTypeNames ?? []));
     }
+
+    [Fact]
+    public void VerbTree_ShouldNotDependOnWebHostEfOrDbUp()
+    {
+        // wow-migrate compiles the same tree, so it may use System.CommandLine and nothing a console tool lacks.
+        var result = Types.InAssembly(typeof(MigrationRunnerService).Assembly)
+            .That().ResideInNamespace("WoW.Two.Sdk.Beta.Be.Data.Migrations.Commands")
+            .ShouldNot().HaveDependencyOnAny(
+                "Microsoft.AspNetCore",
+                "Microsoft.Extensions.Hosting",
+                "Microsoft.EntityFrameworkCore",
+                "DbUp")
+            .GetResult();
+
+        result.IsSuccessful.Should().BeTrue(
+            "the verb tree must stay web-free; offending types: " + string.Join(", ", result.FailingTypeNames ?? []));
+    }
 }

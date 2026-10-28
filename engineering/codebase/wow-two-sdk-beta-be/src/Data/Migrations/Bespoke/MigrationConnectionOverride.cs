@@ -7,11 +7,12 @@ namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Holds the migrate key: a connection string that, once a migrate run turns it on, connects every set instead of the host's own connections.</summary>
 /// <remarks>
-///   - registered by <c>AddMigrationConnectionOverride</c>, which reads <see cref="MigrationConstants.ConnectionStringConfigurationKey"/>; a boot never registers it
+///   - every set registration registers it dormant; the <c>migrate</c> command turns <see cref="MigrationRunMode"/> on, so the key connects every set for its run
+///   - <c>AddMigrationConnectionOverride</c> turns it on for every run of the host instead; a boot never uses it
 ///   - inactive while the string is blank, so every set keeps its keyed or host connection
 ///   - never prints the string: it carries a credential
 /// </remarks>
-public sealed class MigrationConnectionOverride : IAsyncDisposable
+public sealed class MigrationConnectionOverride : IAsyncDisposable, IDisposable
 {
     private readonly Lock _gate = new();
     private NpgsqlDataSource? _postgres;
@@ -46,6 +47,10 @@ public sealed class MigrationConnectionOverride : IAsyncDisposable
         if (_postgres is not null)
             await _postgres.DisposeAsync().ConfigureAwait(false);
     }
+
+    /// <inheritdoc />
+    /// <remarks>Every set registration registers the override, so a provider disposed synchronously must dispose it too.</remarks>
+    public void Dispose() => _postgres?.Dispose();
 
     /// <summary>Opens SQLite connections over the migrate key.</summary>
     /// <param name="connectionString">The SQLite connection string.</param>

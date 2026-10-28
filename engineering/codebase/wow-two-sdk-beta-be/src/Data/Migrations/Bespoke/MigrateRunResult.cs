@@ -49,5 +49,36 @@ public sealed record MigrateRunResult
     public string ToJson() => JsonSerializer.Serialize(this, MigrateResultJsonContext.Default.MigrateRunResult);
 
     /// <summary>Renders the <c>migrate-result {json}</c> line a migrate command prints as its last line.</summary>
-    public string ToResultLine() => "migrate-result " + ToJson();
+    public string ToResultLine() => ResultLinePrefix + ToJson();
+
+    /// <summary>Holds the prefix of the result line: <c>migrate-result </c>.</summary>
+    public const string ResultLinePrefix = "migrate-result ";
+
+    /// <summary>Parses a run's JSON, as <see cref="ToJson"/> renders it.</summary>
+    /// <param name="json">The JSON text.</param>
+    /// <returns>The result, or null when the text is not a run result.</returns>
+    public static MigrateRunResult? FromJson(string json)
+    {
+        ArgumentNullException.ThrowIfNull(json);
+
+        try
+        {
+            return JsonSerializer.Deserialize(json, MigrateResultJsonContext.Default.MigrateRunResult);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>Finds the last line starting <c>migrate-result </c> in a command's output and parses it.</summary>
+    /// <param name="output">Everything the command wrote to standard output.</param>
+    /// <returns>The result, or null when no line parses.</returns>
+    public static MigrateRunResult? FromOutput(string output)
+    {
+        ArgumentNullException.ThrowIfNull(output);
+
+        var line = output.Split('\n').Select(text => text.TrimEnd('\r')).LastOrDefault(text => text.StartsWith(ResultLinePrefix, StringComparison.Ordinal));
+        return line is null ? null : FromJson(line[ResultLinePrefix.Length..]);
+    }
 }

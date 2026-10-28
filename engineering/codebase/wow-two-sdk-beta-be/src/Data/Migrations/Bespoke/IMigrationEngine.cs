@@ -63,6 +63,11 @@ public interface IMigrationEngine
     /// <param name="ct">Token to cancel the operation.</param>
     Task<MigrateRunResult> ClaimAsync(string? set, string owner, string instance, CancellationToken ct = default);
 
+    /// <summary>Describes each set from its options and source alone — name, schema, owner kind, level, contracts, requirements, dependencies, extensions and the embedding package; never connects.</summary>
+    /// <param name="sets">The sets to describe, or null for every set.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    Task<MigrateSetsReport> DescribeAsync(IReadOnlyCollection<string>? sets = null, CancellationToken ct = default);
+
     /// <summary>Lists the sessions holding each set's migrator locks, read-only.</summary>
     /// <param name="sets">The sets to inspect, or null for every set.</param>
     /// <param name="ct">Token to cancel the operation.</param>

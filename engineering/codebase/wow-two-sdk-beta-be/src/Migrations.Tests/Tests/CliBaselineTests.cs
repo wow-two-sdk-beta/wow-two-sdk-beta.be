@@ -20,8 +20,7 @@ public sealed class CliBaselineTests(MigratorPostgresFixture fixture) : Migrator
         await ExecuteAsync("create table cli_users(id integer primary key);");
 
         var result = await CliProcess.RunAsync(
-            "baseline", "--connection", Fixture.ConnectionString, "--sql-dir", Workspace.Root, "--to", "1",
-            "--i-understand-this-is", Database, "--force");
+            "baseline", "--connection", Fixture.ConnectionString, "--sql-dir", Workspace.Root, "--to", "1", "--confirm", Database);
 
         result.ExitCode.Should().Be(0, result.StandardOutput + result.StandardError);
         result.StandardOutput.Should().Contain("001-users");
@@ -33,14 +32,16 @@ public sealed class CliBaselineTests(MigratorPostgresFixture fixture) : Migrator
     }
 
     [Fact]
-    public async Task Baseline_ShouldExitTwo_WithoutTheTargetConfirmation()
+    public async Task Baseline_ShouldExitOne_WithoutTheTargetConfirmation()
     {
         Workspace.Write("001-users", "create table cli_users(id integer primary key);", "drop table cli_users;");
 
-        var result = await CliProcess.RunAsync("baseline", "--connection", Fixture.ConnectionString, "--sql-dir", Workspace.Root, "--force");
+        var result = await CliProcess.RunAsync("baseline", "--connection", Fixture.ConnectionString, "--sql-dir", Workspace.Root);
 
-        result.ExitCode.Should().Be(2, result.StandardOutput + result.StandardError);
-        result.StandardError.Should().Contain("--i-understand-this-is");
+        result.ExitCode.Should().Be(1, result.StandardOutput + result.StandardError);
+        result.StandardError.Should().Contain($"--confirm {Database}");
+        await using var migrator = CreateMigrator();
+        (await migrator.HasTableAsync("migration_history")).Should().BeFalse();
     }
 
     [Fact]

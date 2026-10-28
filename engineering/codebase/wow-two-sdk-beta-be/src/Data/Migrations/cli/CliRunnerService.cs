@@ -8,16 +8,17 @@ using Microsoft.Extensions.Logging;
 using Npgsql;
 using WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Commands;
 using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
 using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
-/// <summary>Provides the migrator command bodies — resolves connection and sets, wires the runners via DI, and prints results.</summary>
+/// <summary>Resolves the tool's connection and sets, builds the provider each migrate verb runs over, and carries the authoring verbs.</summary>
 /// <remarks>
 ///   - connection resolves flag → <c>WOW_MIGRATE_DB_CONNECTION</c> → localhost default
 ///   - sets resolve <c>--sets</c> → <c>WOW_MIGRATE_SETS</c> → one set from <c>--sql-dir</c> → <c>WOW_MIGRATE_SQL_DIR</c> → auto-discovered default
-///   - one default set prints exactly as before; any other run prints a <c>[set]</c> header per set
+///   - the migrate verbs' bodies live in the shared tree; <see cref="Open"/> hands it one provider per invocation
 /// </remarks>
 internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
 {
@@ -33,11 +34,11 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
 
     /// <summary>Resolves the migrations directory from the flag, the environment, then the auto-discovered default.</summary>
     /// <param name="sqlDirFlag">The value of the global <c>--sql-dir</c> option, or null when absent.</param>
-    /// <remarks>Throws when auto-discovery finds no migrations folder — pass <c>--sql-dir</c>.</remarks>
-    public string ResolveSqlDir(string? sqlDirFlag) =>
-        sqlDirFlag
-        ?? Environment.GetEnvironmentVariable("WOW_MIGRATE_SQL_DIR")
-        ?? pathBroker.Locate().ValueOrThrow();
+    /// <returns>The directory, or a <c>FileNotFound</c> failure when auto-discovery finds no migrations folder — pass <c>--sql-dir</c>.</returns>
+    public Result<string> ResolveSqlDir(string? sqlDirFlag) =>
+        (sqlDirFlag ?? Environment.GetEnvironmentVariable("WOW_MIGRATE_SQL_DIR")) is { } explicitDir
+            ? Result<string>.Ok(explicitDir)
+            : pathBroker.Locate();
 
     /// <summary>Resolves the sets a verb runs: every manifest set, the one <c>--set</c> picks, or one set from the migrations directory.</summary>
     /// <param name="target">The global options.</param>
@@ -53,8 +54,11 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         var setsFile = target.SetsFile ?? Environment.GetEnvironmentVariable("WOW_MIGRATE_SETS");
         if (setsFile is null)
         {
+            if (ResolveSqlDir(target.SqlDir).IsFailure(out var missing, out var sqlDir))
+                return Result<IReadOnlyList<CliMigrationSet>>.Fail(missing);
+
             return RequireOwnerInstances([new CliMigrationSet(
-                target.Set ?? MigrationConstants.DefaultSetName, ResolveSqlDir(target.SqlDir), null,
+                target.Set ?? MigrationConstants.DefaultSetName, sqlDir, null,
                 CliMigrationSet.DefaultResourcePrefix, target.Schema, target.SchemaOwner, null, target.OwnerInstance)]);
         }
 
@@ -67,14 +71,22 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         if (CliMigrationSetManifest.Read(setsFile).IsFailure(out var manifestError, out var sets))
             return Result<IReadOnlyList<CliMigrationSet>>.Fail(manifestError);
 
-        if (target.Set is null)
-            return RequireOwnerInstances(sets);
-
-        var selected = sets.Where(set => set.Name == target.Set).ToList();
-        return selected.Count > 0
-            ? RequireOwnerInstances(selected)
+        // Every set registers, so dependencies resolve; the tree's --set picks the sets a verb runs.
+        return target.Set is null || sets.Any(set => set.Name == target.Set)
+            ? RequireOwnerInstances(sets)
             : Result<IReadOnlyList<CliMigrationSet>>.Fail(AppErrorFactory.NotFound(
                 $"The manifest has no set '{target.Set}'; it lists {string.Join(", ", sets.Select(set => set.Name))}."));
+    }
+
+    /// <summary>Builds the provider one migrate verb runs over: the data source, the connection factory and one registration per set.</summary>
+    /// <param name="connection">The global connection flag, resolved against the environment and the default.</param>
+    /// <param name="sets">The sets to register, in run order.</param>
+    /// <returns>The scope; disposing it disposes the provider and the data source.</returns>
+    public IMigrateCommandScope Open(string? connection, IReadOnlyList<CliMigrationSet> sets)
+    {
+        var connectionString = ResolveConnection(connection);
+        var dataSource = new NpgsqlDataSourceBuilder(connectionString).Build();
+        return new CliMigrateCommandScope(BuildProvider(dataSource, sets), dataSource, connectionString);
     }
 
     /// <summary>Fails when a set claims its schema without naming the instance: the CLI is not the instance, so it cannot derive the host's value.</summary>
@@ -88,242 +100,6 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
                 $"Set '{unnamed.Name}' claims its schema as '{unnamed.SchemaOwner}' but names no instance; pass --owner-instance " +
                 "(manifest: \"ownerInstance\") with the value the instance's own host claims under: its Migrations:OwnerInstance, " +
                 "else {applicationName}@{DEPLOY_ENVIRONMENT}."));
-    }
-
-    /// <summary>Prints the applied, pending, drifted, and orphaned migrations of each set.</summary>
-    /// <param name="target">The global options.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> StatusAsync(CliTarget target, CancellationToken ct)
-    {
-        if (!TryResolveSets(target, out var sets))
-            return 1;
-
-        await using var provider = BuildProvider(target.Connection, sets);
-        var registry = provider.GetRequiredService<IMigrationSetRegistry>();
-        var exitCode = 0;
-        foreach (var set in sets)
-        {
-            WriteHeader(sets, set);
-            var statusResult = await registry.GetRunner(set.Name).GetStatusAsync(ct);
-            if (statusResult.IsFailure(out var statusError, out var status))
-            {
-                Console.Error.WriteLine($"✗ {statusError.Message}");
-                exitCode = 1;
-                continue;
-            }
-
-            if (status.SchemaOwner is { } owner)
-                Console.WriteLine($"Owner: schema {owner.SchemaName} held by set {owner.SetName} as {owner.Owner} of {owner.Instance} [{owner.ClaimedBy} @ {owner.ClaimedAt}]");
-
-            Console.WriteLine($"Applied ({status.Applied.Count}):");
-            foreach (var row in status.Applied)
-                Console.WriteLine($"  ✓ {row.Ordinal:D3}-{row.Name}   [{row.AppliedBy} @ {row.AppliedAt:u}, {row.ExecutionMs}ms]");
-
-            Console.WriteLine($"Pending ({status.Pending.Count}):");
-            foreach (var migration in status.Pending)
-                Console.WriteLine($"  • {migration.Label}");
-
-            if (status.Drifted.Count > 0)
-            {
-                Console.WriteLine($"Drift ({status.Drifted.Count}):");
-                foreach (var migration in status.Drifted)
-                    Console.WriteLine($"  ! {migration.Label}");
-            }
-
-            if (status.Orphaned.Count > 0)
-                Console.WriteLine($"Orphaned (in DB, not in source): {string.Join(", ", status.Orphaned.Select(o => o.ToString("D3", CultureInfo.InvariantCulture)))}");
-        }
-
-        return exitCode;
-    }
-
-    /// <summary>Ensures the database exists, then applies every pending migration of each set in order — the production deploy step.</summary>
-    /// <remarks>Stops at the first set that fails; later sets are not attempted.</remarks>
-    /// <param name="target">The global options.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> ApplyAsync(CliTarget target, CancellationToken ct)
-    {
-        if (!TryResolveSets(target, out var sets))
-            return 1;
-
-        await using var provider = BuildProvider(target.Connection, sets);
-        var registry = provider.GetRequiredService<IMigrationSetRegistry>();
-
-        // Create the target database first — a fresh box may have no target database yet.
-        await registry.GetDialect(sets[0].Name).EnsureDatabaseExistsAsync(ResolveConnection(target.Connection), ct);
-        foreach (var set in sets)
-        {
-            WriteHeader(sets, set);
-            var applyResult = await registry.GetRunner(set.Name).ApplyPendingAsync("cli", ct);
-            if (applyResult.IsFailure(out var applyError, out var applied))
-            {
-                Console.Error.WriteLine($"✗ {applyError.Message}");
-                return 1;
-            }
-
-            Console.WriteLine(applied.Count == 0
-                ? "✓ Up to date — nothing to apply."
-                : $"✓ Applied {applied.Count}: {string.Join(", ", applied)}");
-        }
-
-        return 0;
-    }
-
-    /// <summary>Rehearses every pending migration of each set inside one rolled-back transaction per set and prints the reports.</summary>
-    /// <remarks>
-    ///   - exit 0 when every rehearsed migration succeeds, 1 on drift, orphans, an owner conflict or a malformed source, 2 when a migration fails
-    ///   - never creates the database: a missing database fails the connection with exit 2
-    /// </remarks>
-    /// <param name="target">The global options.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> DryRunAsync(CliTarget target, CancellationToken ct)
-    {
-        if (!TryResolveSets(target, out var sets))
-            return 1;
-
-        await using var provider = BuildProvider(target.Connection, sets);
-        var registry = provider.GetRequiredService<IMigrationSetRegistry>();
-        var exitCode = 0;
-        foreach (var set in sets)
-        {
-            WriteHeader(sets, set);
-            exitCode = Math.Max(exitCode, await DryRunSetAsync(registry.GetRunner(set.Name), ct));
-        }
-
-        return exitCode;
-    }
-
-    /// <summary>Compares each set's applied level with its source without writing anything — the pre-start or readiness check.</summary>
-    /// <remarks>Exit 0 when every set is current; 1 when one is behind, ahead, orphaned, drifted, claimed by another owner, or fails its check.</remarks>
-    /// <param name="target">The global options.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> CheckAsync(CliTarget target, CancellationToken ct)
-    {
-        if (!TryResolveSets(target, out var sets))
-            return 1;
-
-        await using var provider = BuildProvider(target.Connection, sets);
-        var levels = await provider.CheckMigrationLevelsAsync(sets.Select(set => set.Name).ToList(), ct);
-        if (levels.IsFailure(out var levelError, out var reports))
-        {
-            Console.Error.WriteLine($"✗ {levelError.Message}");
-            return 1;
-        }
-
-        var exitCode = 0;
-        foreach (var report in reports)
-        {
-            if (report.IsCurrent)
-            {
-                Console.WriteLine($"✓ {report.Describe()}");
-                continue;
-            }
-
-            Console.Error.WriteLine($"✗ {report.Describe()}");
-            exitCode = 1;
-        }
-
-        return exitCode;
-    }
-
-    /// <summary>Rolls back the latest migration of one set, or every migration above the given ordinal (dev only, target-guarded).</summary>
-    /// <param name="target">The global options; they must resolve to one set.</param>
-    /// <param name="targetOrdinal">The ordinal to roll back to, or null to roll back only the latest.</param>
-    /// <param name="confirmDb">The operator's claimed target database name, from <c>--i-understand-this-is</c>.</param>
-    /// <param name="force">Whether to skip the interactive confirmation prompt.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> RollbackAsync(CliTarget target, int? targetOrdinal, string? confirmDb, bool force, CancellationToken ct)
-    {
-        if (!TryResolveSingleSet(target, "rollback", out var set))
-            return 1;
-
-        if (!ConfirmDestructiveTarget(target.Connection, confirmDb, force))
-            return 2;
-
-        await using var provider = BuildProvider(target.Connection, [set], allowRollback: true);
-        var runner = provider.GetRequiredService<IMigrationSetRegistry>().GetRunner(set.Name);
-        var rollbackResult = await runner.RollbackAsync(targetOrdinal, ct);
-        if (rollbackResult.IsFailure(out var rollbackError, out var rolledBack))
-        {
-            Console.Error.WriteLine($"✗ {rollbackError.Message}");
-            return 1;
-        }
-
-        Console.WriteLine(rolledBack.Count == 0
-            ? "Nothing to roll back."
-            : $"✓ Rolled back {rolledBack.Count}: {string.Join(", ", rolledBack)}");
-        return 0;
-    }
-
-    /// <summary>Reports checksum drift of each set (exit 1 on any), or re-records one set's edited checksums when repair is requested (repair is target-guarded).</summary>
-    /// <param name="target">The global options; with <paramref name="repair"/> they must resolve to one set.</param>
-    /// <param name="repair">Whether to re-record drifted checksums instead of failing on them.</param>
-    /// <param name="confirmDb">The operator's claimed target database name, from <c>--i-understand-this-is</c> (required only with <paramref name="repair"/>).</param>
-    /// <param name="force">Whether to skip the interactive confirmation prompt when repairing.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> VerifyAsync(CliTarget target, bool repair, string? confirmDb, bool force, CancellationToken ct)
-    {
-        if (repair)
-            return await RepairAsync(target, confirmDb, force, ct);
-
-        if (!TryResolveSets(target, out var sets))
-            return 1;
-
-        await using var provider = BuildProvider(target.Connection, sets);
-        var registry = provider.GetRequiredService<IMigrationSetRegistry>();
-        var exitCode = 0;
-        foreach (var set in sets)
-        {
-            WriteHeader(sets, set);
-            if ((await registry.GetRunner(set.Name).GetStatusAsync(ct)).IsFailure(out var verifyError, out var status))
-            {
-                Console.Error.WriteLine($"✗ {verifyError.Message}");
-                exitCode = 1;
-                continue;
-            }
-
-            if (status.Drifted.Count == 0)
-            {
-                Console.WriteLine("✓ No drift — every applied migration matches its source.");
-                continue;
-            }
-
-            await Console.Error.WriteLineAsync(
-                $"✗ Drift in {status.Drifted.Count}: {string.Join(", ", status.Drifted.Select(m => m.Label))}. " +
-                "Revert the edits, or run 'verify --repair' to accept them.");
-            exitCode = 1;
-        }
-
-        return exitCode;
-    }
-
-    /// <summary>Marks one set's source migrations as applied without running them, after the target guard passes — an existing database adopts the set.</summary>
-    /// <param name="target">The global options; they must resolve to one set.</param>
-    /// <param name="throughOrdinal">The last ordinal to mark, or null for every source migration.</param>
-    /// <param name="confirmDb">The operator's claimed target database name, from <c>--i-understand-this-is</c>.</param>
-    /// <param name="force">Whether to skip the interactive confirmation prompt.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    public async Task<int> BaselineAsync(CliTarget target, int? throughOrdinal, string? confirmDb, bool force, CancellationToken ct)
-    {
-        if (!TryResolveSingleSet(target, "baseline", out var set))
-            return 1;
-
-        // A wrong baseline hides missing schema behind recorded history, so the operator names the database.
-        if (!ConfirmDestructiveTarget(target.Connection, confirmDb, force))
-            return 2;
-
-        await using var provider = BuildProvider(target.Connection, [set]);
-        var runner = provider.GetRequiredService<IMigrationSetRegistry>().GetRunner(set.Name);
-        if ((await runner.BaselineAsync(throughOrdinal, ct)).IsFailure(out var baselineError, out var baselined))
-        {
-            Console.Error.WriteLine($"✗ {baselineError.Message}");
-            return 1;
-        }
-
-        Console.WriteLine(baselined.Count == 0
-            ? "✓ Nothing to baseline — the source is empty."
-            : $"✓ Marked as applied without running {baselined.Count}: {string.Join(", ", baselined)}");
-        return 0;
     }
 
     /// <summary>Scaffolds a new <c>Dev/&lt;name&gt;.sql</c> draft under the selected set's migrations directory.</summary>
@@ -395,70 +171,6 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         return 0;
     }
 
-    /// <summary>Re-records one set's drifted checksums after the destructive-target guard passes.</summary>
-    /// <param name="target">The global options; they must resolve to one set.</param>
-    /// <param name="confirmDb">The operator's claimed target database name.</param>
-    /// <param name="force">Whether to skip the interactive confirmation prompt.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    private async Task<int> RepairAsync(CliTarget target, string? confirmDb, bool force, CancellationToken ct)
-    {
-        if (!TryResolveSingleSet(target, "verify --repair", out var set))
-            return 1;
-
-        // Plain verify is read-only; only --repair mutates migration history, so guard only that path.
-        if (!ConfirmDestructiveTarget(target.Connection, confirmDb, force))
-            return 2;
-
-        await using var provider = BuildProvider(target.Connection, [set], allowRollback: true);
-        var runner = provider.GetRequiredService<IMigrationSetRegistry>().GetRunner(set.Name);
-        if ((await runner.RepairAsync(ct)).IsFailure(out var repairError, out var repaired))
-        {
-            Console.Error.WriteLine($"✗ {repairError.Message}");
-            return 1;
-        }
-
-        Console.WriteLine(repaired.Count == 0
-            ? "✓ No drift to repair."
-            : $"✓ Repaired checksums: {string.Join(", ", repaired)}");
-        return 0;
-    }
-
-    /// <summary>Rehearses one set and prints its report.</summary>
-    /// <param name="runner">The set's runner.</param>
-    /// <param name="ct">Token to cancel the operation.</param>
-    private static async Task<int> DryRunSetAsync(IMigrationRunnerService runner, CancellationToken ct)
-    {
-        var dryRunResult = await runner.DryRunPendingAsync(ct);
-        if (dryRunResult.IsFailure(out var dryRunError, out var report))
-        {
-            Console.Error.WriteLine($"✗ {dryRunError.Message}");
-            return 1;
-        }
-
-        if (report.WouldApply.Count == 0)
-        {
-            Console.WriteLine("✓ Up to date — nothing to rehearse.");
-            return 0;
-        }
-
-        Console.WriteLine($"Dry run ({report.WouldApply.Count} pending, rolled back):");
-        foreach (var label in report.WouldApply)
-            Console.WriteLine($"  {DescribeRehearsal(report, label)}");
-
-        if (report.Failure is { } failure)
-        {
-            if (failure.FollowsNotRehearsed)
-                Console.Error.WriteLine($"  Note: {failure.Migration} follows a no-transaction script the dry run skipped and may depend on it.");
-            Console.Error.WriteLine($"✗ Dry run failed at {failure.Migration}.");
-            return 2;
-        }
-
-        Console.WriteLine(report.NotRehearsed.Count == 0
-            ? $"✓ Dry run passed: {report.Succeeded.Count} rehearsed."
-            : $"✓ Dry run passed: {report.Succeeded.Count} rehearsed, {report.NotRehearsed.Count} not rehearsed (no-transaction).");
-        return 0;
-    }
-
     /// <summary>Resolves the sets, printing the failure when they do not resolve.</summary>
     /// <param name="target">The global options.</param>
     /// <param name="sets">The resolved sets.</param>
@@ -482,9 +194,10 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
     private bool TryResolveSingleSet(CliTarget target, string verb, out CliMigrationSet set)
     {
         set = null!;
-        if (!TryResolveSets(target, out var sets))
+        if (!TryResolveSets(target, out var resolved))
             return false;
 
+        var sets = target.Set is null ? resolved : resolved.Where(candidate => candidate.Name == target.Set).ToList();
         if (sets.Count != 1)
         {
             Console.Error.WriteLine($"✗ {verb} runs one set; pass --set <name> (sets: {string.Join(", ", sets.Select(s => s.Name))}).");
@@ -503,7 +216,13 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         root = "";
         if (target.SetsFile is null && Environment.GetEnvironmentVariable("WOW_MIGRATE_SETS") is null)
         {
-            root = ResolveSqlDir(target.SqlDir);
+            if (ResolveSqlDir(target.SqlDir).IsFailure(out var missing, out var sqlDir))
+            {
+                Console.Error.WriteLine($"✗ {missing.Message}");
+                return false;
+            }
+
+            root = sqlDir;
             return true;
         }
 
@@ -520,18 +239,15 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
         return true;
     }
 
-    /// <summary>Builds the DI provider that registers the data source, connection factory, and one migrator per set.</summary>
-    /// <param name="connection">The global connection flag, resolved against env and default.</param>
+    /// <summary>Builds the DI provider that registers the data source, the connection factory, and one migrator per set.</summary>
+    /// <param name="dataSource">The data source every set connects through; the caller disposes it.</param>
     /// <param name="sets">The sets to register, in run order.</param>
-    /// <param name="allowRollback">Whether to enable the engine's destructive ops (rollback / repair) — only the guarded destructive verbs pass true.</param>
-    private ServiceProvider BuildProvider(string? connection, IReadOnlyList<CliMigrationSet> sets, bool allowRollback = false)
+    private static ServiceProvider BuildProvider(NpgsqlDataSource dataSource, IReadOnlyList<CliMigrationSet> sets)
     {
-        var dataSource = new NpgsqlDataSourceBuilder(ResolveConnection(connection)).Build();
-
         var services = new ServiceCollection()
             .AddSingleton<DbDataSource>(dataSource)
             .AddDataSourceConnectionFactory()
-            // Engine errors (which migrations a failed batch rolled back) reach stderr; the verbs print the rest.
+            // Engine errors (which migrations a failed batch rolled back) reach stderr; the tree prints the rest.
             .AddLogging(logging => logging.AddProvider(new StandardErrorLoggerProvider(LogLevel.Error)));
 
         foreach (var set in sets)
@@ -539,7 +255,6 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
             var broker = CreateBrokerFactory(set);
             void Configure(MigrationOptions options)
             {
-                options.AllowRollback = allowRollback;
                 if (set.Schema is { } schema)
                     options.SchemaName = schema;
                 if (set.SchemaOwner is { } owner)
@@ -579,55 +294,6 @@ internal sealed partial class CliRunnerService(IMigrationsPathBroker pathBroker)
 
         return new AssemblyLoadContext($"wow-migrate:{Path.GetFileName(assemblyPath)}", isCollectible: true)
             .LoadFromAssemblyPath(assemblyPath);
-    }
-
-    /// <summary>Prints a set's header when the run is not the plain default set, so single-set output stays as before.</summary>
-    /// <param name="sets">Every set of the run.</param>
-    /// <param name="set">The set about to print.</param>
-    private static void WriteHeader(IReadOnlyList<CliMigrationSet> sets, CliMigrationSet set)
-    {
-        if (sets.Count > 1 || set.Name != MigrationConstants.DefaultSetName)
-            Console.WriteLine($"[{set.Name}]");
-    }
-
-    /// <summary>Confirms a destructive op against the resolved target database — the operator must name it, then confirm unless forced.</summary>
-    /// <param name="connection">The global connection flag, resolved to derive the target database name.</param>
-    /// <param name="confirmDb">The operator's claimed database name, from <c>--i-understand-this-is</c>.</param>
-    /// <param name="force">Whether to skip the interactive <c>[y/N]</c> prompt.</param>
-    private bool ConfirmDestructiveTarget(string? connection, string? confirmDb, bool force)
-    {
-        var target = new NpgsqlConnectionStringBuilder(ResolveConnection(connection)).Database ?? "(unknown)";
-
-        if (!string.Equals(confirmDb, target, StringComparison.Ordinal))
-        {
-            Console.Error.WriteLine(
-                $"✗ Destructive op refused. Re-run with --i-understand-this-is {target} to confirm the target database.");
-            return false;
-        }
-
-        if (force)
-            return true;
-
-        Console.Write($"This will modify database '{target}'. Continue? [y/N] ");
-        if (Console.ReadLine()?.Trim() is "y" or "Y" or "yes" or "YES")
-            return true;
-
-        Console.Error.WriteLine("✗ Aborted.");
-        return false;
-    }
-
-    /// <summary>Describes one pending migration's rehearsal outcome as a status line.</summary>
-    /// <param name="report">The dry-run report.</param>
-    /// <param name="label">The migration label to describe.</param>
-    private static string DescribeRehearsal(MigrationDryRunReport report, string label)
-    {
-        if (report.Succeeded.Contains(label))
-            return $"✓ {label}";
-        if (report.NotRehearsed.Contains(label))
-            return $"~ {label}  (no-transaction: not rehearsed)";
-        if (report.Failure is { } failure && failure.Migration == label)
-            return $"✗ {label}  {failure.Error}";
-        return $"· {label}  (not reached)";
     }
 
     /// <summary>Computes the next ordinal — one past the highest <c>NNN-</c> prefix already on disk.</summary>

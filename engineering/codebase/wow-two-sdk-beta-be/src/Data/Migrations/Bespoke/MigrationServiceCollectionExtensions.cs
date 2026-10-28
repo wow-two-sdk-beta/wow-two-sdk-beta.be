@@ -163,9 +163,10 @@ public static class MigrationServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>Turns on the migrate key for this host: every set connects through <see cref="MigrationConstants.ConnectionStringConfigurationKey"/> when it is set.</summary>
+    /// <summary>Turns on the migrate key for this host at every run: every set connects through <see cref="MigrationConstants.ConnectionStringConfigurationKey"/> when it is set.</summary>
     /// <remarks>
-    ///   - for a migrate run only, such as the image's <c>migrate</c> verb; a boot keeps the service's own connections
+    ///   - a host needs no call: every set registration keeps the key dormant, and the <c>migrate</c> command turns it on for its run (<see cref="MigrationRunMode"/>)
+    ///   - call it only where a process outside the command must use the key, such as a test; a boot keeps the service's own connections
     ///   - the string comes from <paramref name="connectionString"/>, else configuration, else the process variable <c>Migrations__ConnectionString</c>
     ///   - blank everywhere leaves every set on its keyed or host connection
     /// </remarks>
@@ -176,12 +177,17 @@ public static class MigrationServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
 
         services.RemoveAll<MigrationConnectionOverride>();
-        services.AddSingleton(provider => new MigrationConnectionOverride(
-            NonBlank(connectionString)
-            ?? NonBlank(provider.GetService<IConfiguration>()?[MigrationConstants.ConnectionStringConfigurationKey])
-            ?? NonBlank(Environment.GetEnvironmentVariable(EnvironmentVariableOf(MigrationConstants.ConnectionStringConfigurationKey)))));
+        services.AddSingleton(provider => new MigrationConnectionOverride(ReadMigrateKey(provider, connectionString)));
         return services;
     }
+
+    /// <summary>Reads the migrate key: the given string, else configuration, else the process variable <c>Migrations__ConnectionString</c>.</summary>
+    /// <param name="provider">The root provider.</param>
+    /// <param name="connectionString">An explicit connection string, or null.</param>
+    private static string? ReadMigrateKey(IServiceProvider provider, string? connectionString) =>
+        NonBlank(connectionString)
+        ?? NonBlank(provider.GetService<IConfiguration>()?[MigrationConstants.ConnectionStringConfigurationKey])
+        ?? NonBlank(Environment.GetEnvironmentVariable(EnvironmentVariableOf(MigrationConstants.ConnectionStringConfigurationKey)));
 
     /// <summary>Registers the services every set shares: hasher, statement parser, clock, audit identity, the set registry and the verb engine.</summary>
     /// <param name="services">The service collection to configure.</param>
@@ -192,6 +198,11 @@ public static class MigrationServiceCollectionExtensions
         services.TryAddSingleton(TimeProvider.System);
         services.TryAddSingleton<IMigrationSetRegistry, MigrationSetRegistry>();
         services.TryAddSingleton<IMigrationEngine, MigrationEngine>();
+
+        // The migrate key stays dormant until a migrate command turns the run mode on; AddMigrationConnectionOverride replaces it.
+        services.TryAddSingleton<MigrationRunMode>();
+        services.TryAddSingleton(provider => new MigrationConnectionOverride(
+            provider.GetRequiredService<MigrationRunMode>().IsMigrateCommand ? ReadMigrateKey(provider, null) : null));
 
         if (!services.Any(descriptor => descriptor.ServiceType == typeof(IPostConfigureOptions<MigrationAuditOptions>)))
         {

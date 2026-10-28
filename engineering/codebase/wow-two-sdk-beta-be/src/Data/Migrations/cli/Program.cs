@@ -1,19 +1,16 @@
-using System.CommandLine;
 using Dapper;
 using WoW.Two.Sdk.Beta.Be.Data.Migrations.Cli;
 
-// Run the web-free migration CLI assembled by CliCommands and CliRunner.
+// Run the web-free migrator CLI: the shared migrate verb tree plus the authoring verbs.
 
 DefaultTypeMap.MatchNamesWithUnderscores = true; // Dapper snake_case → PascalCase for migration_history reads
 
-// Disable the built-in handler so action exceptions surface as a clean "✗ message" below, not a stack trace.
-var configuration = new InvocationConfiguration { EnableDefaultExceptionHandler = false };
-
 try
 {
-    return await new CliCommandBuilder().Build().Parse(args).InvokeAsync(configuration);
+    var (root, tree) = new CliCommandBuilder(Console.Out, Console.Error).Build();
+    return await tree.InvokeAsync(root.Parse(args), handleTermination: true, CancellationToken.None);
 }
-// Exit codes: 0 success · 1 validation (drift, bad config / missing file) · 2 execution (DB / apply failure, guard tripped).
+// The migrate verbs classify their own failures; this maps what escapes an authoring verb: 1 a missing file or folder, 2 anything else.
 catch (Exception ex)
 {
     await Console.Error.WriteLineAsync($"✗ {ex.Message}");

@@ -127,6 +127,10 @@ public interface IMigrationRunnerService
     /// <returns>Its highest applied ordinal, or null when no history of that set exists here.</returns>
     Task<int?> ReadSetLevelAsync(string setName, CancellationToken ct = default);
 
+    /// <summary>Names the database the set connects to, read from its connection settings without connecting — what a guarded verb's <c>--confirm</c> must match.</summary>
+    /// <returns>The database name (SQLite: the file name), or null when the runner cannot tell.</returns>
+    string? ReadDatabaseName() => null;
+
     /// <summary>Compares the database's applied level with the source without writing anything — the production startup check.</summary>
     /// <remarks>
     ///   - never creates the schema, the history table or an owner marker, and takes no lock

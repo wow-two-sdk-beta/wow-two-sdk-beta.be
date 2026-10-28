@@ -35,4 +35,13 @@ public static class MigrateVerbs
 
     /// <summary>Holds the confirmed end of a lock holder's session.</summary>
     public const string Unlock = "unlock";
+
+    /// <summary>Holds the database-free description of every set the image carries.</summary>
+    public const string Sets = "sets";
+
+    /// <summary>Holds the bare command a rollout declares: <c>apply</c>, then <c>seed</c>.</summary>
+    public const string Migrate = "migrate";
+
+    /// <summary>Holds the background-migration controls, which ship with background migrations.</summary>
+    public const string Background = "bg";
 }

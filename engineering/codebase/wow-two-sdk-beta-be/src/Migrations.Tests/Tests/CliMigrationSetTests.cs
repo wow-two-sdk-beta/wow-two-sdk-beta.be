@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AwesomeAssertions;
+using WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 using WoW.Two.Sdk.Beta.Be.Migrations.Tests.Harness;
 using WoW.Two.Sdk.Beta.Be.Testing.Data.Migrations;
 
@@ -24,7 +25,9 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
         var result = await CliProcess.RunAsync("apply", "--connection", Fixture.ConnectionString, "--sets", manifest);
 
         result.ExitCode.Should().Be(0, result.StandardOutput + result.StandardError);
-        result.StandardOutput.Should().Contain("[identity]").And.Contain("001-users");
+        var applied = MigrateRunResult.FromOutput(result.StandardOutput)!.Sets;
+        applied.Select(set => set.Name).Should().Equal("default", "identity");
+        applied[1].Applied.Select(label => label.Label).Should().Equal("001-users");
         await using var host = MigrationSetHost.Postgres(Fixture.ConnectionString, _ => { });
         (await host.ReadHistoryAsync("public.migration_history")).Should().Equal("001-orders");
         (await host.ReadHistoryAsync($"\"{_schema}\".identity_migration_history")).Should().Equal("001-users");
@@ -93,8 +96,8 @@ public sealed class CliMigrationSetTests(MigratorPostgresFixture fixture) : Migr
             new { name = "identity", sqlDir = _identity.Root, schema = _schema });
 
         var result = await CliProcess.RunAsync(
-            "rollback", "--connection", Fixture.ConnectionString, "--sets", manifest,
-            "--i-understand-this-is", new Npgsql.NpgsqlConnectionStringBuilder(Fixture.ConnectionString).Database!, "--force");
+            "rollback", "--to", "0", "--connection", Fixture.ConnectionString, "--sets", manifest,
+            "--confirm", new Npgsql.NpgsqlConnectionStringBuilder(Fixture.ConnectionString).Database!);
 
         result.ExitCode.Should().Be(1, result.StandardOutput + result.StandardError);
         result.StandardError.Should().Contain("--set");

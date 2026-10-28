@@ -134,6 +134,14 @@ public sealed partial class MigrationRunnerService(
         }
     }
 
+    /// <inheritdoc />
+    public string? ReadDatabaseName()
+    {
+        using var connection = connections.Create();
+        var name = options.Provider == DatabaseProvider.Sqlite ? Path.GetFileName(connection.DataSource) : connection.Database;
+        return string.IsNullOrWhiteSpace(name) ? null : name;
+    }
+
     /// <summary>Splits pending migrations into commit units: transactional batches and single no-transaction scripts.</summary>
     /// <param name="pending">The pending migrations, ordered by ordinal.</param>
     /// <remarks>Under <see cref="MigrationTransactionScope.PerMigration"/> every transactional migration is its own unit.</remarks>

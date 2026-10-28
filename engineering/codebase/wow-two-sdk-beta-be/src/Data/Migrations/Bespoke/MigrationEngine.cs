@@ -201,6 +201,31 @@ public sealed class MigrationEngine(IMigrationSetRegistry registry) : IMigration
             (result, report) => result with { Message = report.Detail ?? result.Message }, ct);
 
     /// <inheritdoc />
+    public Task<MigrateSetsReport> DescribeAsync(IReadOnlyCollection<string>? sets = null, CancellationToken ct = default)
+    {
+        var selection = Select(MigrateVerbs.Sets, sets);
+        if (selection.Refusal is { } refusal)
+            return Task.FromResult(new MigrateSetsReport(refusal, []));
+
+        var results = new List<MigrateSetResult>();
+        var descriptions = new List<MigrateSetDescription>();
+        foreach (var name in MigrationSetOrder.Sort(registry, selection.Names))
+        {
+            ct.ThrowIfCancellationRequested();
+            if (MigrationSetDescriber.Describe(name, registry.GetOptions(name), registry.GetBroker(name)).IsFailure(out var error, out var description))
+            {
+                results.Add(Refused(name, error));
+                continue;
+            }
+
+            descriptions.Add(description);
+            results.Add(Base(name) with { Status = MigrateOutcome.Current, LevelAfter = description.Level });
+        }
+
+        return Task.FromResult(new MigrateSetsReport(Run(MigrateVerbs.Sets, results), descriptions));
+    }
+
+    /// <inheritdoc />
     public async Task<MigrateRunResult> LocksAsync(IReadOnlyCollection<string>? sets = null, CancellationToken ct = default)
     {
         var selection = Select(MigrateVerbs.Locks, sets);

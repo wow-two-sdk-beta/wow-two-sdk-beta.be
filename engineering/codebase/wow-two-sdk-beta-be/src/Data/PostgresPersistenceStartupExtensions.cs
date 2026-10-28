@@ -120,16 +120,16 @@ public static partial class PostgresPersistenceStartupExtensions
     /// </remarks>
     /// <param name="services">The root service provider.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    private static async Task EnsureSetDatabasesExistAsync(this IServiceProvider services, CancellationToken cancellationToken)
+    internal static async Task EnsureSetDatabasesExistAsync(this IServiceProvider services, CancellationToken cancellationToken)
     {
         var sets = services.GetRequiredService<IMigrationSetRegistry>();
-        var hostSettings = services.GetService<DatabaseSettings>();
         var migrateKey = services.GetService<MigrationConnectionOverride>() is { IsActive: true } active ? active.ConnectionString : null;
         var ensured = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var set in sets.Names)
         {
-            var connectionString = migrateKey ?? (services.GetKeyedService<DatabaseSettings>(set) ?? hostSettings)?.ConnectionString;
+            // The host's settings resolve only without a migrate key, so a migrate run needs no database settings of its own.
+            var connectionString = migrateKey ?? (services.GetKeyedService<DatabaseSettings>(set) ?? services.GetService<DatabaseSettings>())?.ConnectionString;
             if (connectionString is null || !ensured.Add(connectionString))
                 continue;
 

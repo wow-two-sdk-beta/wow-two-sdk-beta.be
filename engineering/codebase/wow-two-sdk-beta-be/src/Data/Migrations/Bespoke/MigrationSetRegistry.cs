@@ -35,6 +35,9 @@ internal sealed class MigrationSetRegistry : IMigrationSetRegistry
     public MigrationOptions GetOptions(string setName) => Resolve<MigrationOptions>(setName);
 
     /// <inheritdoc />
+    public IMigrationBroker GetBroker(string setName) => Resolve<IMigrationBroker>(setName);
+
+    /// <inheritdoc />
     public IMigrationDialect GetDialect(string setName) => Resolve<IMigrationDialect>(setName);
 
     private T Resolve<T>(string setName) where T : notnull

@@ -29,17 +29,32 @@ public sealed class CliExitCodeTests : IDisposable
     }
 
     [Fact]
-    public async Task Rollback_ShouldExitTwo_WhenTargetGuardRefuses()
+    public async Task Rollback_ShouldExitOne_WhenTheConfirmationNamesAnotherDatabase()
     {
         Directory.CreateDirectory(_root);
         var result = await CliProcess.RunAsync(
-            "rollback",
+            "rollback", "--to", "0",
             "--connection", "Host=localhost;Database=guarded;Username=test;Password=test",
             "--sql-dir", _root,
-            "--i-understand-this-is", "wrong",
-            "--force");
+            "--confirm", "wrong");
 
-        result.ExitCode.Should().Be(2, result.StandardError);
+        result.ExitCode.Should().Be(1, result.StandardError);
+        result.StandardError.Should().Contain("--confirm guarded");
+        result.StandardOutput.Should().StartWith("migrate-result ").And.NotContain("Password");
+    }
+
+    [Fact]
+    public async Task Sets_ShouldDescribeTheSet_WithoutADatabase()
+    {
+        Directory.CreateDirectory(Path.Combine(_root, "001-users"));
+        File.WriteAllText(Path.Combine(_root, "001-users", "Apply.sql"), "create table users(id integer);");
+        File.WriteAllText(Path.Combine(_root, "001-users", "Rollback.sql"), "drop table users;");
+
+        var result = await CliProcess.RunAsync(
+            "sets", "--json", "--connection", "Host=127.0.0.1;Port=1;Database=nowhere;Username=u;Password=p", "--sql-dir", _root);
+
+        result.ExitCode.Should().Be(0, result.StandardError);
+        result.StandardOutput.Should().StartWith("{\"sets\":[{\"name\":\"default\"");
     }
 
     /// <inheritdoc />

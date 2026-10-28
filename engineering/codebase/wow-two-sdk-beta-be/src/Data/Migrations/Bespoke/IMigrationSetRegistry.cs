@@ -21,6 +21,11 @@ public interface IMigrationSetRegistry
     /// <exception cref="KeyNotFoundException">No set has that name.</exception>
     MigrationOptions GetOptions(string setName);
 
+    /// <summary>Gets the source of one set: its migrations and seed files.</summary>
+    /// <param name="setName">The set name.</param>
+    /// <exception cref="KeyNotFoundException">No set has that name.</exception>
+    IMigrationBroker GetBroker(string setName);
+
     /// <summary>Gets the dialect of one set.</summary>
     /// <param name="setName">The set name.</param>
     /// <exception cref="KeyNotFoundException">No set has that name.</exception>
