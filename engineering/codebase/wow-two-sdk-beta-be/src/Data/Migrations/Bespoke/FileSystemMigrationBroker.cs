@@ -3,11 +3,17 @@ using WoW.Two.Sdk.Beta.Be.Foundation.Results;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
-/// <summary>Integrates migration scripts stored on the local filesystem.</summary>
-public sealed class FileSystemMigrationBroker(string migrationsRoot) : IMigrationBroker
+/// <summary>Integrates migration scripts and seed files stored on the local filesystem.</summary>
+/// <param name="migrationsRoot">The folder containing the <c>NNN-name</c> directories.</param>
+/// <param name="seedsRoot">The folder containing the <c>NNN-name.json</c> seed files, or null for <c>Seeds</c> beside the migrations root.</param>
+public sealed class FileSystemMigrationBroker(string migrationsRoot, string? seedsRoot = null) : IMigrationBroker
 {
     /// <summary>Gets the migrations root — the folder containing the <c>NNN-name</c> directories.</summary>
     public string Root { get; } = migrationsRoot;
+
+    /// <summary>Gets the seeds root — the folder containing the <c>NNN-name.json</c> seed files.</summary>
+    public string SeedsRoot { get; } = seedsRoot
+        ?? Path.Combine(Path.GetDirectoryName(Path.TrimEndingDirectorySeparator(Path.GetFullPath(migrationsRoot))) ?? ".", MigrationConstants.SeedsFolderName);
 
     /// <inheritdoc />
     public Result<IReadOnlyList<RawMigration>> Read()
@@ -45,6 +51,26 @@ public sealed class FileSystemMigrationBroker(string migrationsRoot) : IMigratio
         {
             return Result<IReadOnlyList<RawMigration>>.Fail(AppErrorFactory.DataIntegrity(
                 $"Migration source '{Root}' could not be read.", exception));
+        }
+    }
+
+    /// <inheritdoc />
+    public Result<IReadOnlyList<RawSeed>> ReadSeeds()
+    {
+        try
+        {
+            if (!Directory.Exists(SeedsRoot))
+                return Result<IReadOnlyList<RawSeed>>.Ok([]);
+
+            var seeds = Directory.GetFiles(SeedsRoot, "*.json")
+                .Select(path => new RawSeed { Name = Path.GetFileNameWithoutExtension(path), Json = File.ReadAllText(path) })
+                .ToList();
+            return Result<IReadOnlyList<RawSeed>>.Ok(seeds);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            return Result<IReadOnlyList<RawSeed>>.Fail(AppErrorFactory.DataIntegrity(
+                $"Seed source '{SeedsRoot}' could not be read.", exception));
         }
     }
 }

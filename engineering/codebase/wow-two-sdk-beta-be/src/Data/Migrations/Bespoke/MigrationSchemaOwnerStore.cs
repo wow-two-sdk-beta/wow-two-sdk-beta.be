@@ -64,18 +64,67 @@ internal sealed class MigrationSchemaOwnerStore(IMigrationDialect dialect, Migra
     /// <param name="claimedAt">The claim time.</param>
     /// <param name="claimedBy">The host stamp, such as <c>cli</c> or <c>deploy</c>.</param>
     /// <param name="ct">Token to cancel the operation.</param>
-    public Task ClaimAsync(DbConnection connection, DbTransaction? transaction, DateTimeOffset claimedAt, string claimedBy, CancellationToken ct)
+    public Task ClaimAsync(DbConnection connection, DbTransaction? transaction, DateTimeOffset claimedAt, string claimedBy, CancellationToken ct) =>
+        WriteAsync(connection, transaction,
+            options.SchemaOwner ?? throw new InvalidOperationException("Only a set with a SchemaOwner claims its schema."),
+            options.OwnerInstance ?? throw new InvalidOperationException("A set claims its schema only under an OwnerInstance."),
+            claimedAt, claimedBy, replace: false, ct);
+
+    /// <summary>Records the schema's marker under the given owner and instance, replacing any marker it holds — the <c>claim</c> verb's takeover.</summary>
+    /// <param name="connection">The open connection to write to.</param>
+    /// <param name="transaction">The enclosing transaction, or null to write bare.</param>
+    /// <param name="owner">The owner kind the set claims the schema as.</param>
+    /// <param name="instance">The instance the set claims the schema as.</param>
+    /// <param name="claimedAt">The claim time.</param>
+    /// <param name="claimedBy">The host stamp, such as <c>claim</c>.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    public Task ReplaceAsync(
+        DbConnection connection, DbTransaction? transaction, string owner, string instance, DateTimeOffset claimedAt, string claimedBy, CancellationToken ct) =>
+        WriteAsync(connection, transaction, owner, instance, claimedAt, claimedBy, replace: true, ct);
+
+    /// <summary>Finds the schema a set owns from the database's owner markers, never creating anything.</summary>
+    /// <remarks>PostgreSQL scans the marker table in every schema; SQLite reads its one marker table.</remarks>
+    /// <param name="connection">The open connection to query.</param>
+    /// <param name="transaction">The enclosing transaction, or null to read bare.</param>
+    /// <param name="setName">The set whose schema to find.</param>
+    /// <param name="ct">Token to cancel the operation.</param>
+    /// <returns>The schema, or null when no marker names the set.</returns>
+    public async Task<string?> FindSchemaOfSetAsync(DbConnection connection, DbTransaction? transaction, string setName, CancellationToken ct)
+    {
+        foreach (var schema in await dialect.FindTableSchemasAsync(connection, transaction, MigrationConstants.SchemaOwnerTableName, ct))
+        {
+            var owned = await connection.QueryFirstOrDefaultAsync<string>(new CommandDefinition(
+                $"SELECT schema_name FROM {dialect.QualifyHistoryTable(schema, MigrationConstants.SchemaOwnerTableName)} WHERE set_name = @setName",
+                new { setName }, transaction, cancellationToken: ct));
+            if (owned is not null)
+                return owned;
+        }
+
+        return null;
+    }
+
+    private Task<int> WriteAsync(
+        DbConnection connection, DbTransaction? transaction, string owner, string instance, DateTimeOffset claimedAt, string claimedBy, bool replace, CancellationToken ct)
     {
         var sql = $"""
             INSERT INTO {QualifiedTable} (schema_name, set_name, owner, instance, claimed_at, claimed_by)
             VALUES (@SchemaName, @SetName, @Owner, @Instance, @ClaimedAt, @ClaimedBy)
             """;
+        if (replace)
+        {
+            sql += """
+
+                ON CONFLICT (schema_name) DO UPDATE SET set_name = excluded.set_name, owner = excluded.owner, instance = excluded.instance,
+                    claimed_at = excluded.claimed_at, claimed_by = excluded.claimed_by
+                """;
+        }
+
         var row = new MigrationSchemaOwner
         {
             SchemaName = options.SchemaName,
             SetName = options.SetName,
-            Owner = options.SchemaOwner ?? throw new InvalidOperationException("Only a set with a SchemaOwner claims its schema."),
-            Instance = options.OwnerInstance ?? throw new InvalidOperationException("A set claims its schema only under an OwnerInstance."),
+            Owner = owner,
+            Instance = instance,
             ClaimedAt = claimedAt.ToString("O", CultureInfo.InvariantCulture),
             ClaimedBy = claimedBy,
         };

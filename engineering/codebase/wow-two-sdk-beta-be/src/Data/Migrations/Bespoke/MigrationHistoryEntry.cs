@@ -22,5 +22,14 @@ public sealed class MigrationHistoryEntry
     public string AppliedBy { get; set; } = "";
 
     /// <summary>Gets or sets the apply duration in milliseconds.</summary>
-    public int ExecutionMs { get; set; }
+    public long ExecutionMs { get; set; }
+
+    /// <summary>Gets or sets the recorded kind, <c>expand</c> or <c>contract</c>; null on a row recorded before kinds existed, which counts as incompatible.</summary>
+    public string? Kind { get; set; }
+
+    /// <summary>Gets or sets a contract's <c>since</c> as written, such as <c>v0.5</c>; null for an expand.</summary>
+    public string? ContractSince { get; set; }
+
+    /// <summary>Gets the <c>NNN-name</c> label.</summary>
+    public string Label => $"{Ordinal:D3}-{Name}";
 }

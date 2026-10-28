@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Beta.Be.Data.Migrations
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 > Strategy index for the three database-migration runners shipped side-by-side in this package — `Ef/`, `DbUp/`, `Bespoke/`. This doc **routes**; engine internals live in each sub-folder's own lead doc. `Bespoke/` is the intended default for wow-two products.
 
@@ -24,10 +24,10 @@ All three register a startup runner via a descriptive `Add*` extension (no `WowT
 |---|---|---|---|
 | **Schema ownership** | C# code-first — `DbContext` model + EF-generated migrations own DDL | Hand-written embedded `.sql` scripts | Hand-written raw `Apply.sql`; EF (if present) is a **pure mapper** |
 | **Host-agnostic** | No — coupled to `DbContext` + `Database.MigrateAsync` (startup `IHostedService` only) | Partial — `DbUpBackgroundService` (startup only); engine is DbUp-internal | **Yes** — one `IMigrationRunnerService` reused by CLI · HTTP endpoint · hosted-service |
-| **Rollback** | EF down-migrations (rarely used) | None (roll-forward only) | Dev/test only — `Rollback.sql`, hard-gated by `MigrationOptions.AllowRollback`; prod rolls forward |
+| **Rollback** | EF down-migrations (rarely used) | None (roll-forward only) | `Rollback.sql` as a confirmed operator verb (`IMigrationEngine.RollbackAsync`); hosts stay gated by `MigrationOptions.AllowRollback`; prod rolls forward |
 | **Multi-provider** | Any EF provider (PG/SQL Server/SQLite/…) | PG · SQL Server · MySQL via `DbUpProviderFactory` (SQLite needs custom factory) | Postgres + SQLite; Postgres owns a whole-loop advisory lock, SQLite requires one deployment applicant |
 | **Drift / checksum** | EF model-snapshot diff | Script journal (raw-byte hash) | Normalized SHA-256 over `Apply.sql` — no CRLF/whitespace false drift |
-| **Concurrency (multi-instance)** | EF internal | None | Postgres: `pg_advisory_lock`; SQLite: deployment-owned single applicant (`busy_timeout` is not a mutex) |
+| **Concurrency (multi-instance)** | EF internal | None | Postgres: bounded advisory lock in a reserved key class; SQLite: deployment-owned single applicant (`busy_timeout` is not a mutex) |
 | **Tooling** | `dotnet ef` | — | `wow-migrate` `dotnet tool` (`status`/`apply`/`apply --dry-run`/`check`/`baseline`/`rollback`/`new`/`promote`/`verify --repair`), one set or a `--sets` manifest |
 | **Several schemas per host** | one context per schema | one journal | named sets: own history, lock, schema and owner-and-instance marker per module (`AddDatabaseBespokeMigrationSet`) |
 | **When to pick** | Code-first shop already invested in EF migrations | Existing DbUp script library being carried forward | **Default for new wow-two products** — SQL-owned schema, host-agnostic, rebaseline/squash |
@@ -89,6 +89,9 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 
 - Production applies migrations in an explicit deploy step (`wow-migrate apply`, or the image's migrate command calling `MigrateBespokeForDeployAsync()`). `MigrateBespokeOnStartupAsync()` applies every set only on a local run and verifies levels read-only on any deployed host, unless `ApplyWhenDeployed` opts in. Details: `Bespoke/bespoke.md` § *Who applies*.
 - An existing database adopts a set without running its scripts through `BaselineAsync` / `wow-migrate baseline`. Details: `Bespoke/bespoke.md` § *Baseline*.
+- `IMigrationEngine` serves every verb of the migrate command tree — `check`, `plan`, `apply`, `seed`, `rollback`, `forget`, `repair`, `baseline`, `claim`, `locks`, `unlock` — over the registered sets, each returning a `MigrateRunResult` with exits `0` done or current · `1` refused · `2` failed · `3` busy. Details: `Bespoke/bespoke.md` § *Verb engine*.
+- A file marked `-- @contract since=vX.Y` is a contract, any other an expand; an older release boots and applies on newer history it survives. Details: `Bespoke/bespoke.md` § *Kinds and compatibility*.
+- Locks are bounded (`lock_timeout` per script, batch retries, a bounded advisory wait) and taken in a reserved key class apart from app locks. Details: `Bespoke/bespoke.md` § *Lock safety*.
 
 ---
 
@@ -96,7 +99,7 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 
 - `Ef/` — `EfMigrationsServiceCollectionExtensions` (`AddEfMigrationsRunner<TContext>`), `EfMigrationsBackgroundService<TContext>` (calls `Database.MigrateAsync`), `EfMigrationsOptions`.
 - `DbUp/` — `DbUpServiceCollectionExtensions` (`AddDbUpRunner`), `DbUpBackgroundService`, `DbUpOptions`, `DbUpProviderFactory` (`Postgres`/`SqlServer`/`MySql`).
-- `Bespoke/` — `IMigrationRunnerService`/`MigrationRunnerService`, `MigrationDescriptor`, `AddDatabaseBespokeMigrations` + `AddDatabaseBespokeMigrationSet`, `IMigrationSetRegistry`, `MigrationOptions`, and `Migrations/NNN-name/{Apply,Rollback}.sql`.
+- `Bespoke/` — `IMigrationRunnerService`/`MigrationRunnerService`, `IMigrationEngine`/`MigrationEngine` (the verbs, `MigrateRunResult`), `MigrationDescriptor`, `AddDatabaseBespokeMigrations` + `AddDatabaseBespokeMigrationSet`, `IMigrationSetRegistry`, `MigrationOptions`, and `Migrations/NNN-name/{Apply,Rollback}.sql` beside `Seeds/NNN-name.json`.
 
 ---
 

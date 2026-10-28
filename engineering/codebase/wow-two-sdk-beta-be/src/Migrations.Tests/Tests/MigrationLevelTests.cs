@@ -42,7 +42,7 @@ public sealed class MigrationLevelTests : SqliteMigratorTestBase
     }
 
     [Fact]
-    public async Task CheckLevel_ShouldReportAhead_WhenTheDatabaseIsNewerThanTheCode()
+    public async Task CheckLevel_ShouldReportCompatibleAhead_WhenTheDatabaseIsNewerByAnExpand()
     {
         Workspace.Write("001-users", "create table identity_users(id integer primary key);", "drop table identity_users;");
         Workspace.Write("002-sessions", "create table identity_sessions(id integer primary key);", "drop table identity_sessions;");
@@ -53,7 +53,8 @@ public sealed class MigrationLevelTests : SqliteMigratorTestBase
         await using var older = CreateMigrator();
         var report = (await older.Runner.CheckLevelAsync()).ValueOrThrow();
 
-        report.State.Should().Be(MigrationLevelState.Ahead);
+        report.State.Should().Be(MigrationLevelState.AheadCompatible);
+        report.MayRun.Should().BeTrue();
         report.AppliedLevel.Should().Be(2);
         report.ExpectedLevel.Should().Be(1);
         report.Describe().Should().Contain("newer");

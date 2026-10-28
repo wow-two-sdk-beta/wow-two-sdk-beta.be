@@ -20,6 +20,12 @@ public static class MigrationServiceCollectionExtensions
     /// <summary>Holds the variable the deploy runner sets on every deployed container.</summary>
     private const string DeployEnvironmentKey = "DEPLOY_ENVIRONMENT";
 
+    /// <summary>Holds the host-configuration key of the environment name (the generic host's <c>HostDefaults.EnvironmentKey</c>).</summary>
+    private const string EnvironmentKey = "environment";
+
+    /// <summary>Holds the environment name of a developer's machine.</summary>
+    private const string DevelopmentEnvironment = "Development";
+
     /// <summary>Adds the embedded-resource SQL migrator (the runtime default — schema ships in the binary).</summary>
     /// <remarks>The host passes the assembly that embeds the <c>Migrations/NNN-name/*.sql</c> resources; requires an <see cref="IDbConnectionFactory"/> registered alongside.</remarks>
     /// <param name="services">The service collection to configure.</param>
@@ -102,7 +108,7 @@ public static class MigrationServiceCollectionExtensions
         });
         if (configure is not null)
             builder.Configure(configure);
-        ApplyDefaults(builder);
+        ApplyDefaults(builder, provider => provider.GetKeyedService<IMigrationBroker>(setName));
         ApplyRules(builder);
         builder.ValidateOnStart();
 
@@ -113,16 +119,13 @@ public static class MigrationServiceCollectionExtensions
             CreateDialect(provider.GetRequiredKeyedService<MigrationOptions>(setName).Provider));
         services.AddKeyedSingleton<IMigrationHistoryRepository>(setName, (provider, _) => new MigrationHistoryRepository(
             provider.GetRequiredKeyedService<IMigrationDialect>(setName), provider.GetRequiredKeyedService<MigrationOptions>(setName)));
-        services.AddKeyedSingleton<IMigrationRunnerService>(setName, (provider, _) => new MigrationRunnerService(
+        services.AddKeyedSingleton<IMigrationRunnerService>(setName, (provider, _) => CreateRunner(
+            provider,
             provider.GetRequiredKeyedService<IMigrationBroker>(setName),
             provider.GetRequiredKeyedService<IMigrationHistoryRepository>(setName),
-            provider.GetKeyedService<IDbConnectionFactory>(setName) ?? provider.GetRequiredService<IDbConnectionFactory>(),
             provider.GetRequiredKeyedService<MigrationOptions>(setName),
-            provider.GetRequiredService<ILogger<MigrationRunnerService>>(),
-            provider.GetRequiredService<IMigrationChecksumHasher>(),
-            provider.GetRequiredService<ISqlStatementParser>(),
-            provider.GetRequiredService<TimeProvider>(),
-            provider.GetRequiredKeyedService<IMigrationDialect>(setName)));
+            provider.GetRequiredKeyedService<IMigrationDialect>(setName),
+            provider.GetKeyedService<IDbConnectionFactory>(setName)));
         AddShared(services);
 
         return services;
@@ -137,7 +140,7 @@ public static class MigrationServiceCollectionExtensions
     {
         services.AddValidatedOptions(configure, builder =>
         {
-            ApplyDefaults(builder);
+            ApplyDefaults(builder, provider => provider.GetService<IMigrationBroker>());
             ApplyRules(builder);
         });
 
@@ -146,7 +149,13 @@ public static class MigrationServiceCollectionExtensions
         services.AddSingleton<IMigrationDialect>(serviceProvider =>
             CreateDialect(serviceProvider.GetRequiredService<MigrationOptions>().Provider));
         services.AddSingleton<IMigrationHistoryRepository, MigrationHistoryRepository>();
-        services.AddSingleton<IMigrationRunnerService, MigrationRunnerService>();
+        services.AddSingleton<IMigrationRunnerService>(provider => CreateRunner(
+            provider,
+            provider.GetRequiredService<IMigrationBroker>(),
+            provider.GetRequiredService<IMigrationHistoryRepository>(),
+            provider.GetRequiredService<MigrationOptions>(),
+            provider.GetRequiredService<IMigrationDialect>(),
+            keyedConnections: null));
         if (!IsRegistered(services, MigrationConstants.DefaultSetName))
             services.AddSingleton(new MigrationSetRegistration(MigrationConstants.DefaultSetName));
         AddShared(services);
@@ -154,7 +163,27 @@ public static class MigrationServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>Registers the services every set shares: hasher, statement parser, clock and the set registry.</summary>
+    /// <summary>Turns on the migrate key for this host: every set connects through <see cref="MigrationConstants.ConnectionStringConfigurationKey"/> when it is set.</summary>
+    /// <remarks>
+    ///   - for a migrate run only, such as the image's <c>migrate</c> verb; a boot keeps the service's own connections
+    ///   - the string comes from <paramref name="connectionString"/>, else configuration, else the process variable <c>Migrations__ConnectionString</c>
+    ///   - blank everywhere leaves every set on its keyed or host connection
+    /// </remarks>
+    /// <param name="services">The service collection to configure.</param>
+    /// <param name="connectionString">The migrate key's connection string, or null to read it from configuration.</param>
+    public static IServiceCollection AddMigrationConnectionOverride(this IServiceCollection services, string? connectionString = null)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.RemoveAll<MigrationConnectionOverride>();
+        services.AddSingleton(provider => new MigrationConnectionOverride(
+            NonBlank(connectionString)
+            ?? NonBlank(provider.GetService<IConfiguration>()?[MigrationConstants.ConnectionStringConfigurationKey])
+            ?? NonBlank(Environment.GetEnvironmentVariable(EnvironmentVariableOf(MigrationConstants.ConnectionStringConfigurationKey)))));
+        return services;
+    }
+
+    /// <summary>Registers the services every set shares: hasher, statement parser, clock, audit identity, the set registry and the verb engine.</summary>
     /// <param name="services">The service collection to configure.</param>
     private static void AddShared(IServiceCollection services)
     {
@@ -162,13 +191,66 @@ public static class MigrationServiceCollectionExtensions
         services.TryAddSingleton<ISqlStatementParser, SqlStatementParser>();
         services.TryAddSingleton(TimeProvider.System);
         services.TryAddSingleton<IMigrationSetRegistry, MigrationSetRegistry>();
+        services.TryAddSingleton<IMigrationEngine, MigrationEngine>();
+
+        if (!services.Any(descriptor => descriptor.ServiceType == typeof(IPostConfigureOptions<MigrationAuditOptions>)))
+        {
+            services.AddOptions<MigrationAuditOptions>().PostConfigure<IServiceProvider>((audit, provider) =>
+            {
+                var configuration = provider.GetService<IConfiguration>();
+                audit.By ??= NonBlank(configuration?[MigrationConstants.ByConfigurationKey])
+                    ?? NonBlank(Environment.GetEnvironmentVariable(EnvironmentVariableOf(MigrationConstants.ByConfigurationKey)))
+                    ?? $"{Environment.UserName}@{Environment.MachineName}";
+                audit.Job ??= NonBlank(configuration?[MigrationConstants.JobConfigurationKey])
+                    ?? NonBlank(Environment.GetEnvironmentVariable(EnvironmentVariableOf(MigrationConstants.JobConfigurationKey)));
+            });
+        }
     }
 
-    /// <summary>Fills what the caller left unset from the host: the owner instance, after every configure hook has run.</summary>
+    /// <summary>Builds one set's runner, connecting through the migrate key when a migrate run turned it on, else the set's keyed connection, else the host's.</summary>
+    private static MigrationRunnerService CreateRunner(
+        IServiceProvider provider, IMigrationBroker broker, IMigrationHistoryRepository history, MigrationOptions options,
+        IMigrationDialect dialect, IDbConnectionFactory? keyedConnections) => new(
+        broker,
+        history,
+        provider.GetService<MigrationConnectionOverride>() is { IsActive: true } migrateKey
+            ? migrateKey.GetFactory(options.Provider)
+            : keyedConnections ?? provider.GetRequiredService<IDbConnectionFactory>(),
+        options,
+        provider.GetRequiredService<ILogger<MigrationRunnerService>>(),
+        provider.GetRequiredService<IMigrationChecksumHasher>(),
+        provider.GetRequiredService<ISqlStatementParser>(),
+        provider.GetRequiredService<TimeProvider>(),
+        dialect,
+        provider.GetService<IOptions<MigrationAuditOptions>>());
+
+    /// <summary>Fills what the caller left unset from the host, after every configure hook has run: owner instance, release and local run.</summary>
     /// <param name="builder">The options builder of one set.</param>
-    private static void ApplyDefaults(OptionsBuilder<MigrationOptions> builder) =>
+    /// <param name="broker">Resolves the set's source, whose embedding assembly names the release.</param>
+    private static void ApplyDefaults(OptionsBuilder<MigrationOptions> builder, Func<IServiceProvider, IMigrationBroker?> broker) =>
         builder.PostConfigure<IServiceProvider>((options, provider) =>
-            options.OwnerInstance ??= DeriveOwnerInstance(provider.GetService<IConfiguration>()));
+        {
+            var configuration = provider.GetService<IConfiguration>();
+            options.OwnerInstance ??= DeriveOwnerInstance(configuration);
+            options.LocalRun ??= DeriveLocalRun(configuration);
+            if (options.Release is null && broker(provider) is EmbeddedResourceMigrationBroker embedded)
+                options.Release = MigrationRelease.TextOf(embedded.Assembly);
+        });
+
+    /// <summary>Derives whether the host runs locally: <c>Development</c> without <c>DEPLOY_ENVIRONMENT</c>, read from configuration or the process.</summary>
+    /// <param name="configuration">The host configuration, or null when the host registers none.</param>
+    internal static bool DeriveLocalRun(IConfiguration? configuration)
+    {
+        var environment = NonBlank(configuration?[EnvironmentKey])
+            ?? NonBlank(Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"))
+            ?? NonBlank(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
+        var deployed = NonBlank(configuration?[DeployEnvironmentKey]) ?? NonBlank(Environment.GetEnvironmentVariable(DeployEnvironmentKey));
+        return string.Equals(environment, DevelopmentEnvironment, StringComparison.OrdinalIgnoreCase) && deployed is null;
+    }
+
+    /// <summary>Spells a configuration key as the process variable that sets it, such as <c>Migrations__By</c>.</summary>
+    /// <param name="key">The configuration key.</param>
+    private static string EnvironmentVariableOf(string key) => key.Replace(":", "__", StringComparison.Ordinal);
 
     /// <summary>Derives the instance a host claims owned schemas as: its configured value, else <c>{application}@{deploy environment}</c>.</summary>
     /// <remarks>
@@ -208,7 +290,25 @@ public static class MigrationServiceCollectionExtensions
             "MigrationOptions.OwnerInstance must be null or 1 to 200 characters.")
         .Validate(
             options => options.SchemaOwner is null || MigrationConstants.SchemaNamePattern().IsMatch(options.SchemaName),
-            "A set with a SchemaOwner needs a SchemaName that is a lowercase identifier (a-z, 0-9 and _, 63 characters at most).");
+            "A set with a SchemaOwner needs a SchemaName that is a lowercase identifier (a-z, 0-9 and _, 63 characters at most).")
+        .Validate(options => options.Release is null || MigrationRelease.TryParse(options.Release, out _),
+            "MigrationOptions.Release must be a version such as 0.5.13 or v0.5.")
+        .Validate(options => options.LockTimeout > TimeSpan.Zero, "MigrationOptions.LockTimeout must be positive.")
+        .Validate(options => options.LockAttempts >= 1, "MigrationOptions.LockAttempts must be at least 1.")
+        .Validate(options => options.LockRetryDelay >= TimeSpan.Zero, "MigrationOptions.LockRetryDelay must not be negative.")
+        .Validate(options => options.AdvisoryLockWait >= TimeSpan.Zero, "MigrationOptions.AdvisoryLockWait must not be negative.")
+        .Validate(
+            options => options.Dependencies.All(dependency => dependency.Level >= 1
+                && (dependency.Set == MigrationConstants.DefaultSetName || MigrationConstants.SetNamePattern().IsMatch(dependency.Set))),
+            "MigrationOptions.Dependencies must name sets by their lowercase set name, each at a level of 1 or more.")
+        .Validate(
+            options => options.RequiredExtensions.All(extension => MigrationConstants.ExtensionNamePattern().IsMatch(extension)),
+            "MigrationOptions.RequiredExtensions must hold extension names such as pg_trgm or uuid-ossp.")
+        .Validate(
+            options => options.ReferenceableTables.All(table => MigrationConstants.IdentifierPattern().IsMatch(table.Table)
+                && table.Keys.Count > 0
+                && table.Keys.Concat(table.ReadableColumns).All(column => MigrationConstants.IdentifierPattern().IsMatch(column))),
+            "MigrationOptions.ReferenceableTables must name snake_case tables, each with at least one snake_case key column.");
 
     /// <summary>Returns whether a set with this name is already registered.</summary>
     /// <param name="services">The service collection to inspect.</param>

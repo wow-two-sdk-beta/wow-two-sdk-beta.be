@@ -1,7 +1,7 @@
 namespace WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke;
 
 /// <summary>Defines the migration sets a host registered — its own default set plus each module's named set — in registration order.</summary>
-/// <remarks>Resolving it fails fast when two sets share one history table or claim one schema.</remarks>
+/// <remarks>Resolving it fails fast when two sets share one history table or claim one schema, or depend on each other in a cycle.</remarks>
 public interface IMigrationSetRegistry
 {
     /// <summary>Gets every set name in registration order; the default set is <see cref="MigrationConstants.DefaultSetName"/>.</summary>

@@ -21,7 +21,11 @@ public static partial class MigrationSetServiceProviderExtensions
 {
     private const string LoggerCategory = "WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke.MigrationSets";
 
-    /// <summary>Applies every registered set's pending migrations in registration order, or only the named sets, stopping at the first failure.</summary>
+    /// <summary>Applies every registered set's pending migrations in dependency order, or only the named sets, stopping at the first failure.</summary>
+    /// <remarks>
+    ///   - every set runs after the registered sets it depends on; registration order breaks ties
+    ///   - before any SQL, refuses with <c>Conflict</c> when a set's dependency is missing from the database or below the level it names
+    /// </remarks>
     /// <param name="services">The root service provider.</param>
     /// <param name="appliedBy">The host stamp recorded on each applied row, such as <c>deploy</c>, <c>cli</c> or <c>startup</c>.</param>
     /// <param name="setNames">The sets to run, or null for every set.</param>
@@ -35,8 +39,16 @@ public static partial class MigrationSetServiceProviderExtensions
         ArgumentException.ThrowIfNullOrWhiteSpace(appliedBy);
 
         var registry = services.GetRequiredService<IMigrationSetRegistry>();
-        if (Select(registry, setNames).IsFailure(out var unknown, out var names))
+        if (Select(registry, setNames).IsFailure(out var unknown, out var selected))
             return Result<IReadOnlyList<MigrationSetApplied>>.Fail(unknown);
+
+        var names = MigrationSetOrder.Sort(registry, selected);
+        var unmet = await MigrationDependencyCheck.FindUnmetAsync(registry, names, runAppliesDependencies: true, ct).ConfigureAwait(false);
+        if (unmet.Count > 0)
+        {
+            return Result<IReadOnlyList<MigrationSetApplied>>.Fail(AppErrorFactory.Conflict(string.Join(" ", unmet.Select(pair =>
+                $"Set '{pair.Key}' {string.Join("; ", pair.Value)}."))));
+        }
 
         var applied = new List<MigrationSetApplied>(names.Count);
         foreach (var name in names)
@@ -80,12 +92,13 @@ public static partial class MigrationSetServiceProviderExtensions
     /// <summary>Stops the host when a set's database level differs from the code's — the production boot step, run in place of applying.</summary>
     /// <remarks>
     ///   - reads only: never migrates, creates or claims anything
-    ///   - a set under <see cref="MigrationLevelPolicy.Warn"/> logs the difference and boots; an owner conflict always stops the host
+    ///   - a compatible ahead (newer history this release survives) boots with a warning, under every policy
+    ///   - a set under <see cref="MigrationLevelPolicy.Warn"/> logs any other difference and boots; an owner conflict always stops the host
     /// </remarks>
     /// <param name="services">The root service provider.</param>
     /// <param name="ct">Token to cancel the operation.</param>
     /// <exception cref="AppException">A set's check failed, such as on a malformed source.</exception>
-    /// <exception cref="InvalidOperationException">A set's schema belongs to another owner, or its database is behind, ahead or drifted under <see cref="MigrationLevelPolicy.Fail"/>.</exception>
+    /// <exception cref="InvalidOperationException">A set's schema belongs to another owner, or its database is behind, incompatibly ahead, orphaned or drifted under <see cref="MigrationLevelPolicy.Fail"/>.</exception>
     public static async Task VerifyMigrationLevelsOnStartupAsync(this IServiceProvider services, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(services);
@@ -101,6 +114,13 @@ public static partial class MigrationSetServiceProviderExtensions
             if (report.IsCurrent)
             {
                 LogLevelCurrent(logger, report.Set, report.AppliedLevel);
+                continue;
+            }
+
+            // A rollback onto history this release survives must boot: the newer release's expands are still in place.
+            if (report.State == MigrationLevelState.AheadCompatible)
+            {
+                LogCompatibleAhead(logger, report.Describe());
                 continue;
             }
 
@@ -145,4 +165,7 @@ public static partial class MigrationSetServiceProviderExtensions
 
     [LoggerMessage(EventId = 3012, Level = LogLevel.Warning, Message = "Migration level mismatch, starting anyway: {Report}")]
     private static partial void LogLevelMismatch(ILogger logger, string report);
+
+    [LoggerMessage(EventId = 3024, Level = LogLevel.Warning, Message = "Migration set ahead of this release by migrations it survives, starting: {Report}")]
+    private static partial void LogCompatibleAhead(ILogger logger, string report);
 }

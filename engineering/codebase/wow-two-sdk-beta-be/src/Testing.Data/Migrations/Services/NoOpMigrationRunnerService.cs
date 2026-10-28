@@ -35,4 +35,42 @@ internal sealed class NoOpMigrationRunnerService : IMigrationRunnerService
     /// <inheritdoc />
     public Task<Result<IReadOnlyList<string>>> BaselineAsync(int? throughOrdinal = null, CancellationToken ct = default) =>
         Task.FromResult(Result<IReadOnlyList<string>>.Ok([]));
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> ApplyAsync(string appliedBy, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationPlan>> PlanAsync(CancellationToken ct = default) =>
+        Task.FromResult(Result<MigrationPlan>.Ok(new MigrationPlan { Set = MigrationConstants.DefaultSetName, AppliedLevel = 0, ExpectedLevel = 0, Pending = [] }));
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> RollbackToAsync(int targetOrdinal, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> ForgetAboveAsync(int aboveOrdinal, bool force = false, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> RepairChecksumsAsync(CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> BaselineToAsync(int? throughOrdinal = null, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> ClaimSchemaAsync(string owner, string instance, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<IReadOnlyList<MigrationLockHolder>>> GetLockHoldersAsync(CancellationToken ct = default) =>
+        Task.FromResult(Result<IReadOnlyList<MigrationLockHolder>>.Ok([]));
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> UnlockAsync(CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<Result<MigrationOperationReport>> SeedAsync(string appliedBy, CancellationToken ct = default) => Unchanged();
+
+    /// <inheritdoc />
+    public Task<int?> ReadSetLevelAsync(string setName, CancellationToken ct = default) => Task.FromResult<int?>(null);
+
+    private static Task<Result<MigrationOperationReport>> Unchanged() =>
+        Task.FromResult(Result<MigrationOperationReport>.Ok(MigrationOperationReport.Unchanged));
 }

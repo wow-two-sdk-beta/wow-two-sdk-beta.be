@@ -39,29 +39,95 @@ public sealed class SqliteMigrationDialect : IMigrationDialect
     }
 
     /// <inheritdoc />
-    public Task AcquireLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) =>
-        connection.ExecuteAsync(new CommandDefinition($"PRAGMA busy_timeout = {BusyTimeoutMilliseconds};", cancellationToken: ct));
+    /// <remarks>SQLite has no advisory locks: the busy timeout waits out transient writers, and the deployment keeps one applicant.</remarks>
+    public async Task<bool> TryAcquireLockAsync(DbConnection connection, MigrationLockKey key, CancellationToken ct = default)
+    {
+        await connection.ExecuteAsync(new CommandDefinition($"PRAGMA busy_timeout = {BusyTimeoutMilliseconds};", cancellationToken: ct));
+        return true;
+    }
 
     /// <inheritdoc />
-    public Task ReleaseLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) => Task.CompletedTask;
+    public Task ReleaseLockAsync(DbConnection connection, MigrationLockKey key, CancellationToken ct = default) => Task.CompletedTask;
 
     /// <inheritdoc />
-    public Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
+    /// <remarks>A table from an older SDK gains <c>kind</c> and <c>contract_since</c>; SQLite's <c>INTEGER</c> already holds 64 bits.</remarks>
+    public async Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
+    {
+        var table = QualifyHistoryTable(schemaName, tableName);
+        var sql = $"""
+            CREATE TABLE IF NOT EXISTS {table} (
+                ordinal         INTEGER NOT NULL,
+                version         TEXT    NOT NULL,
+                name            TEXT    NOT NULL,
+                checksum        TEXT    NOT NULL,
+                applied_at      TEXT    NOT NULL,
+                applied_by      TEXT    NOT NULL,
+                execution_ms    INTEGER NOT NULL,
+                kind            TEXT    NULL,
+                contract_since  TEXT    NULL,
+                CONSTRAINT pk_{tableName} PRIMARY KEY (ordinal)
+            );
+            """;
+        await connection.ExecuteAsync(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
+
+        var columns = await GetColumnTypesAsync(connection, transaction, schemaName, tableName, ct);
+        foreach (var column in (string[])["kind", "contract_since"])
+        {
+            if (!columns.ContainsKey(column))
+                await connection.ExecuteAsync(new CommandDefinition($"ALTER TABLE {table} ADD COLUMN {column} TEXT NULL", transaction: transaction, cancellationToken: ct));
+        }
+    }
+
+    /// <inheritdoc />
+    public Task EnsureEventsTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
     {
         var sql = $"""
             CREATE TABLE IF NOT EXISTS {QualifyHistoryTable(schemaName, tableName)} (
-                ordinal       INTEGER NOT NULL,
-                version       TEXT    NOT NULL,
-                name          TEXT    NOT NULL,
-                checksum      TEXT    NOT NULL,
-                applied_at    TEXT    NOT NULL,
-                applied_by    TEXT    NOT NULL,
-                execution_ms  INTEGER NOT NULL,
-                CONSTRAINT pk_{tableName} PRIMARY KEY (ordinal)
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                verb         TEXT    NOT NULL,
+                ordinals     TEXT    NOT NULL,
+                recorded_by  TEXT    NOT NULL,
+                job          TEXT    NULL,
+                recorded_at  TEXT    NOT NULL,
+                detail       TEXT    NULL
             );
             """;
         return connection.ExecuteAsync(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
     }
+
+    /// <inheritdoc />
+    public Task EnsureSeedHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
+    {
+        var sql = $"""
+            CREATE TABLE IF NOT EXISTS {QualifyHistoryTable(schemaName, tableName)} (
+                name        TEXT NOT NULL,
+                checksum    TEXT NOT NULL,
+                mode        TEXT NOT NULL,
+                applied_at  TEXT NOT NULL,
+                applied_by  TEXT NOT NULL,
+                CONSTRAINT pk_{tableName} PRIMARY KEY (name)
+            );
+            """;
+        return connection.ExecuteAsync(new CommandDefinition(sql, transaction: transaction, cancellationToken: ct));
+    }
+
+    /// <inheritdoc />
+    public async Task<IReadOnlyDictionary<string, string>> GetColumnTypesAsync(
+        DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default)
+    {
+        var rows = await connection.QueryAsync<(string Name, string Type)>(new CommandDefinition(
+            "SELECT name, type FROM pragma_table_info(@tableName)", new { tableName }, transaction, cancellationToken: ct));
+        return rows.ToDictionary(row => row.Name, row => row.Type, StringComparer.Ordinal);
+    }
+
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<string>> FindTableSchemasAsync(DbConnection connection, DbTransaction? transaction, string tableName, CancellationToken ct = default) =>
+        await TableExistsAsync(connection, transaction, "main", tableName, ct) ? ["main"] : [];
+
+    /// <inheritdoc />
+    /// <remarks><c>SQLITE_BUSY</c> and <c>SQLITE_LOCKED</c> mean another writer held the database past the busy timeout.</remarks>
+    public bool IsLockNotAvailable(DbException exception) =>
+        exception is SqliteException { SqliteErrorCode: 5 or 6 };
 
     /// <inheritdoc />
     public string QualifyHistoryTable(string schemaName, string tableName) => $"\"{tableName}\"";
@@ -85,6 +151,12 @@ public sealed class SqliteMigrationDialect : IMigrationDialect
     public string SubstituteSchema(string sql, string schemaName) =>
         sql.Replace(MigrationConstants.SchemaPlaceholder + ".", "", StringComparison.Ordinal)
             .Replace(MigrationConstants.SchemaPlaceholder, "main", StringComparison.Ordinal);
+
+    /// <inheritdoc />
+    /// <remarks>Like <see cref="SubstituteSchema"/>: <c>{{schema:set}}.</c> becomes nothing and a bare placeholder <c>main</c>.</remarks>
+    public string SubstituteSetSchema(string sql, string placeholder, string schemaName) =>
+        sql.Replace(placeholder + ".", "", StringComparison.Ordinal)
+            .Replace(placeholder, "main", StringComparison.Ordinal);
 
     /// <summary>Round-trips <see cref="DateTimeOffset"/> through SQLite TEXT as ISO 8601.</summary>
     private sealed class DateTimeOffsetTextHandler : SqlMapper.TypeHandler<DateTimeOffset>

@@ -37,6 +37,25 @@ public static partial class MigrationConstants
     /// <summary>Holds the stamp a baseline records on the history rows it marks as applied and on the schema claim it makes.</summary>
     public const string BaselineAppliedBy = "baseline";
 
+    /// <summary>Holds the configuration key of the migrate key: a connection string that, once a migrate run turns it on, connects every set (environment variable <c>Migrations__ConnectionString</c>).</summary>
+    /// <remarks>Read only when the host calls <c>AddMigrationConnectionOverride</c>; a boot never uses it.</remarks>
+    public const string ConnectionStringConfigurationKey = "Migrations:ConnectionString";
+
+    /// <summary>Holds the configuration key naming who runs a writing verb, recorded on each event row (environment variable <c>Migrations__By</c>).</summary>
+    public const string ByConfigurationKey = "Migrations:By";
+
+    /// <summary>Holds the configuration key naming the job that runs a writing verb, recorded on each event row (environment variable <c>Migrations__Job</c>).</summary>
+    public const string JobConfigurationKey = "Migrations:Job";
+
+    /// <summary>Holds the reserved advisory-lock class (<c>w2mg</c>) every set's lock takes in the two-key form, apart from the single-key space app locks use.</summary>
+    public const int AdvisoryLockClass = 0x77326D67;
+
+    /// <summary>Holds the folder, beside a set's <c>Migrations</c> folder, that carries its <c>NNN-name.json</c> seed files.</summary>
+    public const string SeedsFolderName = "Seeds";
+
+    /// <summary>Holds the metadata key that marks a failure as busy: a lock was not acquired within its bound.</summary>
+    public const string BusyMetadataKey = "busy";
+
     /// <summary>Matches a migration folder name of the form <c>NNN-name</c> (three-digit ordinal, then text).</summary>
     [GeneratedRegex(@"^(\d{3})-(.+)$")]
     public static partial Regex FolderPattern();
@@ -49,4 +68,20 @@ public static partial class MigrationConstants
     /// <summary>Matches a schema name that is safe to write unquoted: a lowercase PostgreSQL identifier of 63 characters at most.</summary>
     [GeneratedRegex(@"^[a-z_][a-z0-9_]{0,62}$")]
     public static partial Regex SchemaNamePattern();
+
+    /// <summary>Matches a lowercase snake_case identifier of 63 characters at most: a table, column or background-migration name.</summary>
+    [GeneratedRegex(@"^[a-z_][a-z0-9_]{0,62}$")]
+    public static partial Regex IdentifierPattern();
+
+    /// <summary>Matches a PostgreSQL extension name, such as <c>pg_trgm</c> or <c>uuid-ossp</c>.</summary>
+    [GeneratedRegex(@"^[a-z0-9_][a-z0-9_-]{0,62}$")]
+    public static partial Regex ExtensionNamePattern();
+
+    /// <summary>Matches a seed file name of the form <c>NNN-name.json</c> (three-digit ordinal, then text).</summary>
+    [GeneratedRegex(@"^(\d{3})-(.+)\.json$", RegexOptions.IgnoreCase)]
+    public static partial Regex SeedFilePattern();
+
+    /// <summary>Matches <c>{{schema:set}}</c>, the placeholder for the schema another set owns, resolved from the database's owner markers.</summary>
+    [GeneratedRegex(@"\{\{schema:([a-z][a-z0-9_]{0,39})\}\}")]
+    public static partial Regex SetSchemaPlaceholderPattern();
 }

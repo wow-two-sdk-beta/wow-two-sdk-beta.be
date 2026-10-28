@@ -40,17 +40,29 @@ public sealed class BaselineTests : SqliteMigratorTestBase
     }
 
     [Fact]
-    public async Task Baseline_ShouldRefuse_WhenTheSetAlreadyRecordsHistory()
+    public async Task Baseline_ShouldChangeNothing_WhenEveryMigrationIsAlreadyRecorded()
     {
         WriteUsersAndOrders();
         await using var migrator = CreateMigrator();
         (await migrator.Runner.ApplyPendingAsync("deploy")).ValueOrThrow();
 
+        (await migrator.Runner.BaselineAsync()).ValueOrThrow().Should().BeEmpty();
+
+        (await migrator.ReadHistoryAsync()).Should().AllSatisfy(row => row.AppliedBy.Should().Be("deploy"));
+    }
+
+    [Fact]
+    public async Task Baseline_ShouldRefuse_WhenTheSetRecordsOtherHistory()
+    {
+        WriteUsersAndOrders();
+        await using var migrator = CreateMigrator();
+        (await migrator.Runner.BaselineAsync(1)).ValueOrThrow();
+
         var result = await migrator.Runner.BaselineAsync();
 
         result.IsFailure(out var error, out _).Should().BeTrue();
         error!.Type.Should().Be(AppErrorType.Conflict);
-        (await migrator.ReadHistoryAsync()).Should().AllSatisfy(row => row.AppliedBy.Should().Be("deploy"));
+        (await migrator.ReadHistoryAsync()).Should().ContainSingle();
     }
 
     [Fact]

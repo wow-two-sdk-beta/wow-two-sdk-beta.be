@@ -14,7 +14,7 @@ internal sealed class MigrationSetRegistry : IMigrationSetRegistry
     /// <summary>Lists the registered sets and rejects two sets sharing a history table or an owned schema.</summary>
     /// <param name="services">The root provider the sets resolve from.</param>
     /// <param name="registrations">One marker per registered set, in registration order.</param>
-    /// <exception cref="InvalidOperationException">Two sets share one history table or claim one schema.</exception>
+    /// <exception cref="InvalidOperationException">Two sets share one history table or claim one schema, or the sets' dependencies form a cycle.</exception>
     public MigrationSetRegistry(IServiceProvider services, IEnumerable<MigrationSetRegistration> registrations)
     {
         _services = services;
@@ -66,6 +66,12 @@ internal sealed class MigrationSetRegistry : IMigrationSetRegistry
                 throw new InvalidOperationException(
                     $"Migration sets '{ownedSchemas[options.SchemaName]}' and '{name}' both claim schema '{options.SchemaName}'; one schema has one owning set.");
             }
+
+            if (options.Dependencies.Any(dependency => dependency.Set == name))
+                throw new InvalidOperationException($"Migration set '{name}' depends on itself.");
         }
+
+        // Fails on a dependency cycle, so a host never boots with an order no run can follow.
+        MigrationSetOrder.Sort(this, Names);
     }
 }

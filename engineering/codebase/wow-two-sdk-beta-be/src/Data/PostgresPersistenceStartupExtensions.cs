@@ -113,8 +113,9 @@ public static partial class PostgresPersistenceStartupExtensions
 
     /// <summary>Creates each set's database via its maintenance database before any migration runs, once per connection string.</summary>
     /// <remarks>
-    ///   - a set's database is the <see cref="DatabaseSettings"/> keyed by its name, else the host's
-    ///   - a set with neither creates nothing; its first connection then reaches the database as registered
+    ///   - a set's database is the migrate key's when a migrate run turned it on (<see cref="MigrationConnectionOverride"/>), else the
+    ///     <see cref="DatabaseSettings"/> keyed by its name, else the host's
+    ///   - a set with none creates nothing; its first connection then reaches the database as registered
     ///   - each set creates through its own dialect, so a host with named sets only needs no default-set dialect
     /// </remarks>
     /// <param name="services">The root service provider.</param>
@@ -123,15 +124,16 @@ public static partial class PostgresPersistenceStartupExtensions
     {
         var sets = services.GetRequiredService<IMigrationSetRegistry>();
         var hostSettings = services.GetService<DatabaseSettings>();
+        var migrateKey = services.GetService<MigrationConnectionOverride>() is { IsActive: true } active ? active.ConnectionString : null;
         var ensured = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var set in sets.Names)
         {
-            var settings = services.GetKeyedService<DatabaseSettings>(set) ?? hostSettings;
-            if (settings is null || !ensured.Add(settings.ConnectionString))
+            var connectionString = migrateKey ?? (services.GetKeyedService<DatabaseSettings>(set) ?? hostSettings)?.ConnectionString;
+            if (connectionString is null || !ensured.Add(connectionString))
                 continue;
 
-            await sets.GetDialect(set).EnsureDatabaseExistsAsync(settings.ConnectionString, cancellationToken).ConfigureAwait(false);
+            await sets.GetDialect(set).EnsureDatabaseExistsAsync(connectionString, cancellationToken).ConfigureAwait(false);
         }
     }
 

@@ -2,11 +2,11 @@
 
 > Bespoke, host-agnostic SQL migrator — raw `.sql` pairs, normalized-checksum tracking, PostgreSQL and SQLite dialects, several named sets per host. Roll-forward in prod, rollback in dev/test only.
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 ## Current guarantees
 
-- `PostgresMigrationDialect` holds `pg_advisory_lock` across history verification, every pending migration and history recording. Two competing runners serialize and both succeed; one applies each ordinal.
+- `PostgresMigrationDialect` holds the set's advisory locks across history verification, every pending migration and history recording: the two-key form in a reserved class, plus the legacy bigint key for the transition. Two competing runners serialize and both succeed; one applies each ordinal. The wait is bounded; past it the run reports busy. See [Lock safety](#lock-safety).
 - `SqliteMigrationDialect` reports `SingleApplicantRequired`. `PRAGMA busy_timeout` waits for transient write contention; it does not make the history table a mutex.
 - Consecutive transactional files and their history rows execute in **one transaction** (`MigrationTransactionScope.Batch`, the default). A failure rolls back the whole batch, so a failed run leaves no part of it applied or recorded. `TransactionScope = PerMigration` restores one transaction per file.
 - A `-- @no-transaction` file splits the run: the batch before it commits, its parsed statements execute sequentially outside a transaction and record separately, then a new batch starts.
@@ -20,6 +20,11 @@
 - A host runs several **migration sets** — its own plus one per domain module — each with its own history table and advisory lock. A set may own a PostgreSQL schema, fill `{{schema}}` in its scripts and claim the schema with a marker row naming its owner and instance; `CheckLevelAsync` compares levels read-only for the production boot. See [Migration sets](#migration-sets).
 - Applying at boot is for a local run only: `MigrateBespokeOnStartupAsync` verifies levels read-only on every deployed host unless the host opts in, and production applies in its deploy step. See [Who applies](#who-applies).
 - `BaselineAsync` / `wow-migrate baseline` marks a set's migrations as applied without running them, so an existing database adopts the set. See [Baseline](#baseline).
+- A file's header declares its kind: `-- @contract since=vX.Y` marks a contract, anything else is an expand. History records `kind` and `contract_since`; an older release boots and applies on newer history it survives. See [Kinds and compatibility](#kinds-and-compatibility).
+- Every writing verb but `apply` appends one row to the set's `{history}_events` table. See [Operator verbs and events](#operator-verbs-and-events).
+- `IMigrationEngine` runs every migrate verb over the registered sets and returns a `MigrateRunResult` that maps to exits `0`–`3` and renders the `migrate-result` line. See [Verb engine](#verb-engine).
+- A set declares the sets it references (`DependsOn`) and the extensions it needs; apply refuses before any SQL while one is unmet. See [Dependencies and extensions](#dependencies-and-extensions).
+- `Seeds/NNN-name.json` files beside a set fill rows once each, journalled in `{set}_seed_history`. See [Seed files](#seed-files).
 
 ## Batch atomicity and dry run
 
@@ -135,7 +140,7 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 - Every apply, dry run, rollback, repair and baseline then refuses, with a `Conflict` failure before any script runs, a schema whose marker names another set, owner or instance. A set without `SchemaOwner` is refused on a claimed schema too.
 - Replicas of one image and configuration derive one instance and share the schema; two instances of one image must set `Migrations:OwnerInstance` each, or the default cannot tell them apart.
 - A deploy step that migrates for a host claims under the host's instance: `MigrateBespokeForDeployAsync` in the image derives it the same way; `wow-migrate` needs `--owner-instance`.
-- A dry run's claim rolls back with its transaction. No `claim` command moves ownership yet (T10's takeover).
+- A dry run's claim rolls back with its transaction. `ClaimSchemaAsync` (the `claim` verb) moves ownership: it replaces the marker and records an event — [Operator verbs and events](#operator-verbs-and-events).
 - *Breaking (2026-10-26):* the marker table gained an `instance` column; a marker table created by `10.0.81-beta` must be dropped before the next run.
 
 ### Level check
@@ -146,12 +151,14 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 |---|---|
 | `Current` | every source migration applied, nothing else recorded |
 | `Behind` | migrations pending: the migrate step has not run |
-| `Ahead` | history holds an ordinal above the code's highest: the database is newer than this build |
+| `AheadCompatible` | history holds ordinals above the code's highest that this release survives: expands, or contracts whose `since` it has reached |
+| `AheadIncompatible` | history holds an ordinal above the code's highest this release may not run on: a contract above it, or a row with no kind |
 | `Orphaned` | history holds ordinals absent from the source below that level, and `AllowOrphanedHistory` is off |
 | `Drifted` | an applied script changed since it ran |
 | `OwnerConflict` | the marker names another set or owner |
 
-- `VerifyMigrationLevelsOnStartupAsync()` checks every set and throws unless each is current; a set with `LevelMismatch = Warn` logs instead (event `3012`). An owner conflict always throws.
+- The report also carries `Release`, `RollbackFloor`, `IncompatibleAhead` and `MissingExtensions`; `MayRun` is true for `Current` and `AheadCompatible`.
+- `VerifyMigrationLevelsOnStartupAsync()` checks every set: it boots on `Current`, boots with a warning on `AheadCompatible` (event `3024`), and throws on anything else; a set with `LevelMismatch = Warn` logs instead (event `3012`). An owner conflict always throws.
 - The interface's default body derives the report from `GetStatusAsync`, so other `IMigrationRunnerService` implementations keep compiling.
 
 ### Who applies
@@ -165,9 +172,10 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 | local boot | apply every set | `MigrateBespokeOnStartupAsync()` → creates the database, applies every set stamped `startup` |
 
 - A local run is `Development` without `DEPLOY_ENVIRONMENT` (`LocalRunExtensions`), so deployed dev verifies like prod and rehearses the prod path. A host with no `IHostEnvironment` registered verifies.
+- Apply refuses a pending ordinal below the applied level outside a local run, so its author renumbers it above the level; `MigrationOptions.LocalRun` (null: `Development` from configuration `environment`, `DOTNET_ENVIRONMENT` or `ASPNETCORE_ENVIRONMENT`, without `DEPLOY_ENVIRONMENT`) lets a local run apply it in place.
 - `MigrateBespokeOnStartupAsync(o => o.ApplyWhenDeployed = true)` applies on a deployed host too, and logs event `3014` as a warning at every such boot: a stopgap until the deploy runs its migrate step.
 - `MigrateBespokeForDeployAsync(appliedBy = "deploy")` (`Data/`) creates the database, then applies every set; it returns the `Result` so a migrate command maps it to an exit code.
-- Each set's database is the `DatabaseSettings` keyed by its name, else the host's, created once per connection string through the set's own dialect; a host with named sets only (a module's own service) needs no default set. A set with neither connects as registered and creates nothing.
+- Each set's database is the migrate key's when a migrate run turned it on, else the `DatabaseSettings` keyed by its name, else the host's, created once per connection string through the set's own dialect; a host with named sets only (a module's own service) needs no default set. A set with none connects as registered and creates nothing.
 - The engine helpers (`ApplyMigrationSetsAsync`, `VerifyMigrationLevelsOnStartupAsync`) create no database; the `Data/` helpers and `wow-migrate apply` do.
 - *Breaking (2026-10-26):* `MigrateBespokeOnStartupAsync` used to apply the default set at every boot. A deployed host now fails to boot while a set is behind, and a local boot applies named sets too.
 
@@ -183,9 +191,10 @@ var adopted = await registry.GetRunner("identity").BaselineAsync(throughOrdinal:
 wow-migrate baseline --sql-dir ./Migrations --to 14 --i-understand-this-is shop_prod
 ```
 
-- Records every source migration up to the ordinal with its checksum, `applied_by = baseline` and zero duration; runs no script.
-- Refuses with `Conflict` a set that already records history, so it never hides a pending migration of a migrated set; refuses with `Validation` an ordinal the source lacks.
-- Claims an owned schema under this host's owner and instance; the claim, the history table and the rows commit in one transaction under the set's lock.
+- Records every source migration up to the ordinal with its checksum, kind, `applied_by = baseline` and zero duration; runs no script.
+- A rerun through the same ordinal finds every row recorded with a matching checksum and changes nothing.
+- Refuses with `Conflict` a set whose history lacks a migration it would adopt, so it never hides a pending migration of a migrated set; refuses with `Validation` an ordinal the source lacks.
+- Claims an owned schema under this host's owner and instance; the claim, the history table, the rows and one `baseline` event commit in one transaction under the set's lock.
 - Not gated by `AllowRollback`: adopting a live database is a production step. The CLI demands `--i-understand-this-is <db>` and `[y/N]` (or `--force`) and runs one set.
 - The engine cannot check the schema matches the scripts; compare first, for example with `pg_dump --schema-only` against a database built by `apply`.
 
@@ -225,6 +234,143 @@ wow-migrate baseline --sets migration-sets.json --set identity --i-understand-th
 > **⚠ Doc drift (pre-2026-06-18).** Several "not yet here / TODO" notes below predate the 2026-06-17 publish and are stale: `…Data.Abstractions` and the `wow-migrate` CLI **are** shipped (published `10.0.24-beta`), and the §6-step-4 arch test is **done** (above). §6/§7 carry residual drift pending a fuller reconciliation pass.
 
 ---
+
+## Kinds and compatibility
+
+*Added 2026-10-28* (migrations spec M16, M21, M25, M17): an older release runs on newer history it survives, on boot and on apply.
+
+### Header grammar
+
+Leading `--` lines of `Apply.sql` carry the directives; the first other line ends the header.
+
+| Directive | Effect |
+|---|---|
+| `-- @no-transaction` | runs the file outside its batch's transaction |
+| `-- @contract since=vX.Y` | marks a contract: the oldest owner release that no longer reads or writes what it removes |
+| `-- @requires <name>` | apply refuses the file until background migration `<name>` reports finished (lane C; until then it always refuses) |
+| `-- @lock-timeout <seconds>` | overrides `MigrationOptions.LockTimeout` for the file, 1 to 3600 |
+
+- A file without `@contract` is an expand. An unknown or malformed directive fails `Validation`, so a typo never turns a contract into an expand.
+- History records `kind` and `contract_since`. Apply fills both on rows applied before kinds existed, from the files the image carries, when the checksum still matches.
+
+### Compatibility rule
+
+- Release R may run on a set when every applied ordinal above R's level is an expand, or a contract with `since ≤ R`.
+- R is `MigrationOptions.Release`; null derives it from the assembly that embeds the set (informational version, build metadata stripped). A filesystem set has none unless configured, and then counts every contract above its level as incompatible.
+- A row without a kind counts as incompatible.
+- Boot (`VerifyMigrationLevelsOnStartupAsync`) and apply both boot or proceed on a compatible ahead with a warning (events `3024`, `3016`) and refuse an incompatible one. `AllowOrphanedHistory` still tolerates every orphan on the apply path.
+- The rollback floor is the highest `since` among applied contracts, reported by the level check and every verb result.
+
+## Lock safety
+
+*Added 2026-10-28* (M17, M50, M62).
+
+| Bound | Option | Default |
+|---|---|---|
+| advisory-lock wait (`pg_try_advisory_lock` loop) | `AdvisoryLockWait` | 2 min |
+| table-lock wait per script (`SET LOCAL lock_timeout`; `SET` for a no-transaction file) | `LockTimeout`, `-- @lock-timeout` | 5 s |
+| runs of a batch after `55P03` (`lock_not_available`) | `LockAttempts` | 3 |
+| pause before a retried batch, times the attempt | `LockRetryDelay` | 1 s |
+
+- Exhausting a bound returns a failure carrying `MigrationConstants.BusyMetadataKey` (`AppErrorType.DbTimeout`); the engine maps it to busy, exit `3`.
+- The set's lock is `pg_advisory_lock(class, key)` in the reserved class `MigrationConstants.AdvisoryLockClass`, its key folded from `AdvisoryLockId` (`MigrationLockKey.Reserved`). PostgreSQL keeps the two-key space apart from the single-bigint space, so an app's `pg_advisory_xact_lock(bigint)` never meets it.
+- `TakeLegacyAdvisoryLock` (default on, for the transition) also takes `AdvisoryLockId` as the single bigint, so an applicant built before the reserved class still waits for us; while it is on, an app lock on that exact bigint delays the migrator. Turn it off once no older applicant remains.
+
+## Operator verbs and events
+
+*Added 2026-10-28* (M2, M34, M56, M60, M61, M62).
+
+| Verb | Runner call | Writes | Idempotent rerun |
+|---|---|---|---|
+| `rollback --to N` | `RollbackToAsync(N)` | runs `Rollback.sql` newest first, deletes rows | at N: nothing |
+| `forget --above N` | `ForgetAboveAsync(N, force)` | deletes rows above N, runs no SQL | nothing above N: nothing |
+| `repair` | `RepairChecksumsAsync()` | re-records drifted checksums | nothing drifted: nothing |
+| `baseline --to N` | `BaselineToAsync(N)` | rows `applied_by = baseline`, the owner marker | rows through N recorded: nothing |
+| `claim --owner o --instance i` | `ClaimSchemaAsync(o, i)` | replaces the owner marker | marker already names set, o, i: nothing |
+| `locks` | `GetLockHoldersAsync()` | nothing | — |
+| `unlock` | `UnlockAsync()` | ends every session holding the set's keys (`pg_terminate_backend`) | no holder: nothing |
+
+- These calls carry no `AllowRollback` gate: the caller confirms the database (`--confirm <db>`). `RollbackAsync` and `RepairAsync` keep the gate for hosts.
+- `forget` refuses a contract or a kind-less row unless `force`; a kind-less row whose file the image carries reads the file's kind.
+- `rollback` refuses before any script when an applied ordinal above the target has no source; `forget` covers that row.
+- Each verb that changes something appends one row to `{TableName}_events` (`migration_history_events`, `identity_migration_history_events`) in its own transaction where it has one:
+
+| Column | Holds |
+|---|---|
+| `id` | `bigint` identity |
+| `verb` | `MigrationEventVerbs`: `rollback`, `forget`, `repair`, `baseline`, `claim`, `unlock`, `bg` |
+| `ordinals` | the ordinals touched, `033,034` |
+| `recorded_by` · `job` | `MigrationAuditOptions.By` · `.Job` |
+| `recorded_at` | the clock's UTC now |
+| `detail` | what the verb did beyond the ordinals: the marker a claim replaced, the sessions an unlock ended, `forced` |
+
+- `MigrationAuditOptions` fill from configuration `Migrations:By` and `Migrations:Job`, else the variables `Migrations__By` and `Migrations__Job`; `By` falls back to `{user}@{machine}`. A deploy runner sets both.
+- The table is append-only: the migrator never updates or deletes a row.
+
+## Dependencies and extensions
+
+*Added 2026-10-28* (M28, M41, M79).
+
+```csharp
+services.AddDatabaseBespokeMigrationSet("orders", typeof(OrdersModule).Assembly, options => options
+    .DependsOn("identity", 3)
+    .RequireExtension("postgis"));
+
+services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assembly, options => options
+    .AddReferenceableTable("identity_users", keys: ["id"], readableColumns: ["id", "display_name"]));
+```
+
+- Apply orders sets topologically by `DependsOn`, registration order breaking ties; the registry refuses a cycle at resolve.
+- Before any SQL, apply refuses a set whose dependency is missing from the database or below its level. A dependency the image registers and the run applies counts at its source level; any other counts at its applied level, its history found through the owner markers (`ReadSetLevelAsync`).
+- `{{schema:identity}}` in a script resolves to the schema the `identity` set claimed, read from the owner markers right before the script runs; the checksum covers the script as authored. An unclaimed set refuses.
+- `ReferenceableTables` publishes the tables, keys and readable columns other owners may use; the `Testing.Data` lint (lane B) reads it.
+- `RequiredExtensions` lists the untrusted extensions placement creates as superuser. Apply and check read `pg_extension` first; apply refuses before any SQL, and check reports `MissingExtensions`, while one is missing.
+
+## Seed files
+
+*Added 2026-10-28* (M26, M51): one file per seed change, run after every set's apply.
+
+```json
+{
+  "mode": "upsert",
+  "tables": [
+    { "table": "plans", "key": ["code"], "rows": [ { "code": "free", "name": "Free", "max_codes": 3, "meta": { "tier": 0 } } ] },
+    { "table": "features", "key": ["plan_code", "label"], "rows": [ { "plan_code": "free", "label": "qr" } ] }
+  ]
+}
+```
+
+- Files live as `Seeds/NNN-name.json` beside the set's `Migrations/` folder: `EmbeddedResourceMigrationBroker` reads the prefix with its `Migrations` segment turned to `Seeds`; `FileSystemMigrationBroker` reads `Seeds` beside its root. Both take an explicit seeds location.
+- `mode`: `upsert` (the file wins: `ON CONFLICT … DO UPDATE`) or `insert` (an existing row is left alone: `DO NOTHING`).
+- `table` is snake_case in the set's schema, or `schema.table`; `key` names a unique constraint every row carries; columns are snake_case.
+- Values bind as parameters, cast on PostgreSQL to each column's catalog type, so a string fills a `uuid`, `date` or enum column and an object or array fills a `jsonb` column.
+- One transaction per file covers every table it fills and its journal row in `{set}_seed_history` (`seed_history` for the default set): name, checksum, mode, applied at and by.
+- A journalled file whose checksum changed refuses the set before any seed runs: a correction is a new file.
+
+## Verb engine
+
+*Added 2026-10-28* (M37, M57): the engine half of the `app migrate <verb>` tree.
+
+| Verb | `IMigrationEngine` | Sets |
+|---|---|---|
+| `check` | `CheckAsync(sets)` | every, or the named |
+| `plan` | `PlanAsync(sets)` | every, or the named |
+| `apply [--dry-run]` | `ApplyAsync(sets, dryRun, appliedBy)` | every, in dependency order |
+| `seed` | `SeedAsync(sets, appliedBy)` | every, in dependency order |
+| `rollback --to N` · `forget --above N` · `repair` · `baseline --to N` | `RollbackAsync` · `ForgetAsync` · `RepairAsync` · `BaselineAsync` | one; null names the host's only set |
+| `claim` · `locks` · `unlock` | `ClaimAsync` · `LocksAsync` · `UnlockAsync` | one · every · one |
+
+- `MigrateRunResult`: `Verb`, `Exit`, `Outcome`, `Message`, `Sets`; `ToResultLine()` renders `migrate-result {json}` (source-generated JSON, camelCase, nulls left out, no connection string).
+- `MigrateSetResult`: `Name`, `Schema`, `Status`, `State`, `LevelBefore`, `LevelAfter`, `Applied`, `Removed`, `Repaired`, `Pending`, `Orphaned`, `Drifted`, `IncompatibleAhead`, `MissingExtensions`, `MissingDependencies`, `Seeds`, `Locks`, `Background`, `Release`, `RollbackFloor`, `LockWaitMs`, `Message`, `SqlState`.
+- `MigrateOutcome` → exit: `Current`, `Done` → `0` · `Refused` → `1` · `Failed` → `2` · `Busy` → `3`; the run takes its most severe set's. `apply` and `seed` stop at the first set that does not succeed, later sets `Skipped`.
+- `check` reports `Current` (exit `0`) when the release may run: current or a compatible ahead, no missing extension or dependency. On an empty database it creates no schema, history, events table, marker or lock and reports every set `Behind`.
+- `check`, `plan` and `locks` take no lock and write nothing.
+- The engine creates no database; the command creates it first, as `MigrateBespokeForDeployAsync` does.
+
+### Migrate key
+
+- `services.AddMigrationConnectionOverride()` turns on `Migrations:ConnectionString` (variable `Migrations__ConnectionString`): when set, every set connects through it — keyed and host connections aside — and the `Data/` deploy helper creates that database.
+- A boot never calls it; the migrate command does, for its own run.
 
 ## 0.0 Proven in smart-qr (2026-06-11)
 
@@ -410,22 +556,25 @@ All three return `MigrationDescriptor` with the checksum already normalized + co
 
 ### 2.4 Tracking table DDL
 
+The shipped PostgreSQL DDL (`PostgresMigrationDialect.EnsureHistoryTableAsync`):
+
 ```sql
-CREATE TABLE IF NOT EXISTS migration_history (
-    ordinal      INTEGER     NOT NULL,
-    version      TEXT        NOT NULL,
-    name         TEXT        NOT NULL,
-    checksum     CHAR(64)    NOT NULL,             -- normalized SHA-256 of Apply.sql, lowercase hex
-    applied_at   TIMESTAMPTZ NOT NULL,             -- set by code in RecordAsync (see note), not DB default
-    applied_by   TEXT        NOT NULL,             -- 'startup' | 'endpoint' | 'cli'
-    execution_ms INTEGER     NOT NULL,
-    CONSTRAINT pk_migration_history PRIMARY KEY (ordinal),     -- PK already implies UNIQUE; the gate
-    CONSTRAINT ck_migration_history_applied_by
-        CHECK (applied_by IN ('startup', 'endpoint', 'cli'))
+CREATE TABLE IF NOT EXISTS "public"."migration_history" (
+    ordinal         integer      NOT NULL,
+    version         varchar(20)  NOT NULL,
+    name            varchar(120) NOT NULL,
+    checksum        char(64)     NOT NULL,   -- normalized SHA-256 of Apply.sql, lowercase hex
+    applied_at      timestamptz  NOT NULL,   -- set by code in RecordAsync (see note), not DB default
+    applied_by      varchar(60)  NOT NULL,   -- free host stamp: startup, deploy, cli, baseline, dry-run
+    execution_ms    bigint       NOT NULL,
+    kind            varchar(10)  NULL,       -- expand | contract; null on a row recorded before kinds
+    contract_since  varchar(20)  NULL,       -- a contract's since=vX.Y
+    CONSTRAINT pk_migration_history PRIMARY KEY (ordinal),
+    CONSTRAINT ck_migration_history_kind CHECK (kind IN ('expand', 'contract'))
 );
 ```
 
-`ordinal` PK is the **defense-in-depth** concurrency gate (the advisory lock is primary — §2.5): if the lock is ever bypassed, the loser of a duplicate insert hits the PK violation, rolls back its file, and re-reads state. The redundant `uq_…_ordinal` UNIQUE from the prior draft is dropped — a PK is already unique. `applied_by` CHECK keeps the actor enum honest.
+`ordinal` PK is the **defense-in-depth** concurrency gate (the advisory lock is primary — §2.5): if the lock is ever bypassed, the loser of a duplicate insert hits the PK violation, rolls back its file, and re-reads state. `applied_by` stays a free string with no `CHECK`: hosts stamp their own value. A table from an older SDK gains `kind` and `contract_since` and widens `execution_ms` on the next apply, under the set's lock.
 
 > **`applied_at` — code-set, not `DEFAULT now()`.** `execution_ms`, `applied_by`, and `checksum` are all computed in code per row, and the §2.5 loop already times the apply in code (`sw = Stopwatch`). Per `database.md`, `DEFAULT NOW()` is for timestamps **except when the value must be provided by code** — this is that case. `RecordAsync` sets `applied_at` from the same clock, so there is no never-fires DB default. (A bookkeeping-table `DEFAULT now()` would be defensible, but code-set is consistent with the other code-owned columns.)
 

@@ -16,10 +16,10 @@ internal sealed class NoOpMigrationDialect : IMigrationDialect
     public Task<bool> EnsureDatabaseExistsAsync(string connectionString, CancellationToken ct = default) => Task.FromResult(false);
 
     /// <inheritdoc />
-    public Task AcquireLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) => Task.CompletedTask;
+    public Task<bool> TryAcquireLockAsync(DbConnection connection, MigrationLockKey key, CancellationToken ct = default) => Task.FromResult(true);
 
     /// <inheritdoc />
-    public Task ReleaseLockAsync(DbConnection connection, long lockId, CancellationToken ct = default) => Task.CompletedTask;
+    public Task ReleaseLockAsync(DbConnection connection, MigrationLockKey key, CancellationToken ct = default) => Task.CompletedTask;
 
     /// <inheritdoc />
     public Task EnsureHistoryTableAsync(DbConnection connection, DbTransaction? transaction, string schemaName, string tableName, CancellationToken ct = default) => Task.CompletedTask;
