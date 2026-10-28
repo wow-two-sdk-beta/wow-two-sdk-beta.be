@@ -47,8 +47,10 @@ internal static class DatabaseSnapshot
             snapshot.Append("rows ").Append(schema).Append('.').Append(name).Append(' ').AppendLine(rows);
         }
 
+        // This database's locks only: other tests' databases in the same server take their own.
         var locks = await connection.ExecuteScalarAsync<long>(new CommandDefinition(
-            "select count(*) from pg_locks where locktype = 'advisory' and granted", cancellationToken: ct)).ConfigureAwait(false);
+            "select count(*) from pg_locks where locktype = 'advisory' and granted"
+            + " and database = (select oid from pg_database where datname = current_database())", cancellationToken: ct)).ConfigureAwait(false);
         return snapshot.Append("advisory locks ").Append(locks).ToString();
     }
 
