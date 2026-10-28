@@ -1,11 +1,9 @@
 namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
-/// <summary>Defines an entity that supports soft-delete.</summary>
+/// <summary>Defines an entity that supports soft-delete: a row is deleted once <see cref="DeletedAt"/> is set.</summary>
+/// <remarks>Maps to <c>deleted_at timestamptz NULL</c>; unique indexes filter <c>WHERE deleted_at IS NULL</c>.</remarks>
 public interface ISoftDeletable : IEntity
 {
-    /// <summary>Gets or sets a value indicating whether the entity is logically deleted.</summary>
-    bool IsDeleted { get; set; }
-
-    /// <summary>Gets or sets the timestamp when the entity was soft-deleted.</summary>
+    /// <summary>Gets or sets when the entity was soft-deleted, or null while it is live.</summary>
     DateTimeOffset? DeletedAt { get; set; }
 }

@@ -18,7 +18,7 @@ public sealed class DapperReadContractTests(DataTestDb testDb)
         var factory = new DataSourceConnectionFactory(source);
         var repository = new DapperRepository<SoftWidget, Guid>(factory);
         var alive = new SoftWidget { Id = Guid.NewGuid(), Name = "alive" };
-        var deleted = new SoftWidget { Id = Guid.NewGuid(), Name = "deleted", IsDeleted = true };
+        var deleted = new SoftWidget { Id = Guid.NewGuid(), Name = "deleted", DeletedAt = DateTimeOffset.UtcNow };
         await repository.CreateRangeAsync([alive, deleted]);
         Assert.Single(await repository.GetAllAsync());
         Assert.Equal(1, await repository.CountAsync());

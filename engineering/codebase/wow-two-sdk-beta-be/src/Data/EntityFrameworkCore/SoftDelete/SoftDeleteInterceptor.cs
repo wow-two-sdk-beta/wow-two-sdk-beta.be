@@ -5,7 +5,7 @@ using WoW.Two.Sdk.Beta.Be.Identity.CurrentUser;
 
 namespace WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.SoftDelete;
 
-/// <summary>Rewrites a delete into a soft-delete for <see cref="ISoftDeletable"/> entities — sets <c>IsDeleted</c>, <c>DeletedAt</c>, and (when a user is resolved) <c>DeletedBy</c>.</summary>
+/// <summary>Rewrites a delete into a soft-delete for <see cref="ISoftDeletable"/> entities — sets <c>DeletedAt</c> and (when a user is resolved) <c>DeletedBy</c>.</summary>
 public sealed class SoftDeleteInterceptor : SaveChangesInterceptor
 {
     private readonly TimeProvider _timeProvider;
@@ -50,7 +50,6 @@ public sealed class SoftDeleteInterceptor : SaveChangesInterceptor
             if (entry.Entity is not ISoftDeletable softDeletable) continue;
 
             entry.State = EntityState.Modified;
-            softDeletable.IsDeleted = true;
             softDeletable.DeletedAt = now;
 
             if (userId is not null && entry.Entity is ISoftDeletableBy<Guid> deletableBy)

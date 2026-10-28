@@ -59,7 +59,7 @@ internal static class DapperTableMapper
                 tokenMap = (token.Kind, column);
         }
 
-        var softDelete = Optional(spec.SoftDeleteProperty, typeof(bool), "soft delete", entityType, columns, unsupported, registered);
+        var softDelete = Optional(spec.SoftDeleteProperty, typeof(DateTimeOffset), "soft delete", entityType, columns, unsupported, registered);
         var tenant = Optional(spec.TenantProperty, typeof(string), "tenant", entityType, columns, unsupported, registered);
 
         if (unsupported.Count > 0 && mode == UnsupportedSpecMode.Throw)

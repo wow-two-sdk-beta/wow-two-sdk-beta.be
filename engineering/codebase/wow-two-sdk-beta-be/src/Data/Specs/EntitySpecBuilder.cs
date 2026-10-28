@@ -79,9 +79,9 @@ public sealed class EntitySpecBuilder<TEntity>
         return this;
     }
 
-    /// <summary>Marks rows deleted through a boolean property instead of removing them.</summary>
-    /// <param name="property">The boolean property.</param>
-    public EntitySpecBuilder<TEntity> HasSoftDelete(Expression<Func<TEntity, bool>> property)
+    /// <summary>Marks rows deleted through a nullable timestamp instead of removing them: a row is deleted once it is set.</summary>
+    /// <param name="property">The <see cref="DateTimeOffset"/>? property, such as <c>DeletedAt</c>.</param>
+    public EntitySpecBuilder<TEntity> HasSoftDelete(Expression<Func<TEntity, DateTimeOffset?>> property)
     {
         ArgumentNullException.ThrowIfNull(property);
         _softDelete = MemberName(property.Body);
@@ -109,7 +109,7 @@ public sealed class EntitySpecBuilder<TEntity>
             Properties = _properties.ToDictionary(pair => pair.Key, pair => pair.Value.Spec, StringComparer.Ordinal),
             Indexes = [.. _indexes.Select(index => index.Spec)],
             Concurrency = _concurrency ?? ConventionalToken(type),
-            SoftDeleteProperty = _softDelete ?? (typeof(ISoftDeletable).IsAssignableFrom(type) ? nameof(ISoftDeletable.IsDeleted) : null),
+            SoftDeleteProperty = _softDelete ?? (typeof(ISoftDeletable).IsAssignableFrom(type) ? nameof(ISoftDeletable.DeletedAt) : null),
             TenantProperty = _tenant ?? (Implements(type, typeof(IHasTenant<>)) ? "TenantId" : null),
         };
     }

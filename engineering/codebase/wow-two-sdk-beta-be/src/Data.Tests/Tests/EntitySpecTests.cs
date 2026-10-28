@@ -101,8 +101,6 @@ public sealed class EntitySpecTests
 
         public string Display => $"#{Number}";
 
-        public bool IsDeleted { get; set; }
-
         public DateTimeOffset? DeletedAt { get; set; }
     }
 

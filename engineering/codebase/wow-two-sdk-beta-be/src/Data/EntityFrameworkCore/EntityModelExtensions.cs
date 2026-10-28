@@ -20,7 +20,7 @@ public static class EntityModelExtensions
             var clrType = entityType.ClrType;
 
             if (typeof(ISoftDeletable).IsAssignableFrom(clrType))
-                modelBuilder.Entity(clrType).HasQueryFilter(BuildIsNotDeletedFilter(clrType));
+                modelBuilder.Entity(clrType).HasQueryFilter(BuildNotDeletedFilter(clrType));
 
             if (typeof(IVersioned).IsAssignableFrom(clrType))
                 modelBuilder.Entity(clrType).Property(nameof(IVersioned.Version)).IsConcurrencyToken();
@@ -29,12 +29,12 @@ public static class EntityModelExtensions
         return modelBuilder;
     }
 
-    private static LambdaExpression BuildIsNotDeletedFilter(Type clrType)
+    private static LambdaExpression BuildNotDeletedFilter(Type clrType)
     {
         var parameter = Expression.Parameter(clrType, "e");
-        var isDeleted = Expression.Property(
+        var deletedAt = Expression.Property(
             Expression.Convert(parameter, typeof(ISoftDeletable)),
-            nameof(ISoftDeletable.IsDeleted));
-        return Expression.Lambda(Expression.Not(isDeleted), parameter);
+            nameof(ISoftDeletable.DeletedAt));
+        return Expression.Lambda(Expression.Equal(deletedAt, Expression.Constant(null, typeof(DateTimeOffset?))), parameter);
     }
 }

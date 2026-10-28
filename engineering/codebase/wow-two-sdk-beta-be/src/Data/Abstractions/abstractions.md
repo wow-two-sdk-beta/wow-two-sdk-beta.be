@@ -30,7 +30,7 @@ The package layers in three tiers:
 | `ICreationAuditableBy<TUserId>` | `CreatedBy` | `…Data.EntityFrameworkCore.Audit` |
 | `IModificationAuditableBy<TUserId>` | `UpdatedBy` | `…Data.EntityFrameworkCore.Audit` |
 | `IAuditableBy<TUserId>` | (composite of the two above) | `…Data.EntityFrameworkCore.Audit` |
-| `ISoftDeletable` | `IsDeleted`, `DeletedAt` | `…Data.EntityFrameworkCore.SoftDelete` |
+| `ISoftDeletable` | `DeletedAt` (deleted once set; `deleted_at timestamptz NULL`) | `…Data.EntityFrameworkCore.SoftDelete` |
 | `ISoftDeletableBy<TUserId>` | `DeletedBy` | `…Data.EntityFrameworkCore.SoftDelete` |
 | `IHasTenant<TTenantId>` | `TenantId` | `…Tenancy.PerRow` (P5) |
 | `IRowVersioned` | `RowVersion` | `…Data.EntityFrameworkCore.SqlServer` |
@@ -62,7 +62,6 @@ public sealed record Channel : IKeyedEntity<Guid>, IAuditable, ISoftDeletable
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public bool IsDeleted { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
 }
 ```
@@ -97,7 +96,6 @@ public sealed record Order :
     public Guid CreatedBy { get; set; }
     public Guid UpdatedBy { get; set; }
 
-    public bool IsDeleted { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedBy { get; set; }
 

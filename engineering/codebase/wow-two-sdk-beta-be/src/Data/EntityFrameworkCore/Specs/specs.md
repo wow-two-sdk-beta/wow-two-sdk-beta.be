@@ -11,7 +11,7 @@ to the entities the context maps (a `DbSet` or a configuration), never adding ot
 | index | `HasIndex(…).IsUnique().HasDatabaseName().HasFilter()` |
 | `Counter` · `Stamp` | concurrency token; `AppDbContextBase` increments or replaces it on save |
 | `RowVersion` · `Xmin` | `IsRowVersion()` on SQL Server · `xmin`/`xid` on Npgsql; other providers → unsupported |
-| soft delete | query filter `!IsDeleted` |
+| soft delete | query filter `DeletedAt == null` |
 
 - Specs apply after the context's `IEntityTypeConfiguration`s and before the SDK conventions, so a spec facet wins
   over the same facet configured in EF code.

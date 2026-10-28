@@ -28,7 +28,7 @@ See [data sessions](../Sessions/sessions.spec.md) for nesting and rollback recov
 `IKeyedEntity<TId>` and `IHasTableName`. Ambient tenants scope generated CRUD; no ambient tenant
 means an explicit unscoped system/admin operation.
 
-All generated reads exclude `ISoftDeletable.IsDeleted` rows. A specialized administrative repository
+All generated reads exclude rows whose `ISoftDeletable.DeletedAt` is set (`deleted_at IS NULL`). A specialized administrative repository
 can override `IncludeSoftDeleted`. This is a read policy; generated deletes remain physical deletes.
 Custom SQL owns equivalent tenant and soft-delete predicates.
 

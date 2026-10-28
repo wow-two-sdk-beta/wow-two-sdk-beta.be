@@ -117,7 +117,7 @@ public class DapperRepository<TEntity, TId> : IRepository<TEntity, TId>
         : _map.Token is { Kind: ConcurrencyTokenKind.Xmin } xmin ? $"*, xmin AS \"{xmin.Column.Property.Name}\"" : "*";
 
     private string SoftDeletePredicate => _map.SoftDelete is { } softDelete && !IncludeSoftDeleted
-        ? $" AND {softDelete.Column} = FALSE"
+        ? $" AND {softDelete.Column} IS NULL"
         : string.Empty;
 
     private string Table => _map.Table;

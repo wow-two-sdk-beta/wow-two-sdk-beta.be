@@ -24,7 +24,7 @@ public sealed class DapperSpecTests(DataTestDb testDb)
         builder.Property(item => item.CreatedAt).HasDefaultValueSql("now()");
         builder.Ignore(item => item.Notes);
         builder.HasConcurrencyToken(item => item.Stamp, ConcurrencyTokenKind.Stamp);
-        builder.HasSoftDelete(item => item.IsArchived);
+        builder.HasSoftDelete(item => item.ArchivedAt);
     });
 
     [Fact]
@@ -50,7 +50,7 @@ public sealed class DapperSpecTests(DataTestDb testDb)
         await FluentActions.Awaiting(() => repository.UpdateAsync(stale)).Should().ThrowAsync<ConcurrencyConflictException>();
         await FluentActions.Awaiting(() => repository.DeleteAsync(stale)).Should().ThrowAsync<ConcurrencyConflictException>();
 
-        read.IsArchived = true;
+        read.ArchivedAt = DateTimeOffset.UtcNow;
         await repository.UpdateAsync(read);
         (await repository.GetByIdAsync(item.Id)).Should().BeNull("archived rows leave generated reads");
         (await repository.CountAsync()).Should().Be(0);
@@ -83,7 +83,7 @@ public sealed class DapperSpecTests(DataTestDb testDb)
                 price_cents bigint NOT NULL,
                 created_at timestamp NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
                 stamp text NOT NULL,
-                is_archived boolean NOT NULL DEFAULT FALSE);
+                archived_at timestamptz NULL);
             DELETE FROM spec_catalog;
             """);
         await command.ExecuteNonQueryAsync();
@@ -105,6 +105,6 @@ public sealed class DapperSpecTests(DataTestDb testDb)
 
         public string Stamp { get; set; } = string.Empty;
 
-        public bool IsArchived { get; set; }
+        public DateTimeOffset? ArchivedAt { get; set; }
     }
 }

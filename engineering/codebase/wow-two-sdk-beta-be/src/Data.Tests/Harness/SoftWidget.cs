@@ -18,8 +18,5 @@ public sealed class SoftWidget : IKeyedEntity<Guid>, ISoftDeletable, IHasTableNa
     public string Name { get; set; } = string.Empty;
 
     /// <inheritdoc />
-    public bool IsDeleted { get; set; }
-
-    /// <inheritdoc />
     public DateTimeOffset? DeletedAt { get; set; }
 }

@@ -27,7 +27,7 @@ public sealed record EntitySpec
     /// <summary>The concurrency token, when the entity has one.</summary>
     public ConcurrencySpec? Concurrency { get; init; }
 
-    /// <summary>The boolean property that marks a row deleted; reads leave such rows out.</summary>
+    /// <summary>The nullable timestamp property that marks a row deleted once set; reads leave such rows out.</summary>
     public string? SoftDeleteProperty { get; init; }
 
     /// <summary>The property holding the owning tenant.</summary>

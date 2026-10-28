@@ -146,7 +146,7 @@ public static class EntitySpecModelBuilderExtensions
     private static LambdaExpression NotDeleted(Type entityType, string property)
     {
         var parameter = Expression.Parameter(entityType, "e");
-        var isDeleted = Expression.Call(typeof(EF), nameof(EF.Property), [typeof(bool)], parameter, Expression.Constant(property));
-        return Expression.Lambda(Expression.Not(isDeleted), parameter);
+        var deletedAt = Expression.Call(typeof(EF), nameof(EF.Property), [typeof(DateTimeOffset?)], parameter, Expression.Constant(property));
+        return Expression.Lambda(Expression.Equal(deletedAt, Expression.Constant(null, typeof(DateTimeOffset?))), parameter);
     }
 }
