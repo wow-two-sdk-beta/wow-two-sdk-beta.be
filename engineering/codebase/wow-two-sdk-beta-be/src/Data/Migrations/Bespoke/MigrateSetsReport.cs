@@ -10,7 +10,3 @@ public sealed record MigrateSetsReport(MigrateRunResult Result, IReadOnlyList<Mi
     /// <summary>Renders the <c>sets --json</c> document: <c>{"sets":[…]}</c>, camelCase, nulls left out, no secret.</summary>
     public string ToJson() => JsonSerializer.Serialize(new MigrateSetsDocument(Sets), MigrateResultJsonContext.Default.MigrateSetsDocument);
 }
-
-/// <summary>Holds the <c>sets --json</c> document's shape.</summary>
-/// <param name="Sets">One description per set.</param>
-internal sealed record MigrateSetsDocument(IReadOnlyList<MigrateSetDescription> Sets);

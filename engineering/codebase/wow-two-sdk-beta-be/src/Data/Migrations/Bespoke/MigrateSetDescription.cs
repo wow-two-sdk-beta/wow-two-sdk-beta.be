@@ -43,13 +43,3 @@ public sealed record MigrateSetDescription
     /// <summary>Gets the owner release a contract's <c>since</c> compares with, or null when unknown.</summary>
     public string? Release { get; init; }
 }
-
-/// <summary>Represents one contract a set carries: its label and the oldest owner release that no longer reads what it removes.</summary>
-/// <param name="Label">The <c>NNN-name</c> label.</param>
-/// <param name="Since">The <c>since</c> as written, such as <c>v0.5</c>.</param>
-public sealed record MigrateSetContract(string Label, string Since);
-
-/// <summary>Represents one <c>-- @requires</c> a set carries: the file and the background migration it waits for.</summary>
-/// <param name="Label">The <c>NNN-name</c> label.</param>
-/// <param name="Name">The background migration's name.</param>
-public sealed record MigrateSetRequirement(string Label, string Name);
