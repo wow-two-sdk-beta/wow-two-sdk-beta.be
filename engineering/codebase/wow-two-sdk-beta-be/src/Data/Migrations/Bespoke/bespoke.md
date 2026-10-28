@@ -167,14 +167,14 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 
 | When | Step | Call |
 |---|---|---|
-| deploy (dev and prod) | explicit migrate step, before the new image serves | `wow-migrate apply --sets migration-sets.json`, or the image's own migrate command calling `MigrateBespokeForDeployAsync()` |
+| deploy (dev and prod) | explicit migrate step, before the new image serves | the image's `app migrate` (`MigrateCommand` + `RunMigrateCommandAsync`, [Migrate command tree](#migrate-command-tree)), or `wow-migrate apply --sets migration-sets.json` |
 | deployed boot | read-only check | `MigrateBespokeOnStartupAsync()` → `VerifyMigrationLevelsOnStartupAsync()` |
 | local boot | apply every set | `MigrateBespokeOnStartupAsync()` → creates the database, applies every set stamped `startup` |
 
 - A local run is `Development` without `DEPLOY_ENVIRONMENT` (`LocalRunExtensions`), so deployed dev verifies like prod and rehearses the prod path. A host with no `IHostEnvironment` registered verifies.
 - Apply refuses a pending ordinal below the applied level outside a local run, so its author renumbers it above the level; `MigrationOptions.LocalRun` (null: `Development` from configuration `environment`, `DOTNET_ENVIRONMENT` or `ASPNETCORE_ENVIRONMENT`, without `DEPLOY_ENVIRONMENT`) lets a local run apply it in place.
 - `MigrateBespokeOnStartupAsync(o => o.ApplyWhenDeployed = true)` applies on a deployed host too, and logs event `3014` as a warning at every such boot: a stopgap until the deploy runs its migrate step.
-- `MigrateBespokeForDeployAsync(appliedBy = "deploy")` (`Data/`) creates the database, then applies every set; it returns the `Result` so a migrate command maps it to an exit code.
+- `MigrateBespokeForDeployAsync(appliedBy = "deploy")` (`Data/`) creates the database, then applies every set; it returns the `Result`. The migrate command tree replaces it in images; it stays for hosts not yet on the tree.
 - Each set's database is the migrate key's when a migrate run turned it on, else the `DatabaseSettings` keyed by its name, else the host's, created once per connection string through the set's own dialect; a host with named sets only (a module's own service) needs no default set. A set with none connects as registered and creates nothing.
 - The engine helpers (`ApplyMigrationSetsAsync`, `VerifyMigrationLevelsOnStartupAsync`) create no database; the `Data/` helpers and `wow-migrate apply` do.
 - *Breaking (2026-10-26):* `MigrateBespokeOnStartupAsync` used to apply the default set at every boot. A deployed host now fails to boot while a set is behind, and a local boot applies named sets too.
@@ -188,24 +188,26 @@ var adopted = await registry.GetRunner("identity").BaselineAsync(throughOrdinal:
 ```
 
 ```bash
-wow-migrate baseline --sql-dir ./Migrations --to 14 --i-understand-this-is shop_prod
+app migrate baseline --set identity --to 14 --confirm shop_prod
+wow-migrate baseline --sql-dir ./Migrations --to 14 --confirm shop_prod
 ```
 
 - Records every source migration up to the ordinal with its checksum, kind, `applied_by = baseline` and zero duration; runs no script.
 - A rerun through the same ordinal finds every row recorded with a matching checksum and changes nothing.
 - Refuses with `Conflict` a set whose history lacks a migration it would adopt, so it never hides a pending migration of a migrated set; refuses with `Validation` an ordinal the source lacks.
 - Claims an owned schema under this host's owner and instance; the claim, the history table, the rows and one `baseline` event commit in one transaction under the set's lock.
-- Not gated by `AllowRollback`: adopting a live database is a production step. The CLI demands `--i-understand-this-is <db>` and `[y/N]` (or `--force`) and runs one set.
+- Not gated by `AllowRollback`: adopting a live database is a production step. The verb demands `--confirm <db>` and runs one set; no prompt, no `--force`.
 - The engine cannot check the schema matches the scripts; compare first, for example with `pg_dump --schema-only` against a database built by `apply`.
 
 ### CLI
 
 ```bash
-wow-migrate apply --sets migration-sets.json                 # every set, in manifest order
+wow-migrate apply --sets migration-sets.json                 # every set, in dependency order
 wow-migrate apply --sets migration-sets.json --set identity  # one set
-wow-migrate check --sets migration-sets.json                 # 0 all current · 1 otherwise
+wow-migrate check --sets migration-sets.json                 # 0 may run (current or compatible ahead) · 1 otherwise
+wow-migrate sets --json --sql-dir ./Migrations               # no database
 wow-migrate apply --sql-dir ./Migrations --set identity --schema identity --schema-owner service --owner-instance identity-haven@prod
-wow-migrate baseline --sets migration-sets.json --set identity --i-understand-this-is shop_prod
+wow-migrate baseline --sets migration-sets.json --set identity --to 14 --confirm shop_prod
 ```
 
 ```json
@@ -219,9 +221,12 @@ wow-migrate baseline --sets migration-sets.json --set identity --i-understand-th
 
 - Paths resolve against the manifest's folder; an `assembly` set reads embedded resources in an isolated load context and never runs the assembly's code.
 - A set with a schema owner must name its instance (`--owner-instance`, manifest `ownerInstance`), the value its own host claims under; the CLI is not the instance, so it never derives one.
-- `--sets` (or `WOW_MIGRATE_SETS`) excludes `--sql-dir`, `--schema`, `--schema-owner` and `--owner-instance`; `rollback`, `verify --repair`, `baseline`, `new` and `promote` need exactly one set.
-- Without `--sets` or `--set`, every verb runs the default set and prints as before; other runs print a `[set]` header per set.
+- The migrate verbs are the image's own tree ([Migrate command tree](#migrate-command-tree)): same verbs, exits, `--confirm` guard and result line; `new` and `promote` are the tool's own.
+- `--sets` (or `WOW_MIGRATE_SETS`) excludes `--sql-dir`, `--schema`, `--schema-owner` and `--owner-instance`; every manifest set registers, and `--set` picks the sets a verb runs. A guarded verb, `new` and `promote` need exactly one set.
+- Without `--sets`, a verb runs one set read from `--sql-dir`, named by `--set` (else `default`).
+- `apply` records `applied_by = cli`; the tool creates the database first, except on a dry run.
 - The CLI connects through Npgsql only, so a SQLite host applies its sets in process.
+- *Breaking (2026-10-28):* `status` and `verify` are gone (`check`, `plan`, `repair`); `--i-understand-this-is` and `--force` became `--confirm`; `rollback` needs `--to`; human output moved to stderr, stdout ends in the `migrate-result` line; `check` exits `0` on a compatible ahead.
 
 > **Living design doc.** Status lifecycle: **DESIGN → PROVEN (smart-qr) → SHIPPING → STABLE**. Current: **STABLE** (2026-06-18) — adopted + verified green by all three apps (smart-qr · secrets-vault · wheelhouse) on Postgres. The engine **lives in this folder** (`src/Data/Migrations/Bespoke/`, 22 `.cs` files), extracted from `smart-qr` on 2026-06-13 and building green in the mono-lib. It was first **PROVEN (smart-qr · 2026-06-11)** — built greenfield + verified end-to-end against real Postgres in the `smart-qr` product (see §0.0). `smart-qr` stays untouched and becomes a consumer of this package post-publish.
 > The engine was **built greenfield in `smart-qr`** and proven against the real product (see §0.0), then **extracted here** (see §6 — a *build-then-extract*, not a file move). The one real code change at extraction was the connection seam (below). This doc is **updated each iteration** as the engine, CLI, and conventions firm up.
@@ -366,11 +371,43 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 - `check` reports `Current` (exit `0`) when the release may run: current or a compatible ahead, no missing extension or dependency. On an empty database it creates no schema, history, events table, marker or lock and reports every set `Behind`.
 - `check`, `plan` and `locks` take no lock and write nothing.
 - The engine creates no database; the command creates it first, as `MigrateBespokeForDeployAsync` does.
+- `DescribeAsync(sets)` serves `sets`: each set's name, schema, owner kind, level (highest embedded ordinal), contracts with `since`, `@requires`, `DependsOn`, extensions, published tables and the embedding package and version — from options and source alone, never connecting (`MigrateSetsReport.ToJson()` renders `{"sets":[…]}`).
+- `MigrateRunResult.FromOutput(stdout)` parses the last `migrate-result` line; `IMigrationRunnerService.ReadDatabaseName()` names the database a guarded verb's `--confirm` must match.
 
 ### Migrate key
 
-- `services.AddMigrationConnectionOverride()` turns on `Migrations:ConnectionString` (variable `Migrations__ConnectionString`): when set, every set connects through it — keyed and host connections aside — and the `Data/` deploy helper creates that database.
-- A boot never calls it; the migrate command does, for its own run.
+- `Migrations:ConnectionString` (variable `Migrations__ConnectionString`), when set, connects every set for a migrate command's run — keyed and host connections aside — and `apply` creates that database.
+- Every set registration keeps the key dormant (`MigrationRunMode` off); the migrate command turns it on before any runner resolves, so a product wires nothing. A boot never turns it on.
+- `services.AddMigrationConnectionOverride()` turns the key on for every run of a host, such as a test.
+
+## Migrate command tree
+
+*Added 2026-10-28* (M10, M11, M37, M57, M78): the tree half of `app migrate <verb>`. Folder: `../Commands/` ([commands.md](../Commands/commands.md)).
+
+```csharp
+var app = builder.Build();
+if (MigrateCommand.IsCommand(args))
+    return await app.RunMigrateCommandAsync(args);
+app.Configure();
+```
+
+| Verb | Engine | Guard |
+|---|---|---|
+| bare `migrate` | `ApplyAsync`, then `SeedAsync` | — |
+| `check [--set s] [--json]` · `plan` · `locks` | `CheckAsync` · `PlanAsync` · `LocksAsync` | — |
+| `apply [--dry-run]` · `seed` | `ApplyAsync` (database created first, never on a dry run) · `SeedAsync` | — |
+| `sets [--json]` | `DescribeAsync` | — |
+| `rollback --to N` · `forget --above N [--include-contracts]` · `repair` · `baseline [--to N]` · `claim --owner o --instance i` · `unlock` | one call each, on one set | `--confirm <db>` |
+| `bg …` | refused, exit `1`, until background migrations ship | — |
+
+- One library: the image helper (`Data/MigrateCommand`, `RunMigrateCommandAsync` on `IHost`) and `wow-migrate` build the same `MigrateCommandBuilder`; each supplies only where its services come from.
+- The run never starts the host; `apply` stamps `applied_by = deploy` in an image, `cli` from the tool.
+- `--confirm` matches the set's database name ordinally, read without connecting; missing or wrong exits `1` with a rerun hint. The operator calls carry no `AllowRollback` gate, which stays off in the app.
+- `forget` refuses a contract or kind-less row unless `--include-contracts`.
+- stdout carries the `--json` report, then the `migrate-result` line last; stderr carries the human report and logs. Messages are redacted of `Password=` pairs and URI credentials. The helper keeps console output on stderr for the rest of the process.
+- A parse error, an unknown set and an escaping configuration error refuse (`1`); any other escaping exception fails (`2`).
+- EF and DbUp sets answer `check`, `plan`, `apply`, `seed` and `sets` through `IMigrationStrategySet` (`EfMigrationsOptions.SetName`, `DbUpOptions.SetName`); other verbs and `apply --dry-run` refuse them, and history the image lacks reads `ahead-incompatible`.
+- `ApplyWhenDeployed`, `AllowOrphanedHistory` and the boot helpers stay as they were.
 
 ## 0.0 Proven in smart-qr (2026-06-11)
 
@@ -827,6 +864,8 @@ Highest precedence wins. Fail fast with the full searched-list on miss. **The re
 > **`dotnet tool restore` discovery:** the manifest is found by walking up from the **cwd**. Running `wow-migrate` from a sibling directory outside the manifest's tree silently fails to restore. Invoke from the repo subtree, or pass `--sql-dir` explicitly. When the convention scan (#5) is ambiguous (multi-project repo, manifest root ≠ SqlFiles location), `--sql-dir` is **required** rather than guessed.
 
 ### 4.4 Command table
+
+> **Superseded 2026-10-28** by the shared [migrate command tree](#migrate-command-tree): `wow-migrate` now runs the image's verbs (`check`, `plan`, `apply`, `seed`, `sets`, `rollback --to N`, `forget`, `repair`, `baseline`, `claim`, `locks`, `unlock`) with exits `0`–`3`, `--confirm <db>` and the `migrate-result` line, plus `new` and `promote`. The table and exit legend below are the 2026-06 design record.
 
 | Command | Args / flags | Prints | Dev-only? | Engine call |
 |---|---|---|---|---|

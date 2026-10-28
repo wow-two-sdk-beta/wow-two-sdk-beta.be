@@ -11,7 +11,7 @@
 | `WoW2.Sdk.Beta.Be` | production mono library |
 | `WoW2.Sdk.Beta.Be.Abstractions` | BCL-only kernel: `Result` family, `AppError` family, `IEvent`, `ICurrentUserService` / `UserKind`; core depends on it (unreleased, first ships with the next core release) |
 | `WoW2.Sdk.Beta.Be.Data.Abstractions` | web-free data contracts |
-| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool: `status` · `apply` (`--dry-run`) · `check` · `baseline` · `rollback` · `verify` · `new` · `promote`, over one set or a `--sets` manifest; an owned set names its `--owner-instance` |
+| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `wow-migrate` .NET tool: the image's migrate verb tree (`check` · `plan` · `apply` (`--dry-run`) · `seed` · `sets` · `rollback` · `forget` · `repair` · `baseline` · `claim` · `locks` · `unlock`, `--confirm <db>`, exits `0`–`3`, the `migrate-result` line) plus `new` · `promote`, over one set or a `--sets` manifest; an owned set names its `--owner-instance` |
 | `WoW2.Sdk.Beta.Be.Testing` | base test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Data` | data test helpers |
 | `WoW2.Sdk.Beta.Be.Testing.Integrations` | integration-client test doubles |
@@ -76,7 +76,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Kafka` | `KafkaFixture` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.MongoDb` | `MongoDbFixture` | shipped |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Azurite` | `AzuriteFixture` | shipped |
-| `WoW.Two.Sdk.Beta.Be.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite; several named sets via `MigratorSetsBuilder`), `MigratorPostgresFixture` (drops every user schema), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()` (every set), `RemoveAllForDbContext`/`RepointDbContext` | shipped; multi-set harness implemented (unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Testing.Data` | Data-tier helpers (companion → core + EF): `MigratorHarness` (PG + SQLite; several named sets via `MigratorSetsBuilder`), `MigratorPostgresFixture` (drops every user schema), `MigratorTestBase`, `MigrationsWorkspace`, `MigrationHistoryRow`, `DisableBespokeMigrator()` (every set), `RemoveAllForDbContext`/`RepointDbContext`; `AssertIdempotentAsync` (M59), `MigrationLint` (expand-only, lock risk, published tables), `MigrateVerbHarness` (image E2E verbs) | shipped; multi-set harness, idempotency mode, lint and verb harness implemented (unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Elasticsearch` | Elasticsearch Testcontainers fixture | planned |
 | `WoW.Two.Sdk.Beta.Be.Testing.Containers.Localstack` | LocalStack (AWS emulator) fixture | planned |
 
@@ -173,9 +173,10 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Projectables` | `UseProjectablesConventional` — `[Projectable]` computed properties | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Uniqueness` | `TrySaveChangesUniqueAsync`, `SaveWithGeneratedKeyAsync`; `UpsertAsync` / `AddIfAbsentAsync` — keyed upserts that re-read the winner after a lost insert race (savepoint inside a transaction) | implemented (mono-lib, unreleased upserts) |
 | `WoW.Two.Sdk.Beta.Be.Data.Dapper` | `AddDapperConventions` (snake_case + DateOnly + ListTypeHandler), `IDbConnectionFactory`, `SqlNaming` (`Col`/`Par`/`Table`, string + expression overloads), `EnumTypeHandler<TEnum>` (reversible string enum, `AddEnumTypeHandler<T>`); `DapperRepository<TEntity,TId>` (thin CRUD, SQL from `IHasTableName`+`SqlNaming`) + `AddDapperRepository` DI helpers | scaffold |
-| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry | scaffold |
-| `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry; the context answers the migrate tree's `check` · `plan` · `apply` · `seed` · `sets` | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite); the journal answers the migrate tree's `check` · `plan` · `apply` · `seed` · `sets` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke` | `AddDatabaseBespokeMigrations` (the host's set) + `AddDatabaseBespokeMigrationSet` (a module's named set: own history, lock, schema, `{{schema}}` placeholder, owner marker naming owner and `OwnerInstance`); `IMigrationSetRegistry`; `ApplyMigrationSetsAsync` deploy step, `VerifyMigrationLevelsOnStartupAsync` read-only boot check; `BaselineAsync` mark-as-applied adoption; `Data/` `MigrateBespokeOnStartupAsync` (applies on a local run only, `ApplyWhenDeployed` opt-in) + `MigrateBespokeForDeployAsync`; PostgreSQL + SQLite | named sets shipped `10.0.81-beta`; boot gate, owner instance and baseline implemented (unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Commands` | the migrate verb tree shared by images and `wow-migrate`; host entry `Data/` `MigrateCommand.IsCommand(args)` + `app.RunMigrateCommandAsync(args)`; `sets --json` without settings or a database; the migrate key wired by the set registration | implemented (unreleased) |
 
 ### Caching
 

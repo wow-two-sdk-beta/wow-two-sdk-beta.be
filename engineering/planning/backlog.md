@@ -39,6 +39,8 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | EF Core and Dapper persistence | shipped | — |
 | SQL migrator and `wow-migrate` CLI | shipped | — |
 | Migrate verb engine: kinds, compatible boot, bounded locks, events, dependencies, extensions, seed files | implemented | [bespoke.md](../codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/bespoke.md) § Verb engine; migrations spec lane A, engine half |
+| `app migrate <verb>` tree, host helper, `sets --json`; `wow-migrate` on the same tree; EF and DbUp sets | implemented | [commands.md](../codebase/wow-two-sdk-beta-be/src/Data/Migrations/Commands/commands.md); migrations spec lane A, tree half |
+| Migrations-tier lint, harness idempotency mode, image E2E verb harness | implemented | [Testing.Data Migrations.md](../codebase/wow-two-sdk-beta-be/src/Testing.Data/Migrations/Migrations.md); migrations spec lane B |
 | Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md) |
 | Entity specs, concurrency tokens and transaction locks | shipped | — |
 | Caching with commit-aware invalidation | shipped | — |
@@ -112,15 +114,10 @@ SDK vectors without a group of their own below; each row is the vector's next co
 
 ## Migrations
 
-Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.md` § 3.1); the engine half of lane A is implemented.
+Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.md` § 3.1); lanes A (engine and tree) and B are implemented.
 
 | Item | Type | Notes |
 |---|---|---|
-| `app migrate <verb>` command tree, host helper and `sets --json` over `IMigrationEngine` | feature | Lane A, tree half; `--confirm <db>`, the `migrate-result` line, exits `0`–`3`; replaces Identity's `HostConfiguration.MigrateAsync` |
-| `wow-migrate` runs the same tree over a manifest | feature | Its `check` still exits `1` on a compatible ahead and reads no kinds |
-| EF and DbUp sets answer the same verbs | feature | M11 |
-| `Testing.Data` lint: expand-only from a cutoff, lock-risk rules, published-table check | feature | Lane B; reads `-- @contract` and `MigrationOptions.ReferenceableTables` |
-| `MigratorHarness` idempotency mode and a verb harness for image E2E tiers | feature | Lane B (M57, M59) |
 | Background migrations: journal, `Jobs/` worker, `@requires` check, `bg` verbs | feature | Lane C; until it ships, a file with `-- @requires` always refuses |
 | Schema fingerprint per set, recorded by writing verbs and compared by `check` | feature | Lane D (M58) |
 | Drop the legacy advisory key (`TakeLegacyAdvisoryLock`) | engineering | Once no applicant below the reserved key class remains |
@@ -234,3 +231,5 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | Re-pin the direct consumers to the latest beta | engineering | TransportBrain, Tnis, TnisMintrans, Wheelhouse, SecretsVault, ListingShelf, Sift, Arcade, MuseumsGallery, TranscriptForge (plus its caption-parser namespace), product template; ForeverPin re-verifies on published `10.0.60-beta`; the ten first-batch ventures (ConfigChecker, CustomerPromises, DocumentationChecker, EpubReview, FileWatch, PodcastReadiness, ProcedureReview, RetainerBalance, TrainingSeats, VendorRenewals) pin a local `10.0.60-beta.local` build |
 | Dogfood the identity slices in Haven.Auth | product | Identity build step 10 — [identity](../research/identity/identity-architecture.md) |
 | Adopt `Media.Pdf` and `Media.Word` in pdf-editor | product | The extraction source proves parity first — [images and PDF](../research/media/images-and-pdf.md) |
+| Adopt `app migrate` in Identity, dropping `HostConfiguration.MigrateAsync` | product | Two lines in `Program.cs`; then each product in M48's order — [commands](../codebase/wow-two-sdk-beta-be/src/Data/Migrations/Commands/commands.md) |
+| Convert Wheelhouse's `-- contract:` lines to `-- @contract since=` | product | The `Testing.Data` lint reads both until then |
