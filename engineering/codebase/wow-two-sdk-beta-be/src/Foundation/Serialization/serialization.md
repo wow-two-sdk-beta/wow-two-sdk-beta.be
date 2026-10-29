@@ -82,3 +82,7 @@ that instance too. A format profile is configuration; it does not require a per-
 dedicated options-holder class.
 
 A base carrying both declarations is checked when the registry is built — a token that disagrees fails at type load.
+
+## YAML
+
+Hand-written YAML files read through [`YamlReader`](Yaml/yaml.md), which refuses with the line and the field.

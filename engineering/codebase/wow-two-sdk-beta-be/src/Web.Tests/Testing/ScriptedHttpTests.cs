@@ -25,6 +25,29 @@ public sealed class ScriptedHttpTests
     private const string Sha = "0123456789abcdef0123456789abcdef01234567";
 
     [Fact]
+    public async Task ScriptedHandler_ShouldAnswerByMethodAndPath_WithAnyStatus_AndRecordTheHost()
+    {
+        var handler = new ScriptedHttpMessageHandler();
+        var issued = 0;
+        handler.Answers["POST app/installations/7/access_tokens"] =
+            () => ScriptedHttpMessageHandler.JsonAnswer(HttpStatusCode.Created, $$"""{"token":"ghs_{{++issued}}"}""");
+        handler.Failures["app/installations/7/access_tokens"] = HttpStatusCode.Forbidden;
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.github.com/") };
+
+        using var first = await client.PostAsync("app/installations/7/access_tokens?ignored=1", content: null);
+        using var second = await client.PostAsync("app/installations/7/access_tokens", content: null);
+        using var read = await client.GetAsync("app/installations/7/access_tokens");
+
+        first.StatusCode.Should().Be(HttpStatusCode.Created);
+        (await second.Content.ReadAsStringAsync()).Should().Be("""{"token":"ghs_2"}""");
+        read.StatusCode.Should().Be(HttpStatusCode.Forbidden, "an answer keys on the method; the GET falls through to the path scripts");
+        handler.CountOfRoute("POST app/installations/7/access_tokens").Should().Be(2);
+        handler.Requests.Should().AllSatisfy(request => request.Host.Should().Be("api.github.com"));
+        handler.Requests[0].Route.Should().Be("POST app/installations/7/access_tokens");
+        handler.Requests[0].PathAndQuery.Should().Be("app/installations/7/access_tokens?ignored=1");
+    }
+
+    [Fact]
     public async Task ScriptedHandler_ShouldAnswerFromTheScriptAndRecordEveryRequest()
     {
         var handler = new ScriptedHttpMessageHandler();

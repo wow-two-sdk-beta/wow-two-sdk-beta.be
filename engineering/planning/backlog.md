@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-10-29*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -15,6 +15,7 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Errors, results and exception mapping | shipped | — |
 | Validation with advisories and translated messages | shipped | — |
 | Serialization presets and stored JSON profiles | shipped | — |
+| YAML reader with line-numbered refusals | implemented | [yaml.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Serialization/Yaml/yaml.md) |
 | Time, identifier, naming and configuration primitives | shipped | — |
 | Envelope encryption | shipped | [Security.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Security/Security.spec.md) |
 | Hash-chained audit trail | shipped | [HashChain.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Audit/HashChain.spec.md) |
@@ -62,7 +63,7 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Per-row multi-tenancy | shipped | — |
 | AI chat and embeddings over Ollama | shipped | — |
 | Stateless HTTP MCP hosting with endpoint and tool authorization, origin and size guard, agent-readable tool errors | implemented | [Mcp.spec.md](../codebase/wow-two-sdk-beta-be/src/Ai/Mcp/Mcp.spec.md) |
-| Periodic scoped jobs | implemented | [core.md](../codebase/wow-two-sdk-beta-be/src/Jobs/Core/core.md) |
+| Periodic scoped jobs, configured intervals and wakeable schedules | implemented | [core.md](../codebase/wow-two-sdk-beta-be/src/Jobs/Core/core.md) |
 | Bounded child processes | implemented | [processes.md](../codebase/wow-two-sdk-beta-be/src/Integrations/Processes/processes.md) |
 | Atomic file writes and race-safe upserts | implemented | [uniqueness.md](../codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/Uniqueness/uniqueness.md) |
 | Payments | planned | — |
@@ -217,10 +218,7 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | Publish granular entity abstractions | engineering | SecretsVault; slims the Domain dependency closure |
 | Drop vulnerable transitive packages | fix | Sift and PbnStudio on `10.0.21-beta`: Snappier 1.0.0, SSH.NET 2023.0.0, Datadog.Trace 3.7.0; check the current family first |
 | Keep providers out of small apps' restore graph | engineering | Sift: the mono-lib pulls AWS, Hangfire and every OAuth provider; re-check after the companion split |
-| SPA hosting reserves path prefixes beyond the API prefix | feature | Wheelhouse: `/.well-known/*` must 404, not serve the shell; it adds its own fallback in `HostConfiguration.cs` |
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
-| YAML reader beside the JSON presets | feature | Wheelhouse reads `catalog.yml` and `deploy.yml` with YamlDotNet 16.3.0 locally; the one-manifest work makes YAML a shared need |
-| Opaque cursor helper for paged reads | feature | Wheelhouse deployment history encodes its own cursor |
 
 ---
 
@@ -232,4 +230,4 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | Dogfood the identity slices in Haven.Auth | product | Identity build step 10 — [identity](../research/identity/identity-architecture.md) |
 | Adopt `Media.Pdf` and `Media.Word` in pdf-editor | product | The extraction source proves parity first — [images and PDF](../research/media/images-and-pdf.md) |
 | Adopt `app migrate` in Identity, dropping `HostConfiguration.MigrateAsync` | product | Two lines in `Program.cs`; then each product in M48's order — [commands](../codebase/wow-two-sdk-beta-be/src/Data/Migrations/Commands/commands.md) |
-| Convert Wheelhouse's `-- contract:` lines to `-- @contract since=` | product | The `Testing.Data` lint reads both until then |
+| Drop the legacy `-- contract:` line from the migrations lint | engineering | No migration in the workbench uses it (checked 2026-10-29); `MigrationLint.cs`, `MigrationLintRules.cs` and their test |

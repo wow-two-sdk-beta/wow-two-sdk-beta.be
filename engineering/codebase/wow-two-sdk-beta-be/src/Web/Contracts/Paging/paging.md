@@ -30,4 +30,6 @@ var feed = await db.Events.Select(e => new EventRowDto { Id = e.Id, At = e.At })
 - Keyset pages order by the keys themselves; end with a unique key (the id) so ties never skip or repeat rows.
 - Keys compare with operators, or `CompareTo` for strings and Guids; EF sends key values as parameters.
 - A token is base64url JSON of the last row's keys; an altered one answers 400 (`messageKey` `PageTokenInvalid`).
-- `IEnumerable<T>.ToPage(request)` pages lists already in memory.
+- `IEnumerable<T>.ToPage(request)` pages lists already in memory; `ToTokenPage(key, request)` and
+  `ToTokenPage(first, then, request, descending)` keyset-page them, strings compared ordinally, in the same token.
+- `PageTokenMapper` writes and reads the token; `TryDecode` lets a validator refuse a token before the read.

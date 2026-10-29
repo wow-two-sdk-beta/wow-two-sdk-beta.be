@@ -58,10 +58,40 @@ public static class LocalRunExtensions
     /// <summary>Reports whether the runner deployed the host: <c>DEPLOY_ENVIRONMENT</c> is set in configuration or the process.</summary>
     /// <param name="configuration">The host configuration, read beside the process environment.</param>
     /// <returns><see langword="true"/> on a deployed host, whatever its .NET environment.</returns>
-    internal static bool IsDeployed(IConfiguration? configuration)
-        => !string.IsNullOrWhiteSpace(configuration?[DeployEnvironmentVariable])
-            || !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(DeployEnvironmentVariable));
+    /// <example>
+    /// <code>
+    /// options.Cookie.SecurePolicy = configuration.IsDeployed() ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest;
+    /// </code>
+    /// </example>
+    public static bool IsDeployed(this IConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        return Read(configuration) is not null;
+    }
+
+    /// <summary>
+    /// Gets the environment the runner deployed the host into — <c>DEPLOY_ENVIRONMENT</c>, trimmed and lowercase, from
+    /// configuration else the process environment.
+    /// </summary>
+    /// <param name="configuration">The host configuration, read beside the process environment.</param>
+    /// <returns>The deploy environment, such as <c>dev</c> or <c>prod</c>; <see langword="null"/> on a host the runner did not deploy.</returns>
+    /// <remarks>The value is the runner's word, not a closed set: map it to the names the host knows and treat any other as unknown.</remarks>
+    public static string? GetDeployEnvironment(this IConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        return Read(configuration);
+    }
+
+    private static string? Read(IConfiguration? configuration)
+    {
+        var value = configuration?[DeployEnvironmentVariable];
+        if (string.IsNullOrWhiteSpace(value))
+            value = Environment.GetEnvironmentVariable(DeployEnvironmentVariable);
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim().ToLowerInvariant();
+    }
 
     private static bool Evaluate(IHostEnvironment environment, IConfiguration? configuration)
-        => environment.IsDevelopment() && !IsDeployed(configuration);
+        => environment.IsDevelopment() && Read(configuration) is null;
 }

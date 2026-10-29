@@ -57,6 +57,16 @@ public sealed record ApiDefaultsOptions
     public string HealthEndpointPath { get; set; } = "/health";
 
     /// <summary>
+    /// Readiness endpoint path: it reports only the checks tagged <see cref="ReadinessTag"/>, and the liveness endpoint
+    /// then skips them, so a host whose database is down stays alive but leaves the rollout waiting.
+    /// <see langword="null"/> (default) maps no readiness endpoint and keeps every check on the liveness endpoint.
+    /// </summary>
+    public string? ReadinessEndpointPath { get; set; }
+
+    /// <summary>The tag that marks a readiness check. Default <c>ready</c>, the tag <c>AddDatabaseReadinessCheck</c> gives.</summary>
+    public string ReadinessTag { get; set; } = "ready";
+
+    /// <summary>
     /// Code configuration for the validation module (translation and friends); the host section <c>Validation</c> is
     /// applied after it.
     /// </summary>

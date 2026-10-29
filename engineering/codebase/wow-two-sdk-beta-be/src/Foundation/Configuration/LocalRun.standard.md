@@ -1,6 +1,6 @@
 # Local run — standard
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-29*
 
 > **Behavioral contract.** RFC 2119 (MUST / SHOULD / MAY). Changes only when the *contract* does, not when implementation moves.
 
@@ -17,6 +17,9 @@ never means a local run. Source rule: `wow-two-ws` host configuration § *Settin
 - A blank or whitespace value **MUST** count as absent.
 - `LOCAL_SETTINGS` **MUST NOT** affect the result: it only adds `appsettings.Local.json` on a local run.
 - Seams that resolve from DI **MUST** treat a provider without `IHostEnvironment` as not local.
+- `IsDeployed` **MUST** return `true` exactly when `DEPLOY_ENVIRONMENT` counts as present, whatever the .NET environment.
+- `GetDeployEnvironment` **MUST** return the value trimmed and lowercase, and `null` when it counts as absent; a host
+  **SHOULD** map it to the environments it knows and treat any other value as unknown.
 
 ## Defaults keyed on it
 

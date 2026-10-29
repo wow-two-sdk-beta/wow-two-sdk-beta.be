@@ -43,7 +43,7 @@ public static class SpaHostingApplicationBuilderExtensions
 
     /// <summary>
     /// Maps the SPA fallback terminal endpoints: a JSON 404 for unmatched routes under
-    /// <see cref="SpaHostingOptions.ApiPathPrefix"/>, then the route's own document for every other unmatched route —
+    /// <see cref="SpaHostingOptions.ApiPathPrefix"/> and each of <see cref="SpaHostingOptions.ReservedPathPrefixes"/>, then the route's own document for every other unmatched route —
     /// <c>pricing/index.html</c> for <c>/pricing</c> when the bundle ships one — else
     /// <see cref="SpaHostingOptions.FallbackFile"/>. Call after the application's own endpoints are mapped so real routes
     /// win; both fallbacks allow anonymous access so the shell and 404 surface under a default-deny authorization policy.
@@ -57,11 +57,14 @@ public static class SpaHostingApplicationBuilderExtensions
         ArgumentNullException.ThrowIfNull(app);
 
         var options = BuildOptions(configure);
-        var apiPattern = $"{options.ApiPathPrefix.TrimEnd('/')}/{{**slug}}";
 
-        // Terminate unmatched API routes before the SPA catch-all can return HTML.
-        app.MapFallback(apiPattern, () => Results.Problem(statusCode: StatusCodes.Status404NotFound, title: "Not Found"))
-            .AllowAnonymous();
+        // Terminate unmatched API and reserved routes before the SPA catch-all can return HTML; a literal prefix
+        // outranks the catch-all.
+        foreach (var prefix in options.ReservedPathPrefixes.Prepend(options.ApiPathPrefix).Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            app.MapFallback($"{prefix.TrimEnd('/')}/{{**slug}}", () => Results.Problem(statusCode: StatusCodes.Status404NotFound, title: "Not Found"))
+                .AllowAnonymous();
+        }
 
         // Routing claims extensionless paths before static files run, so the fallback itself picks the document.
         var webRoot = app.Environment.WebRootFileProvider;

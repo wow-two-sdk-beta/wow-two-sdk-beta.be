@@ -44,6 +44,21 @@ public sealed class LocalRunTests
         deployedDev.IsLocalRun().Should().BeFalse();
     }
 
+    [Theory]
+    [InlineData(null, false, null)]
+    [InlineData("", false, null)]
+    [InlineData("   ", false, null)]
+    [InlineData("dev", true, "dev")]
+    [InlineData(" Prod ", true, "prod")]
+    [InlineData("preview-7", true, "preview-7")]
+    public void IsDeployed_AndGetDeployEnvironment_ReadTheRunnersVariable(string? deployEnvironment, bool deployed, string? expected)
+    {
+        var configuration = Configuration(deployEnvironment, localSettings: null);
+
+        configuration.IsDeployed().Should().Be(deployed);
+        configuration.GetDeployEnvironment().Should().Be(expected);
+    }
+
     private static IConfiguration Configuration(string? deployEnvironment, string? localSettings)
         => new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
@@ -87,6 +102,8 @@ public sealed class LocalRunProcessEnvironmentTests
         {
             Environment.SetEnvironmentVariable(LocalRunExtensions.DeployEnvironmentVariable, "dev");
             development.IsLocalRun(empty).Should().BeFalse();
+            empty.IsDeployed().Should().BeTrue();
+            empty.GetDeployEnvironment().Should().Be("dev");
 
             Environment.SetEnvironmentVariable(LocalRunExtensions.DeployEnvironmentVariable, null);
             development.IsLocalRun(empty).Should().BeTrue();

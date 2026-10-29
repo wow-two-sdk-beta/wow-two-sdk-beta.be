@@ -27,9 +27,13 @@ app.Run();
 | Side | Concerns |
 |---|---|
 | `AddApiDefaults` | settings files (`appsettings.Target.json`, a local run's `appsettings.Local.json`; [configuration](../Foundation/Configuration/configuration.md#settings-files)) · Serilog (`UseSerilogConventional`) · TimeProvider · OTel tracing + metrics + OTLP · health checks · proxy-aware hosting · OpenAPI · trace-aware ProblemDetails · validation exception handler · per-IP rate limit · output cache · Brotli/Gzip compression · CORS (when origins given) · FluentValidation scan (when assemblies given) |
-| `UseApiDefaults` | forwarded headers · OWASP secure headers · compression · routing · CORS · optional identity seam · rate limiter · output cache · OpenAPI endpoint · `/health` |
+| `UseApiDefaults` | forwarded headers · OWASP secure headers · compression · routing · CORS · optional identity seam · rate limiter · output cache · OpenAPI endpoint · `/health` · readiness endpoint (when `ReadinessEndpointPath` is set) |
 
 Every concern has an off-flag on `ApiDefaultsOptions`; defaults are all-on.
+
+`ReadinessEndpointPath` (default `null`) maps a readiness endpoint that reports only the checks tagged
+`ReadinessTag` (default `ready`, as `AddDatabaseReadinessCheck` tags), and `/health` then skips them: a host whose
+database is down stays alive while its rollout gate waits. Without it, `/health` reports every check.
 
 ## Deliberately NOT included
 

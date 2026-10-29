@@ -1,3 +1,4 @@
+using WoW.Two.Sdk.Beta.Be.Foundation.Identifiers;
 using WoW.Two.Sdk.Beta.Be.Foundation.Identifiers.Generators;
 using Xunit;
 
@@ -16,6 +17,17 @@ public sealed class CryptographicIdGeneratorTests
         var value = _generator.Generate(length, "01-_");
         Assert.Equal(length, value.Length);
         Assert.All(value, c => Assert.Contains(c, "01-_"));
+    }
+
+    [Theory]
+    [InlineData(IdAlphabetConstants.Alphanumeric, 62)]
+    [InlineData(IdAlphabetConstants.HexLower, 16)]
+    [InlineData(IdAlphabetConstants.Base64Url, 64)]
+    public void Alphabets_AreDistinctUrlSafeCharacters_TheGeneratorAccepts(string alphabet, int size)
+    {
+        Assert.Equal(size, alphabet.Distinct().Count());
+        var value = _generator.Generate(256, alphabet);
+        Assert.All(value, c => Assert.Contains(c, alphabet));
     }
 
     [Theory]

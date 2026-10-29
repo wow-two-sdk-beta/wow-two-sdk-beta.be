@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using WoW.Two.Sdk.Beta.Be.Foundation.Configuration;
 using WoW.Two.Sdk.Beta.Be.Foundation.Time;
@@ -176,8 +177,20 @@ public static class ApiDefaultsExtensions
             app.MapOpenApiEndpoint();
         }
 
-        // Liveness must stay reachable by unauthenticated probes, even under a default-deny fallback policy.
-        app.MapHealthChecks(options.HealthEndpointPath).AllowAnonymous();
+        // Liveness must stay reachable by unauthenticated probes, even under a default-deny fallback policy. With a
+        // readiness endpoint, the readiness checks leave liveness, so a host whose database is down is not restarted.
+        if (options.ReadinessEndpointPath is { } readinessPath)
+        {
+            var tag = options.ReadinessTag;
+            app.MapHealthChecks(options.HealthEndpointPath, new HealthCheckOptions { Predicate = check => !check.Tags.Contains(tag) })
+                .AllowAnonymous();
+            app.MapHealthChecks(readinessPath, new HealthCheckOptions { Predicate = check => check.Tags.Contains(tag) })
+                .AllowAnonymous();
+        }
+        else
+        {
+            app.MapHealthChecks(options.HealthEndpointPath).AllowAnonymous();
+        }
 
         // Fallback endpoints rank last, so the application's own endpoints still win whenever they are mapped.
         if (options.SpaHosting is { } spaFallback)

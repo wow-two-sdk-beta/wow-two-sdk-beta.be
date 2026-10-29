@@ -141,6 +141,11 @@
     <PackageReference Include="Markdig" />
   </ItemGroup>
 
+  <!-- Foundation — YAML (src/Foundation/Serialization/Yaml). YamlDotNet (MIT) reads hand-written files; no natives. -->
+  <ItemGroup Label="Foundation — YAML">
+    <PackageReference Include="YamlDotNet" />
+  </ItemGroup>
+
   <!-- Media — Word (src/Media/Word). Open XML SDK (MIT), the version ClosedXML already brings; no natives. -->
   <ItemGroup Label="Media — Word">
     <PackageReference Include="DocumentFormat.OpenXml" />

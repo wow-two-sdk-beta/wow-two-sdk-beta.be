@@ -9,6 +9,13 @@ public sealed record SpaHostingOptions
     /// </summary>
     public string ApiPathPrefix { get; set; } = "/api";
 
+    /// <summary>
+    /// Gets the route prefixes besides <see cref="ApiPathPrefix"/> that never serve the SPA shell: a path under one that
+    /// matches no endpoint and no file returns a JSON 404. Default <c>/.well-known</c>, the discovery namespace (RFC 8615)
+    /// clients probe for OAuth metadata, app links and <c>security.txt</c>, so a miss there is a real 404.
+    /// </summary>
+    public IList<string> ReservedPathPrefixes { get; init; } = ["/.well-known"];
+
     /// <summary>Static file served for unmatched non-API routes, relative to the web root. Default <c>index.html</c>.</summary>
     public string FallbackFile { get; set; } = "index.html";
 

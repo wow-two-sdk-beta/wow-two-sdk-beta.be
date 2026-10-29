@@ -92,6 +92,31 @@ public sealed class SpaHostingTests : IDisposable
         response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
     }
 
+    [Theory]
+    [InlineData("/.well-known/oauth-protected-resource")]
+    [InlineData("/.well-known/openid-configuration/mcp")]
+    [InlineData("/internal/missing")]
+    public async Task UnmatchedReservedRoute_ShouldAnswerJson404_NotTheShell(string path)
+    {
+        await using var app = await StartAsync(spa => spa.ReservedPathPrefixes.Add("/internal/"));
+
+        using var response = await app.GetTestClient().GetAsync(path);
+
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
+    }
+
+    [Fact]
+    public async Task ClearedReservedPrefixes_ShouldServeTheShell()
+    {
+        await using var app = await StartAsync(spa => spa.ReservedPathPrefixes.Clear());
+
+        using var response = await app.GetTestClient().GetAsync("/.well-known/oauth-protected-resource");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        (await response.Content.ReadAsStringAsync()).Should().Be("shell");
+    }
+
     public void Dispose() => Directory.Delete(_webRoot, recursive: true);
 
     // Routing first is the pipeline WebApplication builds itself; after is an app calling UseRouting behind the SPA.

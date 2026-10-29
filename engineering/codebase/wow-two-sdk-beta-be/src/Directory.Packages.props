@@ -69,6 +69,9 @@
     <PackageVersion Include="dbup-postgresql" Version="6.0.3" />
     <PackageVersion Include="dbup-sqlserver" Version="6.0.16" />
     <PackageVersion Include="dbup-mysql" Version="6.0.4" />
+    <!-- Transitive pin (CentralPackageTransitivePinningEnabled): dbup-mysql and the MySQL health check pull
+         MySqlConnector 2.3.5, which sends the password before verifying TLS (GHSA-473q-m89c-ghf8, patched in 2.6.1). -->
+    <PackageVersion Include="MySqlConnector" Version="2.6.2" />
     <PackageVersion Include="dbup-sqlite" Version="6.0.4" />
   </ItemGroup>
 
@@ -259,6 +262,7 @@
     <PackageVersion Include="PDFsharp" Version="6.2.4" />
     <PackageVersion Include="PdfPig" Version="0.1.16" />
     <PackageVersion Include="Markdig" Version="1.4.0" />
+    <PackageVersion Include="YamlDotNet" Version="16.3.0" />
     <PackageVersion Include="DocumentFormat.OpenXml" Version="3.1.1" />
   </ItemGroup>
 

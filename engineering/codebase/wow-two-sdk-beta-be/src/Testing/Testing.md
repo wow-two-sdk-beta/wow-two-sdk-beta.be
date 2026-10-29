@@ -69,6 +69,8 @@ var github = new ScriptedHttpMessageHandler();
 github.Json["repos/o/r/commits/main"] = "...";                       // path + query, no leading slash
 github.Raw["repos/o/r/contents/icon.svg?ref=abc"] = svgBytes;
 github.Failures["repos/o/r/git/trees/abc?recursive=1"] = HttpStatusCode.Forbidden;
+github.Answers["POST app/installations/7/access_tokens"] =                 // method + path, any status, built per call
+    () => ScriptedHttpMessageHandler.JsonAnswer(HttpStatusCode.Created, """{"token":"ghs_1"}""");
 
 services.AddGitHubIntegration().ConfigurePrimaryHttpMessageHandler(() => github);   // typed client
 var factory = new SingleClientHttpClientFactory(github, new Uri("https://api.github.com/")); // IHttpClientFactory callers
@@ -76,7 +78,9 @@ var factory = new SingleClientHttpClientFactory(github, new Uri("https://api.git
 github.Requests.Should().ContainSingle(r => r.Authorization == "Bearer token");
 ```
 
-- unscripted paths answer `404`; `Requests` records method, path, headers, `Authorization` and body.
+- `Answers` win over `Failures`, which win over `Json`, then `Raw`; unscripted paths answer `404`.
+- `Requests` records method, host, path, `Route` (`GET repos/o/r`), headers, `Authorization` and body;
+  `CountOf(pathAndQuery)` and `CountOfRoute(route)` count them.
 - `SingleClientHttpClientFactory` hands every name a client over the one handler and never disposes it.
 
 ### Problem responses (`Web/HttpExtensions`)

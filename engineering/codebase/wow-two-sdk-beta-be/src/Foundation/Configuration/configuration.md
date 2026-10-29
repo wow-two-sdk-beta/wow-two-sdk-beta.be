@@ -89,5 +89,7 @@ if (builder.IsLocalRun())                                   // or app.Environmen
 ```
 
 - `LOCAL_SETTINGS` plays no part; it only adds `appsettings.Local.json` on a local run.
+- `configuration.IsDeployed()` tells any runner-deployed host, whatever its .NET environment;
+  `configuration.GetDeployEnvironment()` names its environment (`dev`, `prod`), trimmed and lowercase, or `null`.
 - The SDK keys its own local-only defaults on it: EF Core sensitive-data logging and detailed errors, the OpenAPI
   endpoint and Data Protection without a key directory. Contract: [`LocalRun.standard.md`](LocalRun.standard.md).

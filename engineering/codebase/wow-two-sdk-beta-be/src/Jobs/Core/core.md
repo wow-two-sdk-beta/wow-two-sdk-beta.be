@@ -31,5 +31,10 @@ builder.Services.AddPeriodicJob("follow", (services, ct) => services.GetRequired
 - Delays use the registered `TimeProvider`, so tests drive passes with `FakeTimeProvider`.
 - Metrics (`WoW.Two.Sdk.Beta.Be.Jobs.Core`): `periodic_job.passes` and `periodic_job.duration`, tagged `job` and
   `outcome` (`succeeded`, `failed`, `timed_out`, `canceled`).
+- `options.UseConfiguredInterval(configuration, key, fallback, unit, min, max)` reads a whole number of units from
+  configuration, clamps it and turns the job off at zero or less.
+- A job whose pass starts a costly read — a child process, a remote call — asks a `WakeableSchedule` first: the read
+  runs at once after `Wake()`, when the last read named its next look while work is open, else once per idle interval.
+  `Settle` records a read, `Missed` a failed one; a wake during a read keeps the next pass due.
 - One process runs each job. Work that needs one runner across replicas, retries or persistence belongs in
   [Hangfire](../Hangfire/Hangfire.md); queued items belong in [batch pipelines](../Batches/batches.md).

@@ -55,12 +55,14 @@ app.MapControllers();     // real routes still win: fallback endpoints rank last
 - The bundle and its documents carry the secure headers (frame denial, `nosniff`) and Brotli/Gzip encoding.
 - Hashed files under `ImmutableAssetsPath` (default `/assets`) cache for a year as `immutable`.
 - Every `.html` document answers `Cache-Control: no-cache`, so a deploy reaches returning visitors.
-- Unmatched `/api/*` routes return a JSON 404; every other unmatched route gets the shell.
+- Unmatched `/api/*` and `/.well-known/*` routes return a JSON 404; every other unmatched route gets the shell.
+  `ReservedPathPrefixes` holds the reserved prefixes besides the API's — add one, or clear the list to let the shell
+  answer `/.well-known/*`; the default web root skips dot folders, so map a discovery document as an endpoint.
 - A host outside the API defaults can call `app.UseSpaHosting()` early and `app.MapSpaFallback()` last.
 
-`SpaHostingOptions`: `ApiPathPrefix` (default `/api`), `FallbackFile` (default `index.html`),
-`ServeDefaultFiles` (default `true`), `RedirectToTrailingSlash` (default `false`), `ImmutableAssetsPath`
-(default `/assets`).
+`SpaHostingOptions`: `ApiPathPrefix` (default `/api`), `ReservedPathPrefixes` (default `/.well-known`),
+`FallbackFile` (default `index.html`), `ServeDefaultFiles` (default `true`), `RedirectToTrailingSlash`
+(default `false`), `ImmutableAssetsPath` (default `/assets`).
 
 A route that ships its own document gets it instead of the shell: `/pricing` and `/pricing/` both serve
 `pricing/index.html` when the bundle contains one, whether routing runs before or after `UseSpaHosting`.

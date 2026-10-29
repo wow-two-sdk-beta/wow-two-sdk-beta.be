@@ -62,7 +62,7 @@ public static class SettingsFileExtensions
         var target = files.GetFileInfo(TargetFile).Exists;
         var local = files.GetFileInfo(LocalFile).Exists;
         // A bundle older than pipelines v0.7.0 mounts the target's file at the machine file's name.
-        var legacy = !target && local && LocalRunExtensions.IsDeployed(configuration);
+        var legacy = !target && local && configuration.IsDeployed();
         var machine = local && !legacy && ReadsLocalFile(builder.Environment, configuration);
 
         var added = new List<IConfigurationSource>(2);
