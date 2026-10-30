@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-29*
+*Last updated: 2026-10-30*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -14,10 +14,12 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Test hosts, container fixtures, fakes and harnesses | shipped | [Testing.spec.md](../codebase/wow-two-sdk-beta-be/src/Testing/Testing.spec.md) |
 | Errors, results and exception mapping | shipped | — |
 | Validation with advisories and translated messages | shipped | — |
+| Format rules: name slug, GitHub repository, image, hosts, IPv4, SSH keys, https address | implemented | [formats.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Validation/Formats/formats.md) |
 | Serialization presets and stored JSON profiles | shipped | — |
 | YAML reader with line-numbered refusals | implemented | [yaml.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Serialization/Yaml/yaml.md) |
 | Time, identifier, naming and configuration primitives | shipped | — |
 | Envelope encryption | shipped | [Security.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Security/Security.spec.md) |
+| Re-read master key brokers (file, environment), canary proof, key and value fingerprint hashers | implemented | [Security.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Security/Security.spec.md) |
 | Hash-chained audit trail | shipped | [HashChain.spec.md](../codebase/wow-two-sdk-beta-be/src/Foundation/Audit/HashChain.spec.md) |
 | Logging, tracing, metrics and health checks | shipped | — |
 | Proxy-aware hosting and request limits | shipped | — |
@@ -45,6 +47,7 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Data sessions and nested units | shipped | [sessions.spec.md](../codebase/wow-two-sdk-beta-be/src/Data/Sessions/sessions.spec.md) |
 | Entity specs, concurrency tokens and transaction locks | shipped | — |
 | Caching with commit-aware invalidation | shipped | — |
+| Coalescing memo whose forced refresh joins a read in flight | implemented | [memo.md](../codebase/wow-two-sdk-beta-be/src/Caching/Memo/memo.md) |
 | Resilient, destination-safe outbound HTTP | shipped | [safety.spec.md](../codebase/wow-two-sdk-beta-be/src/Http/Safety/safety.spec.md) |
 | Event bus with outbox, inbox, sagas and dead-letter admin | shipped | [Messaging.spec.md](../codebase/wow-two-sdk-beta-be/src/Messaging/Messaging.spec.md) |
 | Webhooks: outbound, inbound and durable subscriptions | shipped | [Webhooks.spec.md](../codebase/wow-two-sdk-beta-be/src/Messaging/Webhooks/Webhooks.spec.md) |
@@ -60,6 +63,7 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 | Realtime over SignalR, SSE and WebSockets | shipped | — |
 | Request localization and formatters | shipped | — |
 | GitHub and container-registry clients | shipped | — |
+| Commit-keyed GitHub repository reader and a multi-repository GitHub fake | implemented | [github.md](../codebase/wow-two-sdk-beta-be/src/Integrations/GitHub/github.md) |
 | Per-row multi-tenancy | shipped | — |
 | AI chat and embeddings over Ollama | shipped | — |
 | Stateless HTTP MCP hosting with endpoint and tool authorization, origin and size guard, agent-readable tool errors | implemented | [Mcp.spec.md](../codebase/wow-two-sdk-beta-be/src/Ai/Mcp/Mcp.spec.md) |
