@@ -29,6 +29,28 @@ Defaults to the happy path: `Repo = Exists`, `File = Present`, no `Releases`, `W
 - `RepositoryFiles` / `WithRepositoryFile(path, bytes|text)` — files at every commit; `GetTreeAsync` lists them as blobs, `ReadFileAsync` returns them (`NotFound` when unlisted, `TooLarge` past `maxBytes`).
 - `TreeOutcome` / `WithTreeOutcome(RepositoryLookup)` — force a tree failure; `FileReadOutcome` / `WithFileReadOutcome(FileRead)` — force a read failure.
 
+Several repositories and heads — push files the way a developer would:
+
+```csharp
+var github = new FakeGitHubClient().WithPushedOnly();          // an unpushed repo reads as NotFound
+
+var first  = github.Push("owner/catalog", "catalog.yml", yaml);  // new 40-hex commit, branch main moves there
+var second = github.Push("owner/catalog", "deploy.yml", deploy); // keeps catalog.yml
+github.Push("owner/pilot", "icon.svg", svg, branch: "release");
+github.Push("owner/pilot", "big.bin", FileRead.TooLarge);        // a file whose read reports an outcome
+github.Push("owner/pilot", "a.txt", "x", commit: new string('a', 40)); // a named commit; an existing one gains the file
+github.Unreachable("owner/pilot");                               // head reads Failed until the next push
+github.PushEmpty("owner/empty");
+
+github.FileReads.Should().Equal($"owner/catalog@{second}:catalog.yml");  // also HeadReads, TreeReads
+```
+
+- A pushed repository answers from its commits only: an unpushed branch or unknown commit reads `NotFound`.
+- An unpushed repository answers from the canned settings above, or `NotFound` with `PushedOnly`.
+- `Failure` makes every head, tree and file read throw; `Clear()` forgets pushes and records, not the canned settings.
+- Pushes and records are thread-safe, for a test host serving requests at once.
+- Under the real `GitHubRepositoryReader`, set `HeadFor = 0` so each read sees the newest push.
+
 ### `FakeContainerRegistryClient`
 
 Defaults to `Missing` for every tag. Per-probe resolution order: `Override` → `{repo}:{tag}` in `ExistingImages` → bare `tag` in `ExistingTags`.

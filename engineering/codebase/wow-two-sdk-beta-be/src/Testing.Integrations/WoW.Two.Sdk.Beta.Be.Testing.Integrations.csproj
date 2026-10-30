@@ -17,7 +17,7 @@
   <PropertyGroup>
     <!-- Published ID uses the OWNED WoW2.* reserved prefix. Assembly + namespaces remain WoW.Two.*. -->
     <PackageId>WoW2.Sdk.Beta.Be.Testing.Integrations</PackageId>
-    <Description>WoW Two be sdk integration-client test doubles (beta-forever) — configurable FakeGitHubClient and FakeContainerRegistryClient implementing the SDK's IGitHubClient / IContainerRegistryClient. Canned per-call outcomes, per-tag image existence, toggleable failure paths. References core; reference from test projects only.</Description>
+    <Description>WoW Two be sdk integration-client test doubles (beta-forever) — configurable FakeGitHubClient and FakeContainerRegistryClient implementing the SDK's IGitHubClient / IContainerRegistryClient. Canned per-call outcomes or pushed repositories with several heads and commits, per-tag image existence, toggleable failure paths. References core; reference from test projects only.</Description>
     <PackageTags>wow-two; backend; beta; sdk; testing; fakes; integrations; github; ghcr; xunit</PackageTags>
 
     <!-- Test-HELPER library (not a test SUITE): ships no runner. Tell `dotnet test` to skip it. -->

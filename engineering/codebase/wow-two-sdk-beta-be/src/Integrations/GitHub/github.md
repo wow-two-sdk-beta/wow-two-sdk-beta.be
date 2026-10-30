@@ -15,7 +15,37 @@ builder.Services.AddGitHubIntegration(o =>
 });
 ```
 
-Configures a typed client → `IGitHubClient` (base `https://api.github.com/`, accept `application/vnd.github+json`). `GitHubIntegrationOptions` binds the host section `Integrations:GitHub` after the delegate. Without `AllowAnonymousCalls`, a missing token reports `Unauthorized` without calling GitHub. Caching stays with the caller: a commit's tree and files never change, so key them by commit SHA and re-read only the branch head.
+Configures a typed client → `IGitHubClient` (base `https://api.github.com/`, accept `application/vnd.github+json`). `GitHubIntegrationOptions` binds the host section `Integrations:GitHub` after the delegate. Without `AllowAnonymousCalls`, a missing token reports `Unauthorized` without calling GitHub. The client caches nothing; `IGitHubRepositoryReader` below keeps reads per commit.
+
+## Read per commit
+
+```csharp
+builder.Services.AddHybridCaching();
+builder.Services.AddGitHubRepositoryReader(o => o.HeadFor = TimeSpan.FromMinutes(5));   // Integrations:GitHub:Reader
+
+public sealed class Manifests(IGitHubRepositoryReader reader)
+{
+    public async Task<byte[]?> ReadAsync(string repo, bool fresh, CancellationToken ct)
+    {
+        if (await reader.HeadAsync(repo, "main", fresh, ct) is not { } commit)
+            return null;                                                       // branch unreadable
+        var file = await reader.ReadAsync(repo, commit, "product.json", 64 * 1024, ct);
+        return file.Outcome == FileRead.Found ? file.Content : null;
+    }
+}
+```
+
+| Method | Kept | Read again |
+|---|---|---|
+| `HeadAsync(repo, branch, fresh, ct)` | the head, readable or not, for `HeadFor` (default 5 min) | after `HeadFor`; `fresh` reads now and keeps a found head, a failed fresh read leaves the kept one |
+| `ListAsync(repo, commit, purpose, keep, ct)` | the kept blob paths per commit and `purpose`, for `CommitFor` (default 1 day) | no tree (`NotFound` / `Unauthorized` / `Failed`) |
+| `ReadAsync(repo, commit, path, maxBytes, ct)` | `Found` / `NotFound` / `TooLarge` per commit, path and limit | `Unauthorized` / `Failed` |
+
+- Every consumer of a repository shares one cache and one rule; what a file means stays with the caller.
+- `HeadFor = 0` reads the head on every call, as a test host that pushes commits wants; `CommitFor` must be positive.
+- `GitHubRepositoryReader.HeadKey(repo, branch)` names the head entry, so a caller can evict it.
+- Scoped, like the typed client; needs `AddGitHubIntegration` and `AddHybridCaching`.
+- Tests: the multi-repository `FakeGitHubClient` (`Testing.Integrations`) under the real reader.
 
 ## Use
 
@@ -57,5 +87,7 @@ Each segment of a repository `path` and the `workflowFile` name is URL-escaped, 
 ## See also
 
 - `IGitHubClient.cs` — interface + outcome types (`RepoCheck`, `FileCheck`, `ReleaseLookup`, `ReleaseInfo`, `ReleaseList`, `BuildRunCheck`, `RepositoryLookup`, `BranchHead`, `RepositoryTree`, `RepositoryTreeEntry`, `FileRead`, `RepositoryFile`).
+- `IGitHubRepositoryReader.cs` · `GitHubRepositoryReader.cs` · `GitHubRepositoryReaderOptions.cs` — the commit-keyed reader.
+- `../../Caching/Caching.md` — `ICacheRepository`, which keeps the reader's entries.
 - `../integrations.md` — `IAccessTokenService` token source.
 - [GitHub REST API](https://docs.github.com/en/rest).

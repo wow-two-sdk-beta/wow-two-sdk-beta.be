@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using WoW.Two.Sdk.Beta.Be.Foundation.Options;
 
 namespace WoW.Two.Sdk.Beta.Be.Integrations.GitHub;
@@ -39,5 +40,26 @@ public static class GitHubIntegrationServiceCollectionExtensions
             if (options.Timeout is { } timeout)
                 client.Timeout = timeout;
         });
+    }
+
+    /// <summary>Registers the commit-keyed <see cref="IGitHubRepositoryReader"/> (scoped, like the client it reads through). It
+    /// needs <see cref="IGitHubClient"/> (<see cref="AddGitHubIntegration"/>) and the SDK cache (<c>AddHybridCaching</c>).</summary>
+    /// <param name="services">The service collection to configure.</param>
+    /// <param name="configure">How long heads and commits are kept; the host section <c>Integrations:GitHub:Reader</c> is applied after it.</param>
+    public static IServiceCollection AddGitHubRepositoryReader(
+        this IServiceCollection services,
+        Action<GitHubRepositoryReaderOptions>? configure = null)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.AddModuleOptions(
+            GitHubRepositoryReaderOptions.SectionName,
+            configure,
+            builder => builder
+                .Validate(o => o.HeadFor >= TimeSpan.Zero, "GitHubRepositoryReaderOptions.HeadFor must not be negative.")
+                .Validate(o => o.CommitFor > TimeSpan.Zero, "GitHubRepositoryReaderOptions.CommitFor must be positive."));
+        services.TryAddScoped<IGitHubRepositoryReader, GitHubRepositoryReader>();
+
+        return services;
     }
 }
