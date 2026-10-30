@@ -1,5 +1,5 @@
 using System.Security.Cryptography;
-using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 
@@ -8,6 +8,36 @@ namespace WoW.Two.Sdk.Beta.Be.Foundation.Security;
 internal sealed class EnvironmentMasterKeyBroker(EnvelopeCryptographyOptions options) : IMasterKeyBroker
 {
     private readonly EnvelopeCryptographyOptions _options = options;
+
+    /// <inheritdoc />
+    public string Location => "env:" + _options.MasterKeyEnvironmentVariable;
+
+    /// <inheritdoc />
+    /// <remarks>The stamp is 16 hex digits of a labelled SHA-256 of the variable's value: it changes with the value and
+    /// tells nothing usable about a 256-bit key.</remarks>
+    public MasterKeyRead Read()
+    {
+        var raw = Environment.GetEnvironmentVariable(_options.MasterKeyEnvironmentVariable);
+        if (string.IsNullOrWhiteSpace(raw))
+            return new MasterKeyRead { Problem = MasterKeyRead.Missing, Stamp = "" };
+
+        var text = raw.Trim();
+        var stamp = Stamp(text);
+        var key = new byte[64];
+        if (!Convert.TryFromBase64String(text, key, out var written) || written != KeySizeConstants.SymmetricKeyBytes)
+        {
+            CryptographicOperations.ZeroMemory(key);
+            return new MasterKeyRead { Problem = MasterKeyRead.Invalid, Stamp = stamp };
+        }
+
+        var exact = key[..KeySizeConstants.SymmetricKeyBytes];
+        CryptographicOperations.ZeroMemory(key);
+        return new MasterKeyRead { Key = exact, Stamp = stamp };
+    }
+
+    /// <inheritdoc />
+    public string? CheckAccess() =>
+        string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(_options.MasterKeyEnvironmentVariable)) ? MasterKeyRead.Missing : null;
 
     /// <inheritdoc />
     public byte[]? TryLoadKey()
@@ -37,5 +67,19 @@ internal sealed class EnvironmentMasterKeyBroker(EnvelopeCryptographyOptions opt
         }
 
         return key;
+    }
+
+    /// <summary>A content stamp that changes with <paramref name="text"/> without revealing it.</summary>
+    private static string Stamp(string text)
+    {
+        var input = Encoding.UTF8.GetBytes("envelope-cryptography.env-stamp\0" + text);
+        try
+        {
+            return "env:" + Convert.ToHexStringLower(SHA256.HashData(input))[..16];
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(input);
+        }
     }
 }

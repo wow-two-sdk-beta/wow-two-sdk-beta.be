@@ -1,6 +1,6 @@
 # Security (Envelope Cryptography) — spec
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-10-30*
 
 > **Concrete API + usage.** Updated when public surface changes.
 
@@ -15,7 +15,10 @@ builder.Services.AddEnvelopeCryptography();                                   //
 builder.Services.AddEnvelopeCryptography(o => o.MasterKeyEnvironmentVariable = "APP_MASTER_KEY");
 
 // at startup:
-app.Services.GetRequiredService<ISealKeeper>().Unseal();
+app.Services.GetRequiredService<ISealService>().Unseal();
+
+// or read the key file on every use:
+builder.Services.AddFileMasterKeyBroker(o => o.Path = "/srv/app/root.key");
 ```
 
 ## Public API
@@ -25,6 +28,7 @@ app.Services.GetRequiredService<ISealKeeper>().Unseal();
 | Method | Returns | Notes |
 |---|---|---|
 | `AddEnvelopeCryptography(this IServiceCollection, Action<EnvelopeCryptographyOptions>? configure = null)` | `IServiceCollection` | Registers `IValueCipher`, `ISealService`, and the default `IMasterKeyBroker` as singletons (all `TryAdd*`). Idempotent. |
+| `AddFileMasterKeyBroker(this IServiceCollection, Action<FileMasterKeyBrokerOptions>? configure = null)` | `IServiceCollection` | Registers `FileMasterKeyBroker` as `IMasterKeyBroker` (replacing the env broker in either order), `MasterKeyProofTracker` and `MasterKeyUnsealService` — singletons. Section `EnvelopeCryptography:KeyFile`; `Path` must be absolute. |
 
 ### `IValueCipher` (default `ValueCipher`, singleton)
 
@@ -33,7 +37,7 @@ app.Services.GetRequiredService<ISealKeeper>().Unseal();
 | `Encrypt(byte[] plaintext, byte[] dataKey, string associatedData)` | `EncryptedPayload` | AES-256-GCM under the DEK; AAD authenticated, not encrypted. |
 | `Decrypt(EncryptedPayload payload, byte[] dataKey, string associatedData)` | `byte[]` | Throws `AuthenticationTagMismatchException` on tamper / wrong key / wrong AAD. |
 
-### `ISealKeeper` (default `MasterKeySealKeeper`, singleton)
+### `ISealService` (default `SealService`, singleton)
 
 | Member | Returns | Notes |
 |---|---|---|
@@ -47,17 +51,63 @@ app.Services.GetRequiredService<ISealKeeper>().Unseal();
 
 | Member | Returns | Notes |
 |---|---|---|
-| `TryLoadKey()` | `byte[]?` | `null` when no key configured; throws `MasterKeyFormatException` on bad base64 / wrong length. Register your own impl before `AddEnvelopeCryptography` to use a KMS/HSM. |
+| `Location` | `string` | Where the key is read from — `env:{variable}` or the file path; safe to show. |
+| `Read()` | `MasterKeyRead` | Reads now: a fresh key copy the caller clears, or the problem; the stamp changes with the content. |
+| `CheckAccess()` | `string?` | `missing` / `unreadable` / `exposed` without reading the key; `null` passes. |
+| `TryLoadKey()` | `byte[]?` | `null` when no key configured; throws `MasterKeyFormatException` on bad base64 / wrong length. Default: from `Read()`. |
+
+### `FileMasterKeyBroker` (`IMasterKeyBroker`, singleton)
+
+`FileMasterKeyBroker(string path)` — one base64 256-bit line; over 1 KiB, empty or not 32 bytes → `invalid`; a file the
+process may not read → `missing`; stamp `"{lastWriteTicks}:{length}"`; `CheckAccess()` → `missing` / `unreadable` /
+`exposed` (group or others may open it), `null` when owner-only. `TryLoadKey()` throws `MasterKeyFormatException` on
+`invalid`, returns `null` otherwise without a key.
+
+### `MasterKeyRead` (sealed record)
+
+Init properties `Key` (`byte[]?`), `Problem` (`string?`), `Stamp` (`required string`). Problem codes: `Missing` `"missing"`, `Invalid` `"invalid"`,
+`Unreadable` `"unreadable"`, `Exposed` `"exposed"`, `Mismatch` `"mismatch"`. `ToString()` never prints the key.
+
+### `MasterKeyUnsealService` (singleton) · `MasterKeyProofTracker` (singleton)
+
+| Member | Returns | Notes |
+|---|---|---|
+| `UnsealAsync(Func<byte[], CancellationToken, Task<bool>> prove, CancellationToken)` | `Task<MasterKeyRead>` | Reads the key; proves a new stamp once; a failed proof (or `CryptographicException`) clears the key → `mismatch`; any other exception clears it and propagates. |
+| `IsProven(stamp)` / `Prove(stamp)` / `Forget()` | | The one stamp a proof accepted; holds no key. |
+
+### `ValueCipherExtensions` (on `IValueCipher`)
+
+| Member | Returns | Notes |
+|---|---|---|
+| `EncryptText(string value, byte[] dataKey, string associatedData)` | `EncryptedPayload` | UTF-8; plaintext bytes cleared. |
+| `DecryptText(EncryptedPayload payload, byte[] dataKey, string associatedData)` | `string` | Throws `CryptographicException` on a wrong key / AAD / bytes. |
+| `CreateCanary(byte[] masterKey, string keyContext, string valueContext)` | `KeyCanary` | Random 32-byte key wrapped under the master key; random 32-byte value sealed under it; its SHA-256. |
+| `VerifyCanary(KeyCanary canary, byte[] masterKey, string keyContext, string valueContext)` | `bool` | Fixed-time digest compare; `false` on any decrypt failure. |
+
+`KeyCanary` (sealed record): `WrappedKey`, `Value` (`EncryptedPayload`), `Digest` (`byte[]`).
+
+### `KeyFingerprintHasher` · `ValueFingerprintHasher`
+
+| Member | Returns | Notes |
+|---|---|---|
+| `new KeyFingerprintHasher(label).Hash(ReadOnlySpan<byte> key)` | `string` | First 20 hex of SHA-256(label UTF-8 ‖ 0x00 ‖ key), groups of four; `Pattern` matches it. |
+| `new ValueFingerprintHasher(purpose).Hash(string value, byte[] dataKey)` | `string` | First 16 hex of HMAC-SHA256(HKDF-SHA256(dataKey, 32, info: purpose), value UTF-8). |
 
 ### `EncryptedPayload` (sealed record)
 
 Positional: `Nonce` (12 bytes), `Tag` (16 bytes), `CipherText` (`byte[]`). Persist all three together.
 
-### `EnvelopeCryptographyOptions` (sealed class · section `EnvelopeCryptography`)
+### `EnvelopeCryptographyOptions` (sealed record · section `EnvelopeCryptography`)
 
 | Member | Type | Default | Notes |
 |---|---|---|---|
 | `MasterKeyEnvironmentVariable` | `string` | `"MASTER_KEY"` | Env var holding the base64 256-bit KEK (used by the default provider). |
+
+### `FileMasterKeyBrokerOptions` (sealed record · section `EnvelopeCryptography:KeyFile`)
+
+| Member | Type | Default | Notes |
+|---|---|---|---|
+| `Path` | `string` | `""` | The key file's absolute path; required. |
 
 ### `MasterKeyFormatException` (sealed, `Exception`)
 
@@ -68,7 +118,11 @@ Thrown for a present-but-malformed key. Message is key-free (safe to log). A *mi
 ```csharp
 internal sealed class KmsMasterKeyBroker(IKmsClient kms) : IMasterKeyBroker
 {
-    public byte[]? TryLoadKey() => kms.Decrypt(/* wrapped KEK */);   // null if not provisioned
+    public string Location => "kms:app-kek";
+    public string? CheckAccess() => kms.IsProvisioned ? null : MasterKeyRead.Missing;
+    public MasterKeyRead Read() => kms.Decrypt(/* wrapped KEK */) is { } key
+        ? new MasterKeyRead { Key = key, Stamp = kms.KeyVersion }
+        : new MasterKeyRead { Problem = MasterKeyRead.Missing, Stamp = "" };
 }
 
 builder.Services.AddSingleton<IMasterKeyBroker, KmsMasterKeyBroker>(); // before AddEnvelopeCryptography
@@ -85,7 +139,8 @@ AAD is a consumer choice, passed per call and bound into the tag. Typical:
 ## Notes
 
 - Random 96-bit nonce per `Encrypt` (never reused); 128-bit tag (max GCM strength).
-- DEK plaintext is the caller's to clear (`CryptographicOperations.ZeroMemory`); the KEK is cleared on keeper `Dispose`.
+- DEK plaintext is the caller's to clear (`CryptographicOperations.ZeroMemory`); the KEK is cleared on `SealService.Dispose`, and a key from `IMasterKeyBroker.Read()` is the caller's to clear.
+- Byte parity with stored data: `Foundation.Tests/Security/EnvelopeParityVectorTests` pins payloads, a canary and fingerprints captured from the code these blocks were extracted from.
 - BCL-only (`System.Security.Cryptography`); no third-party crypto.
 
 ## See also
