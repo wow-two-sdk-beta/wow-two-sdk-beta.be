@@ -148,6 +148,11 @@ The request culture is already on `CultureInfo.CurrentUICulture` when `UseReques
 A validator's `.WithMessage("…")` literal is the **only** place an authored string enters, so it is the one
 place worth routing through a localizer per-rule when the code-keyed table is not enough.
 
+## Format rules
+
+Names, repositories, images, hosts, IPv4 and SSH keys: `RuleFor(x => x.Repository).MustBeGitHubRepository()`, and
+`FormatPatternConstants` for the raw expressions — [formats.md](Formats/formats.md).
+
 ## See also
 
 - [FluentValidation docs](https://docs.fluentvalidation.net/)
