@@ -10,6 +10,8 @@ namespace WoW.Two.Sdk.Beta.Be.Foundation.Options;
 ///   - validation runs at boot, so a bad value fails the host rather than the first request
 ///   - the record is projected, so a consumer takes <c>T</c> and never <c>IOptions&lt;T&gt;</c>
 ///   - <c>required</c> enforces nothing here: the pipeline builds through <c>Activator.CreateInstance</c>
+///   - every recipe records the record and its section, so <c>config check</c> runs the same validation and walks the
+///     section's keys (<c>ConfigCheckCommand</c>)
 /// </remarks>
 public static class OptionsRegistrationExtensions
 {
@@ -33,7 +35,7 @@ public static class OptionsRegistrationExtensions
             builder.Configure(configure);
         }
 
-        return Seal(services, builder, validate);
+        return Seal(services, builder, validate, SettingsRecord.For<TOptions>(section: null, SettingsRecordKind.Options));
     }
 
     /// <summary>Registers <typeparamref name="TSettings"/> bound from <paramref name="section"/>.</summary>
@@ -56,7 +58,7 @@ public static class OptionsRegistrationExtensions
 
         var builder = services.AddOptions<TSettings>().Bind(configuration.GetSection(section));
 
-        return Seal(services, builder, validate);
+        return Seal(services, builder, validate, SettingsRecord.For<TSettings>(section, SettingsRecordKind.Settings));
     }
 
     /// <summary>
@@ -96,6 +98,7 @@ public static class OptionsRegistrationExtensions
         validate?.Invoke(builder);
         builder.ValidateDataAnnotations().ValidateOnStart();
         services.TryAddSingleton(serviceProvider => serviceProvider.GetRequiredService<IOptions<TOptions>>().Value);
+        services.AddSingleton(SettingsRecord.For<TOptions>(sectionPath, SettingsRecordKind.Module));
         return services;
     }
 
@@ -104,14 +107,16 @@ public static class OptionsRegistrationExtensions
     /// <param name="services">The service collection to configure.</param>
     /// <param name="builder">The builder the record was filled or bound through.</param>
     /// <param name="validate">States the rules the record must satisfy.</param>
+    /// <param name="record">The record <c>config check</c> validates and walks.</param>
     private static IServiceCollection Seal<T>(
-        IServiceCollection services, OptionsBuilder<T> builder, Action<OptionsBuilder<T>> validate)
+        IServiceCollection services, OptionsBuilder<T> builder, Action<OptionsBuilder<T>> validate, SettingsRecord record)
         where T : class
     {
         validate(builder);
         builder.ValidateDataAnnotations().ValidateOnStart();
 
         services.AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IOptions<T>>().Value);
+        services.AddSingleton(record);
 
         return services;
     }

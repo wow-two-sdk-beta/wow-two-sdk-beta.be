@@ -93,3 +93,9 @@ if (builder.IsLocalRun())                                   // or app.Environmen
   `configuration.GetDeployEnvironment()` names its environment (`dev`, `prod`), trimmed and lowercase, or `null`.
 - The SDK keys its own local-only defaults on it: EF Core sensitive-data logging and detailed errors, the OpenAPI
   endpoint and Data Protection without a key directory. Contract: [`LocalRun.standard.md`](LocalRun.standard.md).
+
+## Config check
+
+`app config check` runs the boot's settings validation without serving and reports invalid values, unknown keys and
+stranding in one `config-result` line; every serving boot through `ServiceHost` runs the same checks and a deployed one
+refuses on a finding. Roots, stranding checks and exits: [config check](ConfigCheck/config-check.md).

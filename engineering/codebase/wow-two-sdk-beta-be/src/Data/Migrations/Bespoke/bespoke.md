@@ -385,10 +385,7 @@ services.AddDatabaseBespokeMigrationSet("identity", typeof(IdentityModule).Assem
 *Added 2026-10-28* (M10, M11, M37, M57, M78): the tree half of `app migrate <verb>`. Folder: `../Commands/` ([commands.md](../Commands/commands.md)).
 
 ```csharp
-var app = builder.Build();
-if (MigrateCommand.IsCommand(args))
-    return await app.RunMigrateCommandAsync(args);
-app.Configure();
+return await ServiceHost.RunAsync(args, builder => builder.Configure(), app => app.Configure());   // answers migrate before Configure
 ```
 
 | Verb | Engine | Guard |
@@ -400,7 +397,7 @@ app.Configure();
 | `rollback --to N` · `forget --above N [--include-contracts]` · `repair` · `baseline [--to N]` · `claim --owner o --instance i` · `unlock` | one call each, on one set | `--confirm <db>` |
 | `bg …` | refused, exit `1`, until background migrations ship | — |
 
-- One library: the image helper (`Data/MigrateCommand`, `RunMigrateCommandAsync` on `IHost`) and `wow-migrate` build the same `MigrateCommandBuilder`; each supplies only where its services come from.
+- One library: the image helper (`ServiceHost` in `Meta/`, or `Data/MigrateCommand` with `RunMigrateCommandAsync` on `IHost`) and `wow-migrate` build the same `MigrateCommandBuilder`; each supplies only where its services come from.
 - The run never starts the host; `apply` stamps `applied_by = deploy` in an image, `cli` from the tool.
 - `--confirm` matches the set's database name ordinally, read without connecting; missing or wrong exits `1` with a rerun hint. The operator calls carry no `AllowRollback` gate, which stays off in the app.
 - `forget` refuses a contract or kind-less row unless `--include-contracts`.

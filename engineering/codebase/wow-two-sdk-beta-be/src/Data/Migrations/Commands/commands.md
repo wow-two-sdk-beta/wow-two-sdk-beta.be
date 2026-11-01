@@ -8,15 +8,13 @@
 ## Host
 
 ```csharp
-using WoW.Two.Sdk.Beta.Be.Data;
+using WoW.Two.Sdk.Beta.Be.Meta;
 
-var app = builder.Build();
-if (MigrateCommand.IsCommand(args))
-    return await app.RunMigrateCommandAsync(args);
-app.Configure();
+return await ServiceHost.RunAsync(args, builder => builder.Configure(), app => app.Configure());
 ```
 
-- `MigrateCommand` and `RunMigrateCommandAsync` (an `IHost` extension) live in `Data/`; the tree here is internal.
+- `ServiceHost` (`Meta/`) dispatches `migrate` to `MigrateCommand`; `MigrateCommand` and `RunMigrateCommandAsync` (an
+  `IHost` extension, for a host without `ServiceHost`) live in `Data/`; the tree here is internal.
 - The helper runs before any startup work and never starts the host; it returns the verb's exit.
 - `Migrations:ConnectionString`, when set, connects every bespoke set for the run: the helper turns `MigrationRunMode`
   on before any runner resolves, so the product calls no `AddMigrationConnectionOverride()`.

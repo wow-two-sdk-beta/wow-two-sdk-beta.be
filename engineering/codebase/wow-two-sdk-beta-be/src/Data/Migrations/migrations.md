@@ -61,17 +61,18 @@ Carrying a legacy embedded-.sql DbUp script library forward?
 
 ## The migrate command
 
-Every image that hosts a set answers `app migrate <verb>` from two lines in `Program.cs`, after `Build()` and before
+Every image that hosts a set answers `app migrate <verb>` through the service host, after `Build()` and before
 `Configure`:
 
 ```csharp
-using WoW.Two.Sdk.Beta.Be.Data;
+using WoW.Two.Sdk.Beta.Be.Meta;
 
-var app = builder.Build();
-if (MigrateCommand.IsCommand(args))
-    return await app.RunMigrateCommandAsync(args);
-app.Configure();
+return await ServiceHost.RunAsync(args, builder => builder.Configure(), app => app.Configure());
 ```
+
+`ServiceHost` ([Meta](../../Meta/Meta.md#service-host)) answers `migrate` after `Build()` and before `Configure`. A host
+without it keeps the two lines `if (MigrateCommand.IsCommand(args)) return await app.RunMigrateCommandAsync(args);` in
+that slot; both run the same tree.
 
 - A bare `migrate` runs `apply`, then `seed` — the command a rollout declares. Verbs, guards and output:
   `Commands/commands.md`.

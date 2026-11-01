@@ -59,6 +59,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | Package | Niche | Status |
 |---|---|---|
 | `WoW.Two.Sdk.Beta.Be` (root, `src/Meta/`) | `AddApiDefaults()` / `UseApiDefaults()` — one-import P1 boot floor (Serilog + OTel + health + proxy hosting + OpenAPI + problem details + rate limit + output cache + compression + optional CORS/validators). Auth/mediator/data stay explicit. | shipped |
+| `WoW.Two.Sdk.Beta.Be.Meta` (`ServiceHost`) | `ServiceHost.RunAsync(args, configureBuilder, configureApp, verbs)` — a service's whole `Program.cs`: pre-host verbs (`AddPreHostVerb`, before any builder), host verbs (`AddHostVerb`, built-in `migrate` and `config`) on the built services without serving, anything else serves after the boot's config checks | implemented (unreleased) |
 
 ## P0 — Testing scaffold (parallel track)
 
@@ -89,6 +90,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Time` | `AddTimeProviders`, `TimeZoneHelpers`, `CronExpressionParser`; NodaTime + Cronos + TimeZoneConverter | shipped |
 | `WoW.Two.Sdk.Beta.Be.Foundation.Errors` | `AppError` / `AppErrorType` / `AppException` / `AppErrorFactory` value model (kernel `…Be.Abstractions`, namespace kept); `IExceptionMapper`, mapping rules and `IErrorNatureMapper` stay in core | shipped |
 | `WoW.Two.Sdk.Beta.Be.Foundation.Results` | `Result`, `Result<T>`, `Result<TSuccess, TFailure>` + `Bind` / `Tap` / `Ensure` / `Combine` / `Attempt` (kernel `…Be.Abstractions`, namespace kept) | shipped |
+| `WoW.Two.Sdk.Beta.Be.Foundation.Configuration.ConfigCheck` | `app config check` — `ConfigCheckCommand` (invalid values from the boot's own validation, unknown keys under `AddSettingsRoot` roots and bound sections, `IStrandingCheck` counts via `AddStrandingCheck`); one `config-result` line, exits `0`/`1`/`2`; `ValidateSetting` (`Foundation.Options`) names a rule's setting and code | implemented (unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Validation` | `AddFluentValidatorsFromAssemblies` (FluentValidation assembly scan) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Serialization` | `JsonOptionsPresets` (camelCase + NodaTime + lenient input) | shipped |
 | `WoW.Two.Sdk.Beta.Be.Guards` | `IdentifierGuardExtensions` (`NotSlug`, `NotUlid`) on top of Ardalis.GuardClauses | shipped |
@@ -176,7 +178,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Ef` | `AddEfMigrationsRunner<TContext>` — hosted service with connect-retry; the context answers the migrate tree's `check` · `plan` · `apply` · `seed` · `sets` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.DbUp` | `AddDbUpRunner` — hosted service + provider factories (Postgres/SqlServer/MySql/Sqlite); the journal answers the migrate tree's `check` · `plan` · `apply` · `seed` · `sets` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Data.Migrations.Bespoke` | `AddDatabaseBespokeMigrations` (the host's set) + `AddDatabaseBespokeMigrationSet` (a module's named set: own history, lock, schema, `{{schema}}` placeholder, owner marker naming owner and `OwnerInstance`); `IMigrationSetRegistry`; `ApplyMigrationSetsAsync` deploy step, `VerifyMigrationLevelsOnStartupAsync` read-only boot check; `BaselineAsync` mark-as-applied adoption; `Data/` `MigrateBespokeOnStartupAsync` (applies on a local run only, `ApplyWhenDeployed` opt-in) + `MigrateBespokeForDeployAsync`; PostgreSQL + SQLite | named sets shipped `10.0.81-beta`; boot gate, owner instance and baseline implemented (unreleased) |
-| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Commands` | the migrate verb tree shared by images and `wow-migrate`; host entry `Data/` `MigrateCommand.IsCommand(args)` + `app.RunMigrateCommandAsync(args)`; `sets --json` without settings or a database; the migrate key wired by the set registration | implemented (unreleased) |
+| `WoW.Two.Sdk.Beta.Be.Data.Migrations.Commands` | the migrate verb tree shared by images and `wow-migrate`; host entry `ServiceHost` (`Meta/`), or `Data/` `MigrateCommand.IsCommand(args)` + `app.RunMigrateCommandAsync(args)`; `sets --json` without settings or a database; the migrate key wired by the set registration | implemented (unreleased) |
 
 ### Caching
 
