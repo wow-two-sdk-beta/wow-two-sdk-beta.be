@@ -1,6 +1,6 @@
 # be sdk — Backlog
 
-*Last updated: 2026-10-30*
+*Last updated: 2026-11-02*
 
 Every unbuilt item, grouped; top of each group = next. Shipped capabilities live in
 [`package-registry.md`](../architecture/package-registry.md) and git; deep-dives in [`research/`](../research/research.md).
@@ -223,6 +223,8 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | Drop vulnerable transitive packages | fix | Sift and PbnStudio on `10.0.21-beta`: Snappier 1.0.0, SSH.NET 2023.0.0, Datadog.Trace 3.7.0; check the current family first |
 | Keep providers out of small apps' restore graph | engineering | Sift: the mono-lib pulls AWS, Hangfire and every OAuth provider; re-check after the companion split |
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
+| Minimal-API binding refuses a missing required member with 400 | fix | Identity: a JSON body without a `required` member, such as `identifier`, answers 500 today |
+| `MailKitEmailBroker` builds the message inside its `try` | fix | Identity: an unparsable address throws `ParseException` before the `try`, so a caller that already wrote answers 500; Identity now validates first |
 
 ---
 
