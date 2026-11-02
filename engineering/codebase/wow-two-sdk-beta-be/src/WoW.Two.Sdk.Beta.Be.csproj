@@ -106,6 +106,14 @@
     <PackageReference Include="StackExchange.Redis" />
   </ItemGroup>
 
+  <!-- Caching/Postgres — the distributed_cache migration set, embedded under its own prefix so no host's default
+       `Migrations/` set reads it; AddPostgresDistributedCache registers it. -->
+  <ItemGroup Label="Caching — PostgreSQL distributed cache migration set">
+    <EmbeddedResource Include="Caching/Postgres/Migrations/**/*.sql">
+      <LogicalName>Caching/Postgres/Migrations/%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <!-- Feature flags (src/FeatureFlags/) — Microsoft.FeatureManagement default + OpenFeature vendor-neutral seam. -->
   <ItemGroup Label="Feature flags">
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" />

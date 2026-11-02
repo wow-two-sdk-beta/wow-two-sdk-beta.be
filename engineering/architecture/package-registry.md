@@ -1,6 +1,6 @@
 # Package registry
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-11-02*
 
 > The eight published NuGets and the capability areas compiled into them.
 
@@ -188,6 +188,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Caching.Hybrid` | `AddHybridCaching`, `ICacheRepository`, cache key builder and HybridCache adapter | shipped (mono-lib; distributed invalidation remains) |
 | `WoW.Two.Sdk.Beta.Be.Caching.Memory` | `AddInMemoryCaching` | shipped (mono-lib; distributed invalidation remains) |
 | `WoW.Two.Sdk.Beta.Be.Caching.Redis` | `AddRedisDistributedCache` as the optional L2 backend | shipped (mono-lib; distributed invalidation remains) |
+| `WoW.Two.Sdk.Beta.Be.Caching.Postgres` | `AddPostgresDistributedCache` — a PostgreSQL table as `IDistributedCache` and HybridCache L2 (SQL Server cache semantics, upsert, `SKIP LOCKED` sweep job), host section `Caching:Postgres`, its table from the `distributed_cache` migration set | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Caching.SqlServer` | SQL Server as L2 backend | planned |
 | `WoW.Two.Sdk.Beta.Be.Caching.Cosmos` | Cosmos as L2 backend | planned |
 | `WoW.Two.Sdk.Beta.Be.Caching.FusionCache` | FusionCache as alt | planned |
