@@ -188,6 +188,7 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | Word template conditionals and paragraph loops | feature | `{{#if}}` and `{{#each}}` blocks — [documents](../research/media/documents.md) |
 | PDF to images companion over PDFium | feature | Parked on native size, about 10 MB per platform — [images and PDF](../research/media/images-and-pdf.md) |
 | PDF Bates numbering, redaction, flattening and OCR | feature | Inline in pdf-editor today; flattening exists nowhere |
+| SkiaSharp 4.x with NoDependencies native assets | engineering | Core pins SkiaSharp `3.119.2` through `Svg.Skia` (`src/Codes/`) and ships `SkiaSharp.NativeAssets.Linux` `3.119.2`, so every consumer's Linux image carries that `libSkiaSharp` and needs `libfontconfig1`. Identity's profile pictures had to pin the same version (`6b24984`, 2026-11-02): core's older native library shadowed SkiaSharp 4.x on Linux. Move core and Identity together to 4.x with `SkiaSharp.NativeAssets.Linux.NoDependencies`, once `Svg.Skia` supports 4.x |
 
 ---
 
