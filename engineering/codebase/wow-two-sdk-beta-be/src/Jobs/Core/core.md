@@ -36,5 +36,7 @@ builder.Services.AddPeriodicJob("follow", (services, ct) => services.GetRequired
 - A job whose pass starts a costly read — a child process, a remote call — asks a `WakeableSchedule` first: the read
   runs at once after `Wake()`, when the last read named its next look while work is open, else once per idle interval.
   `Settle` records a read, `Missed` a failed one; a wake during a read keeps the next pass due.
+- A long operation run for a person reacts to their sign-out or lost access through
+  [person operations](./PersonOperations/person-operations.md).
 - One process runs each job. Work that needs one runner across replicas, retries or persistence belongs in
   [Hangfire](../Hangfire/Hangfire.md); queued items belong in [batch pipelines](../Batches/batches.md).
