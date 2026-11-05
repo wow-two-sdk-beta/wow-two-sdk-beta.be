@@ -132,7 +132,7 @@ internal sealed class OAuth2TokenRepository : IDisposable
         var options = request.Options;
         var form = new List<KeyValuePair<string, string>> { new("grant_type", request.GrantType) };
         form.AddRange(request.GrantFields);
-        WriteClientAuthentication(form, options, request.TokenEndpoint);
+        OAuth2ClientAuthentication.AddTo(form, options, request.TokenEndpoint, _timeProvider.GetUtcNow());
 
         if (!string.IsNullOrWhiteSpace(options.Resource))
         {
@@ -150,20 +150,6 @@ internal sealed class OAuth2TokenRepository : IDisposable
         }
 
         return form;
-    }
-
-    // The one place that knows how a client authenticates: switching a client changes its options, never a caller.
-    private void WriteClientAuthentication(List<KeyValuePair<string, string>> form, OAuth2TokenClientOptions options, Uri tokenEndpoint)
-    {
-        form.Add(new("client_id", options.ClientId));
-        if (string.IsNullOrWhiteSpace(options.ClientPrivateKey))
-        {
-            form.Add(new("client_secret", options.ClientSecret));
-            return;
-        }
-
-        form.Add(new("client_assertion_type", OAuth2ClientAssertion.AssertionType));
-        form.Add(new("client_assertion", OAuth2ClientAssertion.Create(options, tokenEndpoint, _timeProvider.GetUtcNow())));
     }
 
     private static (string? Error, string? ErrorDescription) ReadTokenError(string payload)

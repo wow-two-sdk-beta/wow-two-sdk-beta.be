@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2;
@@ -40,7 +41,7 @@ public abstract record OAuth2TokenClientOptions
     /// <returns><c>true</c>, since members were written.</returns>
     protected virtual bool PrintMembers(StringBuilder builder)
     {
-        builder.Append($"{nameof(TokenEndpoint)} = {TokenEndpoint}, {nameof(ClientId)} = {ClientId}, {nameof(Resource)} = {Resource}, {nameof(Scope)} = {Scope}");
+        builder.Append(CultureInfo.InvariantCulture, $"{nameof(TokenEndpoint)} = {TokenEndpoint}, {nameof(ClientId)} = {ClientId}, {nameof(Resource)} = {Resource}, {nameof(Scope)} = {Scope}");
         return true;
     }
 }
