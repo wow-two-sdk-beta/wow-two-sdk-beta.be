@@ -45,6 +45,15 @@ services.AddHttpClient("billing", client => client.BaseAddress = new Uri("https:
 - One session key shares one exchanged token until it expires, so another claim that changes inside a session stays
   stale until then; a source that needs the change puts it in `SessionKey`.
 
+## Client authentication
+
+- A client authenticates with `ClientSecret`, or with `ClientPrivateKey` instead: a PEM RSA or EC key, sent as a signed
+  `private_key_jwt` assertion (RFC 7523) with `typ: client-authentication+jwt`.
+- `ClientPrivateKeyId` names the key's `kid`. `ClientAssertionAudience` is the server's issuer, by default the origin of
+  `TokenEndpoint`; set it when the endpoint is reached at an internal address.
+- Setting both is refused. Switching a client changes its options only; no call site knows the method.
+- The options' `ToString` leaves out the secret and the key.
+
 ## Cache keys
 
 One singleton cache serves both grants; the client name is not in the key.

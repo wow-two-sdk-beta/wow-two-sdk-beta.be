@@ -1,5 +1,9 @@
+using System.Buffers.Text;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using WoW.Two.Sdk.Beta.Be.Foundation.Errors;
@@ -310,5 +314,88 @@ public sealed class OAuth2ClientCredentialsTests
         var act = () => OAuth2TestRig.Client(provider, "a").GetAsync("x");
 
         await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("*TokenEndpoint is not configured*");
+    }
+
+    [Fact]
+    public async Task PrivateKey_ShouldSendASignedRsaAssertion_AndNoSecret()
+    {
+        using var key = RSA.Create(2048);
+        var (header, payload) = await AssertionOfAsync(key.ExportPkcs8PrivateKeyPem(), "key-1", null, (signed, signature) =>
+            key.VerifyData(signed, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+
+        header.GetProperty("alg").GetString().Should().Be("RS256");
+        header.GetProperty("typ").GetString().Should().Be("client-authentication+jwt");
+        header.GetProperty("kid").GetString().Should().Be("key-1");
+        payload.GetProperty("iss").GetString().Should().Be("caller");
+        payload.GetProperty("sub").GetString().Should().Be("caller");
+        payload.GetProperty("aud").GetString().Should().Be("https://identity.test/");
+        (payload.GetProperty("exp").GetInt64() - payload.GetProperty("iat").GetInt64()).Should().Be(120);
+    }
+
+    [Fact]
+    public async Task PrivateKey_ShouldSignWithAnEcKey_AndTakeAnExplicitAudience()
+    {
+        using var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        var (header, payload) = await AssertionOfAsync(key.ExportPkcs8PrivateKeyPem(), null, "https://public-issuer.test/", (signed, signature) =>
+            key.VerifyData(signed, signature, HashAlgorithmName.SHA256));
+
+        header.GetProperty("alg").GetString().Should().Be("ES256");
+        header.TryGetProperty("kid", out _).Should().BeFalse();
+        payload.GetProperty("aud").GetString().Should().Be("https://public-issuer.test/");
+    }
+
+    [Fact]
+    public async Task PrivateKey_ShouldBeRefused_BesideASecret_OrWhenUnusable()
+    {
+        using var key = RSA.Create(2048);
+        var rig = new OAuth2TestRig();
+        rig.AddClient("both").AddOAuth2ClientCredentials(options =>
+        {
+            OAuth2TestRig.UseCaller(options);
+            options.ClientPrivateKey = key.ExportPkcs8PrivateKeyPem();
+        });
+        rig.AddClient("broken").AddOAuth2ClientCredentials(options =>
+        {
+            OAuth2TestRig.UseCaller(options);
+            options.ClientSecret = "";
+            options.ClientPrivateKey = "not a key";
+        });
+        await using var provider = rig.Services.BuildServiceProvider();
+
+        await FluentActions.Invoking(() => OAuth2TestRig.Client(provider, "both").GetAsync("x")).Should().ThrowAsync<InvalidOperationException>().WithMessage("*not both*");
+        (await FluentActions.Invoking(() => OAuth2TestRig.Client(provider, "broken").GetAsync("x")).Should().ThrowAsync<InvalidOperationException>())
+            .Which.Message.Should().NotContain("not a key");
+    }
+
+    [Fact]
+    public void Options_ShouldNotPrintTheSecretOrTheKey()
+    {
+        var options = new OAuth2ClientCredentialsOptions { ClientId = "caller", ClientSecret = "secret-value", ClientPrivateKey = "key-value" };
+
+        options.ToString().Should().Contain("caller").And.NotContain("secret-value").And.NotContain("key-value");
+    }
+
+    private static async Task<(JsonElement Header, JsonElement Payload)> AssertionOfAsync(string pem, string? keyId, string? audience, Func<byte[], byte[], bool> verify)
+    {
+        var rig = new OAuth2TestRig();
+        rig.AddClient("a").AddOAuth2ClientCredentials(options =>
+        {
+            OAuth2TestRig.UseCaller(options);
+            options.ClientSecret = "";
+            options.ClientPrivateKey = pem;
+            options.ClientPrivateKeyId = keyId;
+            options.ClientAssertionAudience = audience;
+        });
+        await using var provider = rig.Services.BuildServiceProvider();
+
+        using var response = await OAuth2TestRig.Client(provider, "a").GetAsync("x");
+
+        var form = rig.TokenEndpoint.Forms.Single();
+        form.Should().NotContainKey("client_secret");
+        form["client_id"].Should().Be("caller");
+        form["client_assertion_type"].Should().Be("urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+        var parts = form["client_assertion"].ToString().Split('.');
+        verify(Encoding.ASCII.GetBytes($"{parts[0]}.{parts[1]}"), Base64Url.DecodeFromChars(parts[2])).Should().BeTrue("the signature covers the header and payload");
+        return (JsonDocument.Parse(Base64Url.DecodeFromChars(parts[0])).RootElement, JsonDocument.Parse(Base64Url.DecodeFromChars(parts[1])).RootElement);
     }
 }

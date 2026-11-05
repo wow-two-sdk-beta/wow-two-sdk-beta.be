@@ -25,6 +25,11 @@ internal sealed class OAuth2TokenRequest
             throw new InvalidOperationException($"{flowName} for HTTP client '{clientName}': ClientId is not configured.");
         }
 
+        if (!string.IsNullOrWhiteSpace(options.ClientSecret) && !string.IsNullOrWhiteSpace(options.ClientPrivateKey))
+        {
+            throw new InvalidOperationException($"{flowName} for HTTP client '{clientName}': set ClientSecret or ClientPrivateKey, not both.");
+        }
+
         FlowName = flowName;
         ClientName = clientName;
         GrantType = grantType;

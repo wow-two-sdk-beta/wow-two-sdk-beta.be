@@ -127,12 +127,12 @@ internal sealed class OAuth2TokenRepository : IDisposable
         return Result<CachedToken>.Ok(new CachedToken(accessToken, _timeProvider.GetUtcNow() + lifetime - skew));
     }
 
-    private static List<KeyValuePair<string, string>> BuildForm(OAuth2TokenRequest request)
+    private List<KeyValuePair<string, string>> BuildForm(OAuth2TokenRequest request)
     {
         var options = request.Options;
         var form = new List<KeyValuePair<string, string>> { new("grant_type", request.GrantType) };
         form.AddRange(request.GrantFields);
-        WriteClientAuthentication(form, options);
+        WriteClientAuthentication(form, options, request.TokenEndpoint);
 
         if (!string.IsNullOrWhiteSpace(options.Resource))
         {
@@ -152,11 +152,18 @@ internal sealed class OAuth2TokenRepository : IDisposable
         return form;
     }
 
-    // The one place that knows how a client authenticates: private_key_jwt changes only this method and the options.
-    private static void WriteClientAuthentication(List<KeyValuePair<string, string>> form, OAuth2TokenClientOptions options)
+    // The one place that knows how a client authenticates: switching a client changes its options, never a caller.
+    private void WriteClientAuthentication(List<KeyValuePair<string, string>> form, OAuth2TokenClientOptions options, Uri tokenEndpoint)
     {
         form.Add(new("client_id", options.ClientId));
-        form.Add(new("client_secret", options.ClientSecret));
+        if (string.IsNullOrWhiteSpace(options.ClientPrivateKey))
+        {
+            form.Add(new("client_secret", options.ClientSecret));
+            return;
+        }
+
+        form.Add(new("client_assertion_type", OAuth2ClientAssertion.AssertionType));
+        form.Add(new("client_assertion", OAuth2ClientAssertion.Create(options, tokenEndpoint, _timeProvider.GetUtcNow())));
     }
 
     private static (string? Error, string? ErrorDescription) ReadTokenError(string payload)
