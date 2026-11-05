@@ -61,7 +61,10 @@ internal sealed class OAuth2TokenRequest
             options.ClientId,
             sessionKey ?? "",
             string.IsNullOrWhiteSpace(options.Resource) ? "" : options.Resource,
-            string.IsNullOrWhiteSpace(options.Scope) ? "" : options.Scope,
+
+            // One token per target: a resource names it, so its token lists every scope the client may use there and scope
+            // stays out. Only a server with no resource indicators tells targets apart by scope.
+            string.IsNullOrWhiteSpace(options.Resource) && !string.IsNullOrWhiteSpace(options.Scope) ? options.Scope : "",
         ];
         var parameters = options.AdditionalParameters
             .OrderBy(parameter => parameter.Key, StringComparer.Ordinal)

@@ -66,6 +66,34 @@ public sealed class OAuth2ClientCredentialsTests
     }
 
     [Fact]
+    public async Task OneResource_ShouldHoldOneToken_WhateverScopeAClientAsks()
+    {
+        var rig = new OAuth2TestRig();
+        rig.AddClient("a").AddOAuth2ClientCredentials(options => OAuth2TestRig.UseCaller(options, resource: "https://a.test", scope: "read"));
+        rig.AddClient("b").AddOAuth2ClientCredentials(options => OAuth2TestRig.UseCaller(options, resource: "https://a.test", scope: "write"));
+        await using var provider = rig.Services.BuildServiceProvider();
+
+        using var first = await OAuth2TestRig.Client(provider, "a").GetAsync("x");
+        using var second = await OAuth2TestRig.Client(provider, "b").GetAsync("x");
+
+        rig.TokenEndpoint.Calls.Should().Be(1, "a token lists every scope the client may use on its resource");
+    }
+
+    [Fact]
+    public async Task NoResource_ShouldTellTargetsApartByScope()
+    {
+        var rig = new OAuth2TestRig();
+        rig.AddClient("a").AddOAuth2ClientCredentials(options => OAuth2TestRig.UseCaller(options, scope: "read"));
+        rig.AddClient("b").AddOAuth2ClientCredentials(options => OAuth2TestRig.UseCaller(options, scope: "write"));
+        await using var provider = rig.Services.BuildServiceProvider();
+
+        using var first = await OAuth2TestRig.Client(provider, "a").GetAsync("x");
+        using var second = await OAuth2TestRig.Client(provider, "b").GetAsync("x");
+
+        rig.TokenEndpoint.Calls.Should().Be(2);
+    }
+
+    [Fact]
     public async Task CacheKey_ShouldIgnoreParameterOrder_ButNotParameterValues()
     {
         var rig = new OAuth2TestRig();

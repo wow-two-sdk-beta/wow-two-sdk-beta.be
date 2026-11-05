@@ -19,8 +19,7 @@ services.AddHttpClient("billing", client => client.BaseAddress = new Uri("https:
         options.TokenEndpoint = new Uri("https://identity.internal/connect/token");
         options.ClientId = "orders";
         options.ClientSecret = secret;
-        options.Resource = "https://billing.internal";   // optional, sent as `resource`
-        options.Scope = "invoices.read";                 // optional
+        options.Resource = "https://billing.internal";   // the target, sent as `resource`
     });
 ```
 
@@ -60,10 +59,13 @@ One singleton cache serves both grants; the client name is not in the key.
 
 | Grant | Key |
 |---|---|
-| Client credentials | grant + endpoint + client id + resource + scope + additional parameters |
-| Token exchange | grant + endpoint + client id + session key + resource + scope + additional parameters |
+| Client credentials | grant + endpoint + client id + resource + additional parameters |
+| Token exchange | grant + endpoint + client id + session key + resource + additional parameters |
 
-- Two named clients for one audience share a token; two audiences never do.
+- One token per target: two named clients for one audience share a token; two audiences never do.
+- Scope stays out of the key while `Resource` is set, because that token lists every scope the client may use on the
+  resource; never hold one token per action. Only with no `Resource` does `Scope` enter the key, for a server with no
+  resource indicators.
 - Additional parameters enter the key sorted by name, so their insertion order changes nothing.
 - A subject token and a client secret never enter a key.
 - A token refreshes at `expires_in` minus `RefreshSkew`; the skew is capped at half the lifetime.
