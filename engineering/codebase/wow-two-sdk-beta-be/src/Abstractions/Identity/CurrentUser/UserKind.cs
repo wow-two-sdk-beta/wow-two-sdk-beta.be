@@ -11,4 +11,10 @@ public enum UserKind
 
     /// <summary>A registered, authenticated account.</summary>
     User,
+
+    /// <summary>A service calling as itself, identified by its client id.</summary>
+    Service,
+
+    /// <summary>A caller authenticated by an API key, identified by the key's id.</summary>
+    ApiKey,
 }

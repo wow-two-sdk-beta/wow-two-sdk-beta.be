@@ -9,6 +9,7 @@
 | `Foundation/Errors/` | `AppError`, `AppAggregateError`, `AppErrorType`, `AppErrorFactory`, `AppException`, `ErrorMessageConstants`, `ErrorNature`, `ErrorOrigin`, `ExceptionChainMapper` | `…Foundation.Errors` |
 | `Messaging/` | `IEvent` | `…Messaging` |
 | `Identity/CurrentUser/` | `ICurrentUserService`, `UserKind` | `…Identity.CurrentUser` |
+| `Identity/CurrentPrincipal/` | `ICurrentPrincipal`, `PrincipalKind`, `ActorInfo` | `…Identity.CurrentPrincipal` |
 
 - References nothing: no `FrameworkReference`, no `PackageReference`; the release verifier fails a kernel nuspec with a dependency.
 - Admits a type only when it is BCL-only and core's own code reads it or the contracts of two repos use it
