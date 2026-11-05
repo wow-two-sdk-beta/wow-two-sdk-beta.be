@@ -64,6 +64,22 @@ or, on a host using this SDK, `.RequireWebhookSignature(...)` with the `wow2` sc
   subscribers `whsec_` base64 secrets.
 - Another scheme: register an `IWebhookSignatureIssuer` with `TryAddEnumerable`; an unknown scheme drops with an error log.
 
+## Key-signed scheme
+
+`key-signed` (`WebhookSchemeNameConstants.KeySigned`) signs a delivery with the sender's private key, and the receiver
+verifies it through the sender's JWKS, so a subscription and a receiver hold no shared secret. Core reserves the name and
+carries it through its seams; it implements neither end, because both need IdentityModel, which core must not gain.
+Identity implements them.
+
+- Outbound: leave `Secret` empty and register the signer as an `IWebhookSignatureIssuer` under the scheme; it reads the
+  target from `WebhookSigningModel.Url` to bind the audience. With no signer registered, delivery drops with an error log.
+- Inbound: set the receiver's `Scheme` to `key-signed`, list no `Secrets`, and register the verifier as a keyed
+  `IWebhookSignatureValidator`. `WebhookReceiverService` calls only `ValidateAsync`, so a JWKS fetch stays off
+  sync-over-async; the default body runs `Validate`, so a validator implementing only that keeps working.
+- A scheme counts whichever way it is named: `WebhookOptions.SignatureScheme`, or a receiver's own name.
+- Every other scheme needs a secret: `AddWebhooks` and `AddInboundWebhooks` fail at boot without one, and a subscription
+  stored at runtime without one drops rather than signing under an empty key.
+
 ## Delivery & retry
 
 - **Fan-out**: every subscription whose `EventTypeFilter` glob matches the event type gets its own signed POST.

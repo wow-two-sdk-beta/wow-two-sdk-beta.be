@@ -26,4 +26,10 @@ public static class WebhookSchemeNameConstants
 
     /// <summary>Holds <c>telegram</c> — the bot API's <c>X-Telegram-Bot-Api-Secret-Token</c> header equals the secret.</summary>
     public const string Telegram = "telegram";
+
+    /// <summary>
+    /// Holds <c>key-signed</c> — signed with the sender's private key and verified through its JWKS, so neither side holds
+    /// a shared secret. Reserved here: the signer and the verifier need IdentityModel, so Identity implements them.
+    /// </summary>
+    public const string KeySigned = "key-signed";
 }

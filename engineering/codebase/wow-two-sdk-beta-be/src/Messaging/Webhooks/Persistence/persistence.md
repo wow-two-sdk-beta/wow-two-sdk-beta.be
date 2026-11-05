@@ -24,8 +24,10 @@ await deliveries.PurgeAsync(time.GetUtcNow().AddDays(-30), ct);      // from a d
 - Secrets are stored through ASP.NET Data Protection (`dp1:` prefix); persist and share the key ring across hosts.
   A secret that no longer unprotects skips its subscription with an error log, and deliveries continue for the rest.
 - `ProtectSecrets: false` stores secrets as given; rows written either way stay readable after a switch.
+- A key-signed subscription stores an empty secret, unprotected, so a lost key ring never skips it.
+- `SignatureScheme` is stored in `signature_scheme`, null for the configured default.
 - Subscriptions seeded in `WebhookOptions.Subscriptions` are listed beside stored ones; a stored id wins.
 - Bodies over `MaxStoredPayloadBytes` (256 KiB) are logged without the body, so they cannot be redelivered.
 - A failed log write is logged as a warning and never fails the publish.
 - Each repository call runs in its own DI scope, so the singleton publisher uses a scoped `DbContext` safely.
-- Existing databases need a migration for the two tables.
+- Existing databases need a migration for the two tables and for the `signature_scheme` column.

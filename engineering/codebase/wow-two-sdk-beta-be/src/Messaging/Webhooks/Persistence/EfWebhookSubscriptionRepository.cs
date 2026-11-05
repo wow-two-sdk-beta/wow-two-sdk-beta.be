@@ -53,7 +53,12 @@ public sealed partial class EfWebhookSubscriptionRepository<TContext>(
         }
 
         entity.Url = subscription.Url.ToString();
-        entity.Secret = options.CurrentValue.ProtectSecrets ? ProtectedPrefix + _protector.Protect(subscription.Secret) : subscription.Secret;
+
+        // No secret, nothing to protect: a key-signed subscription must not depend on the key ring it never needs.
+        entity.Secret = options.CurrentValue.ProtectSecrets && subscription.Secret.Length > 0
+            ? ProtectedPrefix + _protector.Protect(subscription.Secret)
+            : subscription.Secret;
+        entity.SignatureScheme = subscription.SignatureScheme;
         entity.EventTypeFilter = subscription.EventTypeFilter;
         entity.Enabled = subscription.Enabled;
         entity.Description = subscription.Description;
@@ -112,6 +117,7 @@ public sealed partial class EfWebhookSubscriptionRepository<TContext>(
             Id = entity.Id,
             Url = new Uri(entity.Url),
             Secret = secret,
+            SignatureScheme = entity.SignatureScheme,
             EventTypeFilter = entity.EventTypeFilter,
             Enabled = entity.Enabled,
             Description = entity.Description,

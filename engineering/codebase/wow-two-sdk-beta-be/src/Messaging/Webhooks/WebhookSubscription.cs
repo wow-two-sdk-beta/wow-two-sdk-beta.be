@@ -1,6 +1,6 @@
 namespace WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
 
-/// <summary>A registered webhook endpoint: where to deliver, the signing secret, and which event types it wants.</summary>
+/// <summary>A registered webhook endpoint: where to deliver, how it is signed, and which event types it wants.</summary>
 public sealed record WebhookSubscription
 {
     /// <summary>Stable subscription id. Defaults to a new GUID.</summary>
@@ -9,8 +9,11 @@ public sealed record WebhookSubscription
     /// <summary>Delivery endpoint — the POST target.</summary>
     public required Uri Url { get; init; }
 
-    /// <summary>HMAC-SHA256 signing secret for this subscription.</summary>
-    public required string Secret { get; init; }
+    /// <summary>
+    /// The signing secret for this subscription; empty only under <see cref="WebhookSchemeNameConstants.KeySigned"/>, which
+    /// signs with the sender's private key. Delivery under any other scheme drops without one.
+    /// </summary>
+    public string Secret { get; init; } = "";
 
     /// <summary>Whether deliveries go out; a disabled subscription is kept but skipped. Default true.</summary>
     public bool Enabled { get; init; } = true;
@@ -31,6 +34,12 @@ public sealed record WebhookSubscription
         ArgumentNullException.ThrowIfNull(eventType);
         return GlobMatch(EventTypeFilter, eventType);
     }
+
+    /// <summary>True when this subscription has no secret and its scheme needs one, so signing it would use an empty key.</summary>
+    /// <param name="defaultScheme">The scheme taken when the subscription names none.</param>
+    internal bool IsMissingSecret(string defaultScheme)
+        => string.IsNullOrEmpty(Secret)
+            && !string.Equals(SignatureScheme ?? defaultScheme, WebhookSchemeNameConstants.KeySigned, StringComparison.OrdinalIgnoreCase);
 
     // Iterative wildcard match (two-pointer with backtrack): '*' = any run, '?' = one char, case-insensitive.
     private static bool GlobMatch(string pattern, string text)

@@ -17,6 +17,7 @@ public static class WebhookSchemaModelBuilderExtensions
             subscription.Property(s => s.Id).HasMaxLength(64);
             subscription.Property(s => s.Url).HasMaxLength(2048);
             subscription.Property(s => s.Secret).HasMaxLength(2048);
+            subscription.Property(s => s.SignatureScheme).HasMaxLength(64);
             subscription.Property(s => s.EventTypeFilter).HasMaxLength(200);
             subscription.Property(s => s.Description).HasMaxLength(500);
         });

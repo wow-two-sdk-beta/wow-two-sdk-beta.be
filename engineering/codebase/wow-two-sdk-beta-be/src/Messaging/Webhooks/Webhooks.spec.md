@@ -56,7 +56,7 @@ await webhooks.PublishAsync("order.created", """{"id":42}"""u8.ToArray());
 |---|---|---|---|
 | `Id` | `string` | new GUID (`N`) | Stable id; used by the store + delivery log. |
 | `Url` | `Uri` | *required* | Delivery endpoint (POST target). |
-| `Secret` | `string` | *required* | HMAC-SHA256 key. |
+| `Secret` | `string` | `""` | HMAC-SHA256 key; required under every scheme except `key-signed`. |
 | `EventTypeFilter` | `string` | `"*"` | Glob: `*` = any run, `?` = one char; case-insensitive. |
 | `bool Matches(string eventType)` | method | — | True when the filter glob matches. |
 

@@ -14,7 +14,7 @@ public static class InboundWebhookServiceCollectionExtensions
     /// <summary>
     /// Registers the receiver service, the built-in signature validators (<see cref="WebhookSchemeNameConstants"/>) and,
     /// unless one is registered, an in-memory delivery-id store. Receivers come from <paramref name="configure"/>, then
-    /// the host section <c>Webhooks:Inbound</c>; every receiver needs a secret.
+    /// the host section <c>Webhooks:Inbound</c>; every receiver needs a secret, unless its scheme is <see cref="WebhookSchemeNameConstants.KeySigned"/>.
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configure">Receivers from code.</param>
@@ -25,8 +25,10 @@ public static class InboundWebhookServiceCollectionExtensions
             InboundWebhookOptions.SectionName,
             configure,
             options => options.Validate(
-                o => o.Receivers.Values.All(receiver => receiver.Secrets.Any(secret => !string.IsNullOrEmpty(secret))),
-                "Every inbound webhook receiver needs at least one secret."));
+                o => o.Receivers.All(receiver =>
+                    string.Equals(receiver.Value.SchemeFor(receiver.Key), WebhookSchemeNameConstants.KeySigned, StringComparison.OrdinalIgnoreCase)
+                    || receiver.Value.Secrets.Any(secret => !string.IsNullOrEmpty(secret))),
+                "Every inbound webhook receiver needs at least one secret, unless its scheme is key-signed."));
         services.TryAddKeyedSingleton<IWebhookSignatureValidator, Wow2WebhookSignatureValidator>(WebhookSchemeNameConstants.Wow2);
         services.TryAddKeyedSingleton<IWebhookSignatureValidator, StandardWebhookSignatureValidator>(WebhookSchemeNameConstants.Standard);
         services.TryAddKeyedSingleton<IWebhookSignatureValidator, StripeWebhookSignatureValidator>(WebhookSchemeNameConstants.Stripe);

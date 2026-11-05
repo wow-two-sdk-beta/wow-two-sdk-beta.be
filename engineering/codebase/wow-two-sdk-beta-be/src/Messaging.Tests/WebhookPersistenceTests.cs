@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WoW.Two.Sdk.Beta.Be.Data.EntityFrameworkCore.Sqlite;
 using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks;
+using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Issuers;
 using WoW.Two.Sdk.Beta.Be.Messaging.Webhooks.Persistence;
 
 namespace WoW.Two.Sdk.Beta.Be.Messaging.Tests;
@@ -59,6 +60,43 @@ public sealed class WebhookPersistenceTests : IAsyncLifetime, IDisposable
     }
 
     [Fact]
+    public async Task KeySignedSubscription_ShouldStoreNoSecret_KeepItsScheme_AndOutliveALostKeyRing()
+    {
+        var keySigned = new WebhookSubscription { Id = "signals", Url = new Uri("https://example.test/hooks/signals"), SignatureScheme = WebhookSchemeNameConstants.KeySigned };
+        await using (var first = Build(new ScriptedHandler()))
+        {
+            await first.GetRequiredService<IWebhookSubscriptionRepository>().AddAsync(keySigned, CancellationToken.None);
+            (await RawSecretAsync(first, "signals")).Should().BeEmpty("nothing is protected when there is no secret");
+        }
+
+        var issuer = new KeySignedIssuer();
+        var handler = new ScriptedHandler();
+        await using var second = Build(handler, issuer: issuer);
+        var stored = await second.GetRequiredService<IWebhookSubscriptionRepository>().FindAsync("signals", CancellationToken.None);
+        stored.Should().NotBeNull("another key ring has nothing to unprotect");
+        stored!.SignatureScheme.Should().Be(WebhookSchemeNameConstants.KeySigned);
+        stored.Secret.Should().BeEmpty();
+
+        await second.GetRequiredService<IWebhookPublisher>().PublishAsync("session.ended", "{}"u8.ToArray());
+
+        handler.Ids.Should().ContainSingle("the stored scheme picks the signer, not the default scheme");
+        issuer.Signed.Should().ContainSingle().Which.Url.Should().Be(keySigned.Url);
+    }
+
+    [Fact]
+    public async Task StoredSubscription_ShouldKeepItsNamedScheme()
+    {
+        await using var provider = Build(new ScriptedHandler());
+        var subscriptions = provider.GetRequiredService<IWebhookSubscriptionRepository>();
+
+        await subscriptions.AddAsync(Subscription("svix", "*", "whsec_svix") with { SignatureScheme = WebhookSchemeNameConstants.Standard }, CancellationToken.None);
+        await subscriptions.AddAsync(Subscription("plain", "*", "whsec_plain"), CancellationToken.None);
+
+        (await subscriptions.FindAsync("svix", CancellationToken.None))!.SignatureScheme.Should().Be(WebhookSchemeNameConstants.Standard);
+        (await subscriptions.FindAsync("plain", CancellationToken.None))!.SignatureScheme.Should().BeNull();
+    }
+
+    [Fact]
     public async Task Deliveries_ShouldKeepOneIdAcrossRetries_BeRecordedAndRedeliver()
     {
         var handler = new ScriptedHandler(HttpStatusCode.ServiceUnavailable, HttpStatusCode.OK, HttpStatusCode.OK);
@@ -85,10 +123,12 @@ public sealed class WebhookPersistenceTests : IAsyncLifetime, IDisposable
         (await deliveries.ListAsync("orders", 10, CancellationToken.None)).Should().BeEmpty();
     }
 
-    private ServiceProvider Build(ScriptedHandler handler, bool seed = false, bool protectSecrets = true)
+    private ServiceProvider Build(ScriptedHandler handler, bool seed = false, bool protectSecrets = true, IWebhookSignatureIssuer? issuer = null)
     {
         var services = new ServiceCollection();
         services.AddLogging();
+        if (issuer is not null)
+            services.AddSingleton(issuer);
         services.AddDbContext<WebhookDbContext>(o => o.UseSqlite(_connection));
         services.AddWebhookEntityFrameworkStores<WebhookDbContext>(o => o.ProtectSecrets = protectSecrets);
         services.AddWebhooks(o =>
@@ -111,6 +151,20 @@ public sealed class WebhookPersistenceTests : IAsyncLifetime, IDisposable
 
     private static WebhookSubscription Subscription(string id, string filter, string secret)
         => new() { Id = id, Url = new Uri("https://example.test/hooks/" + id), Secret = secret, EventTypeFilter = filter };
+
+    /// <summary>Stands in for Identity's signer: records what it signs and sends the delivery id the scripted handler reads.</summary>
+    private sealed class KeySignedIssuer : IWebhookSignatureIssuer
+    {
+        public List<WebhookSigningModel> Signed { get; } = [];
+
+        public string Scheme => WebhookSchemeNameConstants.KeySigned;
+
+        public IReadOnlyDictionary<string, string> Issue(WebhookSigningModel signing)
+        {
+            Signed.Add(signing);
+            return new Dictionary<string, string> { [WebhookHeaderConstants.Id] = signing.DeliveryId };
+        }
+    }
 
     /// <summary>Answers with the scripted statuses in turn, then 200, recording each delivery id and body.</summary>
     private sealed class ScriptedHandler(params HttpStatusCode[] statuses) : HttpMessageHandler

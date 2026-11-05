@@ -14,4 +14,18 @@ public interface IWebhookSignatureValidator
     /// <param name="receiver">The receiver's secrets and tolerance.</param>
     /// <param name="now">The current time, for the replay window.</param>
     WebhookSignatureResult Validate(IHeaderDictionary headers, ReadOnlySpan<byte> body, WebhookReceiverOptions receiver, DateTimeOffset now);
+
+    /// <summary>
+    /// Validates the request the way <see cref="WebhookReceiverService"/> calls it. The default runs <see cref="Validate"/>;
+    /// a scheme whose check waits on I/O, such as fetching the sender's JWKS, implements this one to stay off sync-over-async
+    /// and answers <see cref="Validate"/> with a failure.
+    /// </summary>
+    /// <param name="headers">The request headers.</param>
+    /// <param name="body">The raw request body, exactly as received.</param>
+    /// <param name="receiver">The receiver's secrets and tolerance.</param>
+    /// <param name="now">The current time, for the replay window.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The outcome, with what the sender stated about the delivery.</returns>
+    ValueTask<WebhookSignatureResult> ValidateAsync(IHeaderDictionary headers, ReadOnlyMemory<byte> body, WebhookReceiverOptions receiver, DateTimeOffset now, CancellationToken cancellationToken)
+        => ValueTask.FromResult(Validate(headers, body.Span, receiver, now));
 }

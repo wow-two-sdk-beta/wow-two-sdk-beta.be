@@ -11,8 +11,11 @@ public class WebhookSubscriptionEntity : IKeyedEntity<string>
     /// <summary>The delivery endpoint.</summary>
     public string Url { get; set; } = string.Empty;
 
-    /// <summary>The signing secret: <c>dp1:</c> and its Data Protection ciphertext, or the secret as given.</summary>
+    /// <summary>The signing secret: <c>dp1:</c> and its Data Protection ciphertext, or the secret as given; empty under a key-signed scheme.</summary>
     public string Secret { get; set; } = string.Empty;
+
+    /// <summary>The signature scheme the subscriber verifies; null takes the configured default.</summary>
+    public string? SignatureScheme { get; set; }
 
     /// <summary>The event-type glob filter.</summary>
     public string EventTypeFilter { get; set; } = "*";

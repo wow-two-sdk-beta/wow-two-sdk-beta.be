@@ -39,9 +39,17 @@ internal sealed partial class HttpWebhookDispatcher(
         var delivery = new Delivery { Id = deliveryId ?? Guid.NewGuid().ToString("N"), Subscription = subscription, EventType = eventType, Payload = payload };
 
         // Validate scheme and host here; the guarded handler blocks unsafe resolved addresses at connect time.
-        if (!_issuers.ContainsKey(subscription.SignatureScheme ?? opt.SignatureScheme))
+        var scheme = subscription.SignatureScheme ?? opt.SignatureScheme;
+        if (!_issuers.ContainsKey(scheme))
         {
-            LogUnknownScheme(subscription.Url, subscription.SignatureScheme ?? opt.SignatureScheme);
+            LogUnknownScheme(subscription.Url, scheme);
+            return await RecordAsync(delivery, WebhookDeliveryOutcome.Dropped, 0, null, cancellationToken);
+        }
+
+        // Options validation sees only seeded subscriptions; one stored at runtime must not go out under an empty HMAC key.
+        if (subscription.IsMissingSecret(opt.SignatureScheme))
+        {
+            LogMissingSecret(subscription.Url, scheme);
             return await RecordAsync(delivery, WebhookDeliveryOutcome.Dropped, 0, null, cancellationToken);
         }
 
@@ -98,6 +106,7 @@ internal sealed partial class HttpWebhookDispatcher(
         var headers = _issuers[subscription.SignatureScheme ?? options.SignatureScheme].Issue(new WebhookSigningModel
         {
             Secret = subscription.Secret,
+            Url = subscription.Url,
             DeliveryId = delivery.Id,
             EventType = eventType,
             Timestamp = timeProvider.GetUtcNow(),
@@ -189,6 +198,9 @@ internal sealed partial class HttpWebhookDispatcher(
 
     [LoggerMessage(EventId = 6906, Level = LogLevel.Error, Message = "Webhook delivery to {Url} dropped: no signature issuer is registered for the scheme {Scheme}")]
     private partial void LogUnknownScheme(Uri url, string scheme);
+
+    [LoggerMessage(EventId = 6907, Level = LogLevel.Error, Message = "Webhook delivery to {Url} dropped: the scheme {Scheme} needs a secret and the subscription has none")]
+    private partial void LogMissingSecret(Uri url, string scheme);
 
     [LoggerMessage(EventId = 6903, Level = LogLevel.Warning, Message = "Webhook delivery to {Url} for {EventType} exhausted after {Attempts} attempts; dropping")]
     private partial void LogExhausted(Uri url, string eventType, int attempts);

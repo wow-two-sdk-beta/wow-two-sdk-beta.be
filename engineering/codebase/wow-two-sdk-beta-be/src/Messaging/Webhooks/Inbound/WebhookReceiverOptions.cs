@@ -6,7 +6,7 @@ public sealed record WebhookReceiverOptions
     /// <summary>Gets or sets the signature scheme (<see cref="WebhookSchemeNameConstants"/>); null uses the receiver's name.</summary>
     public string? Scheme { get; set; }
 
-    /// <summary>Gets the signing secrets; any one validates, so a rotation lists the new secret beside the old.</summary>
+    /// <summary>Gets the signing secrets; any one validates, so a rotation lists the new secret beside the old. Empty under <see cref="WebhookSchemeNameConstants.KeySigned"/>.</summary>
     public List<string> Secrets { get; } = [];
 
     /// <summary>Gets or sets how far a signed timestamp may drift from now. Default 5 minutes; zero turns the check off.</summary>
@@ -20,4 +20,8 @@ public sealed record WebhookReceiverOptions
 
     /// <summary>Gets or sets the largest body read for validation, in bytes. Default 1 MiB.</summary>
     public int MaxBodyBytes { get; set; } = 1024 * 1024;
+
+    /// <summary>The scheme this receiver validates with: <see cref="Scheme"/>, else its own name.</summary>
+    /// <param name="receiver">The receiver's name.</param>
+    internal string SchemeFor(string receiver) => string.IsNullOrWhiteSpace(Scheme) ? receiver : Scheme;
 }

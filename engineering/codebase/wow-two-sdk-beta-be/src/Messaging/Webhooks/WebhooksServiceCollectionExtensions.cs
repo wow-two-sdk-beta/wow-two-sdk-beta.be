@@ -28,7 +28,7 @@ public static class WebhooksServiceCollectionExtensions
                 .Validate(static o => o.BaseRetryDelay >= TimeSpan.Zero, "Webhooks: BaseRetryDelay must not be negative.")
                 .Validate(static o => o.MaxRetryDelay >= o.BaseRetryDelay, "Webhooks: MaxRetryDelay must be at least BaseRetryDelay.")
                 .Validate(static o => o.RequestTimeout > TimeSpan.Zero, "Webhooks: RequestTimeout must be positive.")
-                .Validate(static o => o.Subscriptions.All(s => !string.IsNullOrEmpty(s.Secret)), "Webhooks: every subscription must have a secret."));
+                .Validate(static o => !o.Subscriptions.Any(s => s.IsMissingSecret(o.SignatureScheme)), "Webhooks: every subscription must have a secret, unless its scheme is key-signed."));
 
         // Block unsafe resolved target addresses at connect time through the shared outbound policy.
         services.AddHttpClient(WebhookDefaultConstants.HttpClientName)

@@ -21,7 +21,9 @@ signed so the receiver can verify origin and integrity. Outbound only; a thin si
 
 ## Subscriptions & matching
 
-- A subscription **MUST** carry a delivery `Url`, an HMAC `Secret`, and an `EventTypeFilter`; it **MUST** expose a stable `Id`.
+- A subscription **MUST** carry a delivery `Url` and an `EventTypeFilter`; it **MUST** expose a stable `Id`.
+- A subscription **MUST** carry a `Secret` unless its effective scheme is `key-signed`; `AddWebhooks` **MUST** reject a
+  seeded one without, and delivery **MUST** drop a stored one without, never signing under an empty key.
 - `EventTypeFilter` **MUST** be treated as a glob where `*` matches any run of characters and `?` matches exactly one;
   matching **SHOULD** be case-insensitive. A filter of `*` **MUST** match every event type.
 - `IWebhookSubscriptionRepository.GetMatchingAsync(eventType)` **MUST** return exactly the subscriptions whose filter matches.

@@ -44,12 +44,12 @@ public sealed partial class WebhookReceiverService(
             return received;
 
         var settings = Settings(receiver);
-        var scheme = string.IsNullOrWhiteSpace(settings.Scheme) ? receiver : settings.Scheme;
+        var scheme = settings.SchemeFor(receiver);
         var validator = validators.Create(scheme);
         var body = await ReadBodyAsync(context.Request, settings.MaxBodyBytes, cancellationToken);
         var result = body is null
             ? WebhookSignatureResult.Failed(WebhookSignatureFailure.TooLarge)
-            : validator.Validate(context.Request.Headers, body, settings, time.GetUtcNow());
+            : await validator.ValidateAsync(context.Request.Headers, body, settings, time.GetUtcNow(), cancellationToken);
         if (!result.Succeeded)
             LogRejected(logger, receiver, scheme, result.Failure);
 
