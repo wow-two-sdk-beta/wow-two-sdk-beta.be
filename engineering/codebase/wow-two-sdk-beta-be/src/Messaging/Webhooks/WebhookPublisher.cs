@@ -15,8 +15,9 @@ internal sealed class WebhookPublisher(IWebhookSubscriptionRepository store, Htt
         ArgumentException.ThrowIfNullOrEmpty(eventType);
 
         var subscriptions = await store.GetMatchingAsync(eventType, cancellationToken);
-        foreach (var subscription in subscriptions)
-            await dispatcher.DeliverAsync(subscription, eventType, payload, cancellationToken);
+
+        // At once, each on its own retry budget: a dead or slow subscriber never delays another.
+        await Task.WhenAll(subscriptions.Select(subscription => dispatcher.DeliverAsync(subscription, eventType, payload, cancellationToken).AsTask()));
     }
 
     public ValueTask PublishAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default)

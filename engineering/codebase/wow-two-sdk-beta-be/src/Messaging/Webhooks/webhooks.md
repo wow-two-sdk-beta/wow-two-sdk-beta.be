@@ -82,7 +82,8 @@ Identity implements them.
 
 ## Delivery & retry
 
-- **Fan-out**: every subscription whose `EventTypeFilter` glob matches the event type gets its own signed POST.
+- **Fan-out**: every subscription whose `EventTypeFilter` glob matches the event type gets its own signed POST, all at
+  once, so a dead or slow subscriber never delays another.
 - **Transient** failure (HTTP 5xx / 408 / request timeout / connection error) → retried per `IRetryPolicy`
   (`MaxAttempts`, exponential-jitter backoff).
 - **Permanent** failure (any other 4xx) → not retried.

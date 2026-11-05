@@ -32,6 +32,37 @@ public sealed class WebhookKeySignedSchemeTests
     }
 
     [Fact]
+    public async Task Publish_ShouldReachEverySubscriberAtOnce_SoADeadOneDelaysNoOther()
+    {
+        var healthy = new Uri("https://healthy.example.test/signals");
+        var dead = new Uri("https://dead.example.test/signals");
+        var healthyReached = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var handler = new ScriptedHandler(async (request, cancellationToken) =>
+        {
+            if (request.RequestUri == healthy)
+                healthyReached.TrySetResult();
+            else
+                await healthyReached.Task.WaitAsync(TimeSpan.FromSeconds(10), cancellationToken); // only a concurrent fan-out gets here in time
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        });
+        var signer = new RecordingSigner();
+        var services = new ServiceCollection();
+        services.AddWebhooks(o =>
+        {
+            o.Subscriptions.Add(new WebhookSubscription { Url = dead, SignatureScheme = WebhookSchemeNameConstants.KeySigned });
+            o.Subscriptions.Add(new WebhookSubscription { Url = healthy, SignatureScheme = WebhookSchemeNameConstants.KeySigned });
+        });
+        services.AddSingleton<IWebhookSignatureIssuer>(signer);
+        services.AddHttpClient(WebhookDefaultConstants.HttpClientName).ConfigurePrimaryHttpMessageHandler(() => handler);
+        await using var provider = services.BuildServiceProvider();
+
+        await provider.GetRequiredService<IWebhookPublisher>().PublishAsync("session.ended", "{}"u8.ToArray()).AsTask().WaitAsync(TimeSpan.FromSeconds(8));
+
+        healthyReached.Task.IsCompletedSuccessfully.Should().BeTrue();
+    }
+
+    [Fact]
     public async Task KeySignedAsTheDefaultScheme_ShouldExemptASubscriptionNamingNone()
     {
         var signer = new RecordingSigner();
@@ -133,5 +164,10 @@ public sealed class WebhookKeySignedSchemeTests
             Requests.Add(request.Headers.ToDictionary(header => header.Key, header => string.Join(",", header.Value), StringComparer.OrdinalIgnoreCase));
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK));
         }
+    }
+
+    private sealed class ScriptedHandler(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> answer) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) => answer(request, cancellationToken);
     }
 }
