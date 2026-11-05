@@ -23,3 +23,22 @@ services.AddHttpClient("remote-document")
     .AddSafeOutboundHttp(options => options.AllowedHosts.Add("example.com"))
     .AddSdkResilience();
 ```
+
+## Explicit proxy
+
+`SafeOutboundProxy.CreateClient` creates a caller-owned client for one source
+origin and one configured HTTP, HTTPS or SOCKS endpoint. It accepts GET and
+HEAD and returns redirects to the caller. It verifies that the entire source DNS
+set is public before sending each request. It verifies the proxy's DNS set and
+dials only the validated addresses. The proxy needs its own public-target policy
+because it resolves the destination remotely.
+
+Supply proxy credentials through `NetworkCredential` from the caller's secret
+provider. The client rejects URI credentials and explicit Host or proxy
+authorization headers. It uses the caller's cancellation and deadline. Source
+selection, lease acquisition, usage limits and retries belong to the caller.
+
+```csharp
+using var client = SafeOutboundProxy.CreateClient(source, proxyEndpoint, credentials);
+using var response = await client.GetAsync(source, cancellationToken);
+```
