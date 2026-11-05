@@ -9,4 +9,8 @@ services.AddBackgroundRemoval(o => {
 });
 ```
 
+A worker that is a sibling container on a private network the host trusts sets `o.AllowPrivateNetworkHttp = true` and a
+single-label origin (`http://ocharo-dev-image-worker:8080`). The key then crosses that network unencrypted; a dotted name
+or an address stays refused.
+
 See [contract](BackgroundRemoval.standard.md) and [API](BackgroundRemoval.spec.md).

@@ -59,11 +59,13 @@ public sealed class HttpBackgroundRemovalService(HttpClient client, IOptions<Bac
     {
         var o = options.Value;
         return Uri.TryCreate(o.BaseUrl, UriKind.Absolute, out uri) && uri.UserInfo.Length == 0 && uri.Query.Length == 0 && uri.Fragment.Length == 0 && uri.AbsolutePath == "/"
-            && (uri.Scheme == "https" || uri.Scheme == "http" && IPAddress.TryParse(uri.Host, out var address) && IPAddress.IsLoopback(address))
+            && (uri.Scheme == "https" || uri.Scheme == "http" && (IsLoopbackAddress(uri) || o.AllowPrivateNetworkHttp && IsContainerName(uri)))
             && o.ApiKey is {Length: >= 16 and <= 512} && !o.ApiKey.Any(char.IsControl)
             && o.MaximumBytes is > 0 and <= 64 * 1024 * 1024 && o.MaximumPixels is > 0 and <= 50_000_000
             && o.MaximumDimension is > 0 and <= 16384 && o.Timeout > TimeSpan.Zero && o.Timeout <= TimeSpan.FromMinutes(2);
     }
+    private static bool IsLoopbackAddress(Uri uri) => IPAddress.TryParse(uri.Host, out var address) && IPAddress.IsLoopback(address);
+    private static bool IsContainerName(Uri uri) => uri.HostNameType == UriHostNameType.Dns && !uri.Host.Contains('.');
     private HttpRequestMessage Request(HttpMethod method, Uri uri)
     {
         var request = new HttpRequestMessage(method, uri);

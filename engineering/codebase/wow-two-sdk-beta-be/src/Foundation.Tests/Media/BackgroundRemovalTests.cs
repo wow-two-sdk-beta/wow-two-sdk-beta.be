@@ -35,6 +35,37 @@ public sealed class BackgroundRemovalTests
     }
 
     [Fact]
+    public async Task PrivateNetworkHttp_ShouldReachAContainerName_WhenTheHostOptsIn()
+    {
+        var asked = "";
+        var service = Build((request, _) =>
+        {
+            asked = request.RequestUri!.AbsoluteUri;
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"ready\":true,\"model\":\"u2net\"}") });
+        }, new() { BaseUrl = "http://ocharo-dev-image-worker:8080", ApiKey = "private-unit-test-key", AllowPrivateNetworkHttp = true });
+        (await service.GetStatusAsync()).Should().Be(new BackgroundRemovalStatus(true, "u2net"));
+        asked.Should().Be("http://ocharo-dev-image-worker:8080/health/ready");
+    }
+
+    [Fact]
+    public async Task PrivateNetworkHttp_ShouldStayRefused_WithoutTheOption()
+    {
+        var service = Build((_, _) => throw new InvalidOperationException(), new() { BaseUrl = "http://ocharo-dev-image-worker:8080", ApiKey = "private-unit-test-key" });
+        (await service.GetStatusAsync()).Available.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData("http://example.test")]
+    [InlineData("http://worker.internal:8080")]
+    [InlineData("http://10.0.0.5:8080")]
+    [InlineData("http://[fd00::1]:8080")]
+    public async Task PrivateNetworkHttp_ShouldStillRefuse_ADottedNameOrAnAddress(string url)
+    {
+        var service = Build((_, _) => throw new InvalidOperationException(), new() { BaseUrl = url, ApiKey = "private-unit-test-key", AllowPrivateNetworkHttp = true });
+        (await service.GetStatusAsync()).Available.Should().BeFalse();
+    }
+
+    [Fact]
     public async Task Remove_ShouldSendOnlyBytesToConfiguredWorker_AndPreserveShape()
     {
         var source = Png();

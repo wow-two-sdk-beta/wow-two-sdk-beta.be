@@ -21,8 +21,10 @@ public sealed class BackgroundRemovalException(string code, string message) : Ex
 /// <summary>Explicit host-only private worker configuration; absent URL/key disables processing.</summary>
 public sealed class BackgroundRemovalOptions
 {
-    /// <summary>Gets or sets an HTTPS origin, or literal loopback HTTP origin.</summary>
+    /// <summary>Gets or sets an HTTPS origin, or literal loopback HTTP origin; <see cref="AllowPrivateNetworkHttp"/> widens the HTTP case.</summary>
     public string? BaseUrl { get; set; }
+    /// <summary>Gets or sets whether HTTP may reach a single-label host, a container name on the host's private network. The key crosses that network unencrypted, so set it only for a network the host trusts; a dotted name or an address stays refused.</summary>
+    public bool AllowPrivateNetworkHttp { get; set; }
     /// <summary>Gets or sets the private worker key. Never expose it to browser clients.</summary>
     public string? ApiKey { get; set; }
     /// <summary>Gets or sets the encoded input/output limit.</summary>

@@ -1,6 +1,6 @@
 # Background removal API
 
-Register `AddBackgroundRemoval(options => ...)` with explicit BaseUrl and ApiKey. Only HTTPS or literal loopback HTTP origins are accepted. Registration disables redirects and cookies.
+Register `AddBackgroundRemoval(options => ...)` with explicit BaseUrl and ApiKey. Only HTTPS or literal loopback HTTP origins are accepted, plus HTTP to a single-label container name when `AllowPrivateNetworkHttp` is set. Registration disables redirects and cookies.
 `GetStatusAsync` returns actual ready/model state. `RemoveAsync` accepts bytes and returns PNG bytes, upright dimensions and model. No model downloading, files, URLs, persistence or publishing occur.
 
 Worker contract: authenticated `GET /health/ready` returns `{ready:true,model:"u2net"}`; authenticated `POST /v1/remove-background` takes raw image bytes and returns PNG plus `X-Image-Model`.
