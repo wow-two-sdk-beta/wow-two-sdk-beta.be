@@ -1,15 +1,16 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2;
 
 namespace WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials;
 
 /// <summary>Provides OAuth2 <c>client_credentials</c> bearer-token acquisition for an outbound HTTP client.</summary>
 public static class OAuth2ClientCredentialsHttpClientBuilderExtensions
 {
-    /// <summary>Adds a handler that fetches, caches (per client name, refreshing <see cref="OAuth2ClientCredentialsOptions.RefreshSkew"/> before expiry), and sends a client-credentials token as <c>Authorization: Bearer</c>; requests already carrying that header pass through.</summary>
+    /// <summary>Adds a handler that fetches, caches (refreshing <see cref="OAuth2TokenClientOptions.RefreshSkew"/> before expiry, and evicting on a <c>401</c>), and sends a client-credentials token as <c>Authorization: Bearer</c>; requests already carrying that header pass through.</summary>
     /// <param name="builder">The HTTP client builder to extend.</param>
-    /// <param name="configure">Configures the token endpoint, client credentials, and refresh behavior.</param>
+    /// <param name="configure">Configures the token endpoint, client credentials, resource, and refresh behavior.</param>
     public static IHttpClientBuilder AddOAuth2ClientCredentials(
         this IHttpClientBuilder builder,
         Action<OAuth2ClientCredentialsOptions> configure)
