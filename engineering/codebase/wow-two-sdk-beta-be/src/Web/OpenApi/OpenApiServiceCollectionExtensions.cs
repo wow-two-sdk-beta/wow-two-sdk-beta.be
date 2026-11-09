@@ -16,12 +16,13 @@ public static class OpenApiServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>Maps the OpenAPI endpoint at <c>/openapi/{documentName}.json</c> (default).</summary>
+    /// <summary>Maps the OpenAPI endpoint at <c>/openapi/{documentName}.json</c> (default), anonymous, so a host that denies by
+    /// default still serves it wherever it is exposed.</summary>
     /// <param name="endpoints">The endpoint route builder to map onto.</param>
     public static IEndpointRouteBuilder MapOpenApiEndpoint(this IEndpointRouteBuilder endpoints)
     {
         ArgumentNullException.ThrowIfNull(endpoints);
-        endpoints.MapOpenApi();
+        endpoints.MapOpenApi().AllowAnonymous();
         return endpoints;
     }
 }

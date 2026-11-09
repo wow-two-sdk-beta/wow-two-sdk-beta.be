@@ -1,7 +1,9 @@
 using System.Net;
 using AwesomeAssertions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WoW.Two.Sdk.Beta.Be.Meta;
 using Xunit;
@@ -27,6 +29,29 @@ public sealed class ApiDefaultsOpenApiExposureTests
         using var response = await app.GetTestClient().GetAsync(DocumentPath);
 
         response.StatusCode.Should().Be(expected);
+    }
+
+    [Fact]
+    public async Task OpenApiDocument_ShouldStayAnonymous_WhenTheHostDeniesByDefault()
+    {
+        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { EnvironmentName = "Development" });
+        builder.WebHost.UseTestServer();
+        builder.Logging.ClearProviders();
+        builder.AddApiDefaults(options =>
+        {
+            options.EnableHttpsRedirection = false;
+            options.EnableOtlpExporters = false;
+        });
+        builder.Services.AddAuthorization(options =>
+            options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAssertion(_ => false).Build());
+
+        await using var app = builder.Build();
+        app.UseApiDefaults(identity => identity.UseAuthorization());
+        await app.StartAsync();
+
+        using var response = await app.GetTestClient().GetAsync(DocumentPath);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     private static async Task<WebApplication> StartAsync(string environment, string? deployEnvironment, bool? expose)
