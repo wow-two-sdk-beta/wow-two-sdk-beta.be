@@ -83,6 +83,11 @@ jobs:
       - name: Build release projects
         run: dotnet build src/WoW.Two.Sdk.Beta.Be.slnx -c Release --no-restore -m:1
 
+      - name: Prepare Redis and Kafka test images
+        run: |
+          docker pull redis:7.0
+          docker pull confluentinc/cp-kafka:7.5.0
+
       - name: Test release revision
         run: dotnet test src/WoW.Two.Sdk.Beta.Be.slnx -c Release --no-build --no-restore -m:1
 
