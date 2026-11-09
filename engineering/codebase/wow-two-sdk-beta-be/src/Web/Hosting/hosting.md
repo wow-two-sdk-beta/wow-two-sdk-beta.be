@@ -62,7 +62,8 @@ app.MapControllers();     // real routes still win: fallback endpoints rank last
 
 `SpaHostingOptions`: `ApiPathPrefix` (default `/api`), `ReservedPathPrefixes` (default `/.well-known`),
 `FallbackFile` (default `index.html`), `ServeDefaultFiles` (default `true`), `RedirectToTrailingSlash`
-(default `false`), `ImmutableAssetsPath` (default `/assets`).
+(default `false`), `ImmutableAssetsPath` (default `/assets`), `ContentTypes` (extension → content type for files the
+framework does not know, such as `.glb` → `model/gltf-binary`; default empty).
 
 A route that ships its own document gets it instead of the shell: `/pricing` and `/pricing/` both serve
 `pricing/index.html` when the bundle contains one, whether routing runs before or after `UseSpaHosting`.

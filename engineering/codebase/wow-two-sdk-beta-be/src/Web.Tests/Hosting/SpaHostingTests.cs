@@ -21,6 +21,7 @@ public sealed class SpaHostingTests : IDisposable
         Directory.CreateDirectory(Path.Combine(_webRoot, "assets"));
         File.WriteAllText(Path.Combine(_webRoot, "assets", "app-3f9a.js"), "console.log('app');");
         File.WriteAllText(Path.Combine(_webRoot, "robots.txt"), "User-agent: *");
+        File.WriteAllText(Path.Combine(_webRoot, "assets", "garment.glb"), "glTF");
     }
 
     [Theory]
@@ -67,6 +68,28 @@ public sealed class SpaHostingTests : IDisposable
 
         response.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
         response.Headers.Location!.ToString().Should().EndWith("/pricing/");
+    }
+
+    [Fact]
+    public async Task UnknownExtension_ShouldBeServed_WhenItsContentTypeIsMapped()
+    {
+        await using var app = await StartAsync(spa => spa.ContentTypes[".glb"] = "model/gltf-binary", routingFirst: false);
+
+        using var response = await app.GetTestClient().GetAsync("/assets/garment.glb");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Content.Headers.ContentType!.MediaType.Should().Be("model/gltf-binary");
+        response.Headers.CacheControl?.ToString().Should().Be("public, max-age=31536000, immutable");
+    }
+
+    [Fact]
+    public async Task UnknownExtension_ShouldNotBeServed_WhenItsContentTypeIsNotMapped()
+    {
+        await using var app = await StartAsync(_ => { }, routingFirst: false);
+
+        using var response = await app.GetTestClient().GetAsync("/assets/garment.glb");
+
+        (await response.Content.ReadAsStringAsync()).Should().NotBe("glTF");
     }
 
     [Theory]

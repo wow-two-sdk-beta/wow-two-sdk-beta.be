@@ -39,4 +39,11 @@ public sealed record SpaHostingOptions
     /// Vite output folder; empty disables the long cache.
     /// </summary>
     public string ImmutableAssetsPath { get; set; } = "/assets";
+
+    /// <summary>
+    /// Gets the content types served for file extensions the framework does not know, keyed by extension with its dot
+    /// (<c>.glb</c> → <c>model/gltf-binary</c>); an entry for a known extension replaces its type. A file whose extension
+    /// is in neither map is not served. Default empty.
+    /// </summary>
+    public IDictionary<string, string> ContentTypes { get; init; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 }

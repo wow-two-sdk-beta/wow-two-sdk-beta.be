@@ -91,8 +91,12 @@ public static class SpaHostingApplicationBuilderExtensions
         var immutable = string.IsNullOrWhiteSpace(options.ImmutableAssetsPath)
             ? PathString.Empty
             : new PathString($"/{options.ImmutableAssetsPath.Trim('/')}");
+        var contentTypes = new FileExtensionContentTypeProvider();
+        foreach (var (extension, contentType) in options.ContentTypes)
+            contentTypes.Mappings[extension.StartsWith('.') ? extension : $".{extension}"] = contentType;
         return new StaticFileOptions
         {
+            ContentTypeProvider = contentTypes,
             OnPrepareResponse = context =>
             {
                 var headers = context.Context.Response.Headers;
