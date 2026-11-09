@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using WoW.Two.Sdk.Beta.Be.Http.Safety;
 
 namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
@@ -59,6 +60,50 @@ public sealed class SafeOutboundProxyTests
             () => client.GetAsync("https://source.example/"));
         Assert.IsType<OutboundAddressBlockedException>(error.InnerException);
         Assert.Contains("proxy.example", resolved);
+    }
+
+    [Theory]
+    [InlineData(OutboundProxyTraffic.WebRead, "/", "POST", "/graphql")]
+    [InlineData(OutboundProxyTraffic.GraphQl, "/graphql", "POST", "/admin")]
+    [InlineData(OutboundProxyTraffic.GraphQl, "/graphql", "PUT", "/graphql")]
+    [InlineData(OutboundProxyTraffic.Grpc, "/example.Catalog/", "POST", "/example.Other/Get")]
+    [InlineData(OutboundProxyTraffic.Grpc, "/example.Catalog/", "POST", "/example.Catalog/sub/Get")]
+    [InlineData(OutboundProxyTraffic.Grpc, "/example.Catalog/", "POST", "/example.Catalog/Get?extra=1")]
+    public async Task ProxyRequest_ShouldRefuseMethodsAndPathsOutsideThePolicy(
+        OutboundProxyTraffic traffic, string allowed, string method, string target)
+    {
+        using HttpMessageHandler handler = SafeOutboundProxy.CreateHandler(
+            new Uri("https://source.example" + allowed), new Uri("http://proxy.example:3128"), traffic,
+            resolveAddresses: (_, _) => throw new InvalidOperationException("Unexpected DNS resolution."));
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(new HttpMethod(method), "https://source.example" + target)
+        {
+            Content = new ByteArrayContent([]),
+            Version = HttpVersion.Version20,
+            VersionPolicy = HttpVersionPolicy.RequestVersionExact,
+        };
+        request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/grpc");
+        await Assert.ThrowsAsync<OutboundAddressBlockedException>(() => client.SendAsync(request));
+    }
+
+    [Theory]
+    [InlineData(1, HttpVersionPolicy.RequestVersionExact)]
+    [InlineData(2, HttpVersionPolicy.RequestVersionOrLower)]
+    [InlineData(3, HttpVersionPolicy.RequestVersionExact)]
+    public async Task ProxyRequest_ShouldRequireExactHttp2ForGrpc(int major, HttpVersionPolicy policy)
+    {
+        using HttpMessageHandler handler = SafeOutboundProxy.CreateHandler(
+            new Uri("https://source.example/example.Catalog/"), new Uri("http://proxy.example:3128"),
+            OutboundProxyTraffic.Grpc, resolveAddresses: (_, _) => throw new InvalidOperationException("Unexpected DNS resolution."));
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://source.example/example.Catalog/Get")
+        {
+            Content = new ByteArrayContent([]),
+            Version = new Version(major, 0),
+            VersionPolicy = policy,
+        };
+        request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/grpc");
+        await Assert.ThrowsAsync<InvalidOperationException>(() => client.SendAsync(request));
     }
 
     private static HttpClient Create(Func<string, CancellationToken, Task<IPAddress[]>> resolve) =>

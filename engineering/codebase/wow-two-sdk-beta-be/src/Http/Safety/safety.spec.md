@@ -42,3 +42,49 @@ selection, lease acquisition, usage limits and retries belong to the caller.
 using var client = SafeOutboundProxy.CreateClient(source, proxyEndpoint, credentials);
 using var response = await client.GetAsync(source, cancellationToken);
 ```
+
+### Proxy profiles
+
+Bind named `OutboundProxyProfileOptions` from application settings. Each profile
+holds a fixed `Server` with optional `Username` and `Password`, or a `Broker`
+with an HTTPS base URL, API key, acquire and release paths, and allowed proxy
+hosts. Inject secrets from the application's secret store. A standard HTTP,
+HTTPS or SOCKS endpoint uses the same profile shape across providers.
+
+Register `AddOutboundProxyBroker()`. Pass the selected profile, destination and
+route name to `AcquireAsync`. A broker profile posts `origin` and `routeKey` to
+acquire, validates the returned `leaseId`, `proxyUri` and `expiresAtUtc`, and
+posts the lease ID to release. Acquisition makes one request. A fixed profile
+resolves locally. The lease owns the allocation and blocks new requests after
+expiry or disposal. Close its clients and channels before disposing the lease.
+
+### Outbound request policies
+
+Use `SafeOutboundProxy.CreateHandler` for a fixed endpoint or
+`lease.CreateHandler` for an acquired endpoint. Select the policy at the
+destination boundary. An HTTP proxy must support CONNECT for HTTPS destinations.
+
+- `WebRead` allows GET and HEAD on one HTTP(S) origin.
+- `GraphQl` allows GET and POST to one exact HTTPS endpoint path.
+- `Grpc` allows native gRPC POSTs to one HTTPS service path such as
+  `/example.Catalog/`. Configure `GrpcChannelOptions.HttpHandler` with this
+  handler and require HTTP/2 with `RequestVersionExact`. The handler passes
+  response streams and trailers through to the channel.
+
+All three policies guard the destination origin and proxy address, preserve
+TLS validation and return redirects without following them. Apply service
+authorization and deadlines in the caller. Switch a route's profile in config
+and reacquire the lease before constructing a new client or channel.
+
+```csharp
+var service = new Uri("https://api.example/example.Catalog/");
+await using var lease = await broker.AcquireAsync(profiles[profileName], service, "catalog", cancellationToken);
+using var handler = lease.CreateHandler(OutboundProxyTraffic.Grpc);
+using var channel = GrpcChannel.ForAddress(service.GetLeftPart(UriPartial.Authority), new GrpcChannelOptions
+{
+    HttpHandler = handler,
+    HttpVersion = HttpVersion.Version20,
+    HttpVersionPolicy = HttpVersionPolicy.RequestVersionExact,
+});
+// Invoke the generated gRPC client while the channel and lease are alive.
+```

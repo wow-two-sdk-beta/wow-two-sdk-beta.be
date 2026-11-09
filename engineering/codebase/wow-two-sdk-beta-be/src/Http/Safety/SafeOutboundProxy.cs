@@ -19,13 +19,41 @@ public static class SafeOutboundProxy
         Uri source,
         Uri proxy,
         NetworkCredential? credentials = null,
-        Func<string, CancellationToken, Task<IPAddress[]>>? resolveAddresses = null)
+        Func<string, CancellationToken, Task<IPAddress[]>>? resolveAddresses = null) =>
+        CreateHttpClient(CreateHandler(source, proxy, OutboundProxyTraffic.WebRead, credentials, resolveAddresses));
+
+    /// <summary>Creates an owned proxy handler for one destination and request policy.</summary>
+    /// <param name="destination">The web origin, exact GraphQL endpoint, or HTTPS gRPC service URL ending in a slash.</param>
+    /// <param name="proxy">The proxy endpoint without credentials or a path.</param>
+    /// <param name="traffic">The requests the destination accepts.</param>
+    /// <param name="credentials">Optional credentials for the proxy only.</param>
+    /// <param name="resolveAddresses">Optional DNS resolver subject to public-address validation.</param>
+    /// <returns>A handler that the caller disposes after its HTTP client or gRPC channel.</returns>
+    public static HttpMessageHandler CreateHandler(
+        Uri destination,
+        Uri proxy,
+        OutboundProxyTraffic traffic,
+        NetworkCredential? credentials = null,
+        Func<string, CancellationToken, Task<IPAddress[]>>? resolveAddresses = null) =>
+        CreateHandler(destination, proxy, traffic, credentials, resolveAddresses, lease: null);
+
+    internal static HttpMessageHandler CreateHandler(
+        Uri destination,
+        Uri proxy,
+        OutboundProxyTraffic traffic,
+        NetworkCredential? credentials,
+        Func<string, CancellationToken, Task<IPAddress[]>>? resolveAddresses,
+        OutboundProxyLease? lease)
     {
-        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(destination);
         ArgumentNullException.ThrowIfNull(proxy);
-        if (!source.IsAbsoluteUri || source.Scheme is not ("http" or "https") || source.UserInfo.Length != 0
-            || source.Host.Length == 0 || source.Port <= 0)
-            throw new ArgumentException("An HTTP(S) source without URI credentials is required.", nameof(source));
+        if (!IsHttpDestination(destination) || !Enum.IsDefined(traffic))
+            throw new ArgumentException("An HTTP(S) destination and a supported proxy policy are required.", nameof(destination));
+        if (traffic != OutboundProxyTraffic.WebRead && (destination.Scheme != Uri.UriSchemeHttps
+            || destination.Query.Length != 0 || destination.Fragment.Length != 0))
+            throw new ArgumentException("An HTTPS API endpoint without a query or fragment is required.", nameof(destination));
+        if (traffic == OutboundProxyTraffic.Grpc && !ProxyDestinationHandler.IsGrpcServicePath(destination.AbsolutePath))
+            throw new ArgumentException("A gRPC destination must end with a service path such as /example.Catalog/.", nameof(destination));
         if (!TryParseEndpoint(proxy.OriginalString, out Uri? endpoint))
             throw new ArgumentException("The proxy endpoint is invalid.", nameof(proxy));
 
@@ -40,13 +68,20 @@ public static class SafeOutboundProxy
             ConnectCallback = (context, cancellationToken) =>
                 ConnectAsync(context, endpoint, resolveAddresses, cancellationToken),
         };
-        return new HttpClient(new ProxyDestinationHandler(source, resolveAddresses) { InnerHandler = transport })
+        return new ProxyDestinationHandler(destination, traffic, resolveAddresses, lease) { InnerHandler = transport };
+    }
+
+    internal static HttpClient CreateHttpClient(HttpMessageHandler handler) =>
+        new(handler)
         {
             Timeout = Timeout.InfiniteTimeSpan,
             DefaultRequestVersion = HttpVersion.Version11,
             DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower,
         };
-    }
+
+    internal static bool IsHttpDestination(Uri? destination) =>
+        destination is { IsAbsoluteUri: true, Port: > 0 } && destination.Scheme is "http" or "https"
+        && destination.UserInfo.Length == 0 && destination.Host.Length > 0;
 
     /// <summary>Parses a supported proxy endpoint and rejects URI credentials and nonpublic literal addresses.</summary>
     /// <param name="value">The configured endpoint.</param>
