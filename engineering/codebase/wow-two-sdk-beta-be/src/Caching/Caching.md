@@ -52,6 +52,10 @@ var rates = await cache.GetOrCreateUnlessTransientAsync("fx:usd", async ct =>
 - An entry that no longer deserializes (written before its type changed shape) is dropped and recomputed by default;
   `Caching:Hybrid:DeserializationFailure = Throw` surfaces `CacheDeserializationException` (key, type, cause) instead.
   Values serialize as UTF-8 JSON through `JsonCacheSerializerFactory`; strings and byte arrays keep HybridCache's own.
+- HybridCache deserializes a fresh copy of a mutable `T` for every caller, the first included, so a throwing serializer
+  fails the factory's own result too.
+- HybridCache ignores `MemoryDistributedCache` as L2 (redundant with L1): a two-host L2 test needs a dictionary-backed
+  `IDistributedCache` (`HybridCacheDeserializationTests`).
 
 ## Roadmap (not yet built)
 

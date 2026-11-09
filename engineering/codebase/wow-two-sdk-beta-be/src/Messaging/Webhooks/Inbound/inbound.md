@@ -41,5 +41,8 @@ app.MapPost("/webhooks/stripe", async (WebhookReceiptModel webhook, IBillingServ
 - Deduplication stores handled ids in the registered `IIdempotencyRepository` (in-memory by default; use the SQL or
   Redis repository across hosts). Only a success is remembered; a repeat racing the first answers `409`.
 - Read the payload from the receipt: binding the body separately consumes the bytes the signature covers.
+- Why the receipt binds: minimal APIs bind every parameter before endpoint filters run, so a filter never sees the raw
+  body. The receipt's static `BindAsync` buffers the body and memoizes the verification on `HttpContext.Features`; the
+  filter reuses the memo for the `401` and dedupe.
 - `WebhookReceiverService.ReceiveAsync(context, "name")` validates outside minimal APIs, such as in a controller.
 - Custom scheme: `services.AddKeyedSingleton<IWebhookSignatureValidator, AcmeValidator>("acme")`; keys are lowercase.

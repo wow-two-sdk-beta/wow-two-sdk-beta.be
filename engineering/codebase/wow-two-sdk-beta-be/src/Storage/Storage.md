@@ -44,6 +44,9 @@ var download = await urls.IssueReadUrlAsync($"uploads/{id}.pdf", TimeSpan.FromMi
 
 - S3 presigns SigV4 locally (the registration forces SigV4, as AWS and R2 reject SigV2); Azure signs a SAS with
   the account key, or a user delegation key under a token credential.
+- SigV4 needs the static `AWSConfigsS3.UseSignatureVersion4 = true`: `AmazonS3Config.SignatureVersion = "4"` does not
+  change presigning. An `http://` service URL also needs `Protocol.HTTP` on the request; the issuer sets both.
+- s3mock accepts either signature, so a test asserts the URL shape (`X-Amz-Signature`, `X-Amz-Expires`).
 - The local store, or any store without native signing, uses `AddBlobTransferUrls` + `MapBlobTransferEndpoints()`:
   URLs signed with HMAC over method, path, expiry and file name or media type; 403 when altered or expired.
 - URLs live up to 7 days; an upload URL issued with a media type only accepts that type.

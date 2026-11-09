@@ -1,6 +1,6 @@
 # Package layout
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-29*
 
 > SDK-internal architecture — the repo/package shape, layering rule, package-id grammar, and the three-layer doc strategy for this mono-lib.
 > Code-style conventions (naming, documentation) are **centralized** in `wow-two-ws/conventions/` and apply to this repo too; only layout/registry live here.
@@ -184,6 +184,10 @@ Adding a published package (first done for the kernel, `10.0.77-beta`), all in o
   nothing and unlists those versions through `scripts/unlist-packages.sh`; the policy carries the unlist scope, and
   relisting stays in nuget.org's web UI.
 - Types moved out of core also get a `[TypeForwardedTo]` line in `src/Properties/KernelTypeForwarders.cs`.
+- A companion package with a `ProjectReference` to core (`Testing.Data`, `Testing.Integrations`, `Testing.Messaging`)
+  adds `<FrameworkReference Include="Microsoft.AspNetCore.App" />`, or restore fails with `NU1109`: core pulls DI
+  `>= 10.0.9` transitively while `Directory.Packages.props` pins it at `10.0.3`. The base `Testing` package references
+  no core and needs none.
 
 ## What does NOT live in src/
 

@@ -28,6 +28,16 @@ public sealed class PostgresFixture : ContainerFixtureBase<PostgreSqlContainer>
 }
 ```
 
+## Notes
+
+- A shell-less (distroless) image, such as `nats`, needs a log-based wait: `UntilPortIsAvailable` and
+  `UntilCommandIsCompleted` exec a shell probe inside the container, so `StartAsync` hangs forever and blame-hang
+  reports a test host crash. Use `Wait.ForUnixContainer().UntilMessageIsLogged("Server is ready")`
+  (`NatsEventBusTests`).
+- No `Testcontainers.Nats` module sits in CPM; NATS uses the generic `ContainerBuilder`.
+- MinIO ships no public images any more (Docker Hub and quay deny the pull since 2026-09): S3 tests run
+  `adobe/s3mock` on port 9090, any credentials, path-style (`S3BlobRepositoryTests`).
+
 ## See also
 
 - [Testcontainers for .NET](https://dotnet.testcontainers.org/)

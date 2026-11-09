@@ -33,6 +33,9 @@ var text     = await pdf.ExtractTextAsync(file, cancellationToken: ct);
 - Limits: `MaxInputBytes`, `MaxPages`. Refusals are `PdfRejectedException` with a `Reason` (`pdf_unreadable`,
   `pdf_password_required`, `pdf_password_invalid`, `pdf_page_range_invalid`, `pdf_empty`, `pdf_too_large`) → 400.
 - Stamps draw in unrotated page space; on a page with `/Rotate` they turn with it.
+- PDFsharp locks a document after `Save`: reading `PageCount` or anything else then throws "already saved", so
+  read first.
+- Opening takes `PdfReader.Open(stream, mode, null)`; the source stream can be disposed right after `Open`.
 - Forms: unknown names and values outside a field's options are refused; filled fields redraw in viewers
   (`NeedAppearances`). Flattening is not offered — `LockFields` makes a filled form read-only instead.
 - Compression touches JPEG photos in RGB, gray or CMYK (ICC-based too); PNG-like images, masks and indexed colors stay.
