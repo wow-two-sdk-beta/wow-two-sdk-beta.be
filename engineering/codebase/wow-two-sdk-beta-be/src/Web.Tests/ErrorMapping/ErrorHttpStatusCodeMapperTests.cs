@@ -11,6 +11,9 @@ public sealed class ErrorHttpStatusCodeMapperTests
 
     [Theory]
     [InlineData(AppErrorType.Validation, 400)]
+    [InlineData(AppErrorType.ExternalRejected, 502)]
+    [InlineData(AppErrorType.PayloadTooLarge, 413)]
+    [InlineData(AppErrorType.UnsupportedMediaType, 415)]
     [InlineData(AppErrorType.Unauthorized, 401)]
     [InlineData(AppErrorType.ExternalUnauthorized, 401)]
     [InlineData(AppErrorType.Forbidden, 403)]

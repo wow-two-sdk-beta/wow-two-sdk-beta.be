@@ -277,4 +277,46 @@ public static class AppErrorFactory
 
         return AppError.Of(AppErrorType.Unexpected, message, null, member, file, line);
     }
+
+    /// <summary>Creates an <see cref="AppErrorType.ExternalRejected"/> error.</summary>
+    /// <param name="message">The default-culture message.</param>
+    /// <param name="member">The calling member, captured automatically.</param>
+    /// <param name="file">The calling source file, captured automatically.</param>
+    /// <param name="line">The calling source line, captured automatically.</param>
+    public static AppError ExternalRejected(
+        string message = "An external dependency refused the request.",
+        [CallerMemberName] string member = "",
+        [CallerFilePath] string file = "",
+        [CallerLineNumber] int line = 0)
+    {
+        return AppError.Of(AppErrorType.ExternalRejected, message, null, member, file, line);
+    }
+
+    /// <summary>Creates a <see cref="AppErrorType.PayloadTooLarge"/> error.</summary>
+    /// <param name="message">The default-culture message.</param>
+    /// <param name="member">The calling member, captured automatically.</param>
+    /// <param name="file">The calling source file, captured automatically.</param>
+    /// <param name="line">The calling source line, captured automatically.</param>
+    public static AppError PayloadTooLarge(
+        string message = "The request body is too large.",
+        [CallerMemberName] string member = "",
+        [CallerFilePath] string file = "",
+        [CallerLineNumber] int line = 0)
+    {
+        return AppError.Of(AppErrorType.PayloadTooLarge, message, null, member, file, line);
+    }
+
+    /// <summary>Creates an <see cref="AppErrorType.UnsupportedMediaType"/> error.</summary>
+    /// <param name="message">The default-culture message.</param>
+    /// <param name="member">The calling member, captured automatically.</param>
+    /// <param name="file">The calling source file, captured automatically.</param>
+    /// <param name="line">The calling source line, captured automatically.</param>
+    public static AppError UnsupportedMediaType(
+        string message = "The request body's media type is not supported.",
+        [CallerMemberName] string member = "",
+        [CallerFilePath] string file = "",
+        [CallerLineNumber] int line = 0)
+    {
+        return AppError.Of(AppErrorType.UnsupportedMediaType, message, null, member, file, line);
+    }
 }

@@ -26,6 +26,9 @@ public static class ErrorMessageConstants
             AppErrorType.SerializationFailed => "The response could not be processed.",
             AppErrorType.DataIntegrity => "A data integrity error occurred.",
             AppErrorType.Canceled => "The operation was canceled.",
+            AppErrorType.ExternalRejected => "An external dependency refused the request.",
+            AppErrorType.PayloadTooLarge => "The request body is too large.",
+            AppErrorType.UnsupportedMediaType => "The request body's media type is not supported.",
             _ => "An unexpected error occurred.",
         };
     }

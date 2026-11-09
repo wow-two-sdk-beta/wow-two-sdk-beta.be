@@ -56,4 +56,13 @@ public enum AppErrorType
 
     /// <summary>The operation was canceled by the caller. Maps to 499.</summary>
     Canceled,
+
+    /// <summary>An external dependency refused the call or answered with an invalid response. Maps to 502.</summary>
+    ExternalRejected,
+
+    /// <summary>The request body exceeds the accepted size. Maps to 413.</summary>
+    PayloadTooLarge,
+
+    /// <summary>The request body's media type is not accepted. Maps to 415.</summary>
+    UnsupportedMediaType,
 }
