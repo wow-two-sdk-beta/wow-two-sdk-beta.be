@@ -22,6 +22,11 @@ public sealed class SpaHostingTests : IDisposable
         File.WriteAllText(Path.Combine(_webRoot, "assets", "app-3f9a.js"), "console.log('app');");
         File.WriteAllText(Path.Combine(_webRoot, "robots.txt"), "User-agent: *");
         File.WriteAllText(Path.Combine(_webRoot, "assets", "garment.glb"), "glTF");
+        Directory.CreateDirectory(Path.Combine(_webRoot, "studio", "drafts"));
+        Directory.CreateDirectory(Path.Combine(_webRoot, "studio", "assets"));
+        File.WriteAllText(Path.Combine(_webRoot, "studio", "index.html"), "studio");
+        File.WriteAllText(Path.Combine(_webRoot, "studio", "drafts", "index.html"), "drafts");
+        File.WriteAllText(Path.Combine(_webRoot, "studio", "assets", "editor-7c1d.js"), "console.log('editor');");
     }
 
     [Theory]
@@ -138,6 +143,120 @@ public sealed class SpaHostingTests : IDisposable
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         (await response.Content.ReadAsStringAsync()).Should().Be("shell");
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("/")]
+    public async Task RootPrefix_ShouldServeTheRootShell(string prefix)
+    {
+        new SpaHostingOptions().PathPrefix.Should().BeEmpty();
+        await using var app = await StartAsync(spa => spa.PathPrefix = prefix);
+
+        using var response = await app.GetTestClient().GetAsync("/app/codes");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        (await response.Content.ReadAsStringAsync()).Should().Be("shell");
+    }
+
+    [Theory]
+    [InlineData("/studio/", "studio", true)]
+    [InlineData("/studio/posts/42", "studio", true)]
+    [InlineData("/studio/drafts", "drafts", true)]
+    [InlineData("/studio/drafts/", "drafts", true)]
+    [InlineData("/studio/", "studio", false)]
+    [InlineData("/studio/posts/42", "studio", false)]
+    [InlineData("/studio/drafts", "drafts", false)]
+    [InlineData("/studio/drafts/", "drafts", false)]
+    public async Task PrefixedRoute_ShouldServeItsOwnDocument_OrThePrefixedShell(string path, string expected, bool routingFirst)
+    {
+        await using var app = await StartAsync(spa => spa.PathPrefix = "/studio", routingFirst);
+
+        using var response = await app.GetTestClient().GetAsync(path);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        (await response.Content.ReadAsStringAsync()).Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData("/", true)]
+    [InlineData("/posts/missing", true)]
+    [InlineData("/pricing", true)]
+    [InlineData("/api/missing", true)]
+    [InlineData("/.well-known/oauth-protected-resource", true)]
+    [InlineData("/", false)]
+    [InlineData("/posts/missing", false)]
+    [InlineData("/pricing", false)]
+    [InlineData("/api/missing", false)]
+    [InlineData("/.well-known/oauth-protected-resource", false)]
+    public async Task PathOutsideThePrefix_ShouldAnswerJson404_NotAShell(string path, bool routingFirst)
+    {
+        await using var app = await StartAsync(spa => spa.PathPrefix = "/studio", routingFirst);
+
+        using var response = await app.GetTestClient().GetAsync(path);
+
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
+    }
+
+    [Theory]
+    [InlineData("/studio", "/studio/", true)]
+    [InlineData("/studio?draft=7", "/studio/?draft=7", true)]
+    [InlineData("/studio", "/studio/", false)]
+    [InlineData("/studio?draft=7", "/studio/?draft=7", false)]
+    public async Task BarePrefix_ShouldRedirectToTheSlashedPath(string path, string location, bool routingFirst)
+    {
+        await using var app = await StartAsync(spa => spa.PathPrefix = "/studio", routingFirst);
+
+        using var response = await app.GetTestClient().GetAsync(path);
+
+        response.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
+        response.Headers.Location!.OriginalString.Should().Be(location);
+    }
+
+    [Theory]
+    [InlineData("/studio/assets/editor-7c1d.js", "public, max-age=31536000, immutable")]
+    [InlineData("/studio/", "no-cache")]
+    [InlineData("/studio/drafts", "no-cache")]
+    [InlineData("/studio/posts/42", "no-cache")]
+    [InlineData("/robots.txt", null)]
+    public async Task PrefixedResponse_ShouldCacheHashedAssets_AndRevalidateDocuments(string path, string? cacheControl)
+    {
+        await using var app = await StartAsync(spa => spa.PathPrefix = "/studio", routingFirst: false);
+
+        using var response = await app.GetTestClient().GetAsync(path);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Headers.CacheControl?.ToString().Should().Be(cacheControl);
+    }
+
+    [Theory]
+    [InlineData("studio")]
+    [InlineData("studio/")]
+    [InlineData("//studio//")]
+    public async Task Prefix_ShouldBeNormalized(string prefix)
+    {
+        await using var app = await StartAsync(spa => spa.PathPrefix = prefix);
+
+        using var response = await app.GetTestClient().GetAsync("/studio/posts/42");
+
+        (await response.Content.ReadAsStringAsync()).Should().Be("studio");
+    }
+
+    [Theory]
+    [InlineData("/studio/../admin")]
+    [InlineData("/studio?draft=7")]
+    [InlineData("/studio#top")]
+    public async Task Prefix_ShouldBeRejected_WhenItIsNotAPlainPath(string prefix)
+    {
+        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { WebRootPath = _webRoot });
+        await using var app = builder.Build();
+
+        var useHosting = () => app.UseSpaHosting(spa => spa.PathPrefix = prefix);
+        var mapFallback = () => app.MapSpaFallback(spa => spa.PathPrefix = prefix);
+
+        useHosting.Should().Throw<ArgumentException>();
+        mapFallback.Should().Throw<ArgumentException>();
     }
 
     public void Dispose() => Directory.Delete(_webRoot, recursive: true);

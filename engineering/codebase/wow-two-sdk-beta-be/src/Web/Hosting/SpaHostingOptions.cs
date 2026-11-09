@@ -16,7 +16,20 @@ public sealed record SpaHostingOptions
     /// </summary>
     public IList<string> ReservedPathPrefixes { get; init; } = ["/.well-known"];
 
-    /// <summary>Static file served for unmatched non-API routes, relative to the web root. Default <c>index.html</c>.</summary>
+    /// <summary>
+    /// Path the SPA is served under, such as <c>/studio</c> for a bundle in <c>wwwroot/studio/</c> built with Vite
+    /// <c>base: '/studio/'</c>. Default empty: the SPA owns the site root. When set, route documents and the shell answer
+    /// only under the prefix, every other unmatched route answers the JSON 404 the API guard answers, the bare prefix
+    /// answers 301 to the slashed path, and <see cref="FallbackFile"/> and <see cref="ImmutableAssetsPath"/> resolve
+    /// under it. The value is normalized to a leading slash and no trailing slash; a value holding <c>..</c>, a query
+    /// or a fragment is rejected.
+    /// </summary>
+    public string PathPrefix { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Static file served for unmatched non-API routes, relative to the web root, or to <see cref="PathPrefix"/> when
+    /// set. Default <c>index.html</c>.
+    /// </summary>
     public string FallbackFile { get; set; } = "index.html";
 
     /// <summary>
@@ -36,7 +49,7 @@ public sealed record SpaHostingOptions
     /// <summary>
     /// Path whose files carry a content hash in their names, so they cache for a year as immutable. Every served
     /// document (<c>.html</c>) revalidates instead, so a deploy reaches returning visitors. Default <c>/assets</c>, the
-    /// Vite output folder; empty disables the long cache.
+    /// Vite output folder, resolved under <see cref="PathPrefix"/> when set; empty disables the long cache.
     /// </summary>
     public string ImmutableAssetsPath { get; set; } = "/assets";
 

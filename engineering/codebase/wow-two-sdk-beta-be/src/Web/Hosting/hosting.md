@@ -60,13 +60,31 @@ app.MapControllers();     // real routes still win: fallback endpoints rank last
   answer `/.well-known/*`; the default web root skips dot folders, so map a discovery document as an endpoint.
 - A host outside the API defaults can call `app.UseSpaHosting()` early and `app.MapSpaFallback()` last.
 
-`SpaHostingOptions`: `ApiPathPrefix` (default `/api`), `ReservedPathPrefixes` (default `/.well-known`),
-`FallbackFile` (default `index.html`), `ServeDefaultFiles` (default `true`), `RedirectToTrailingSlash`
-(default `false`), `ImmutableAssetsPath` (default `/assets`), `ContentTypes` (extension → content type for files the
-framework does not know, such as `.glb` → `model/gltf-binary`; default empty).
+`SpaHostingOptions`: `PathPrefix` (default empty, the site root), `ApiPathPrefix` (default `/api`),
+`ReservedPathPrefixes` (default `/.well-known`), `FallbackFile` (default `index.html`), `ServeDefaultFiles`
+(default `true`), `RedirectToTrailingSlash` (default `false`), `ImmutableAssetsPath` (default `/assets`),
+`ContentTypes` (extension → content type for files the framework does not know, such as `.glb` →
+`model/gltf-binary`; default empty).
 
 A route that ships its own document gets it instead of the shell: `/pricing` and `/pricing/` both serve
 `pricing/index.html` when the bundle contains one, whether routing runs before or after `UseSpaHosting`.
 A build can prerender each public route's title, description and social tags this way while its router keeps
 the slashless canonical address. Set `RedirectToTrailingSlash` for a folder whose document loads assets
 relative to itself.
+
+### Under a path prefix
+
+A host that owns its other routes serves its SPA under a prefix — a bundle in `wwwroot/studio/` built with Vite
+`base: '/studio/'`:
+
+```csharp
+builder.AddApiDefaults(o => o.SpaHosting = spa => spa.PathPrefix = "/studio");
+```
+
+- Route documents and the shell answer only under the prefix: `/studio/drafts` gets `studio/drafts/index.html`
+  when the bundle ships one, else the shell `studio/index.html`.
+- Every other unmatched route — public, API and reserved paths alike — answers the JSON 404 the API guard answers.
+- The bare prefix `/studio` answers 301 to `/studio/`, keeping the query string.
+- `ImmutableAssetsPath` resolves under the prefix: `/studio/assets/*` caches as `immutable`.
+- The value is normalized to a leading slash and no trailing slash; `..`, a query or a fragment throws.
+- Static files outside the prefix (`/robots.txt`) are still served from the web root.
