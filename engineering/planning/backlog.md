@@ -226,6 +226,9 @@ Migrations spec (`wow-two-ws/ideas/migrations-analysis-2026-10/migrations-spec.m
 | GitHub client reads a repository's default branch | feature | Wheelhouse catalog import assumes `main` because `IGitHubClient` can't read it |
 | Minimal-API binding refuses a missing required member with 400 | fix | Identity: a JSON body without a `required` member, such as `identifier`, answers 500 today |
 | `MailKitEmailBroker` builds the message inside its `try` | fix | Identity: an unparsable address throws `ParseException` before the `try`, so a caller that already wrote answers 500; Identity now validates first |
+| Migration history `version` column wider than `varchar(20)`, so a stamp keeps `+commit` | fix | Ocharo Desk (sweep D-32, 2026-11-09): stamps drop `+commit` today; the change alters every product's history table through each dialect's upgrade path |
+| Worker host beside `ServiceHost` that answers `config check` | feature | Ocharo Desk's jobs worker (sweep D-14, 2026-11-09): it gets no `configCheck` deploy item today |
+| SPA fallback answers 405, not 404, for a known path with the wrong method | fix | Ocharo Assets on `10.0.107-beta` (2026-11-09) |
 
 ---
 
