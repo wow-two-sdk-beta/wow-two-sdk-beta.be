@@ -1,6 +1,6 @@
 # HTTP ProblemDetails — spec
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-11-09*
 
 > Reuses SDK error mapping with a complete opt-in HTTP boundary.
 
@@ -36,6 +36,7 @@ app.MapControllers();
 - Existing SDK exception handlers and `Results.Problem` share that writer.
 - Known application exceptions use the SDK error mapper and ProblemDetails factory.
 - `BadHttpRequestException` retains its HTTP status with safe request-error text.
+- `[DocumentResponses]` and `WithDocumentResponses()` exempt an endpoint from result and status-page rewrites.
 
 ## Adoption
 

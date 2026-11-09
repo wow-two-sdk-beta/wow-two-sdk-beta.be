@@ -7,6 +7,13 @@ internal sealed class HttpProblemDetailsResultFilter : IAsyncAlwaysRunResultFilt
 {
     public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
+        // A document endpoint (a site page's HTML 404) keeps the result it returns.
+        if (context.HttpContext.HasDocumentResponses())
+        {
+            await next().ConfigureAwait(false);
+            return;
+        }
+
         int? status = context.Result switch
         {
             ObjectResult result => result.StatusCode ?? (result.Value as Microsoft.AspNetCore.Mvc.ProblemDetails)?.Status

@@ -1,6 +1,6 @@
 # HTTP ProblemDetails — standard
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-11-09*
 
 > Opt-in RFC 9457 error bodies across the writable HTTP boundary.
 
@@ -9,6 +9,7 @@
 - MUST pair `AddHttpProblemDetails()` with `UseHttpProblemDetails()` outside product middleware.
 - MUST retain successful response contracts.
 - MUST emit `application/problem+json` for writable HTTP `4xx` and `5xx` errors.
+- MUST keep the error responses a `[DocumentResponses]` endpoint writes; its exceptions stay ProblemDetails.
 - MUST handle empty statuses, MVC error results and thrown exceptions.
 - MUST retain validation field errors and mapped application error metadata.
 - MUST normalize MVC errors whose status comes from the result or the HTTP response.
