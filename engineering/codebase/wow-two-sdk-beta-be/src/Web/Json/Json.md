@@ -6,4 +6,4 @@ Controller JSON presets — `AddApiDefaults` registers no controllers, so these 
 - `AddControllersWithSdkJson(this IServiceCollection)` — `AddControllers()` plus the complete `JsonOptionsConstants.Default` wire preset.
 - Enum values travel as camelCase strings; numeric input, undefined values and unknown flag bits fail.
 - `TimeSpan` values travel as ISO 8601 duration strings such as `P2DT1S`.
-- Properties and dictionary keys use camelCase; null properties are omitted on write.
+- Properties use camelCase; dictionary keys stay as written, since they carry data; null properties are omitted on write.

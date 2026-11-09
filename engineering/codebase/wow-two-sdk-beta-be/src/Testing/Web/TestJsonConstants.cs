@@ -17,7 +17,7 @@ public static class TestJsonConstants
 {
     /// <summary>
     /// Holds options matching the SDK API wire contract: <see cref="JsonSerializerDefaults.Web"/> base, camelCase property
-    /// and dictionary keys, null-ignoring writes, lenient number/comment/trailing-comma reads, relaxed JS escaping,
+    /// names, dictionary keys as written, null-ignoring writes, lenient number/comment/trailing-comma reads, relaxed JS escaping,
     /// string enums, and NodaTime types.
     /// </summary>
     public static readonly JsonSerializerOptions Options = Build();
@@ -27,7 +27,6 @@ public static class TestJsonConstants
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             ReadCommentHandling = JsonCommentHandling.Skip,

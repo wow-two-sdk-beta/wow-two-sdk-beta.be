@@ -23,7 +23,7 @@ var pretty = JsonSerializer.Serialize(model, JsonOptionsConstants.Indented);
 
 ## Defaults
 
-- camelCase property + dictionary keys
+- camelCase property names; dictionary keys as written
 - Ignore null on writes
 - Numbers can be read from strings, NaN/Infinity allowed
 - Trailing commas allowed, comments skipped

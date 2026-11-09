@@ -68,12 +68,11 @@ public sealed class JsonControllerBuilderExtensionsTests
 
         root.GetProperty("status").GetString().Should().Be("inProgress");
         root.GetProperty("access").GetString().Should().Be("read, write");
-        root.GetProperty("countsByKind").TryGetProperty("someKind", out _).Should().BeTrue();
+        root.GetProperty("countsByKind").TryGetProperty("SomeKind", out _).Should().BeTrue();
         root.GetProperty("duration").GetString().Should().Be("P2DT1S");
         root.TryGetProperty("note", out _).Should().BeFalse();
         var restored = JsonSerializer.Deserialize<WireContract>(json, options);
-        restored.Should().BeEquivalentTo(expected, comparison => comparison.Excluding(contract => contract.CountsByKind));
-        restored!.CountsByKind.Should().ContainSingle("someKind", 3);
+        restored.Should().BeEquivalentTo(expected);
     }
 
     [Theory]

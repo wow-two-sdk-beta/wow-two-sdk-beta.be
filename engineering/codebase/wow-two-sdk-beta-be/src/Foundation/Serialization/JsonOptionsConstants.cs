@@ -10,7 +10,9 @@ namespace WoW.Two.Sdk.Beta.Be.Foundation.Serialization;
 /// <summary>Holds conventional <see cref="JsonSerializerOptions"/> presets for the Wow Two be sdk.</summary>
 public static class JsonOptionsConstants
 {
-    /// <summary>Gets the wire options: camelCase, string enums, ISO durations, ignored nulls, NodaTime, and relaxed escaping.</summary>
+    /// <summary>Gets the wire options: camelCase properties, dictionary keys as written, string enums, ISO durations, ignored nulls,
+    /// NodaTime, and relaxed escaping.</summary>
+    /// <remarks>Dictionary keys carry data (size labels, locales, ids), so no naming policy rewrites them.</remarks>
     public static JsonSerializerOptions Default { get; } = Build();
 
     /// <summary>Gets the <see cref="Default"/> options with indented output, for human-readable dumps.</summary>
@@ -21,7 +23,6 @@ public static class JsonOptionsConstants
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             ReadCommentHandling = JsonCommentHandling.Skip,
