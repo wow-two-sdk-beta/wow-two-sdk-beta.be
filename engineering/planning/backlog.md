@@ -76,6 +76,14 @@ The SDK versions as NuGet `10.y.z-beta`, so a feature reads `shipped` once the p
 
 ---
 
+## Specced next
+
+ChatGPT builds these in the pull order of wow-two-ws `system/sessions/events-integration/tasks/tasks.md`; each row's spec is its id in the named file there. Delete a row when it ships, with any older row it covers.
+
+| Item | Type | Notes |
+|---|---|---|
+| A08 Core be sdk drops its LLM folders | engineering | spec in `tasks-platform.md` · owner: ev-ai lane |
+
 ## Vectors
 
 SDK vectors without a group of their own below; each row is the vector's next completion pass.
