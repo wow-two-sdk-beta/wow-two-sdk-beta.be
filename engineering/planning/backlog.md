@@ -82,7 +82,6 @@ ChatGPT builds these in the pull order of wow-two-ws `system/sessions/events-int
 
 | Item | Type | Notes |
 |---|---|---|
-| B01 Lift SignalR.StackExchangeRedis past NU1903 | security fix | spec in `tasks-platform.md` |
 | A08 Core be sdk drops its LLM folders | engineering | spec in `tasks-platform.md` · owner: ev-ai lane |
 
 ## Vectors
