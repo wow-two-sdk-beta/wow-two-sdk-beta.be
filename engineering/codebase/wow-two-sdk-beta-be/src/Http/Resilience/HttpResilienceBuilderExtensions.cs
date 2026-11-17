@@ -23,7 +23,9 @@ public static class HttpResilienceBuilderExtensions
 
         builder.AddStandardResilienceHandler(handler =>
         {
-            handler.Retry.MaxRetryAttempts = options.MaxRetryAttempts;
+            // The underlying strategy requires at least one configured retry.
+            // Zero is the SDK's supported single-attempt mode, enforced below.
+            handler.Retry.MaxRetryAttempts = Math.Max(1, options.MaxRetryAttempts);
             handler.Retry.Delay = options.RetryDelay;
             handler.AttemptTimeout.Timeout = options.AttemptTimeout;
             handler.TotalRequestTimeout.Timeout = options.TotalRequestTimeout;
@@ -33,7 +35,7 @@ public static class HttpResilienceBuilderExtensions
             var shouldHandleTransient = handler.Retry.ShouldHandle;
             handler.Retry.ShouldHandle = async arguments =>
             {
-                if (arguments.Context.CancellationToken.IsCancellationRequested)
+                if (options.MaxRetryAttempts == 0 || arguments.Context.CancellationToken.IsCancellationRequested)
                     return false;
 
                 var request = arguments.Context.GetRequestMessage()

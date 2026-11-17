@@ -205,6 +205,7 @@ publication was recorded in the adoption track. Consumer upgrades are separate.
 | `WoW.Two.Sdk.Beta.Be.Http.HeaderPropagation` | `AddConventionalHeaderPropagation(…)` + `AddPropagatedHeaders()` — X-Correlation-Id / X-Request-Id defaults over `Microsoft.AspNetCore.HeaderPropagation` | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Http.Auth.OAuth2ClientCredentials` | `AddOAuth2ClientCredentials()` — client_credentials bearer handler; per-client-name token cache, single-flight fetch, refresh skew | scaffold |
 | `WoW.Two.Sdk.Beta.Be.Http.Auth.Mtls` | `AddMutualTls()` — client-certificate `SocketsHttpHandler` (loaded cert or PKCS#12 path) | scaffold |
+| `WoW.Two.Sdk.Beta.Be.Integrations.Instagram` | `AddInstagramIntegration` → `IInstagramClient` — bounded Business Discovery media pages, provider-specific token source, cursor continuation and sanitized diagnostics | implemented (mono-lib, unreleased) |
 | `WoW.Two.Sdk.Beta.Be.Integrations.Processes` | `AddProcessClient()` / keyed `AddProcessClient(name, …)` → `IProcessClient` (`RunAsync`, `RunJsonAsync`, `Start`) — argument list, environment allowlist, timeout that kills the tree, capped output, `JsonFailureLineParser`, failures marked by `ProcessFailureKind` | implemented (mono-lib, unreleased) |
 
 ## P4 — Distributed essentials

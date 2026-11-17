@@ -12,6 +12,35 @@ namespace WoW.Two.Sdk.Beta.Be.Web.Tests.Http;
 /// <summary>Verifies outbound replay safety, budgets, cancellation and owned-response disposal.</summary>
 public sealed class HttpReplaySafetyTests
 {
+    [Theory]
+    [InlineData(HttpStatusCode.ServiceUnavailable)]
+    [InlineData(HttpStatusCode.TooManyRequests)]
+    public async Task ZeroRetries_ShouldReturnTransientResponseAfterOneAttempt(HttpStatusCode status)
+    {
+        var content = new TrackingContent("single attempt");
+        var handler = new RecordingHandler((_, _, _) => Task.FromResult(
+            new HttpResponseMessage(status) { Content = content }));
+        await using var provider = BuildRetryProvider(handler, options => options.MaxRetryAttempts = 0);
+
+        using var response = await CreateClient(provider).GetAsync("resource");
+
+        response.StatusCode.Should().Be(status);
+        handler.Attempts.Should().Be(1);
+        content.IsDisposed.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ZeroRetries_ShouldPropagateTransportFailureAfterOneAttempt()
+    {
+        var handler = new RecordingHandler((_, _, _) => throw new HttpRequestException("connection failed"));
+        await using var provider = BuildRetryProvider(handler, options => options.MaxRetryAttempts = 0);
+
+        var action = () => CreateClient(provider).GetAsync("resource");
+
+        await action.Should().ThrowAsync<HttpRequestException>();
+        handler.Attempts.Should().Be(1);
+    }
+
     [Fact]
     public async Task Retry_ShouldReplayGet_AndDisposeDiscardedResponse()
     {
