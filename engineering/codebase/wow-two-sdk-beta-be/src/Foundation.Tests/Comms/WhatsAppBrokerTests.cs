@@ -32,7 +32,7 @@ public sealed class WhatsAppBrokerTests
         var request = provider.Requests.Single();
         request.Path.Should().Be("/v23.0/PN1/messages");
         request.Authorization.Should().Be("Bearer token");
-        var body = JsonDocument.Parse(request.Body).RootElement;
+        var body = JsonElement.Parse(request.Body);
         body.GetProperty("to").GetString().Should().Be("998901234567");
         var template = body.GetProperty("template");
         template.GetProperty("name").GetString().Should().Be("auth_code");
@@ -53,7 +53,7 @@ public sealed class WhatsAppBrokerTests
         var result = await broker.SendAsync(new WhatsAppMessage { To = "+998901234567", Text = "Hi" });
 
         result.FailureReason.Should().Be("meta_131047: Re-engagement message");
-        var body = JsonDocument.Parse(provider.Requests.Single().Body).RootElement;
+        var body = JsonElement.Parse(provider.Requests.Single().Body);
         body.GetProperty("type").GetString().Should().Be("text");
         body.GetProperty("text").GetProperty("body").GetString().Should().Be("Hi");
         (await broker.SendAsync(new WhatsAppMessage { To = "+998901234567" })).FailureReason.Should().Be("empty_message");

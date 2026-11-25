@@ -22,7 +22,7 @@ public sealed class TransactionLockTests(DataTestDb testDb)
 
         await using var waiting = await waiter.Database.BeginTransactionAsync();
         var acquisition = waiter.Database.AcquireTransactionLocksAsync(["owner:shared"]);
-        Assert.NotSame(acquisition, await Task.WhenAny(acquisition, Task.Delay(Contended)));
+        await Assert.ThrowsAsync<TimeoutException>(() => acquisition.WaitAsync(Contended));
 
         await held.CommitAsync();
         await acquisition.WaitAsync(TimeSpan.FromSeconds(10));

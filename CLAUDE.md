@@ -2,9 +2,9 @@
 
 ## What is this
 
-The `WoW.Two.Sdk.Beta.Be.*` family — beta-forever .NET 10 be sdk aggregating wrappers around the entire .NET ecosystem (~10K+ packages reachable via composition). Same beta-forever philosophy as the UI lib: no CHANGELOG or PR gate; required checks run in the release workflow, and main pushes publish the family.
+The `WoW.Two.Sdk.Beta.Be.*` family — beta-forever .NET 11 be sdk aggregating wrappers around the entire .NET ecosystem (~10K+ packages reachable via composition). Same beta-forever philosophy as the UI lib: no CHANGELOG or PR gate; required checks run in the release workflow, and main pushes publish the family.
 
-> **Beta-forever rules**: no CHANGELOG or PR gate; push directly to main and fix forward. CI tests, auto-bumps `10.y.z-beta`, verifies eight packages, publishes and records the release commit/tag.
+> **Beta-forever rules**: no CHANGELOG or PR gate; push directly to main and fix forward. CI tests, auto-bumps `11.y.z-beta`, verifies eight packages, publishes and records the release commit/tag.
 
 > **Structure (current): eight release projects.** `src/WoW.Two.Sdk.Beta.Be.csproj` compiles all production concerns. Separate projects ship the BCL-only kernel `WoW2.Sdk.Beta.Be.Abstractions` (`src/Abstractions/`: Result, AppError, IEvent, ICurrentUserService; core references it and forwards the moved types), data abstractions, the migration CLI and four testing libraries. Seven test suites are non-packable. Per-area folders are PascalCase and match namespace segments. Rationale + migration log + backlog: [`engineering/architecture/analysis/mono-lib-migration.md`](./engineering/architecture/analysis/mono-lib-migration.md).
 
@@ -100,7 +100,7 @@ See [`engineering/architecture/package-layout.md`](./engineering/architecture/pa
 - Every csproj inherits `Directory.Build.props` — `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`, `Nullable enable`, `<GenerateDocumentationFile>true</GenerateDocumentationFile>`, `MIT`, source-link, deterministic builds.
 - Foundation can NOT import domain packages. Domain packages can import any sibling domain. (Future: enforce via Roslyn analyzer.)
 - The kernel (`src/Abstractions/`) references nothing — no `FrameworkReference`, no `PackageReference`. Core references the kernel and never a domain repo's package. A type moved into the kernel keeps its namespace and gets a `[TypeForwardedTo]` line in `src/Properties/KernelTypeForwarders.cs`.
-- Solution file is `engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Beta.Be.slnx` (.NET 10 SDK XML solution format).
+- Solution file is `engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Beta.Be.slnx` (XML solution format).
 
 ## Build & test
 

@@ -43,9 +43,6 @@
     <PackageReference Include="Verify.Http" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Testcontainers" />
     <PackageReference Include="Testcontainers.Azurite" />
     <PackageReference Include="Testcontainers.Kafka" />

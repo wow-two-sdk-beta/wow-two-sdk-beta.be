@@ -74,6 +74,20 @@ public sealed class ConfigCheckTests
     }
 
     [Fact]
+    public async Task StartupOptions_ShouldReportFailuresForOptionsRegisteredOutsideTheSdk()
+    {
+        const string failure = "Shipping needs a delivery window.";
+        var (exit, output, _) = await RunAsync(ValidShop, services =>
+        {
+            services.AddOptions<ShippingSettings>().Validate(_ => false, failure).ValidateOnStart();
+        });
+
+        exit.Should().Be(1);
+        ConfigCheckResult.FromOutput(output)!.Invalid.Should().ContainSingle()
+            .Which.Message.Should().Be(failure);
+    }
+
+    [Fact]
     public async Task DataAnnotationRange_ShouldNameTheAttribute()
     {
         var settings = new Dictionary<string, string?>(ValidShop) { ["Shop:MaxItems"] = "500", ["Shop:MinItems"] = "1" };

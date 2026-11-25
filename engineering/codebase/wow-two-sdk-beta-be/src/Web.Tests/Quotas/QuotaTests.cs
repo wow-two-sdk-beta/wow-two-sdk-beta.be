@@ -34,7 +34,7 @@ public sealed class QuotaTests
         using var exhausted = await host.ConvertAsync();
         exhausted.StatusCode.Should().Be(HttpStatusCode.TooManyRequests);
         exhausted.Headers.RetryAfter!.Delta.Should().Be(TimeSpan.FromHours(15), "the window ends at midnight UTC");
-        var problem = JsonDocument.Parse(await exhausted.Content.ReadAsStringAsync()).RootElement;
+        var problem = JsonElement.Parse(await exhausted.Content.ReadAsStringAsync());
         problem.GetProperty("quota").GetString().Should().Be("conversions");
         problem.GetProperty("limit").GetInt64().Should().Be(2);
         host.Handled.Should().Be(2);
@@ -67,7 +67,7 @@ public sealed class QuotaTests
         (await host.ConvertAsync()).StatusCode.Should().Be(HttpStatusCode.OK);
 
         using var usage = await host.Client.GetAsync("/quotas");
-        var quota = JsonDocument.Parse(await usage.Content.ReadAsStringAsync()).RootElement.GetProperty("data")[0];
+        var quota = JsonElement.Parse(await usage.Content.ReadAsStringAsync()).GetProperty("data")[0];
         quota.GetProperty("quota").GetString().Should().Be("conversions");
         quota.GetProperty("used").GetInt64().Should().Be(1, "the failed call was refunded");
         quota.GetProperty("remaining").GetInt64().Should().Be(1);

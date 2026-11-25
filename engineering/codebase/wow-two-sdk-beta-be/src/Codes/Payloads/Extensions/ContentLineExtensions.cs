@@ -14,11 +14,13 @@ internal static class ContentLineExtensions
     private static string Fold(string line)
     {
         var result = new StringBuilder();
+        Span<char> utf16 = stackalloc char[2];
         var bytes = 0;
         foreach (var rune in line.EnumerateRunes())
         {
             if (bytes + rune.Utf8SequenceLength > 75) { result.Append("\r\n "); bytes = 1; }
-            result.Append(rune.ToString());
+            var written = rune.EncodeToUtf16(utf16);
+            result.Append(utf16[..written]);
             bytes += rune.Utf8SequenceLength;
         }
         return result.ToString();

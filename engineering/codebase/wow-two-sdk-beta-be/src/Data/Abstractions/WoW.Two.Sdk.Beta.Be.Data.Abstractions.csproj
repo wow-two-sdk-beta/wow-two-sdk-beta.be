@@ -14,7 +14,7 @@
     engine and existing consumers' `using` lines do not churn — only the assembly boundary moved.
 
     Dependencies: BCL only (System.Data.Common is in-box) + Microsoft.Extensions.DependencyInjection.Abstractions
-    for the connection-factory DI helpers. NO FrameworkReference. Inherits Directory.Build.props + CPM.
+    from the .NET shared runtime for the connection-factory DI helpers. NO FrameworkReference. Inherits Directory.Build.props + CPM.
   -->
 
   <PropertyGroup>
@@ -28,7 +28,6 @@
 
   <!-- DI helpers for the connection seam — base abstractions only, NOT the ASP.NET shared framework. -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>
 
 </Project>

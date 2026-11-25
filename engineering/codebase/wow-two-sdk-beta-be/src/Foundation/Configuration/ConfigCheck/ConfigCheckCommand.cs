@@ -55,7 +55,7 @@ public static class ConfigCheckCommand
         }
 
         WriteHuman(run, error);
-        await output.WriteLineAsync(run.Result.ToResultLine()).ConfigureAwait(false);
+        await output.WriteLineAsync(run.Result.ToResultLine().AsMemory(), CancellationToken.None).ConfigureAwait(false);
         await output.FlushAsync(ct).ConfigureAwait(false);
         await error.FlushAsync(ct).ConfigureAwait(false);
         return run.Result.Exit;

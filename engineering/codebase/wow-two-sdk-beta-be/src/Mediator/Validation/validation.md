@@ -1,11 +1,11 @@
 # WoW.Two.Sdk.Beta.Be.Mediator.Validation
 
-> Request-validation interceptor — runs all registered SDK `IValidator<TRequest>` instances before the handler.
+> Mediator validation checks requests before the handler and successful responses before returning them to the caller.
 
 ## Install
 
 ```
-dotnet add package WoW.Two.Sdk.Beta.Be.Mediator.Validation
+dotnet add package WoW2.Sdk.Beta.Be
 ```
 
 ## Usage
@@ -16,7 +16,9 @@ builder.Services.AddMediator(typeof(Program).Assembly);
 builder.Services.AddMediatorValidatingInterceptor();
 ```
 
-The interceptor runs every registered SDK validator, combines their field failures in registration order, and throws one `WoW.Two.Sdk.Beta.Be.Foundation.Validation.ValidationException`. Register `AddValidationExceptionHandler` or `AddAppExceptionHandling` and [`Web.ProblemDetails`](../../Web/ProblemDetails/problem-details.md) to render the failure as an HTTP 400 ProblemDetails response.
+Input validators implement `IValidator<TRequest>`. The interceptor combines blocking field failures in registration order and throws one `ValidationException`. The mediator's exception mapper and the web problem-details mapping render the failure as HTTP 400.
+
+Output validators implement `IValidator<TResponse>`, including the result wrapper for an `AppResult<T>` response. Failure results pass through. A blocking output rule returns a generic internal error through the exception mapper. Output values and field errors stay out of the HTTP response.
 
 ## Phase placement
 

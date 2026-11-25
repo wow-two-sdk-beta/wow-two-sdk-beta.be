@@ -44,7 +44,7 @@ internal static partial class ConfigCheckRunner
             var roots = services.GetServices<SettingsRoot>().Select(root => root.Section);
 
             var unknown = SettingsKeyWalker.FindUnknown(configuration, records, roots);
-            var invalid = Validate(services, records, unknown);
+            var invalid = await ValidateAsync(services, records, unknown, ct).ConfigureAwait(false);
             var (stranded, failure) = await CountStrandedAsync(services, settingsInvalid: invalid.Count > 0, notes, ct).ConfigureAwait(false);
             if (failure is { } failed)
             {
@@ -69,7 +69,11 @@ internal static partial class ConfigCheckRunner
         }
     }
 
-    private static List<ConfigCheckInvalid> Validate(IServiceProvider services, List<SettingsRecord> records, IReadOnlyList<string> unknown)
+    private static async Task<List<ConfigCheckInvalid>> ValidateAsync(
+        IServiceProvider services,
+        List<SettingsRecord> records,
+        IReadOnlyList<string> unknown,
+        CancellationToken ct)
     {
         var invalid = new List<ConfigCheckInvalid>();
         var bindingFailed = false;
@@ -93,27 +97,51 @@ internal static partial class ConfigCheckRunner
             }
         }
 
-        // Records registered outside the SDK recipe still validate at boot; the host's startup validator runs them.
+        // Match the host's startup validation for records registered outside the SDK recipe.
         var recorded = records.Select(record => record.Type).ToHashSet();
-        try
+#pragma warning disable SYSLIB0066 // Preserve the .NET host's support for existing synchronous validators.
+        var legacyValidator = services.GetService<IStartupValidator>();
+#pragma warning restore SYSLIB0066
+        IAsyncStartupValidator[] validators = legacyValidator is not null and not IAsyncStartupValidator
+            ? []
+            : services.GetServices<IAsyncStartupValidator>().ToArray();
+
+        if (legacyValidator is not null && !validators.Any(validator => ReferenceEquals(validator, legacyValidator)))
         {
-            services.GetService<IStartupValidator>()?.Validate();
+            await CheckStartupValidatorAsync(_ =>
+            {
+                legacyValidator.Validate();
+                return Task.CompletedTask;
+            }).ConfigureAwait(false);
         }
-        catch (OptionsValidationException exception)
+        else
         {
-            AddUnrecorded(invalid, recorded, exception);
-        }
-        catch (AggregateException exception) when (exception.InnerExceptions.All(inner => inner is OptionsValidationException))
-        {
-            foreach (var inner in exception.InnerExceptions.Cast<OptionsValidationException>())
-                AddUnrecorded(invalid, recorded, inner);
-        }
-        catch (Exception) when (bindingFailed)
-        {
-            // A recorded record that failed to bind fails the startup validator again; it is reported already.
+            foreach (var validator in validators)
+                await CheckStartupValidatorAsync(validator.ValidateAsync).ConfigureAwait(false);
         }
 
         return invalid;
+
+        async Task CheckStartupValidatorAsync(Func<CancellationToken, Task> validate)
+        {
+            try
+            {
+                await validate(ct).ConfigureAwait(false);
+            }
+            catch (OptionsValidationException exception)
+            {
+                AddUnrecorded(invalid, recorded, exception);
+            }
+            catch (AggregateException exception) when (exception.InnerExceptions.All(inner => inner is OptionsValidationException))
+            {
+                foreach (var inner in exception.InnerExceptions.Cast<OptionsValidationException>())
+                    AddUnrecorded(invalid, recorded, inner);
+            }
+            catch (Exception exception) when (bindingFailed && exception is not OperationCanceledException)
+            {
+                // A recorded option that failed to bind has already been reported.
+            }
+        }
     }
 
     private static void AddUnrecorded(List<ConfigCheckInvalid> invalid, HashSet<Type> recorded, OptionsValidationException exception)

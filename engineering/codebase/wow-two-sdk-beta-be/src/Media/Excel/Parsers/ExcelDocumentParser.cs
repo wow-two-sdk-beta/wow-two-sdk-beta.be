@@ -95,6 +95,11 @@ public sealed class ExcelDocumentParser : IExcelParser, ITabularParser
                 _ when target == typeof(DateOnly) => DateOnly.FromDateTime(Moment(value)),
                 _ when target == typeof(TimeOnly) => value.IsTimeSpan ? TimeOnly.FromTimeSpan(value.GetTimeSpan()) : TimeOnly.FromDateTime(Moment(value)),
                 _ when target == typeof(TimeSpan) => value.IsTimeSpan ? value.GetTimeSpan() : TimeSpan.Parse(value.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture),
+                // Excel numeric cells have 15 significant digits. Preserve those digits when importing decimals.
+                _ when target == typeof(decimal) && value.IsNumber => decimal.Parse(
+                    value.GetNumber().ToString("G15", CultureInfo.InvariantCulture),
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture),
                 _ => value.IsNumber
                     ? System.Convert.ChangeType(value.GetNumber(), target, CultureInfo.InvariantCulture)
                     : System.Convert.ChangeType(value.ToString(CultureInfo.InvariantCulture).Trim(), target, CultureInfo.InvariantCulture),

@@ -1,6 +1,6 @@
 # WoW.Two.Sdk.Beta.Be
 
-> Beta-forever .NET 10 be sdk — **one class library, divided by folders**. Foundation, observability, web, mediator, identity, and data concerns ship in a single package.
+> Beta-forever .NET 11 be sdk — **one class library, divided by folders**. Foundation, observability, web, mediator, identity, and data concerns ship in a single package.
 
 ## Why a mono-lib
 

@@ -7,14 +7,14 @@ version=${2:?Pass the evaluated package version}
 revision=${3:?Pass the release revision}
 
 packages=(
-  "WoW2.Sdk.Beta.Be|lib/net10.0/WoW.Two.Sdk.Beta.Be.dll"
-  "WoW2.Sdk.Beta.Be.Abstractions|lib/net10.0/WoW.Two.Sdk.Beta.Be.Abstractions.dll"
-  "WoW2.Sdk.Beta.Be.Data.Abstractions|lib/net10.0/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll"
-  "WoW2.Sdk.Beta.Be.Data.Migrations.Cli|tools/net10.0/any/wow-migrate.dll"
-  "WoW2.Sdk.Beta.Be.Testing|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.dll"
-  "WoW2.Sdk.Beta.Be.Testing.Data|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Data.dll"
-  "WoW2.Sdk.Beta.Be.Testing.Integrations|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Integrations.dll"
-  "WoW2.Sdk.Beta.Be.Testing.Messaging|lib/net10.0/WoW.Two.Sdk.Beta.Be.Testing.Messaging.dll"
+  "WoW2.Sdk.Beta.Be|lib/net11.0/WoW.Two.Sdk.Beta.Be.dll"
+  "WoW2.Sdk.Beta.Be.Abstractions|lib/net11.0/WoW.Two.Sdk.Beta.Be.Abstractions.dll"
+  "WoW2.Sdk.Beta.Be.Data.Abstractions|lib/net11.0/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll"
+  "WoW2.Sdk.Beta.Be.Data.Migrations.Cli|tools/net11.0/any/wow-migrate.dll"
+  "WoW2.Sdk.Beta.Be.Testing|lib/net11.0/WoW.Two.Sdk.Beta.Be.Testing.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Data|lib/net11.0/WoW.Two.Sdk.Beta.Be.Testing.Data.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Integrations|lib/net11.0/WoW.Two.Sdk.Beta.Be.Testing.Integrations.dll"
+  "WoW2.Sdk.Beta.Be.Testing.Messaging|lib/net11.0/WoW.Two.Sdk.Beta.Be.Testing.Messaging.dll"
 )
 
 shopt -s nullglob
@@ -43,8 +43,8 @@ done
 
 grep -Fq 'README.md' <<< "$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.$version.nupkg")"
 cli_assets=$(unzip -Z1 "$artifact_dir/WoW2.Sdk.Beta.Be.Data.Migrations.Cli.$version.nupkg")
-grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll' <<< "$cli_assets"
-grep -Fq 'tools/net10.0/any/WoW.Two.Sdk.Beta.Be.Abstractions.dll' <<< "$cli_assets"
+grep -Fq 'tools/net11.0/any/WoW.Two.Sdk.Beta.Be.Data.Abstractions.dll' <<< "$cli_assets"
+grep -Fq 'tools/net11.0/any/WoW.Two.Sdk.Beta.Be.Abstractions.dll' <<< "$cli_assets"
 
 production_ids=(
   "WoW2.Sdk.Beta.Be"

@@ -1,6 +1,6 @@
 # wow-two-sdk-beta.be
 
-> Beta-forever .NET 10 be sdk — wraps the .NET ecosystem behind opinionated, descriptively-named registration extensions (`AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `AddPerIpSlidingWindowRateLimit`, …) so a `Program.cs` becomes 1–2 liners per concern instead of 100.
+> Beta-forever .NET 11 be sdk — wraps the .NET ecosystem behind opinionated, descriptively-named registration extensions (`AddJwtBearerAuthentication`, `AddOpenTelemetryTracing`, `AddPerIpSlidingWindowRateLimit`, …) so a `Program.cs` becomes 1–2 liners per concern instead of 100.
 
 ## Status
 
@@ -86,7 +86,7 @@ dotnet build WoW.Two.Sdk.Beta.Be.slnx --no-restore -m:1
 
 ## Release
 
-`src/Directory.Build.props` owns the shared `10.y.z-beta` version. Each main push runs
+`src/Directory.Build.props` owns the shared `11.y.z-beta` version. Each main push runs
 `.github/workflows/publish.yml`: bump once, create the release commit/tag, restore, build, test,
 pack and verify all eight NuGets, publish them, push the commit/tag, then verify NuGet and the tag.
 The workflow retains the packages and `release-manifest.txt` as one Actions artifact.

@@ -83,6 +83,7 @@ public sealed class OutboundProxyTunnelTests
         using var proxyListener = new TcpListener(IPAddress.Loopback, 0);
         proxyListener.Start();
         Task tunnel = RelayAsync(proxyListener, new Uri(app.Urls.Single()).Port, ct);
+        var responseRead = false;
         try
         {
             using var client = new HttpClient(CreateLoopbackTransport(new Uri(Origin + path), traffic, proxyListener, certificate));
@@ -121,12 +122,19 @@ public sealed class OutboundProxyTunnelTests
                 Assert.Equal(0, await body.ReadAsync(frame, ct));
                 Assert.Equal("0", Assert.Single(response.TrailingHeaders.GetValues("grpc-status")));
             }
+
+            responseRead = true;
         }
         finally
         {
             await deadline.CancelAsync();
             try { await tunnel; }
             catch (OperationCanceledException) when (ct.IsCancellationRequested) { }
+            catch (IOException exception) when (responseRead
+                && exception.InnerException is SocketException { SocketErrorCode: SocketError.ConnectionReset })
+            {
+                // HTTP/2 control frames can still be in flight when the client closes after reading the response.
+            }
         }
     }
 

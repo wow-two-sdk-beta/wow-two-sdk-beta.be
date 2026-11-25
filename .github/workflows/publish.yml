@@ -7,10 +7,10 @@ name: publish
 # engineering/codebase/wow-two-sdk-beta-be` (per conventions/development/repo/structure/
 # sdk-structure.md). So every `src/...` path here is code-dir-relative, not repo-root-relative.
 #
-# Version is the source of truth in src/Directory.Build.props — format 10.{y}.{z}-beta:
-#   x = 10     → .NET line (fixed)
+# Version is the source of truth in src/Directory.Build.props — format {x}.{y}.{z}-beta:
+#   x          → .NET line (from Directory.Build.props)
 #   y          → moves only by the owner's decision; no ceiling
-#   z          → bumps each release; no ceiling (10.0.99 → 10.0.100)
+#   z          → bumps each release; no ceiling (11.0.99 → 11.0.100)
 #   -beta      → prerelease label (the mono-lib pulls prerelease deps → NU5104 on a stable id)
 #
 # The bump commit carries [skip ci] so it never re-triggers this workflow (no publish loop).
@@ -53,16 +53,16 @@ jobs:
         with:
           global-json-file: engineering/codebase/wow-two-sdk-beta-be/global.json
 
-      - name: Bump version (10.y.z-beta)
+      - name: Bump version ({x}.{y}.{z}-beta)
         id: bump
         run: |
           PROPS=src/Directory.Build.props
           CUR=$(grep -oP '(?<=<Version>)[^<]+' "$PROPS" | head -1)
           CORE=${CUR%-beta}
-          IFS=. read -r _ Y Z <<< "$CORE"
+          IFS=. read -r X Y Z <<< "$CORE"
           Z=$((10#$Z + 1))
-          VERSION="10.$Y.$Z-beta"
-          FILEVERSION="10.$Y.$Z"
+          VERSION="$X.$Y.$Z-beta"
+          FILEVERSION="$X.$Y.$Z"
           sed -i "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|" "$PROPS"
           sed -i "s|<FileVersion>[^<]*</FileVersion>|<FileVersion>$FILEVERSION</FileVersion>|" "$PROPS"
           git config user.name  "github-actions[bot]"
