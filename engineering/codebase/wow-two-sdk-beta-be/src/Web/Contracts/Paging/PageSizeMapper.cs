@@ -1,3 +1,6 @@
+using WoW.Two.Sdk.Beta.Be.Foundation.Paging;
+using WoW.Two.Sdk.Beta.Be.Foundation.Paging.Models;
+
 namespace WoW.Two.Sdk.Beta.Be.Web.Contracts.Paging;
 
 /// <summary>Maps a requested page size to the one served: the default when absent, within 1 and the cap.</summary>
@@ -10,5 +13,14 @@ public static class PageSizeMapper
     {
         var cap = Math.Max(maxPageSize, 1);
         return Math.Clamp(requested ?? PagingConstants.DefaultPageSize, 1, cap);
+    }
+
+    internal static IndexedPaginationModel ClampPage(IIndexedPagination request, int maxPageSize)
+    {
+        return new IndexedPaginationModel
+        {
+            PageIndex = request.PageIndex,
+            PageSize = Clamp(request.RequestedPageSize, maxPageSize),
+        };
     }
 }

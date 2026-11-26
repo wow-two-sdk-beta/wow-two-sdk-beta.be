@@ -7,6 +7,7 @@
 |---|---|---|
 | [`Foundation/Results/`](./Foundation/Results/results.md) | `Result`, `Result<T>`, `Result<TSuccess, TFailure>`, `IResult`, `AttemptExtensions`, `ResultCombinatorExtensions`, `ResultExtensions` | `…Foundation.Results` |
 | `Foundation/Errors/` | `AppError`, `AppAggregateError`, `AppErrorType`, `AppErrorFactory`, `AppException`, `ErrorMessageConstants`, `ErrorNature`, `ErrorOrigin`, `ExceptionChainMapper` | `…Foundation.Errors` |
+| `Foundation/Paging/` | `IIndexedPagination`, `IndexedPaginationModel` | `…Foundation.Paging` and `…Foundation.Paging.Models` |
 | `Messaging/` | `IEvent` | `…Messaging` |
 | `Identity/CurrentUser/` | `ICurrentUserService`, `UserKind` | `…Identity.CurrentUser` |
 | `Identity/CurrentPrincipal/` | `ICurrentPrincipal`, `PrincipalKind`, `ActorInfo` | `…Identity.CurrentPrincipal` |

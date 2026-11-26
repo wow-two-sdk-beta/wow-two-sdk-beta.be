@@ -12,10 +12,17 @@ public static class PagingEnumerableExtensions
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(request);
+
         var rows = source as IReadOnlyList<T> ?? [.. source];
-        var size = PageSizeMapper.Clamp(request.PageSize, maxPageSize);
-        var number = Math.Max(request.PageNumber ?? 1, 1);
-        return new PageDto<T> { Items = [.. rows.Skip((number - 1) * size).Take(size)], PageNumber = number, PageSize = size, TotalCount = rows.Count };
+        var page = PageSizeMapper.ClampPage(request, maxPageSize);
+
+        return new PageDto<T>
+        {
+            Items = [.. rows.Skip(page.PageIndex * page.PageSize).Take(page.PageSize)],
+            PageNumber = page.PageIndex + 1,
+            PageSize = page.PageSize,
+            TotalCount = rows.Count,
+        };
     }
 
     /// <summary>

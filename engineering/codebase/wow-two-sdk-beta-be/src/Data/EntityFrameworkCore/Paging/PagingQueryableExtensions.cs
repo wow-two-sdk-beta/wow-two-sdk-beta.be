@@ -24,12 +24,13 @@ public static class PagingQueryableExtensions
     {
         ArgumentNullException.ThrowIfNull(query);
         ArgumentNullException.ThrowIfNull(request);
-        var size = PageSizeMapper.Clamp(request.PageSize, maxPageSize);
-        var number = Math.Max(request.PageNumber ?? 1, 1);
+
+        var page = PageSizeMapper.ClampPage(request, maxPageSize);
         var total = await query.LongCountAsync(cancellationToken);
-        var skip = (long)(number - 1) * size;
-        List<T> items = skip >= total ? [] : await query.Skip((int)skip).Take(size).ToListAsync(cancellationToken);
-        return new PageDto<T> { Items = items, PageNumber = number, PageSize = size, TotalCount = total };
+        var skip = (long)page.PageIndex * page.PageSize;
+        List<T> items = skip >= total ? [] : await query.Skip((int)skip).Take(page.PageSize).ToListAsync(cancellationToken);
+
+        return new PageDto<T> { Items = items, PageNumber = page.PageIndex + 1, PageSize = page.PageSize, TotalCount = total };
     }
 
     /// <summary>The keyset page after the request's token, ordered by one key; the key should be unique, such as the id.</summary>
